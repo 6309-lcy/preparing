@@ -1,0 +1,8 @@
+tools/.env
+tools/outbox/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+# Optional: if you want secrets out of git, ignore your filled firebase-config.js
+# app/js/firebase-config.js

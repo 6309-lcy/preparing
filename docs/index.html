@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#22c55e" />
+  <meta name="description" content="Teach-first SOA Exam P coach: learn concepts, then MC practice, wrong pool, Grok help, cloud login." />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" href="./icons/icon-192.svg" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.svg" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>SOA Grind — Exam P</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="top-row">
+      <div class="brand">
+        <div class="brand-badge">P</div>
+        <div>
+          <div>SOA Grind</div>
+          <div class="small muted" id="progressLabel">Loading…</div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="chip streak" id="streakChip">🔥 <strong>0</strong></div>
+        <div class="chip xp" id="xpChip">⚡ XP <strong>0</strong></div>
+        <div class="chip" id="wrongChip">❌ <strong>0</strong></div>
+      </div>
+    </div>
+    <!-- Always-visible account bar (was easy to miss as a tiny chip) -->
+    <button type="button" class="account-bar" id="accountChip" title="Account / cloud sync">
+      <span class="account-bar-icon">☁</span>
+      <span class="account-bar-text"><strong id="accountBarLabel">Cloud: Sign in to save progress</strong></span>
+      <span class="account-bar-cta" id="accountBarCta">Tap here</span>
+    </button>
+    <div class="progress-shell" aria-hidden="true">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </header>
+
+  <main>
+    <section id="view-home" class="view active">
+      <div class="card" id="homeCard"></div>
+      <div class="card" id="readingCard"></div>
+    </section>
+
+    <section id="view-learn" class="view">
+      <div class="card" id="learnCard"></div>
+    </section>
+
+    <section id="view-quiz" class="view">
+      <div class="card" id="quizCard"></div>
+    </section>
+
+    <section id="view-path" class="view">
+      <div class="card" id="pathCard"></div>
+    </section>
+
+    <section id="view-wrong" class="view">
+      <div class="card" id="wrongCard"></div>
+    </section>
+
+    <section id="view-settings" class="view">
+      <div class="card" id="settingsCard"></div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Main">
+    <button class="nav-btn active" data-view="home"><span class="ico">🏠</span>Today</button>
+    <button class="nav-btn" data-view="learn"><span class="ico">📘</span>Learn</button>
+    <button class="nav-btn" data-view="quiz"><span class="ico">🎯</span>Quiz</button>
+    <button class="nav-btn" data-view="path"><span class="ico">🗺</span>Path</button>
+    <button class="nav-btn" data-view="wrong"><span class="ico">❌</span>Wrong</button>
+    <button class="nav-btn" data-view="settings"><span class="ico">⚙️</span>More</button>
+  </nav>
+
+  <div id="authModal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-labelledby="authTitle">
+      <div class="row space-between">
+        <h3 id="authTitle" style="margin:0">Sign in</h3>
+        <button type="button" class="btn-ghost" id="authClose" style="padding:6px 10px">✕</button>
+      </div>
+      <p class="muted small" id="authHint" style="margin:10px 0">Keep progress continuous across phone and PC.</p>
+      <form id="authForm">
+        <label class="small muted">Email</label>
+        <input id="authEmail" type="email" required autocomplete="username"
+          style="width:100%;margin:6px 0 12px;padding:12px;border-radius:12px;border:1px solid var(--border);background:#0f172a;color:#fff"/>
+        <label class="small muted">Password (6+ characters)</label>
+        <input id="authPassword" type="password" required minlength="6" autocomplete="current-password"
+          style="width:100%;margin:6px 0 12px;padding:12px;border-radius:12px;border:1px solid var(--border);background:#0f172a;color:#fff"/>
+        <p id="authError" class="auth-error"></p>
+        <button type="submit" class="btn-primary" id="authSubmit" style="width:100%">Sign in</button>
+      </form>
+      <button type="button" class="btn-ghost" id="authSwitch" style="width:100%;margin-top:10px">New here? Create account</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <!-- Firebase (free Spark) — only used if firebase-config.js is filled -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="./js/firebase-config.js"></script>
+  <script src="./js/cloud.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
