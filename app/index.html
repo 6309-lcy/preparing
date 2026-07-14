@@ -1,105 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#22c55e" />
-  <meta name="description" content="Teach-first SOA Exam P coach: learn concepts, then MC practice, wrong pool, Grok help, cloud login." />
+  <meta name="theme-color" content="#0F766E" />
+  <meta name="description" content="SOA Grind — premium Exam P coach. Teach-first lessons, official sample quizzes, wrong-pool review." />
   <link rel="manifest" href="./manifest.json" />
   <link rel="icon" href="./icons/icon-192.svg" />
   <link rel="apple-touch-icon" href="./icons/icon-192.svg" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>SOA Grind — Exam P</title>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>SOA Grind</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: "#F8FAFC",
+            ink: "#0F172A",
+            mute: "#64748B",
+            brand: { DEFAULT: "#0F766E", soft: "#CCFBF1", mid: "#0D9488", deep: "#115E59" },
+            ok: "#059669",
+            bad: "#DC2626",
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+          },
+          boxShadow: {
+            card: "0 1px 2px rgba(15,23,42,0.04), 0 8px 24px rgba(15,23,42,0.04)",
+            lift: "0 4px 6px rgba(15,23,42,0.04), 0 16px 32px rgba(15,23,42,0.08)",
+            soft: "0 1px 3px rgba(15,23,42,0.06)",
+          },
+          transitionDuration: { DEFAULT: "250ms" },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
   <link rel="stylesheet" href="./css/styles.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
-  <header class="app-header">
-    <div class="top-row">
-      <div class="brand">
-        <div class="brand-badge">P</div>
-        <div>
-          <div>SOA Grind</div>
-          <div class="small muted" id="progressLabel">Loading…</div>
+<body class="h-full bg-canvas text-ink font-sans antialiased">
+  <div class="mx-auto min-h-full max-w-xl flex flex-col pb-24">
+    <!-- Top bar -->
+    <header class="sticky top-0 z-30 border-b border-slate-200/80 bg-white/85 backdrop-blur-md">
+      <div class="px-4 pt-3 pb-2">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand text-white shadow-soft font-semibold tracking-tight">P</div>
+            <div class="min-w-0">
+              <div class="text-[15px] font-semibold tracking-tight text-ink">SOA Grind</div>
+              <div id="progressLabel" class="truncate text-xs text-mute">Loading…</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="stat-pill" title="Streak">
+              <i data-lucide="flame" class="h-3.5 w-3.5 text-amber-500"></i>
+              <span id="streakChip" class="font-semibold tabular-nums">0</span>
+            </div>
+            <div class="stat-pill" title="XP">
+              <i data-lucide="zap" class="h-3.5 w-3.5 text-brand"></i>
+              <span id="xpChip" class="font-semibold tabular-nums">0</span>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" id="accountChip" class="account-bar mt-3 w-full text-left transition-all duration-250 hover:-translate-y-0.5 hover:shadow-lift">
+          <div class="flex items-center gap-3">
+            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-soft text-brand">
+              <i data-lucide="cloud" class="h-4 w-4"></i>
+            </div>
+            <div class="min-w-0 flex-1">
+              <div id="accountBarLabel" class="text-sm font-medium text-ink truncate">Cloud: Sign in to sync progress</div>
+              <div class="text-xs text-mute">Optional Firebase · local progress always kept</div>
+            </div>
+            <span id="accountBarCta" class="shrink-0 rounded-full bg-brand px-3 py-1 text-xs font-semibold text-white">Sign in</span>
+          </div>
+        </button>
+
+        <div class="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-100">
+          <div id="progressFill" class="h-full rounded-full bg-brand transition-all duration-500 ease-out" style="width:0%"></div>
         </div>
       </div>
-      <div class="stats">
-        <div class="chip streak" id="streakChip">🔥 <strong>0</strong></div>
-        <div class="chip xp" id="xpChip">⚡ XP <strong>0</strong></div>
-        <div class="chip" id="wrongChip">❌ <strong>0</strong></div>
-      </div>
+    </header>
+
+    <main class="flex-1 px-4 py-5 space-y-4">
+      <section id="view-home" class="view active space-y-4"></section>
+      <section id="view-learn" class="view space-y-4"></section>
+      <section id="view-quiz" class="view space-y-4"></section>
+      <section id="view-path" class="view space-y-4"></section>
+      <section id="view-wrong" class="view space-y-4"></section>
+      <section id="view-stats" class="view space-y-4"></section>
+      <section id="view-settings" class="view space-y-4"></section>
+    </main>
+  </div>
+
+  <!-- Bottom nav -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200/80 bg-white/90 backdrop-blur-md" style="padding-bottom: env(safe-area-inset-bottom)">
+    <div class="mx-auto grid max-w-xl grid-cols-6 gap-0 px-1 py-1.5">
+      <button class="nav-btn active" data-view="home" type="button"><i data-lucide="home" class="h-5 w-5"></i><span>Today</span></button>
+      <button class="nav-btn" data-view="learn" type="button"><i data-lucide="book-open" class="h-5 w-5"></i><span>Learn</span></button>
+      <button class="nav-btn" data-view="quiz" type="button"><i data-lucide="target" class="h-5 w-5"></i><span>Quiz</span></button>
+      <button class="nav-btn" data-view="wrong" type="button"><i data-lucide="rotate-ccw" class="h-5 w-5"></i><span>Wrong</span></button>
+      <button class="nav-btn" data-view="stats" type="button"><i data-lucide="bar-chart-2" class="h-5 w-5"></i><span>Stats</span></button>
+      <button class="nav-btn" data-view="settings" type="button"><i data-lucide="settings" class="h-5 w-5"></i><span>More</span></button>
     </div>
-    <!-- Always-visible account bar (was easy to miss as a tiny chip) -->
-    <button type="button" class="account-bar" id="accountChip" title="Account / cloud sync">
-      <span class="account-bar-icon">☁</span>
-      <span class="account-bar-text"><strong id="accountBarLabel">Cloud: Sign in to save progress</strong></span>
-      <span class="account-bar-cta" id="accountBarCta">Tap here</span>
-    </button>
-    <div class="progress-shell" aria-hidden="true">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
-  </header>
-
-  <main>
-    <section id="view-home" class="view active">
-      <div class="card" id="homeCard"></div>
-      <div class="card" id="readingCard"></div>
-    </section>
-
-    <section id="view-learn" class="view">
-      <div class="card" id="learnCard"></div>
-    </section>
-
-    <section id="view-quiz" class="view">
-      <div class="card" id="quizCard"></div>
-    </section>
-
-    <section id="view-path" class="view">
-      <div class="card" id="pathCard"></div>
-    </section>
-
-    <section id="view-wrong" class="view">
-      <div class="card" id="wrongCard"></div>
-    </section>
-
-    <section id="view-settings" class="view">
-      <div class="card" id="settingsCard"></div>
-    </section>
-  </main>
-
-  <nav class="bottom-nav" aria-label="Main">
-    <button class="nav-btn active" data-view="home"><span class="ico">🏠</span>Today</button>
-    <button class="nav-btn" data-view="learn"><span class="ico">📘</span>Learn</button>
-    <button class="nav-btn" data-view="quiz"><span class="ico">🎯</span>Quiz</button>
-    <button class="nav-btn" data-view="path"><span class="ico">🗺</span>Path</button>
-    <button class="nav-btn" data-view="wrong"><span class="ico">❌</span>Wrong</button>
-    <button class="nav-btn" data-view="settings"><span class="ico">⚙️</span>More</button>
   </nav>
 
+  <!-- Auth modal -->
   <div id="authModal" class="modal-backdrop" aria-hidden="true">
-    <div class="modal" role="dialog" aria-labelledby="authTitle">
-      <div class="row space-between">
-        <h3 id="authTitle" style="margin:0">Sign in</h3>
-        <button type="button" class="btn-ghost" id="authClose" style="padding:6px 10px">✕</button>
+    <div class="modal-panel" role="dialog" aria-labelledby="authTitle">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <h2 id="authTitle" class="text-lg font-semibold tracking-tight">Sign in</h2>
+          <p id="authHint" class="mt-1 text-sm text-mute">Keep progress continuous across devices.</p>
+        </div>
+        <button type="button" id="authClose" class="icon-btn" aria-label="Close">
+          <i data-lucide="x" class="h-4 w-4"></i>
+        </button>
       </div>
-      <p class="muted small" id="authHint" style="margin:10px 0">Keep progress continuous across phone and PC.</p>
-      <form id="authForm">
-        <label class="small muted">Email</label>
-        <input id="authEmail" type="email" required autocomplete="username"
-          style="width:100%;margin:6px 0 12px;padding:12px;border-radius:12px;border:1px solid var(--border);background:#0f172a;color:#fff"/>
-        <label class="small muted">Password (6+ characters)</label>
-        <input id="authPassword" type="password" required minlength="6" autocomplete="current-password"
-          style="width:100%;margin:6px 0 12px;padding:12px;border-radius:12px;border:1px solid var(--border);background:#0f172a;color:#fff"/>
-        <p id="authError" class="auth-error"></p>
-        <button type="submit" class="btn-primary" id="authSubmit" style="width:100%">Sign in</button>
+      <form id="authForm" class="mt-5 space-y-3">
+        <div>
+          <label class="text-xs font-medium text-mute" for="authEmail">Email</label>
+          <input id="authEmail" type="email" required autocomplete="username" class="field mt-1" />
+        </div>
+        <div>
+          <label class="text-xs font-medium text-mute" for="authPassword">Password (6+)</label>
+          <input id="authPassword" type="password" required minlength="6" autocomplete="current-password" class="field mt-1" />
+        </div>
+        <p id="authError" class="text-sm text-bad min-h-[1.25rem]"></p>
+        <button type="submit" id="authSubmit" class="btn-primary w-full">Sign in</button>
       </form>
-      <button type="button" class="btn-ghost" id="authSwitch" style="width:100%;margin-top:10px">New here? Create account</button>
+      <button type="button" id="authSwitch" class="btn-ghost w-full mt-2">New here? Create account</button>
     </div>
   </div>
 
   <div id="toast" class="toast" role="status"></div>
 
-  <!-- Firebase (free Spark) — only used if firebase-config.js is filled -->
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>

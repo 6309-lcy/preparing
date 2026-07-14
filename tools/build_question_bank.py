@@ -166,24 +166,104 @@ def day_config(d: date) -> dict:
     return pack("Post-P FM transition", "transition", ["insurance", "conditional_bayes"], 10, "fm")
 
 
+def latexify_stem(stem: str) -> str:
+    """Light upgrades so KaTeX can render common cleaned formulas."""
+    if not stem:
+        return stem
+    s = stem
+    # already latex-ish
+    if "$" in s:
+        return s
+    # P(A ∪ B) = 0.7
+    s = re.sub(r"P\(([^)]+)\)\s*=\s*([0-9.]+)", r"$P(\1) = \2$", s)
+    # f(y) = 3/y^4
+    s = re.sub(
+        r"f\(([xy])\)\s*=\s*3/y\^4",
+        r"$f(\1) = \\dfrac{3}{y^{4}}$",
+        s,
+    )
+    s = re.sub(
+        r"f\(y\)\s*=\s*3/y\^4 for y > 1",
+        r"$f(y) = \\dfrac{3}{y^{4}}$ for $y > 1$",
+        s,
+    )
+    s = re.sub(
+        r"f\(x\)\s*=\s*\(1/2\)\*exp\(-x/2\) for 0 < x < 15",
+        r"$f(x) = \\frac{1}{2}e^{-x/2}$ for $0 < x < 15$",
+        s,
+    )
+    s = re.sub(r"p\(n\+1\)\s*=\s*0\.2 p\(n\)", r"$p(n+1) = 0.2\\,p(n)$", s)
+    s = re.sub(r"n ≥ 0", r"$n \\ge 0$", s)
+    s = re.sub(r"0 < x < ∞", r"$0 < x < \\infty$", s)
+    return s
+
+
 def main() -> None:
     qs = json.loads((DATA / "questions_raw.json").read_text(encoding="utf-8"))
     ans = json.loads((DATA / "answers_raw.json").read_text(encoding="utf-8"))
+    img_index = {}
+    img_path = DATA / "qimg_index.json"
+    if img_path.exists():
+        img_index = json.loads(img_path.read_text(encoding="utf-8"))
 
     merged = []
     missing_ans = 0
+    by_num = {}
     for q in qs:
         n = str(q["number"])
-        q["answer"] = ans.get(n)
+        q["answer"] = ans.get(n) if q.get("answer") is None else q.get("answer")
+        if q["answer"] is None:
+            q["answer"] = ans.get(n)
         if q["answer"] is None:
             missing_ans += 1
         if not q.get("choices"):
             continue
         tag(q)
+        qid = q["id"]
+        q["images"] = img_index.get(qid) or img_index.get(f"P-SOA-{q['number']}") or []
+        q["stem"] = latexify_stem(q.get("stem") or "")
+        q["displayMode"] = "image" if q["images"] else "text"
         merged.append(q)
+        by_num[q["number"]] = q
 
-    print("merged", len(merged), "missing answers", missing_ans)
+    # Add image-only questions missing from text extract (so PDF crops aren't wasted)
+    added = 0
+    for qid, paths in img_index.items():
+        m = re.match(r"P-SOA-(\d+)$", qid)
+        if not m:
+            continue
+        num = int(m.group(1))
+        if num in by_num:
+            continue
+        letter = ans.get(str(num))
+        if not letter:
+            continue
+        q = {
+            "id": qid,
+            "number": num,
+            "exam": "P",
+            "stem": f"SOA Exam P sample question #{num} (official PDF image). Select the correct choice.",
+            "stemRaw": "",
+            "choices": {"A": "A", "B": "B", "C": "C", "D": "D", "E": "E"},
+            "answer": letter,
+            "lo": "P1",
+            "topics": ["general_misc"],
+            "cluster": "general",
+            "source": "SOA Exam P Sample",
+            "quality": "ok",
+            "qualityNotes": ["image_primary"],
+            "images": paths,
+            "displayMode": "image",
+        }
+        tag(q)
+        merged.append(q)
+        by_num[num] = q
+        added += 1
+
+    merged.sort(key=lambda x: x["number"])
+    print("merged", len(merged), "missing answers", missing_ans, "image-only added", added)
     print(Counter(q["cluster"] for q in merged))
+    print("with images", sum(1 for q in merged if q.get("images")))
 
     by_topic: dict[str, list[str]] = {}
     for q in merged:
@@ -245,12 +325,17 @@ def main() -> None:
             "number": q["number"],
             "exam": "P",
             "stem": q["stem"],
+            "stemRaw": q.get("stemRaw") or q["stem"],
             "choices": q["choices"],
             "answer": q["answer"],
             "lo": q["lo"],
             "topics": q["topics"],
             "cluster": q["cluster"],
             "source": "SOA Exam P Sample",
+            "quality": q.get("quality") or "ok",
+            "qualityNotes": q.get("qualityNotes") or [],
+            "images": q.get("images") or [],
+            "displayMode": q.get("displayMode") or ("image" if q.get("images") else "text"),
         }
         for q in merged
     ]

@@ -4,5 +4,6 @@ __pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
+*.bak
 # Optional: if you want secrets out of git, ignore your filled firebase-config.js
 # app/js/firebase-config.js

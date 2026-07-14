@@ -1,4 +1,4 @@
-/* SOA Grind — teach-first Exam P coach */
+/* SOA Grind — premium Exam P coach (logic compatible with soa_grind_v1) */
 (() => {
   "use strict";
 
@@ -14,7 +14,7 @@
     notificationsEnabled: false,
     reminderHour: 19,
     updatedAt: 0,
-    days: {}, // date -> { readingsDone, answered, completed, lessons: {...} }
+    days: {},
     wrongPool: {},
     history: [],
     settings: { dailyGoal: 20, grokBase: "https://grok.com/?q=" },
@@ -26,9 +26,9 @@
   let lessons = {};
   let qById = new Map();
   let quiz = null;
-  let learn = null; // { date, lessonIds, lessonIndex, sectionIndex, selectedCheck, checkRevealed }
+  let learn = null;
   let currentView = "home";
-  let cloudBusy = false;
+  let quizDisplayMode = "image";
 
   function loadState() {
     try {
@@ -45,20 +45,18 @@
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (e) {
-      console.warn("localStorage save failed", e);
+      console.warn(e);
     }
     idbSave(state);
-    // Cloud sync when logged in
     if (window.SOACloud && SOACloud.user) {
       SOACloud.saveProgress(state, !!opts.immediate).then((ok) => {
         renderAccountChip();
-        if (opts.toast && ok) toast("Cloud saved ✓");
+        if (opts.toast && ok) toast("Progress synced");
       });
     }
     renderAccountChip();
   }
 
-  // IndexedDB backup — survives longer than accidental localStorage wipes in some cases
   function idbSave(data) {
     try {
       const req = indexedDB.open(IDB_NAME, 1);
@@ -68,8 +66,7 @@
       };
       req.onsuccess = () => {
         const db = req.result;
-        const tx = db.transaction(IDB_STORE, "readwrite");
-        tx.objectStore(IDB_STORE).put(data, "main");
+        db.transaction(IDB_STORE, "readwrite").objectStore(IDB_STORE).put(data, "main");
       };
     } catch (_) {}
   }
@@ -84,9 +81,7 @@
         };
         req.onerror = () => resolve(null);
         req.onsuccess = () => {
-          const db = req.result;
-          const tx = db.transaction(IDB_STORE, "readonly");
-          const g = tx.objectStore(IDB_STORE).get("main");
+          const g = req.result.transaction(IDB_STORE, "readonly").objectStore(IDB_STORE).get("main");
           g.onsuccess = () => resolve(g.result || null);
           g.onerror = () => resolve(null);
         };
@@ -98,8 +93,7 @@
 
   function todayISO() {
     const d = new Date();
-    const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
-    return local.toISOString().slice(0, 10);
+    return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
   }
   function parseISO(s) {
     const [y, m, d] = s.split("-").map(Number);
@@ -109,72 +103,55 @@
     return Math.round((parseISO(iso) - parseISO(todayISO())) / 86400000);
   }
   function ensureDay(date) {
-    if (!state.days[date]) {
-      state.days[date] = { readingsDone: [], answered: {}, completed: false, lessons: {} };
-    }
+    if (!state.days[date]) state.days[date] = { readingsDone: [], answered: {}, completed: false, lessons: {} };
     if (!state.days[date].lessons) state.days[date].lessons = {};
     return state.days[date];
   }
   function dayPlan(date = todayISO()) {
     return curriculum?.days?.find((d) => d.date === date) || null;
   }
-
   function lessonIdsFor(plan) {
     if (!plan) return [];
     if (plan.lessonIds?.length) return plan.lessonIds.filter((id) => lessons[id]);
     if (plan.lessonId && lessons[plan.lessonId]) return [plan.lessonId];
     return [];
   }
-
   function ensureLessonProgress(date, lessonId) {
     const day = ensureDay(date);
-    if (!day.lessons[lessonId]) {
-      day.lessons[lessonId] = { sectionDone: [], checks: {} };
-    }
+    if (!day.lessons[lessonId]) day.lessons[lessonId] = { sectionDone: [], checks: {} };
     return day.lessons[lessonId];
   }
-
   function isLessonComplete(date, lessonId) {
     const lesson = lessons[lessonId];
     if (!lesson) return true;
     const prog = ensureLessonProgress(date, lessonId);
-    const sections = lesson.sections || [];
-    for (const s of sections) {
+    for (const s of lesson.sections || []) {
       if (s.type === "check") {
         if (!prog.checks[s.id]) return false;
-      } else {
-        if (!prog.sectionDone.includes(s.id)) return false;
-      }
+      } else if (!prog.sectionDone.includes(s.id)) return false;
     }
     return true;
   }
-
   function areAllLessonsComplete(date = todayISO()) {
-    const plan = dayPlan(date);
-    const ids = lessonIdsFor(plan);
-    if (!ids.length) return true;
-    return ids.every((id) => isLessonComplete(date, id));
+    const ids = lessonIdsFor(dayPlan(date));
+    return !ids.length || ids.every((id) => isLessonComplete(date, id));
   }
-
   function lessonProgressPct(date = todayISO()) {
-    const plan = dayPlan(date);
-    const ids = lessonIdsFor(plan);
+    const ids = lessonIdsFor(dayPlan(date));
     if (!ids.length) return 100;
-    let total = 0;
-    let done = 0;
+    let total = 0, done = 0;
     for (const id of ids) {
       const lesson = lessons[id];
       if (!lesson) continue;
       const prog = ensureLessonProgress(date, id);
       for (const s of lesson.sections || []) {
-        total += 1;
-        if (s.type === "check" ? prog.checks[s.id] : prog.sectionDone.includes(s.id)) done += 1;
+        total++;
+        if (s.type === "check" ? prog.checks[s.id] : prog.sectionDone.includes(s.id)) done++;
       }
     }
     return total ? Math.round((100 * done) / total) : 100;
   }
 
-  // ---------- Grok ----------
   function grokUrl(prompt) {
     return (state.settings.grokBase || "https://grok.com/?q=") + encodeURIComponent(prompt);
   }
@@ -182,23 +159,22 @@
     window.open(grokUrl(prompt), "_blank", "noopener,noreferrer");
   }
   function explainPrompt(q, choice) {
-    const choices = Object.entries(q.choices || {})
-      .map(([k, v]) => `(${k}) ${v}`)
-      .join("\n");
+    const choices = Object.entries(q.choices || {}).map(([k, v]) => `(${k}) ${v}`).join("\n");
+    const note = q.images?.length
+      ? `\nNOTE: Learner is viewing official SOA PDF crop of sample #${q.number}.\n`
+      : "";
     return (
-      `I'm preparing for SOA Exam P. Please tutor me on this multiple-choice question.\n\n` +
+      `I'm preparing for SOA Exam P. Tutor me on this MCQ.\n${note}` +
       `Question ${q.number} (${q.id}):\n${q.stem}\n\nChoices:\n${choices}\n\n` +
       (choice ? `I selected (${choice}).\n` : "") +
-      (q.answer ? `Official sample answer key letter: ${q.answer}.\n` : "") +
-      `Please: (1) explain the setup and syllabus concept, (2) show a clean solution, ` +
-      `(3) list common traps, (4) give 2 similar practice questions with answers.`
+      (q.answer ? `Answer key: ${q.answer}.\n` : "") +
+      `Please: clean LaTeX statement, setup, full solution, traps, 2 similar questions with answers.`
     );
   }
   function teachGrokPrompt(lesson, section) {
     return (
-      `I'm studying SOA Exam P. Topic lesson: "${lesson.title}".\n` +
-      `Section: ${section.title}\nContent:\n${section.body || section.setup || ""}\n\n` +
-      `Please re-explain more slowly with one extra example and a common exam trap.`
+      `SOA Exam P lesson "${lesson.title}". Section: ${section.title}\n` +
+      `${section.body || section.setup || ""}\n\nRe-explain slowly with one extra example and a common exam trap.`
     );
   }
   function sundayRecapPrompt(items) {
@@ -210,15 +186,12 @@
       })
       .join("\n\n");
     return (
-      `You are my SOA Exam P coach. Here is my WRONG QUESTION POOL.\n` +
-      `Diagnose weaknesses and create a Sunday recap:\n` +
-      `- Top 5 weakness themes\n- Mini formula checklist\n` +
-      `- 12 NEW similar MC questions (A–E) with answers and brief solutions\n` +
-      `- A 60-minute revision plan\n\nWRONG POOL:\n${body || "(empty)"}`
+      `You are my SOA Exam P coach. WRONG QUESTION POOL below.\n` +
+      `Produce: top 5 weaknesses, formula checklist, 12 similar MCQs with answers, 60-min revision plan.\n\n` +
+      `WRONG POOL:\n${body || "(empty)"}`
     );
   }
 
-  // ---------- progress ----------
   function updateStreakOnActivity() {
     const t = todayISO();
     if (state.lastActiveDate === t) return;
@@ -240,15 +213,7 @@
     const overall = Math.round((0.4 * lessonPct + 0.6 * qPct) * 100);
     const lessonDone = areAllLessonsComplete(date);
     const done = lessonDone && answeredIds.length >= target;
-    return {
-      target,
-      answered: answeredIds.length,
-      correct,
-      lessonPct: Math.round(lessonPct * 100),
-      lessonDone,
-      overall,
-      done,
-    };
+    return { target, answered: answeredIds.length, correct, lessonPct: Math.round(lessonPct * 100), lessonDone, overall, done };
   }
 
   function wrongList() {
@@ -257,23 +222,27 @@
       .sort((a, b) => b.count - a.count || (b.lastWrong || "").localeCompare(a.lastWrong || ""));
   }
 
-  // ---------- learn session ----------
+  function accuracyOverall() {
+    const h = state.history || [];
+    if (!h.length) return null;
+    const c = h.filter((x) => x.correct).length;
+    return Math.round((100 * c) / h.length);
+  }
+
+  /* ---------- Learn ---------- */
   function startLearn(date = todayISO()) {
-    const plan = dayPlan(date);
-    const ids = lessonIdsFor(plan);
+    const ids = lessonIdsFor(dayPlan(date));
     if (!ids.length) {
-      toast("No lesson module for this day");
+      toast("No lesson module mapped for this day");
       return;
     }
     learn = { date, lessonIds: ids, lessonIndex: 0, sectionIndex: 0, selectedCheck: null, checkRevealed: false };
-    // jump to first incomplete section
     seekFirstIncomplete();
     updateStreakOnActivity();
     saveState();
     showView("learn");
     renderLearn();
   }
-
   function seekFirstIncomplete() {
     if (!learn) return;
     for (let li = 0; li < learn.lessonIds.length; li++) {
@@ -291,33 +260,26 @@
         }
       }
     }
-    // all complete — stay on last
     const lastL = learn.lessonIds.length - 1;
     learn.lessonIndex = lastL;
     learn.sectionIndex = (lessons[learn.lessonIds[lastL]].sections.length || 1) - 1;
   }
-
   function currentLesson() {
-    if (!learn) return null;
-    return lessons[learn.lessonIds[learn.lessonIndex]] || null;
+    return learn ? lessons[learn.lessonIds[learn.lessonIndex]] : null;
   }
   function currentSection() {
     const lesson = currentLesson();
-    if (!lesson) return null;
-    return lesson.sections[learn.sectionIndex] || null;
+    return lesson ? lesson.sections[learn.sectionIndex] : null;
   }
-
   function markSectionDone() {
     const lesson = currentLesson();
     const section = currentSection();
-    if (!lesson || !section) return;
+    if (!lesson || !section || section.type === "check") return;
     const prog = ensureLessonProgress(learn.date, lesson.id);
-    if (section.type === "check") return; // checks handled separately
     if (!prog.sectionDone.includes(section.id)) {
       prog.sectionDone.push(section.id);
       state.xp += 5;
     }
-    // also mirror to readingsDone for old UI compatibility
     const day = ensureDay(learn.date);
     const plan = dayPlan(learn.date);
     (plan?.readings || []).forEach((r) => {
@@ -326,12 +288,11 @@
     updateStreakOnActivity();
     saveState();
   }
-
   function advanceLearn() {
     const lesson = currentLesson();
     if (!lesson) return;
     if (learn.sectionIndex < lesson.sections.length - 1) {
-      learn.sectionIndex += 1;
+      learn.sectionIndex++;
       learn.selectedCheck = null;
       learn.checkRevealed = false;
       renderLearn();
@@ -339,7 +300,7 @@
       return;
     }
     if (learn.lessonIndex < learn.lessonIds.length - 1) {
-      learn.lessonIndex += 1;
+      learn.lessonIndex++;
       learn.sectionIndex = 0;
       learn.selectedCheck = null;
       learn.checkRevealed = false;
@@ -347,13 +308,11 @@
       renderChrome();
       return;
     }
-    // finished all
-    toast("Learn session complete — quiz unlocked 🎯");
+    toast("Lesson complete — quiz unlocked");
     learn = null;
     showView("home");
     renderAll();
   }
-
   function submitCheck() {
     const lesson = currentLesson();
     const section = currentSection();
@@ -361,8 +320,7 @@
     const ok = learn.selectedCheck === section.answer;
     learn.checkRevealed = true;
     if (ok) {
-      const prog = ensureLessonProgress(learn.date, lesson.id);
-      prog.checks[section.id] = true;
+      ensureLessonProgress(learn.date, lesson.id).checks[section.id] = true;
       state.xp += 8;
       updateStreakOnActivity();
       saveState();
@@ -371,7 +329,7 @@
     renderChrome();
   }
 
-  // ---------- quiz ----------
+  /* ---------- Quiz ---------- */
   function buildQueue(date = todayISO()) {
     const plan = dayPlan(date);
     const day = ensureDay(date);
@@ -391,9 +349,7 @@
       const prefs = new Set(plan?.topicPrefs || []);
       for (const q of questions) {
         if (queue.length >= target) break;
-        if (q.answer && !done.has(q.id) && !queue.includes(q.id) && (q.topics || []).some((t) => prefs.has(t))) {
-          queue.push(q.id);
-        }
+        if (q.answer && !done.has(q.id) && !queue.includes(q.id) && (q.topics || []).some((t) => prefs.has(t))) queue.push(q.id);
       }
     }
     if (queue.length < target) {
@@ -404,30 +360,27 @@
     }
     return queue.slice(0, Math.max(target, 0));
   }
-
   function startQuiz(date = todayISO()) {
     if (!areAllLessonsComplete(date)) {
-      toast("Finish the Learn session first");
+      toast("Finish today’s lesson first");
       startLearn(date);
       return;
     }
     const queue = buildQueue(date);
     if (!queue.length) {
-      toast("No questions left for today — great work!");
+      toast("No questions left for today");
       return;
     }
-    quiz = { date, queue, index: 0, selected: null, revealed: false };
+    quiz = { date, queue, index: 0, selected: null, revealed: false, _modeTouched: false };
+    quizDisplayMode = "image";
     updateStreakOnActivity();
     saveState();
     showView("quiz");
     renderQuiz();
   }
-
   function currentQuestion() {
-    if (!quiz) return null;
-    return qById.get(quiz.queue[quiz.index]) || null;
+    return quiz ? qById.get(quiz.queue[quiz.index]) : null;
   }
-
   function submitAnswer() {
     if (!quiz || quiz.revealed) return;
     const q = currentQuestion();
@@ -456,28 +409,28 @@
     if (dayStats(quiz.date).done) {
       day.completed = true;
       state.xp += 25;
+      toast("Daily goal complete · +25 XP");
     }
     saveState();
     renderQuiz();
     renderChrome();
   }
-
   function nextQuestion() {
     if (!quiz) return;
     if (quiz.index >= quiz.queue.length - 1) {
-      quiz = null;
-      showView("home");
-      renderAll();
-      toast("Session complete 🎯");
+      const score = Object.values(ensureDay(quiz.date).answered || {});
+      const correct = score.filter((x) => x.correct).length;
+      quiz = { finished: true, correct, total: score.length, date: quiz.date };
+      renderQuiz();
       return;
     }
-    quiz.index += 1;
+    quiz.index++;
     quiz.selected = null;
     quiz.revealed = false;
     renderQuiz();
   }
 
-  // ---------- notifications ----------
+  /* ---------- Notifications ---------- */
   async function enableNotifications() {
     if (!("Notification" in window)) {
       toast("Notifications not supported here");
@@ -491,11 +444,11 @@
     state.notificationsEnabled = true;
     saveState();
     if (navigator.serviceWorker?.controller) {
-      navigator.serviceWorker.controller.postMessage({ type: "NOTIFY_TEST", body: "Reminders on ✅" });
+      navigator.serviceWorker.controller.postMessage({ type: "NOTIFY_TEST", body: "Reminders enabled" });
     } else {
       new Notification("SOA Grind", { body: "Reminders enabled", icon: "./icons/icon-192.svg" });
     }
-    toast("Notifications enabled");
+    toast("Notifications on");
   }
   function maybeRemind() {
     if (!state.notificationsEnabled || Notification.permission !== "granted") return;
@@ -505,8 +458,8 @@
     if (stats.done) return;
     if (new Date().getHours() < (state.reminderHour || 19)) return;
     const body = !stats.lessonDone
-      ? "Learn session still open — unlock today's quiz."
-      : `Still ${Math.max(0, stats.target - stats.answered)} questions left. Streak ${state.streak}🔥`;
+      ? "Lesson still open — unlock today’s quiz."
+      : `${Math.max(0, stats.target - stats.answered)} questions remaining · streak ${state.streak}`;
     if (navigator.serviceWorker?.controller) {
       navigator.serviceWorker.controller.postMessage({ type: "NOTIFY_TEST", body });
     } else {
@@ -517,7 +470,7 @@
   }
   setInterval(maybeRemind, 60 * 60 * 1000);
 
-  // ---------- render helpers ----------
+  /* ---------- DOM helpers ---------- */
   function $(sel) {
     return document.querySelector(sel);
   }
@@ -525,9 +478,11 @@
     currentView = name;
     document.querySelectorAll(".view").forEach((el) => el.classList.toggle("active", el.id === `view-${name}`));
     document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.toggle("active", btn.dataset.view === name));
+    refreshIcons();
   }
   function toast(msg) {
     const el = $("#toast");
+    if (!el) return;
     el.textContent = msg;
     el.classList.add("show");
     setTimeout(() => el.classList.remove("show"), 2400);
@@ -546,55 +501,72 @@
     a.click();
     URL.revokeObjectURL(a.href);
   }
+  function refreshIcons() {
+    if (window.lucide?.createIcons) lucide.createIcons();
+  }
+  function renderMath(root) {
+    if (!root || typeof renderMathInElement !== "function") return;
+    try {
+      renderMathInElement(root, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true },
+        ],
+        throwOnError: false,
+      });
+    } catch (_) {}
+  }
+  function ringSvg(pct, size = 88) {
+    const r = 36;
+    const c = 2 * Math.PI * r;
+    const offset = c * (1 - Math.min(100, Math.max(0, pct)) / 100);
+    return `<div class="ring-wrap" style="width:${size}px;height:${size}px">
+      <svg width="${size}" height="${size}" viewBox="0 0 88 88">
+        <circle cx="44" cy="44" r="${r}" fill="none" stroke="#e2e8f0" stroke-width="8"/>
+        <circle cx="44" cy="44" r="${r}" fill="none" stroke="#0f766e" stroke-width="8"
+          stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${offset}"
+          style="transition: stroke-dashoffset 600ms ease"/>
+      </svg>
+      <div class="ring-center">${pct}%</div>
+    </div>`;
+  }
 
+  /* ---------- Chrome / Auth ---------- */
   function renderAccountChip() {
-    const el = $("#accountChip");
-    if (!el) return;
     const label = $("#accountBarLabel");
     const cta = $("#accountBarCta");
     const cloud = window.SOACloud;
-    el.classList.remove("ok", "warn");
-
+    if (!label) return;
     if (!cloud || cloud.status === "need-config") {
-      if (label) label.innerHTML = "Cloud not configured — open FIREBASE_SETUP.md";
+      label.textContent = "Local progress only · cloud optional";
       if (cta) cta.textContent = "Setup";
-      el.classList.add("warn");
-      el.title = "Firebase config missing";
       return;
     }
     if (cloud.user) {
-      const short = cloud.user.email || cloud.user.uid;
-      const mark =
-        cloud.status === "syncing" ? "syncing…" : cloud.status === "error" ? "sync error" : "synced ✓";
-      if (label) label.innerHTML = `Signed in as <strong>${escapeHtml(short)}</strong> · ${mark}`;
+      const mark = cloud.status === "syncing" ? "syncing…" : cloud.status === "error" ? "error" : "synced";
+      label.innerHTML = `Signed in as <strong>${escapeHtml(cloud.user.email || "account")}</strong> · ${mark}`;
       if (cta) cta.textContent = "Account";
-      el.title = cloud.status === "error" ? cloud.lastError || "Sync error" : `Signed in · ${cloud.status}`;
-      el.classList.toggle("warn", cloud.status === "error");
-      el.classList.toggle("ok", cloud.status === "synced" || cloud.status === "syncing");
     } else {
-      if (label) label.innerHTML = "<strong>Cloud: Sign in</strong> to save progress on phone & PC";
+      label.textContent = "Cloud: Sign in to sync phone & PC";
       if (cta) cta.textContent = "Sign in";
-      el.title = "Sign in to keep progress across devices";
-      el.classList.add("warn");
     }
   }
-
   function renderChrome() {
     const stats = dayStats();
-    $("#xpChip").innerHTML = `⚡ XP <strong>${state.xp}</strong>`;
-    $("#streakChip").innerHTML = `🔥 <strong>${state.streak}</strong>`;
-    $("#wrongChip").innerHTML = `❌ <strong>${Object.keys(state.wrongPool).length}</strong>`;
-    $("#progressFill").style.width = `${stats.overall}%`;
-    const cloud = window.SOACloud;
-    const syncNote =
-      cloud?.user && cloud.status === "synced"
-        ? " · cloud✓"
-        : cloud?.user && cloud.status === "syncing"
-          ? " · syncing…"
-          : cloud?.user
-            ? " · cloud"
-            : " · local only";
-    $("#progressLabel").textContent = `Today ${stats.overall}% · Learn ${stats.lessonPct}% · Quiz ${stats.answered}/${stats.target}${syncNote}`;
+    const streakEl = $("#streakChip");
+    const xpEl = $("#xpChip");
+    if (streakEl) streakEl.textContent = String(state.streak);
+    if (xpEl) xpEl.textContent = String(state.xp);
+    const fill = $("#progressFill");
+    if (fill) fill.style.width = `${stats.overall}%`;
+    const lab = $("#progressLabel");
+    if (lab) {
+      const cloud = window.SOACloud;
+      const sync = cloud?.user ? (cloud.status === "synced" ? " · synced" : " · cloud") : "";
+      lab.textContent = `Today ${stats.overall}% · Learn ${stats.lessonPct}% · Quiz ${stats.answered}/${stats.target}${sync}`;
+    }
     renderAccountChip();
   }
 
@@ -605,62 +577,53 @@
     backdrop.dataset.mode = mode;
     $("#authTitle").textContent = mode === "signup" ? "Create account" : "Sign in";
     $("#authSubmit").textContent = mode === "signup" ? "Create account" : "Sign in";
-    $("#authSwitch").textContent =
-      mode === "signup" ? "Already have an account? Sign in" : "New here? Create account";
+    $("#authSwitch").textContent = mode === "signup" ? "Already have an account? Sign in" : "New here? Create account";
     $("#authError").textContent = "";
     const cloud = window.SOACloud;
     if (!cloud || cloud.status === "need-config") {
-      $("#authHint").innerHTML =
-        `Cloud login is not configured yet.<br>Follow <strong>FIREBASE_SETUP.md</strong> (5–10 min, free). Until then progress stays on this browser only — use Export/Import.`;
+      $("#authHint").innerHTML = "Cloud not configured. See <code>FIREBASE_SETUP.md</code>. Local progress still works.";
       $("#authForm").style.display = "none";
     } else {
-      $("#authHint").textContent = "Same email on phone & PC keeps your streak, lessons, and wrong pool continuous.";
+      $("#authHint").textContent = "Same email on every device keeps streak, lessons, and wrong pool continuous.";
       $("#authForm").style.display = "block";
     }
+    refreshIcons();
   }
-
   function closeAuthModal() {
     $("#authModal")?.classList.remove("show");
   }
-
   async function handleAuthSubmit(e) {
     e.preventDefault();
     const cloud = window.SOACloud;
-    if (!cloud || !cloud.ready) {
-      toast("Configure Firebase first (see Settings)");
+    if (!cloud?.ready) {
+      toast("Configure Firebase first");
       return;
     }
     const email = $("#authEmail").value.trim();
     const password = $("#authPassword").value;
     const mode = $("#authModal").dataset.mode || "signin";
     $("#authError").textContent = "";
-    cloudBusy = true;
     try {
       if (mode === "signup") await cloud.signUp(email, password);
       else await cloud.signIn(email, password);
       await pullAndMergeCloud();
       saveState({ immediate: true });
       closeAuthModal();
-      toast(mode === "signup" ? "Account created — cloud sync on" : "Signed in — progress synced");
+      toast(mode === "signup" ? "Account created" : "Signed in");
       renderAll();
     } catch (err) {
       $("#authError").textContent = friendlyAuthError(err);
-    } finally {
-      cloudBusy = false;
-      renderAccountChip();
     }
   }
-
   function friendlyAuthError(err) {
     const code = err?.code || "";
-    if (code.includes("email-already-in-use")) return "Email already registered — sign in instead.";
+    if (code.includes("email-already-in-use")) return "Email already registered — sign in.";
     if (code.includes("wrong-password") || code.includes("invalid-credential")) return "Wrong email or password.";
-    if (code.includes("user-not-found")) return "No account with that email — create one.";
-    if (code.includes("weak-password")) return "Password must be at least 6 characters.";
+    if (code.includes("user-not-found")) return "No account — create one.";
+    if (code.includes("weak-password")) return "Password needs 6+ characters.";
     if (code.includes("invalid-email")) return "Enter a valid email.";
     return err?.message || String(err);
   }
-
   async function pullAndMergeCloud() {
     const cloud = window.SOACloud;
     if (!cloud?.user) return;
@@ -673,101 +636,142 @@
         idbSave(state);
       }
     } catch (e) {
-      console.warn("cloud pull failed", e);
-      toast("Cloud load failed — using local progress");
+      console.warn(e);
+      toast("Cloud load failed — using local");
     }
   }
 
+  /* ---------- Screens ---------- */
   function renderHome() {
+    const root = $("#view-home");
+    if (!root) return;
     const plan = dayPlan();
     const stats = dayStats();
     const target = curriculum?.examTarget || "2026-09-14";
     const left = daysUntil(target);
-    const regLeft = daysUntil(curriculum?.registrationDeadline || "2026-08-12");
+    const locked = !stats.lessonDone;
+    const quote = "Precision under pressure is the whole game — define the random variable first.";
 
     if (!plan) {
-      $("#homeCard").innerHTML = `<h2 class="hero-title">No lesson mapped for today</h2>
-        <p class="muted">Curriculum covers 2026-07-12 → 2026-09-28.</p>`;
-      $("#readingCard").innerHTML = "";
+      root.innerHTML = `<div class="card"><h2 class="text-lg font-semibold">No lesson mapped for today</h2>
+        <p class="muted small mt-2">Curriculum covers the planned window. Use Path or Wrong Pool.</p></div>`;
+      refreshIcons();
       return;
     }
 
-    const locked = !stats.lessonDone;
-    $("#homeCard").innerHTML = `
-      <div class="row space-between">
-        <span class="phase-pill">${plan.phase}</span>
-        <span class="small muted">${plan.weekday} · ${plan.date}</span>
-      </div>
-      <h2 class="hero-title" style="margin-top:10px">${plan.title}</h2>
-      <p class="muted small">Mode: ${plan.mode}${plan.fmLight ? " · light FM" : ""} · ${(plan.topicPrefs || []).join(", ")}</p>
-      <div class="countdown">🎯 Exam P ${target} · ${left}d left${regLeft >= 0 ? ` · ⚠️ register in ${regLeft}d` : ""}</div>
-      ${
-        !(window.SOACloud && SOACloud.user)
-          ? `<div class="lock-banner" style="margin-top:10px">☁ Progress is <strong>local-only</strong> until you sign in. Tap the cloud chip (top) or More → Account so phone & PC stay continuous.</div>`
-          : `<div class="lock-banner" style="margin-top:10px;border-color:rgba(34,197,94,.4);color:#bbf7d0;background:rgba(34,197,94,.1)">☁ Signed in — progress auto-syncs to the cloud.</div>`
-      }
-      <div class="goal-grid">
-        <div class="goal"><div class="num">${stats.lessonPct}%</div><div class="label">Learn session</div></div>
-        <div class="goal"><div class="num">${stats.answered}/${stats.target}</div><div class="label">Quiz today</div></div>
-        <div class="goal"><div class="num">${stats.correct}</div><div class="label">Correct</div></div>
-        <div class="goal"><div class="num">${Object.keys(state.wrongPool).length}</div><div class="label">Wrong pool</div></div>
-      </div>
-      ${
-        locked
-          ? `<div class="lock-banner" style="margin-top:12px">🔒 Quiz locked until you finish today's <strong>Learn</strong> session (concept + examples + checks).</div>`
-          : `<div class="lock-banner" style="margin-top:12px;border-color:rgba(34,197,94,.4);color:#bbf7d0;background:rgba(34,197,94,.1)">✅ Learn complete — quiz unlocked.</div>`
-      }
-      <div style="margin-top:12px;display:grid;gap:8px">
-        <button class="btn-primary" id="btnLearn">${stats.lessonDone ? "Review learn session" : "Start learn session"}</button>
-        <button class="btn-secondary" id="btnQuiz" ${locked ? "disabled" : ""}>${stats.done ? "Bonus practice" : "Start quiz (~20 Q)"}</button>
-        <button class="btn-grok" id="btnGrokDay">Ask Grok about today's topic</button>
-      </div>
+    root.innerHTML = `
+      <section class="card">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <div class="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-brand">${escapeHtml(plan.phase)}</div>
+            <h1 class="mt-3 text-xl font-semibold tracking-tight text-ink leading-snug">${escapeHtml(plan.title)}</h1>
+            <p class="mt-1.5 text-sm text-mute">${escapeHtml(plan.weekday)} · ${escapeHtml(plan.date)}${plan.fmLight ? " · light FM" : ""}</p>
+            <p class="mt-3 text-sm text-mute">Exam P target <span class="font-medium text-ink">${target}</span> · <span class="font-semibold text-brand">${left}d</span></p>
+          </div>
+          ${ringSvg(stats.overall)}
+        </div>
+
+        <div class="mt-5 grid grid-cols-3 gap-2">
+          <div class="rounded-xl bg-slate-50 border border-slate-100 px-3 py-3">
+            <div class="text-lg font-semibold tabular-nums">${stats.lessonPct}%</div>
+            <div class="text-[11px] font-medium text-mute mt-0.5">Lesson</div>
+          </div>
+          <div class="rounded-xl bg-slate-50 border border-slate-100 px-3 py-3">
+            <div class="text-lg font-semibold tabular-nums">${stats.answered}/${stats.target}</div>
+            <div class="text-[11px] font-medium text-mute mt-0.5">Questions</div>
+          </div>
+          <div class="rounded-xl bg-slate-50 border border-slate-100 px-3 py-3">
+            <div class="text-lg font-semibold tabular-nums">${Object.keys(state.wrongPool).length}</div>
+            <div class="text-[11px] font-medium text-mute mt-0.5">Wrong pool</div>
+          </div>
+        </div>
+
+        <div class="mt-4 ${locked ? "lock-banner warn" : "lock-banner ok"}">
+          ${locked
+            ? "Quiz stays locked until today’s lesson is complete — concept, examples, and check."
+            : "Lesson complete. Quiz is ready whenever you are."}
+        </div>
+
+        <div class="mt-4 space-y-2">
+          <button class="btn-primary w-full" id="btnLearn">${stats.lessonDone ? "Review lesson" : "Continue lesson"}</button>
+          <button class="btn-secondary w-full" id="btnQuiz" ${locked ? "disabled" : ""}>${stats.done ? "Bonus practice" : "Start today’s questions"}</button>
+        </div>
+      </section>
+
+      <section class="grid grid-cols-2 gap-3">
+        <button type="button" class="card card-interactive text-left" id="quickWrong">
+          <i data-lucide="rotate-ccw" class="h-5 w-5 text-brand"></i>
+          <div class="mt-3 text-sm font-semibold">Wrong pool</div>
+          <div class="mt-1 text-xs text-mute">${Object.keys(state.wrongPool).length} items · spaced review</div>
+        </button>
+        <button type="button" class="card card-interactive text-left" id="quickSunday">
+          <i data-lucide="sparkles" class="h-5 w-5 text-brand"></i>
+          <div class="mt-3 text-sm font-semibold">Sunday recap</div>
+          <div class="mt-1 text-xs text-mute">Grok diagnosis + export</div>
+        </button>
+        <button type="button" class="card card-interactive text-left" id="quickPath">
+          <i data-lucide="map" class="h-5 w-5 text-brand"></i>
+          <div class="mt-3 text-sm font-semibold">Path</div>
+          <div class="mt-1 text-xs text-mute">Upcoming study days</div>
+        </button>
+        <button type="button" class="card card-interactive text-left" id="quickStats">
+          <i data-lucide="bar-chart-2" class="h-5 w-5 text-brand"></i>
+          <div class="mt-3 text-sm font-semibold">Progress</div>
+          <div class="mt-1 text-xs text-mute">Accuracy & mastery</div>
+        </button>
+      </section>
+
+      <section class="card">
+        <div class="text-[11px] font-semibold uppercase tracking-wide text-mute">Quiet note</div>
+        <p class="mt-2 text-sm leading-relaxed text-slate-700">${quote}</p>
+      </section>
     `;
+
     $("#btnLearn").onclick = () => startLearn();
     $("#btnQuiz").onclick = () => startQuiz();
-    $("#btnGrokDay").onclick = () => {
-      const L = lessons[plan.lessonId];
-      openGrok(
-        `SOA Exam P day ${plan.date}: ${plan.title}.\n` +
-          `Teach me this topic like a patient coach: definitions, when to use it, 3 worked examples, common traps.\n` +
-          `Lesson outline: ${L ? L.title : plan.title}`
-      );
-    };
-
-    // lesson outline card
-    const ids = lessonIdsFor(plan);
-    $("#readingCard").innerHTML =
-      `<h3>📘 Today's learn modules</h3>` +
-      ids
-        .map((id) => {
-          const L = lessons[id];
-          const done = isLessonComplete(plan.date, id);
-          return `<div class="list-item">
-            <div>
-              <div style="font-weight:800">${done ? "✅" : "⬜"} ${L?.title || id}</div>
-              <div class="small muted">${L?.minutes || "?"} min · LO ${(L?.lo || []).join(", ")} · ${(L?.sections || []).length} sections</div>
-            </div>
-          </div>`;
-        })
-        .join("") +
-      `<p class="small muted" style="margin-top:8px">Each module teaches the concept, walks worked examples (with <em>why</em>), then a concept check. Quiz stays locked until checks pass.</p>`;
+    $("#quickWrong").onclick = () => { showView("wrong"); renderWrong(); };
+    $("#quickSunday").onclick = () => { showView("wrong"); renderWrong(); setTimeout(() => $("#btnSunday")?.click(), 50); };
+    $("#quickPath").onclick = () => { showView("path"); renderPath(); };
+    $("#quickStats").onclick = () => { showView("stats"); renderStats(); };
+    refreshIcons();
   }
 
   function renderLearn() {
+    const root = $("#view-learn");
+    if (!root) return;
     if (!learn) {
-      $("#learnCard").innerHTML = `<p class="muted">No active learn session.</p>
-        <button class="btn-primary" id="btnStartLearnEmpty">Start today's learn session</button>`;
+      const plan = dayPlan();
+      const ids = lessonIdsFor(plan);
+      root.innerHTML = `
+        <div class="card">
+          <h2 class="text-lg font-semibold tracking-tight">Learn</h2>
+          <p class="mt-1 text-sm text-mute">Teach-first modules unlock today’s quiz.</p>
+          <div class="mt-4 space-y-2">
+            ${ids.map((id) => {
+              const L = lessons[id];
+              const done = isLessonComplete(todayISO(), id);
+              return `<div class="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 px-3 py-3">
+                <div>
+                  <div class="text-sm font-semibold">${done ? "Completed" : "Pending"} · ${escapeHtml(L?.title || id)}</div>
+                  <div class="text-xs text-mute mt-0.5">${L?.minutes || "?"} min · ${(L?.sections || []).length} sections</div>
+                </div>
+              </div>`;
+            }).join("") || `<p class="text-sm text-mute">No modules for today.</p>`}
+          </div>
+          <button class="btn-primary w-full mt-4" id="btnStartLearnEmpty">${areAllLessonsComplete() ? "Review lesson" : "Start lesson"}</button>
+        </div>`;
       $("#btnStartLearnEmpty").onclick = () => startLearn();
+      refreshIcons();
       return;
     }
+
     const lesson = currentLesson();
     const section = currentSection();
     if (!lesson || !section) {
-      $("#learnCard").innerHTML = `<p class="muted">Lesson missing data.</p>`;
+      root.innerHTML = `<div class="card"><p class="text-mute">Lesson data missing.</p></div>`;
       return;
     }
     const prog = ensureLessonProgress(learn.date, lesson.id);
-    const totalSec = lesson.sections.length;
     const dots = lesson.sections
       .map((s, i) => {
         const ok = s.type === "check" ? !!prog.checks[s.id] : prog.sectionDone.includes(s.id);
@@ -776,28 +780,26 @@
       })
       .join("");
 
-    let bodyHtml = "";
+    let body = "";
     if (section.type === "concept") {
-      bodyHtml = `
-        <span class="tag tag-concept">Concept</span>
-        <h4>${escapeHtml(section.title)}</h4>
-        <div class="body">${escapeHtml(section.body)}</div>
-        <div class="row" style="margin-top:12px">
-          <button class="btn-primary grow" id="btnMarkNext">I understand — next</button>
-          <button class="btn-grok grow" id="btnGrokSec">Ask Grok to re-teach</button>
+      body = `<span class="tag tag-concept">Concept</span>
+        <h3 class="text-base font-semibold tracking-tight">${escapeHtml(section.title)}</h3>
+        <div class="body mt-3">${escapeHtml(section.body)}</div>
+        <div class="row mt-5">
+          <button class="btn-primary grow" id="btnMarkNext">Continue</button>
+          <button class="btn-grok grow" id="btnGrokSec">Ask Grok</button>
         </div>`;
     } else if (section.type === "example") {
-      bodyHtml = `
-        <span class="tag tag-example">Worked example</span>
-        <h4>${escapeHtml(section.title)}</h4>
-        <div class="body"><strong>Setup</strong>\n${escapeHtml(section.setup)}</div>
+      body = `<span class="tag tag-example">Worked example</span>
+        <h3 class="text-base font-semibold tracking-tight">${escapeHtml(section.title)}</h3>
+        <div class="body mt-3"><strong>Setup</strong>\n${escapeHtml(section.setup)}</div>
         <div class="solution-box"><strong>Solution</strong>\n${escapeHtml(section.solution)}</div>
-        <div class="why-box"><strong>Why this way?</strong> ${escapeHtml(section.why)}</div>
-        <div class="row" style="margin-top:12px">
-          <button class="btn-primary grow" id="btnMarkNext">Got it — next</button>
-          <button class="btn-grok grow" id="btnGrokSec">Ask Grok for another example</button>
+        <div class="why-box"><strong>Why this matters</strong> — ${escapeHtml(section.why)}</div>
+        <div class="row mt-5">
+          <button class="btn-primary grow" id="btnMarkNext">Continue</button>
+          <button class="btn-grok grow" id="btnGrokSec">Ask Grok</button>
         </div>`;
-    } else if (section.type === "check") {
+    } else {
       const choices = Object.entries(section.choices || {})
         .map(([k, v]) => {
           let cls = "choice";
@@ -806,38 +808,38 @@
             if (k === section.answer) cls += " correct";
             if (learn.selectedCheck === k && k !== section.answer) cls += " wrong";
           }
-          return `<button class="${cls}" data-c="${k}" ${learn.checkRevealed ? "disabled" : ""}><span class="letter">${k}</span>${escapeHtml(v)}</button>`;
+          return `<button class="${cls}" data-c="${k}" ${learn.checkRevealed && learn.selectedCheck === section.answer ? "disabled" : ""}>
+            <span class="letter">${k}</span><span>${escapeHtml(v)}</span></button>`;
         })
         .join("");
-      bodyHtml = `
-        <span class="tag tag-check">Concept check (must pass)</span>
-        <h4>${escapeHtml(section.title)}</h4>
-        <div class="body">${escapeHtml(section.prompt)}</div>
-        <div style="margin-top:8px">${choices}</div>
-        <div class="feedback ${learn.checkRevealed ? "show " + (learn.selectedCheck === section.answer ? "ok" : "bad") : ""}" id="checkFb">
-          ${
-            learn.checkRevealed
-              ? learn.selectedCheck === section.answer
-                ? `<strong>Correct ✅</strong> ${escapeHtml(section.explain || "")}`
-                : `<strong>Not yet ❌</strong> Try again. Hint: ${escapeHtml(section.explain || "")}`
-              : ""
-          }
+      body = `<span class="tag tag-check">Concept check</span>
+        <h3 class="text-base font-semibold tracking-tight">${escapeHtml(section.title)}</h3>
+        <div class="body mt-3">${escapeHtml(section.prompt)}</div>
+        <div class="mt-3">${choices}</div>
+        <div class="feedback ${learn.checkRevealed ? "show " + (learn.selectedCheck === section.answer ? "ok" : "bad") : ""}">
+          ${learn.checkRevealed
+            ? learn.selectedCheck === section.answer
+              ? `<strong>Correct.</strong> ${escapeHtml(section.explain || "")}`
+              : `<strong>Not yet.</strong> ${escapeHtml(section.explain || "Try again.")}`
+            : ""}
         </div>
-        <div class="row" style="margin-top:12px">
-          <button class="btn-secondary grow" id="btnSubmitCheck" ${learn.selectedCheck && !learn.checkRevealed ? "" : "disabled"}>Check answer</button>
+        <div class="row mt-4">
+          <button class="btn-secondary grow" id="btnSubmitCheck" ${learn.selectedCheck && !learn.checkRevealed ? "" : "disabled"}>Check</button>
           <button class="btn-primary grow" id="btnMarkNext" ${learn.checkRevealed && learn.selectedCheck === section.answer ? "" : "disabled"}>Continue</button>
         </div>`;
     }
 
-    $("#learnCard").innerHTML = `
-      <div class="quiz-meta">
-        <span>Module ${learn.lessonIndex + 1}/${learn.lessonIds.length}: ${escapeHtml(lesson.title)}</span>
-        <span>Section ${learn.sectionIndex + 1}/${totalSec}</span>
-      </div>
-      <div class="stepper">${dots}</div>
-      <div class="lesson-section">${bodyHtml}</div>
-      <button class="btn-ghost" id="btnExitLearn" style="width:100%;margin-top:4px">Save & exit to Today</button>
-    `;
+    root.innerHTML = `
+      <div class="card">
+        <div class="flex items-center justify-between gap-2 text-xs text-mute">
+          <span>Module ${learn.lessonIndex + 1}/${learn.lessonIds.length}</span>
+          <span>Section ${learn.sectionIndex + 1}/${lesson.sections.length}</span>
+        </div>
+        <h2 class="mt-2 text-lg font-semibold tracking-tight">${escapeHtml(lesson.title)}</h2>
+        <div class="stepper">${dots}</div>
+        <div class="lesson-section">${body}</div>
+        <button class="btn-ghost w-full mt-3" id="btnExitLearn">Save & return to Today</button>
+      </div>`;
 
     $("#btnExitLearn").onclick = () => {
       learn = null;
@@ -855,53 +857,139 @@
     if (grokB) grokB.onclick = () => openGrok(teachGrokPrompt(lesson, section));
     const sub = $("#btnSubmitCheck");
     if (sub) sub.onclick = submitCheck;
-    $("#learnCard").querySelectorAll("button[data-c]").forEach((btn) => {
+    root.querySelectorAll("button[data-c]").forEach((btn) => {
       btn.onclick = () => {
         if (learn.checkRevealed && learn.selectedCheck === section.answer) return;
-        // allow retry if wrong
-        if (learn.checkRevealed && learn.selectedCheck !== section.answer) {
-          learn.checkRevealed = false;
-        }
+        if (learn.checkRevealed && learn.selectedCheck !== section.answer) learn.checkRevealed = false;
         learn.selectedCheck = btn.dataset.c;
         renderLearn();
       };
     });
+    renderMath(root);
+    refreshIcons();
+  }
+
+  function questionBodyHtml(q) {
+    const hasImg = Array.isArray(q.images) && q.images.length > 0;
+    const mode = hasImg ? (quizDisplayMode === "text" ? "text" : "image") : "text";
+    const toggle = hasImg
+      ? `<div class="mode-toggle">
+          <button type="button" data-mode="image" class="${mode === "image" ? "active" : ""}">Official PDF</button>
+          <button type="button" data-mode="text" class="${mode === "text" ? "active" : ""}">Text / LaTeX</button>
+        </div>`
+      : "";
+    if (mode === "image" && hasImg) {
+      return (
+        toggle +
+        `<p class="text-xs font-medium text-brand mb-1">Official SOA layout · tap image to enlarge</p>
+        <div class="q-images">
+          ${q.images.map((src, i) => `<img src="./${src}?v=4" alt="Q${q.number}-${i}" data-full="./${src}?v=4" />`).join("")}
+        </div>
+        <div id="imgFail" class="img-error" style="display:none">Image failed to load. Serve via <code>python -m http.server</code> from <code>app/</code> and hard-refresh.</div>
+        <p class="text-xs text-mute">Select A–E below after reading the figure.</p>`
+      );
+    }
+    return (
+      toggle +
+      `<div class="lock-banner warn mb-3">Text mode may omit symbols. Prefer Official PDF when available.</div>
+       <div class="quiz-stem" id="quizStemText">${escapeHtml(q.stem)}</div>`
+    );
   }
 
   function renderQuiz() {
-    const q = currentQuestion();
-    if (!q) {
-      $("#quizCard").innerHTML = `<p class="muted">No active quiz.</p>
-        <button class="btn-primary" id="btnQuizFromEmpty">Start quiz</button>`;
-      $("#btnQuizFromEmpty").onclick = () => startQuiz();
+    const root = $("#view-quiz");
+    if (!root) return;
+
+    if (quiz?.finished) {
+      const pct = quiz.total ? Math.round((100 * quiz.correct) / quiz.total) : 0;
+      root.innerHTML = `
+        <div class="card text-center py-8">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-soft text-brand">
+            <i data-lucide="check" class="h-7 w-7"></i>
+          </div>
+          <h2 class="mt-4 text-xl font-semibold tracking-tight">Session complete</h2>
+          <p class="mt-2 text-sm text-mute">Clean work. Review misses while they’re fresh.</p>
+          <div class="mt-6 flex justify-center">${ringSvg(pct, 100)}</div>
+          <p class="mt-3 text-sm font-medium">${quiz.correct} correct of recent answers logged today</p>
+          <div class="mt-6 space-y-2">
+            <button class="btn-primary w-full" id="btnQuizHome">Back to Today</button>
+            <button class="btn-secondary w-full" id="btnQuizWrong">Open wrong pool</button>
+          </div>
+        </div>`;
+      $("#btnQuizHome").onclick = () => { quiz = null; showView("home"); renderAll(); };
+      $("#btnQuizWrong").onclick = () => { quiz = null; showView("wrong"); renderWrong(); };
+      refreshIcons();
       return;
     }
+
+    const q = currentQuestion();
+    if (!q) {
+      root.innerHTML = `
+        <div class="card">
+          <h2 class="text-lg font-semibold">Quiz</h2>
+          <p class="mt-1 text-sm text-mute">Complete the lesson first, then run today’s set.</p>
+          <button class="btn-primary w-full mt-4" id="btnQuizFromEmpty">Start quiz</button>
+        </div>`;
+      $("#btnQuizFromEmpty").onclick = () => startQuiz();
+      refreshIcons();
+      return;
+    }
+
     const n = quiz.index + 1;
     const total = quiz.queue.length;
-    const isReview = !!state.wrongPool[q.id];
-    $("#quizCard").innerHTML = `
-      <div class="quiz-meta">
-        <span>Q ${n}/${total}${isReview ? " · 🔁 review" : ""}</span>
-        <span>${q.id} · LO ${q.lo || "?"}</span>
-      </div>
-      <div class="quiz-stem">${escapeHtml(q.stem)}</div>
-      <div id="choices"></div>
-      <div class="feedback" id="feedback"></div>
-      <div class="row" style="margin-top:12px">
-        <button class="btn-secondary grow" id="btnSubmit" ${quiz.selected && !quiz.revealed ? "" : "disabled"}>Check</button>
-        <button class="btn-primary grow" id="btnNext" style="display:${quiz.revealed ? "block" : "none"}">Next</button>
-      </div>
-      <div class="row" style="margin-top:8px">
-        <button class="btn-grok grow" id="btnGrokQ">Ask Grok</button>
-        <button class="btn-ghost grow" id="btnQuitQuiz">End session</button>
-      </div>
-    `;
+    const hasImg = Array.isArray(q.images) && q.images.length > 0;
+    if (hasImg && !quiz._modeTouched) quizDisplayMode = "image";
+    const showingImage = hasImg && quizDisplayMode !== "text";
+
+    root.innerHTML = `
+      <div class="card">
+        <div class="flex items-center justify-between text-xs text-mute">
+          <span>Question ${n} of ${total}${hasImg ? " · PDF" : ""}</span>
+          <span class="font-medium text-slate-600">${escapeHtml(q.id)}</span>
+        </div>
+        <div class="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
+          <div class="h-full rounded-full bg-brand transition-all duration-500" style="width:${(100 * n) / total}%"></div>
+        </div>
+        <div id="qBody" class="mt-4">${questionBodyHtml(q)}</div>
+        <div id="choices" class="mt-2"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="row mt-4">
+          <button class="btn-secondary grow" id="btnSubmit" ${quiz.selected && !quiz.revealed ? "" : "disabled"}>Check</button>
+          <button class="btn-primary grow" id="btnNext" style="display:${quiz.revealed ? "inline-flex" : "none"}">Next</button>
+        </div>
+        <div class="row mt-2">
+          <button class="btn-grok grow" id="btnGrokQ"><i data-lucide="message-circle" class="h-4 w-4"></i> Ask Grok</button>
+          <button class="btn-ghost grow" id="btnQuitQuiz">End session</button>
+        </div>
+      </div>`;
+
+    $("#qBody")?.querySelectorAll("[data-mode]").forEach((btn) => {
+      btn.onclick = () => {
+        quizDisplayMode = btn.dataset.mode;
+        quiz._modeTouched = true;
+        renderQuiz();
+      };
+    });
+    $("#qBody")?.querySelectorAll("img").forEach((img) => {
+      img.onerror = () => {
+        const box = $("#imgFail");
+        if (box) box.style.display = "block";
+        img.style.display = "none";
+      };
+      img.onclick = () => openLightbox(img.getAttribute("data-full") || img.src);
+    });
+
     const box = $("#choices");
     for (const letter of ["A", "B", "C", "D", "E"]) {
-      if (!q.choices?.[letter]) continue;
+      if (!q.choices?.[letter] && !hasImg) continue;
+      const label =
+        showingImage || !q.choices?.[letter] || String(q.choices[letter]).trim().length < 3
+          ? `Choice ${letter}`
+          : q.choices[letter];
       const btn = document.createElement("button");
+      btn.type = "button";
       btn.className = "choice";
-      btn.innerHTML = `<span class="letter">${letter}</span>${escapeHtml(q.choices[letter])}`;
+      btn.innerHTML = `<span class="letter">${letter}</span><span>${escapeHtml(label)}</span>`;
       if (quiz.selected === letter) btn.classList.add("selected");
       if (quiz.revealed) {
         if (q.answer === letter) btn.classList.add("correct");
@@ -915,14 +1003,16 @@
       }
       box.appendChild(btn);
     }
+
     const fb = $("#feedback");
     if (quiz.revealed) {
       fb.classList.add("show", quiz.selected === q.answer ? "ok" : "bad");
       fb.innerHTML =
         quiz.selected === q.answer
-          ? `<strong>Correct ✅</strong> +10 XP`
-          : `<strong>Not quite ❌</strong> Correct answer: <strong>${q.answer || "?"}</strong>. Saved to wrong pool.`;
+          ? `<div class="flex items-start gap-2"><i data-lucide="check-circle-2" class="h-5 w-5 text-ok shrink-0"></i><div><strong>Correct</strong> · +10 XP</div></div>`
+          : `<div class="flex items-start gap-2"><i data-lucide="x-circle" class="h-5 w-5 text-bad shrink-0"></i><div><strong>Not quite.</strong> Answer key: <strong>${q.answer || "?"}</strong>. Saved to wrong pool.</div></div>`;
     }
+
     $("#btnSubmit").onclick = submitAnswer;
     $("#btnNext").onclick = nextQuestion;
     $("#btnGrokQ").onclick = () => openGrok(explainPrompt(q, quiz.selected));
@@ -931,137 +1021,229 @@
       showView("home");
       renderAll();
     };
+    renderMath($("#quizStemText"));
+    refreshIcons();
+  }
+
+  function openLightbox(src) {
+    let lb = $("#lightbox");
+    if (!lb) {
+      lb = document.createElement("div");
+      lb.id = "lightbox";
+      lb.className = "lightbox";
+      lb.innerHTML = `<button type="button" class="lightbox-close" id="lbClose">Close</button><img id="lbImg" alt="Full question" />`;
+      document.body.appendChild(lb);
+      lb.addEventListener("click", (e) => {
+        if (e.target.id === "lightbox" || e.target.id === "lbClose") lb.classList.remove("show");
+      });
+    }
+    const im = $("#lbImg");
+    if (im) im.src = src;
+    lb.classList.add("show");
   }
 
   function renderPath() {
+    const root = $("#view-path");
+    if (!root) return;
     const days = curriculum?.days || [];
     const t = todayISO();
-    const start = Math.max(0, days.findIndex((d) => d.date >= t) - 3);
+    const start = Math.max(0, days.findIndex((d) => d.date >= t) - 2);
     const slice = days.slice(start, start + 14);
-    $("#pathCard").innerHTML =
-      `<h3>🗺 Learning path</h3><div class="path">` +
-      slice
-        .map((d) => {
-          const st = dayStats(d.date);
-          const cls = d.date === t ? "today" : st.done ? "done" : "";
-          const mark = st.done ? "✓" : d.date === t ? "●" : d.dayIndex + 1;
-          return `<div class="path-node ${cls}">
-            <div class="path-dot">${mark}</div>
-            <div>
-              <div style="font-weight:800">${escapeHtml(d.title)}</div>
-              <div class="small muted">${d.date} · Learn ${st.lessonPct}% · Quiz ${st.answered}/${d.questionTarget}</div>
-            </div>
-            <button class="btn-secondary" data-go="${d.date}" ${d.date > t ? "disabled" : ""}>Go</button>
-          </div>`;
-        })
-        .join("") +
-      `</div>`;
-    $("#pathCard").querySelectorAll("[data-go]").forEach((btn) => {
+    root.innerHTML = `
+      <div class="card">
+        <h2 class="text-lg font-semibold tracking-tight">Learning path</h2>
+        <p class="mt-1 text-sm text-mute">Upcoming days in your Exam P plan.</p>
+        <div class="mt-4">
+          ${slice.map((d) => {
+            const st = dayStats(d.date);
+            const cls = d.date === t ? "today" : st.done ? "done" : "";
+            const mark = st.done ? "✓" : d.date === t ? "•" : String(d.dayIndex + 1);
+            return `<div class="path-node ${cls}">
+              <div class="path-dot">${mark}</div>
+              <div class="min-w-0">
+                <div class="text-sm font-semibold truncate">${escapeHtml(d.title)}</div>
+                <div class="text-xs text-mute mt-0.5">${d.date} · Learn ${st.lessonPct}% · ${st.answered}/${d.questionTarget} Q</div>
+              </div>
+              <button class="btn-secondary" style="padding:0.5rem 0.75rem;font-size:0.75rem" data-go="${d.date}" ${d.date > t ? "disabled" : ""}>Open</button>
+            </div>`;
+          }).join("")}
+        </div>
+      </div>`;
+    root.querySelectorAll("[data-go]").forEach((btn) => {
       btn.onclick = () => {
         const date = btn.dataset.go;
         if (!areAllLessonsComplete(date)) startLearn(date);
         else startQuiz(date);
       };
     });
+    refreshIcons();
   }
 
   function renderWrong() {
+    const root = $("#view-wrong");
+    if (!root) return;
     const list = wrongList();
-    $("#wrongCard").innerHTML =
-      `<div class="row space-between"><h3 style="margin:0">❌ Wrong pool</h3>
-        <button class="btn-secondary" id="btnSunday">Sunday recap → Grok</button></div>
-       <p class="muted small">Misses reappear in quizzes. Sunday: generate similar drills with Grok.</p>` +
-      (list.length
-        ? list
-            .map(
-              (w) => `<div class="list-item">
-            <div>
-              <div style="font-weight:700">${w.id} · missed ${w.count}×</div>
-              <div class="small muted">LO ${w.lo || "?"} · ${(w.topics || []).join(", ")}</div>
-              <div class="small muted">${escapeHtml(w.stemPreview || "")}</div>
-            </div>
-            <div class="row">
-              <button class="btn-secondary" data-review="${w.id}">Review</button>
-              <button class="btn-grok" data-grok="${w.id}">Grok</button>
-            </div>
-          </div>`
-            )
-            .join("")
-        : `<p class="muted">Pool empty — mistakes will land here.</p>`);
+    root.innerHTML = `
+      <div class="card">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <h2 class="text-lg font-semibold tracking-tight">Wrong pool</h2>
+            <p class="mt-1 text-sm text-mute">Misses mix back into daily quizzes (~30%).</p>
+          </div>
+          <button class="btn-secondary" id="btnSunday" style="white-space:nowrap"><i data-lucide="sparkles" class="h-4 w-4"></i> Sunday recap</button>
+        </div>
+        <div class="mt-4">
+          ${list.length
+            ? list.map((w) => `
+              <div class="list-item">
+                <div class="min-w-0">
+                  <div class="text-sm font-semibold">${escapeHtml(w.id)} · missed ${w.count}×</div>
+                  <div class="text-xs text-mute mt-0.5">LO ${escapeHtml(w.lo || "?")} · ${(w.topics || []).join(", ")}</div>
+                  <div class="text-xs text-mute mt-1 line-clamp-2">${escapeHtml(w.stemPreview || "")}</div>
+                </div>
+                <div class="flex flex-col gap-1.5 shrink-0">
+                  <button class="btn-secondary" style="padding:0.45rem 0.7rem;font-size:0.75rem" data-review="${w.id}">Review</button>
+                  <button class="btn-grok" style="padding:0.45rem 0.7rem;font-size:0.75rem" data-grok="${w.id}">Grok</button>
+                </div>
+              </div>`).join("")
+            : `<div class="rounded-xl border border-dashed border-slate-200 bg-slate-50 px-4 py-10 text-center">
+                <i data-lucide="inbox" class="mx-auto h-8 w-8 text-slate-300"></i>
+                <p class="mt-3 text-sm font-medium text-slate-700">Pool is empty</p>
+                <p class="mt-1 text-xs text-mute">Missed quiz items will land here automatically.</p>
+              </div>`}
+        </div>
+      </div>`;
 
     $("#btnSunday").onclick = () => {
       openGrok(sundayRecapPrompt(list));
       downloadJSON(`sunday_recap_${todayISO()}.json`, { generatedAt: new Date().toISOString(), date: todayISO(), wrong: list });
-      toast("Opened Grok + downloaded recap package");
+      toast("Grok opened · JSON downloaded");
     };
-    $("#wrongCard").querySelectorAll("[data-review]").forEach((btn) => {
+    root.querySelectorAll("[data-review]").forEach((btn) => {
       btn.onclick = () => {
-        // single-question review does not require lesson gate
-        quiz = { date: todayISO(), queue: [btn.dataset.review], index: 0, selected: null, revealed: false };
+        quiz = { date: todayISO(), queue: [btn.dataset.review], index: 0, selected: null, revealed: false, _modeTouched: false };
+        quizDisplayMode = "image";
         showView("quiz");
         renderQuiz();
       };
     });
-    $("#wrongCard").querySelectorAll("[data-grok]").forEach((btn) => {
+    root.querySelectorAll("[data-grok]").forEach((btn) => {
       btn.onclick = () => {
         const q = qById.get(btn.dataset.grok);
         if (q) openGrok(explainPrompt(q));
       };
     });
+    refreshIcons();
+  }
+
+  function renderStats() {
+    const root = $("#view-stats");
+    if (!root) return;
+    const stats = dayStats();
+    const acc = accuracyOverall();
+    const wrong = wrongList();
+    const loCounts = {};
+    wrong.forEach((w) => {
+      const k = w.lo || "unknown";
+      loCounts[k] = (loCounts[k] || 0) + w.count;
+    });
+    const topLos = Object.entries(loCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+    root.innerHTML = `
+      <div class="card">
+        <h2 class="text-lg font-semibold tracking-tight">Progress</h2>
+        <p class="mt-1 text-sm text-mute">A calm snapshot of your Exam P prep.</p>
+        <div class="mt-6 flex items-center justify-around">
+          ${ringSvg(stats.overall, 96)}
+          ${ringSvg(acc == null ? 0 : acc, 96)}
+        </div>
+        <div class="mt-2 grid grid-cols-2 text-center text-xs text-mute">
+          <div>Today’s completion</div>
+          <div>Lifetime accuracy${acc == null ? " (n/a)" : ""}</div>
+        </div>
+        <div class="mt-6 grid grid-cols-3 gap-2">
+          <div class="rounded-xl bg-slate-50 border border-slate-100 p-3 text-center">
+            <div class="text-lg font-semibold tabular-nums">${state.streak}</div>
+            <div class="text-[11px] text-mute mt-0.5">Streak</div>
+          </div>
+          <div class="rounded-xl bg-slate-50 border border-slate-100 p-3 text-center">
+            <div class="text-lg font-semibold tabular-nums">${state.xp}</div>
+            <div class="text-[11px] text-mute mt-0.5">XP</div>
+          </div>
+          <div class="rounded-xl bg-slate-50 border border-slate-100 p-3 text-center">
+            <div class="text-lg font-semibold tabular-nums">${(state.history || []).length}</div>
+            <div class="text-[11px] text-mute mt-0.5">Attempts</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="text-sm font-semibold">Weakness by LO</h3>
+        <div class="mt-3 space-y-2">
+          ${topLos.length
+            ? topLos.map(([lo, c]) => `
+              <div>
+                <div class="flex justify-between text-xs mb-1"><span class="font-medium">${escapeHtml(lo)}</span><span class="text-mute">${c}</span></div>
+                <div class="h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                  <div class="h-full rounded-full bg-brand" style="width:${Math.min(100, c * 12)}%"></div>
+                </div>
+              </div>`).join("")
+            : `<p class="text-sm text-mute">No weakness data yet — complete a few quizzes.</p>`}
+        </div>
+      </div>`;
+    refreshIcons();
   }
 
   function renderSettings() {
+    const root = $("#view-settings");
+    if (!root) return;
     const cloud = window.SOACloud;
-    const accountBlock = cloud?.user
-      ? `<p><strong>Signed in:</strong> ${escapeHtml(cloud.user.email || cloud.user.uid)}<br>
-           <span class="small muted">Status: ${cloud.status}${cloud.lastError ? " — " + escapeHtml(cloud.lastError) : ""}</span></p>
-         <div class="row">
-           <button class="btn-secondary grow" id="btnCloudPull">Pull from cloud</button>
-           <button class="btn-secondary grow" id="btnCloudPush">Push to cloud</button>
+    const account = cloud?.user
+      ? `<p class="text-sm"><span class="font-medium">Signed in</span> · ${escapeHtml(cloud.user.email || cloud.user.uid)}
+           <br><span class="text-xs text-mute">Status: ${cloud.status}${cloud.lastError ? " — " + escapeHtml(cloud.lastError) : ""}</span></p>
+         <div class="row mt-3">
+           <button class="btn-secondary grow" id="btnCloudPull">Pull</button>
+           <button class="btn-secondary grow" id="btnCloudPush">Push</button>
            <button class="btn-danger grow" id="btnSignOut">Sign out</button>
          </div>`
-      : `<p class="muted small">Not signed in. Without an account, progress stays on <em>this browser only</em> and can disappear if you clear site data.</p>
-         <button class="btn-primary" id="btnOpenAuth" style="width:100%">Sign in / Create account</button>`;
+      : `<p class="text-sm text-mute">Not signed in. Progress stays on this browser until you export or enable cloud.</p>
+         <button class="btn-primary w-full mt-3" id="btnOpenAuth">Sign in / Create account</button>`;
 
-    const configHint =
-      !cloud || cloud.status === "need-config"
-        ? `<div class="lock-banner" style="margin-top:10px">Cloud not configured. Open <code>FIREBASE_SETUP.md</code> (free Firebase project, ~5–10 min). Then add <code>app/js/firebase-config.js</code>.</div>`
-        : "";
+    root.innerHTML = `
+      <div class="card">
+        <h2 class="text-lg font-semibold tracking-tight">Account</h2>
+        <div class="mt-3">${account}</div>
+        ${!cloud || cloud.status === "need-config" ? `<div class="lock-banner warn mt-3">Cloud optional. See FIREBASE_SETUP.md for free Firebase wiring.</div>` : ""}
+      </div>
+      <div class="card">
+        <h2 class="text-lg font-semibold tracking-tight">Study settings</h2>
+        <div class="row mt-3">
+          <button class="btn-secondary grow" id="btnNotif">Enable notifications</button>
+          <button class="btn-secondary grow" id="btnTestNotif">Test</button>
+        </div>
+        <label class="block text-xs font-medium text-mute mt-4">Reminder hour</label>
+        <input id="reminderHour" type="number" min="0" max="23" value="${state.reminderHour}" class="field mt-1" />
+        <label class="block text-xs font-medium text-mute mt-3">Daily question goal</label>
+        <input id="dailyGoal" type="number" min="5" max="40" value="${state.settings.dailyGoal}" class="field mt-1" />
+        <button class="btn-primary w-full mt-4" id="btnSaveSettings">Save settings</button>
+      </div>
+      <div class="card">
+        <h2 class="text-lg font-semibold tracking-tight">Backup</h2>
+        <p class="mt-1 text-sm text-mute">Export before switching devices if you skip cloud.</p>
+        <div class="row mt-3">
+          <button class="btn-secondary grow" id="btnExport">Export JSON</button>
+          <button class="btn-secondary grow" id="btnImport">Import JSON</button>
+        </div>
+        <textarea class="export-box mt-3" id="importBox" placeholder="Paste exported JSON here"></textarea>
+        <button class="btn-danger w-full mt-3" id="btnReset">Reset local progress</button>
+      </div>
+      <div class="card">
+        <p class="text-xs text-mute">Questions loaded: ${questions.length} · Lessons: ${Object.keys(lessons).length} · Days: ${curriculum?.days?.length || 0}</p>
+      </div>`;
 
-    $("#settingsCard").innerHTML = `
-      <h3>Account & continuous progress</h3>
-      ${accountBlock}
-      ${configHint}
-      <hr style="border:none;border-top:1px solid var(--border);margin:16px 0"/>
-      <h3>Study settings</h3>
-      <div class="row" style="margin:10px 0">
-        <button class="btn-secondary" id="btnNotif">Enable notifications</button>
-        <button class="btn-secondary" id="btnTestNotif">Test notification</button>
-      </div>
-      <label class="small muted">Reminder hour</label>
-      <input id="reminderHour" type="number" min="0" max="23" value="${state.reminderHour}"
-        style="width:100%;margin:6px 0 12px;padding:10px;border-radius:10px;border:1px solid var(--border);background:#0f172a;color:#fff"/>
-      <label class="small muted">Daily quiz goal</label>
-      <input id="dailyGoal" type="number" min="5" max="40" value="${state.settings.dailyGoal}"
-        style="width:100%;margin:6px 0 12px;padding:10px;border-radius:10px;border:1px solid var(--border);background:#0f172a;color:#fff"/>
-      <div class="row">
-        <button class="btn-primary grow" id="btnSaveSettings">Save</button>
-        <button class="btn-secondary grow" id="btnExport">Export backup</button>
-        <button class="btn-secondary grow" id="btnImport">Import backup</button>
-      </div>
-      <textarea class="export-box" id="importBox" placeholder="Paste export JSON to import" style="margin-top:12px"></textarea>
-      <div class="row" style="margin-top:10px">
-        <button class="btn-danger grow" id="btnReset">Reset local progress</button>
-      </div>
-      <p class="small muted" style="margin-top:12px">
-        <strong>Deploy:</strong> <code>DEPLOY.md</code> · <strong>Cloud:</strong> <code>FIREBASE_SETUP.md</code>
-      </p>
-      <p class="small muted">Questions: ${questions.length} · Lessons: ${Object.keys(lessons).length} · Days: ${curriculum?.days?.length || 0}</p>
-    `;
     $("#btnOpenAuth")?.addEventListener("click", () => openAuthModal("signin"));
     $("#btnSignOut")?.addEventListener("click", async () => {
       await SOACloud.signOut();
-      toast("Signed out (local progress kept on this device)");
+      toast("Signed out");
       renderSettings();
       renderAccountChip();
     });
@@ -1079,7 +1261,7 @@
     $("#btnNotif").onclick = () => enableNotifications();
     $("#btnTestNotif").onclick = () => {
       if (navigator.serviceWorker?.controller) {
-        navigator.serviceWorker.controller.postMessage({ type: "NOTIFY_TEST", body: "Test: time to grind" });
+        navigator.serviceWorker.controller.postMessage({ type: "NOTIFY_TEST", body: "Test notification" });
       } else if (Notification.permission === "granted") {
         new Notification("SOA Grind", { body: "Test notification", icon: "./icons/icon-192.svg" });
       } else toast("Enable notifications first");
@@ -1088,7 +1270,7 @@
       state.reminderHour = Number($("#reminderHour").value) || 19;
       state.settings.dailyGoal = Number($("#dailyGoal").value) || 20;
       saveState({ immediate: true });
-      toast("Saved");
+      toast("Settings saved");
     };
     $("#btnExport").onclick = () => {
       downloadJSON(`soa_grind_progress_${todayISO()}.json`, state);
@@ -1105,26 +1287,31 @@
       }
     };
     $("#btnReset").onclick = () => {
-      if (confirm("Reset all LOCAL progress on this device?")) {
+      if (confirm("Reset all local progress on this device?")) {
         state = DEFAULT_STATE();
         saveState({ immediate: true });
         renderAll();
-        toast("Local reset");
+        toast("Local progress reset");
       }
     };
+    refreshIcons();
   }
 
   function renderAll() {
     renderChrome();
     renderHome();
-    renderLearn();
-    renderPath();
-    renderWrong();
-    renderSettings();
+    if (currentView === "learn") renderLearn();
+    if (currentView === "quiz") renderQuiz();
+    if (currentView === "path") renderPath();
+    if (currentView === "wrong") renderWrong();
+    if (currentView === "stats") renderStats();
+    if (currentView === "settings") renderSettings();
+    // Always refresh home containers when on home
+    if (currentView === "home") renderHome();
+    refreshIcons();
   }
 
   async function boot() {
-    // Recover from IndexedDB if localStorage empty but IDB has data
     if (!localStorage.getItem(STORAGE_KEY)) {
       const idb = await idbLoad();
       if (idb && (idb.xp || Object.keys(idb.days || {}).length)) {
@@ -1143,34 +1330,39 @@
     lessons = await lRes.json();
     qById = new Map(questions.map((q) => [q.id, q]));
 
-    // Cloud
     if (window.SOACloud) {
       await SOACloud.init();
       SOACloud.onChange(() => {
         renderAccountChip();
         if (currentView === "settings") renderSettings();
       });
-      // If already signed in from persistence, merge
-      if (SOACloud.user) {
-        await pullAndMergeCloud();
-      }
+      if (SOACloud.user) await pullAndMergeCloud();
     }
 
     document.querySelectorAll(".nav-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const v = btn.dataset.view;
         if (v === "quiz") {
-          startQuiz();
+          if (!quiz) startQuiz();
+          else {
+            showView("quiz");
+            renderQuiz();
+          }
           return;
         }
         if (v === "learn") {
-          startLearn();
+          if (!learn) startLearn();
+          else {
+            showView("learn");
+            renderLearn();
+          }
           return;
         }
         showView(v);
         if (v === "home") renderHome();
         if (v === "path") renderPath();
         if (v === "wrong") renderWrong();
+        if (v === "stats") renderStats();
         if (v === "settings") renderSettings();
       });
     });
@@ -1179,9 +1371,7 @@
       if (window.SOACloud?.user) {
         showView("settings");
         renderSettings();
-      } else {
-        openAuthModal("signin");
-      }
+      } else openAuthModal("signin");
     });
     $("#authClose")?.addEventListener("click", closeAuthModal);
     $("#authModal")?.addEventListener("click", (ev) => {
@@ -1195,21 +1385,21 @@
 
     if ("serviceWorker" in navigator) {
       try {
-        await navigator.serviceWorker.register("./sw.js");
+        const keys = await caches.keys();
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v4").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=4");
       } catch (e) {
         console.warn(e);
       }
     }
 
+    showView("home");
     renderAll();
     maybeRemind();
-
-    // Nudge login once if cloud ready but not signed in
     if (window.SOACloud?.ready && !SOACloud.user && !sessionStorage.getItem("soa_auth_nudge")) {
       sessionStorage.setItem("soa_auth_nudge", "1");
-      setTimeout(() => toast("Sign in (☁) to keep progress across devices"), 1200);
+      setTimeout(() => toast("Optional: sign in to sync across devices"), 1400);
     }
-    if (new Date().getDay() === 0 && wrongList().length) toast("Sunday: run Wrong Pool recap");
   }
 
   document.addEventListener("DOMContentLoaded", boot);

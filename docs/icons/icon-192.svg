@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
-  <rect width="192" height="192" rx="40" fill="#0f172a"/>
-  <circle cx="96" cy="96" r="62" fill="#22c55e"/>
-  <text x="96" y="112" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="56" font-weight="800" fill="#0f172a">P</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" fill="none">
+  <rect width="192" height="192" rx="40" fill="#0F766E"/>
+  <rect x="28" y="28" width="136" height="136" rx="28" fill="#F8FAFC"/>
+  <text x="96" y="118" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="700" fill="#0F766E">P</text>
 </svg>

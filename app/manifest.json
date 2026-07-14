@@ -1,14 +1,15 @@
 {
-  "name": "SOA Grind — Exam P Coach",
+  "name": "SOA Grind",
   "short_name": "SOA Grind",
-  "description": "Duolingo-style daily coach for SOA Exam P with MC practice, wrong-pool review, and Grok help.",
+  "description": "Premium Exam P coach — teach-first lessons, official sample quizzes, wrong-pool review.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#0f172a",
-  "theme_color": "#22c55e",
+  "background_color": "#F8FAFC",
+  "theme_color": "#0F766E",
   "lang": "en",
+  "categories": ["education", "productivity"],
   "icons": [
     {
       "src": "icons/icon-192.svg",
