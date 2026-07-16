@@ -240,6 +240,24 @@
       if (out.history.length >= 400) break;
     }
 
+    // Exam history / used IDs
+    out.examUsedQuestionIds = Array.from(
+      new Set([...(L.examUsedQuestionIds || []), ...(R.examUsedQuestionIds || [])])
+    );
+    const examHist = [...(L.examHistory || []), ...(R.examHistory || [])];
+    const seenExam = new Set();
+    out.examHistory = [];
+    for (const e of examHist) {
+      if (!e?.id || seenExam.has(e.id)) continue;
+      seenExam.add(e.id);
+      out.examHistory.push(e);
+      if (out.examHistory.length >= 30) break;
+    }
+    // Prefer in-progress local exam if present; else remote
+    if (L.activeExam?.status === "in_progress") out.activeExam = L.activeExam;
+    else if (R.activeExam?.status === "in_progress") out.activeExam = R.activeExam;
+    else out.activeExam = L.activeExam || R.activeExam || null;
+
     out.updatedAt = Math.max(L.updatedAt || 0, R.updatedAt || 0, Date.now());
     out.version = Math.max(L.version || 1, R.version || 1, 3);
     return out;

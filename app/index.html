@@ -95,6 +95,7 @@
       <section id="view-home" class="view active space-y-4 w-full"></section>
       <section id="view-learn" class="view space-y-4 w-full"></section>
       <section id="view-quiz" class="view space-y-4 w-full"></section>
+      <section id="view-exam" class="view space-y-4 w-full"></section>
       <section id="view-path" class="view space-y-4 w-full"></section>
       <section id="view-wrong" class="view space-y-4 w-full"></section>
       <section id="view-stats" class="view space-y-4 w-full"></section>
@@ -104,10 +105,11 @@
 
   <!-- Bottom nav — full width -->
   <nav class="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200/80 bg-white/90 backdrop-blur-md" style="padding-bottom: env(safe-area-inset-bottom)">
-    <div class="w-full grid grid-cols-6 gap-0 px-2 sm:px-6 lg:px-10 py-1.5">
+    <div class="w-full grid grid-cols-7 gap-0 px-1 sm:px-4 lg:px-8 py-1.5">
       <button class="nav-btn active" data-view="home" type="button"><i data-lucide="home" class="h-5 w-5"></i><span>Today</span></button>
       <button class="nav-btn" data-view="learn" type="button"><i data-lucide="book-open" class="h-5 w-5"></i><span>Learn</span></button>
       <button class="nav-btn" data-view="quiz" type="button"><i data-lucide="target" class="h-5 w-5"></i><span>Quiz</span></button>
+      <button class="nav-btn" data-view="exam" type="button"><i data-lucide="clipboard-check" class="h-5 w-5"></i><span>Exam</span></button>
       <button class="nav-btn" data-view="wrong" type="button"><i data-lucide="rotate-ccw" class="h-5 w-5"></i><span>Wrong</span></button>
       <button class="nav-btn" data-view="stats" type="button"><i data-lucide="bar-chart-2" class="h-5 w-5"></i><span>Stats</span></button>
       <button class="nav-btn" data-view="settings" type="button"><i data-lucide="settings" class="h-5 w-5"></i><span>More</span></button>
@@ -150,6 +152,7 @@
   <script src="./js/firebase-config.js"></script>
   <script src="./js/cloud.js"></script>
   <script src="./js/topic_guides.js"></script>
+  <script src="./js/exam.js"></script>
   <script src="./js/app.js"></script>
 </body>
 </html>

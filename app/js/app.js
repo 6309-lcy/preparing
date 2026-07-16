@@ -19,6 +19,10 @@
     lessonMastery: {},
     wrongPool: {},
     history: [],
+    /** Mock Exam P: used IDs + history + optional in-progress form */
+    examUsedQuestionIds: [],
+    examHistory: [],
+    activeExam: null,
     settings: { dailyGoal: 20, grokBase: "https://grok.com/?q=" },
   });
 
@@ -867,6 +871,19 @@
         </div>
       </section>
 
+      <section class="card border-slate-900/10 bg-slate-900 text-white">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <div class="text-[11px] font-semibold uppercase tracking-wide text-slate-300">Official-style CBT</div>
+            <h2 class="mt-1 text-lg font-semibold tracking-tight">Exam P mock · 30 Q · 3 hours</h2>
+            <p class="mt-1 text-sm text-slate-300">No Grok · flag & navigator · scaled score 0–10 (pass ≥ 6) · answer guide after submit</p>
+          </div>
+          <button type="button" class="btn-primary shrink-0" id="btnHomeExam" style="background:linear-gradient(180deg,#14b8a6,#0f766e)">
+            Open exam mode
+          </button>
+        </div>
+      </section>
+
       <section class="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <button type="button" class="card card-interactive text-left" id="quickWrong">
           <i data-lucide="rotate-ccw" class="h-5 w-5 text-brand"></i>
@@ -898,6 +915,10 @@
 
     $("#btnLearn").onclick = () => startLearn();
     $("#btnQuiz").onclick = () => startQuiz();
+    $("#btnHomeExam")?.addEventListener("click", () => {
+      showView("exam");
+      window.SOAExam?.onShow?.();
+    });
     $("#quickWrong").onclick = () => { showView("wrong"); renderWrong(); };
     $("#quickSunday").onclick = () => { showView("wrong"); renderWrong(); setTimeout(() => $("#btnSunday")?.click(), 50); };
     $("#quickPath").onclick = () => { showView("path"); renderPath(); };
@@ -1478,16 +1499,38 @@
 
   function renderAll() {
     renderChrome();
-    renderHome();
+    if (currentView === "home") renderHome();
     if (currentView === "learn") renderLearn();
     if (currentView === "quiz") renderQuiz();
+    if (currentView === "exam") window.SOAExam?.onShow?.();
     if (currentView === "path") renderPath();
     if (currentView === "wrong") renderWrong();
     if (currentView === "stats") renderStats();
     if (currentView === "settings") renderSettings();
-    // Always refresh home containers when on home
-    if (currentView === "home") renderHome();
     refreshIcons();
+  }
+
+  function bindExamModule() {
+    if (!window.SOAExam) return;
+    window.SOAExam.bind({
+      get state() {
+        return state;
+      },
+      set state(v) {
+        state = v;
+      },
+      questions,
+      qById,
+      saveState,
+      toast,
+      showView,
+      escapeHtml,
+      openGrok,
+      explainPrompt,
+      openLightbox,
+      refreshIcons,
+      renderMath,
+    });
   }
 
   async function boot() {
@@ -1518,10 +1561,26 @@
       if (SOACloud.user) await pullAndMergeCloud();
     }
 
+    bindExamModule();
+
     document.querySelectorAll(".nav-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const v = btn.dataset.view;
+        if (v === "exam") {
+          showView("exam");
+          window.SOAExam?.onShow?.();
+          return;
+        }
         if (v === "quiz") {
+          // Block daily quiz navigation into exam rules: allow quiz as usual
+          if (state.activeExam?.status === "in_progress") {
+            if (!confirm("You have an exam in progress. Leave exam mode? (Progress is saved.)")) {
+              showView("exam");
+              window.SOAExam?.onShow?.();
+              return;
+            }
+            window.SOAExam?.stopTicker?.();
+          }
           if (!quiz) startQuiz();
           else {
             showView("quiz");
@@ -1530,12 +1589,18 @@
           return;
         }
         if (v === "learn") {
+          if (state.activeExam?.status === "in_progress") {
+            window.SOAExam?.stopTicker?.();
+          }
           if (!learn) startLearn();
           else {
             showView("learn");
             renderLearn();
           }
           return;
+        }
+        if (state.activeExam?.status === "in_progress" && v !== "exam") {
+          window.SOAExam?.stopTicker?.();
         }
         showView(v);
         if (v === "home") renderHome();
@@ -1565,8 +1630,8 @@
     if ("serviceWorker" in navigator) {
       try {
         const keys = await caches.keys();
-        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v5").map((k) => caches.delete(k)));
-        await navigator.serviceWorker.register("./sw.js?v=5");
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v6").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=6");
       } catch (e) {
         console.warn(e);
       }
