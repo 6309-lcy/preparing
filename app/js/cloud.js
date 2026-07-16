@@ -4,8 +4,8 @@
 
   const Cloud = {
     ready: false,
-    user: null, // { uid, email }
-    status: "local-only", // local-only | offline | syncing | synced | error | need-config
+    user: null,
+    status: "local-only",
     lastError: null,
     _db: null,
     _auth: null,
@@ -44,17 +44,12 @@
       return Cloud;
     }
     try {
-      if (!firebase.apps.length) {
-        firebase.initializeApp(global.FIREBASE_CONFIG);
-      }
+      if (!firebase.apps.length) firebase.initializeApp(global.FIREBASE_CONFIG);
       Cloud._auth = firebase.auth();
       Cloud._db = firebase.firestore();
-      // Enable offline persistence for continuous feel
       try {
         await Cloud._db.enablePersistence({ synchronizeTabs: true });
-      } catch (e) {
-        // multi-tab or unsupported — fine
-      }
+      } catch (_) {}
       Cloud.ready = true;
       Cloud.status = "offline";
       await new Promise((resolve) => {
@@ -83,7 +78,7 @@
   };
 
   Cloud.signUp = async function (email, password) {
-    if (!Cloud._auth) throw new Error("Cloud not configured. See Settings → Cloud setup.");
+    if (!Cloud._auth) throw new Error("Cloud not configured.");
     const cred = await Cloud._auth.createUserWithEmailAndPassword(email.trim(), password);
     Cloud.user = { uid: cred.user.uid, email: cred.user.email || email };
     emit();
@@ -91,7 +86,7 @@
   };
 
   Cloud.signIn = async function (email, password) {
-    if (!Cloud._auth) throw new Error("Cloud not configured. See Settings → Cloud setup.");
+    if (!Cloud._auth) throw new Error("Cloud not configured.");
     const cred = await Cloud._auth.signInWithEmailAndPassword(email.trim(), password);
     Cloud.user = { uid: cred.user.uid, email: cred.user.email || email };
     emit();
@@ -115,8 +110,7 @@
       Cloud.status = "synced";
       emit();
       if (!snap.exists) return null;
-      const data = snap.data() || {};
-      return data.progress || null;
+      return (snap.data() || {}).progress || null;
     } catch (e) {
       Cloud.status = "error";
       Cloud.lastError = String(e.message || e);
@@ -131,12 +125,16 @@
       Cloud.status = "syncing";
       emit();
       try {
-        const payload = {
-          progress,
-          email: Cloud.user.email || "",
-          updatedAt: Date.now(),
-        };
-        await Cloud._db.collection("users").doc(Cloud.user.uid).set(payload, { merge: true });
+        // Firestore-safe plain object (no undefined)
+        const clean = JSON.parse(JSON.stringify(progress));
+        await Cloud._db.collection("users").doc(Cloud.user.uid).set(
+          {
+            progress: clean,
+            email: Cloud.user.email || "",
+            updatedAt: Date.now(),
+          },
+          { merge: true }
+        );
         Cloud.status = "synced";
         Cloud.lastError = null;
         emit();
@@ -151,67 +149,87 @@
     if (immediate) return run();
     clearTimeout(Cloud._saveTimer);
     return new Promise((resolve) => {
-      Cloud._saveTimer = setTimeout(async () => resolve(await run()), 600);
+      Cloud._saveTimer = setTimeout(async () => resolve(await run()), 400);
     });
   };
 
-  /** Merge local + cloud progress without losing work on either device. */
+  function mergeLessonProg(a, b) {
+    a = a || { sectionDone: [], checks: {} };
+    b = b || { sectionDone: [], checks: {} };
+    return {
+      sectionDone: Array.from(new Set([...(a.sectionDone || []), ...(b.sectionDone || [])])),
+      checks: { ...(a.checks || {}), ...(b.checks || {}) },
+      updatedAt: Math.max(a.updatedAt || 0, b.updatedAt || 0, Date.now()),
+    };
+  }
+
+  function mergeDay(rd, ld) {
+    rd = rd || {};
+    ld = ld || {};
+    const mergedAns = { ...(rd.answered || {}), ...(ld.answered || {}) };
+    const lessonIds = new Set([
+      ...Object.keys(rd.lessons || {}),
+      ...Object.keys(ld.lessons || {}),
+    ]);
+    const mergedLessons = {};
+    for (const lid of lessonIds) {
+      mergedLessons[lid] = mergeLessonProg((rd.lessons || {})[lid], (ld.lessons || {})[lid]);
+    }
+    const readingsDone = Array.from(
+      new Set([...(rd.readingsDone || []), ...(ld.readingsDone || [])])
+    );
+    return {
+      ...rd,
+      ...ld,
+      answered: mergedAns,
+      lessons: mergedLessons,
+      readingsDone,
+      completed: !!(rd.completed || ld.completed),
+    };
+  }
+
+  /** Merge local + cloud without losing lesson mastery or day progress. */
   Cloud.mergeProgress = function (local, remote) {
     if (!remote) return local;
     if (!local) return remote;
-    const out = JSON.parse(JSON.stringify(local));
-    const r = remote;
+    const L = local;
+    const R = remote;
+    const out = JSON.parse(JSON.stringify(L));
 
-    out.xp = Math.max(local.xp || 0, r.xp || 0);
-    out.streak = Math.max(local.streak || 0, r.streak || 0);
-    // keep latest activity date
-    if ((r.lastActiveDate || "") > (local.lastActiveDate || "")) {
-      out.lastActiveDate = r.lastActiveDate;
-    }
-    out.notificationsEnabled = local.notificationsEnabled || r.notificationsEnabled;
-    out.reminderHour = local.reminderHour ?? r.reminderHour ?? 19;
-    out.settings = { ...(r.settings || {}), ...(local.settings || {}) };
+    out.xp = Math.max(L.xp || 0, R.xp || 0);
+    out.streak = Math.max(L.streak || 0, R.streak || 0);
+    if ((R.lastActiveDate || "") > (L.lastActiveDate || "")) out.lastActiveDate = R.lastActiveDate;
+    out.notificationsEnabled = !!(L.notificationsEnabled || R.notificationsEnabled);
+    out.reminderHour = L.reminderHour ?? R.reminderHour ?? 19;
+    out.settings = { ...(R.settings || {}), ...(L.settings || {}) };
 
-    // days: union by date, prefer richer answered/lesson progress
-    out.days = { ...(r.days || {}) };
-    const ldays = local.days || {};
-    for (const [date, ld] of Object.entries(ldays)) {
-      const rd = out.days[date];
-      if (!rd) {
-        out.days[date] = ld;
-        continue;
-      }
-      const lAns = Object.keys(ld.answered || {}).length;
-      const rAns = Object.keys(rd.answered || {}).length;
-      const mergedAns = { ...(rd.answered || {}), ...(ld.answered || {}) };
-      const mergedLessons = { ...(rd.lessons || {}), ...(ld.lessons || {}) };
-      // deep-merge lesson sectionDone/checks
-      for (const [lid, lp] of Object.entries(ld.lessons || {})) {
-        const rp = mergedLessons[lid] || { sectionDone: [], checks: {} };
-        const sectionDone = Array.from(new Set([...(rp.sectionDone || []), ...(lp.sectionDone || [])]));
-        const checks = { ...(rp.checks || {}), ...(lp.checks || {}) };
-        mergedLessons[lid] = { sectionDone, checks };
-      }
-      const readingsDone = Array.from(new Set([...(rd.readingsDone || []), ...(ld.readingsDone || [])]));
-      out.days[date] = {
-        ...rd,
-        ...ld,
-        answered: mergedAns,
-        lessons: mergedLessons,
-        readingsDone,
-        completed: !!(rd.completed || ld.completed) || lAns + rAns > 0,
-      };
+    // Global lesson mastery (module-level, survives day changes + devices)
+    const masteryIds = new Set([
+      ...Object.keys(L.lessonMastery || {}),
+      ...Object.keys(R.lessonMastery || {}),
+    ]);
+    out.lessonMastery = {};
+    for (const id of masteryIds) {
+      out.lessonMastery[id] = mergeLessonProg(
+        (L.lessonMastery || {})[id],
+        (R.lessonMastery || {})[id]
+      );
     }
 
-    // wrong pool: keep higher miss counts
-    out.wrongPool = { ...(r.wrongPool || {}) };
-    for (const [id, meta] of Object.entries(local.wrongPool || {})) {
+    // Days: union all dates from both sides
+    const dates = new Set([...Object.keys(L.days || {}), ...Object.keys(R.days || {})]);
+    out.days = {};
+    for (const date of dates) {
+      out.days[date] = mergeDay((R.days || {})[date], (L.days || {})[date]);
+    }
+
+    out.wrongPool = { ...(R.wrongPool || {}) };
+    for (const [id, meta] of Object.entries(L.wrongPool || {})) {
       const cur = out.wrongPool[id];
       if (!cur || (meta.count || 0) >= (cur.count || 0)) out.wrongPool[id] = meta;
     }
 
-    // history: merge unique by id+ts, cap
-    const hist = [...(local.history || []), ...(r.history || [])];
+    const hist = [...(L.history || []), ...(R.history || [])];
     const seen = new Set();
     out.history = [];
     for (const h of hist) {
@@ -222,8 +240,8 @@
       if (out.history.length >= 400) break;
     }
 
-    out.updatedAt = Math.max(local.updatedAt || 0, r.updatedAt || 0, Date.now());
-    out.version = Math.max(local.version || 1, r.version || 1);
+    out.updatedAt = Math.max(L.updatedAt || 0, R.updatedAt || 0, Date.now());
+    out.version = Math.max(L.version || 1, R.version || 1, 3);
     return out;
   };
 

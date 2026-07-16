@@ -6,7 +6,7 @@
   const IDB_NAME = "soa_grind_db";
   const IDB_STORE = "progress";
   const DEFAULT_STATE = () => ({
-    version: 2,
+    version: 3,
     xp: 0,
     streak: 0,
     lastActiveDate: null,
@@ -15,6 +15,8 @@
     reminderHour: 19,
     updatedAt: 0,
     days: {},
+    /** Module-level lesson progress — synced across devices & days */
+    lessonMastery: {},
     wrongPool: {},
     history: [],
     settings: { dailyGoal: 20, grokBase: "https://grok.com/?q=" },
@@ -112,19 +114,178 @@
   }
   function lessonIdsFor(plan) {
     if (!plan) return [];
-    if (plan.lessonIds?.length) return plan.lessonIds.filter((id) => lessons[id]);
-    if (plan.lessonId && lessons[plan.lessonId]) return [plan.lessonId];
+    if (plan.lessonIds?.length) return plan.lessonIds.filter((id) => lessons[id] || id);
+    if (plan.lessonId && (lessons[plan.lessonId] || plan.lessonId)) return [plan.lessonId];
     return [];
   }
-  function ensureLessonProgress(date, lessonId) {
+
+  /** Resolved lesson for a day: base module + longer quiz-aligned bridge sections */
+  function resolveLesson(lessonId, date = todayISO()) {
+    const base = lessons[lessonId];
+    if (!base) return null;
+    const plan = dayPlan(date);
+    return enrichLessonForDay(base, plan);
+  }
+
+  function enrichLessonForDay(base, plan) {
+    const guides = window.SOA_TOPIC_GUIDES || {};
+    const topics = plan?.topicPrefs?.length ? plan.topicPrefs : base.topics || [];
+    const uniqueTopics = [...new Set(topics.length ? topics : ["general_misc"])];
+    const sampleIds = (plan?.assignedQuestionIds || []).slice(0, 8);
+    const samples = sampleIds.map((id) => qById.get(id)).filter(Boolean);
+
+    const bridge = [];
+
+    // --- Today's quiz alignment (longer, practical) ---
+    const topicLabels = uniqueTopics.map((t) => guides[t]?.label || t).join(" · ");
+    bridge.push({
+      id: "bridge_focus",
+      type: "concept",
+      title: `Today’s quiz focus${plan?.title ? ": " + plan.title : ""}`,
+      body:
+        `Your practice set today is built around:\n\n• Topics: ${topicLabels || "general probability tools"}\n` +
+        `• Target questions: ~${plan?.questionTarget ?? 20}\n` +
+        `• Mode: ${plan?.mode || "learn"}\n\n` +
+        `Before you open the quiz, you should be able to:\n` +
+        `1) Name the main technique each topic needs\n` +
+        `2) Write the key formula from memory\n` +
+        `3) Spot the usual wording traps\n\n` +
+        `This bridge is longer on purpose — treat it as the “lecture” for today’s problem types, not a skim.`,
+    });
+
+    for (const t of uniqueTopics.slice(0, 4)) {
+      const g = guides[t] || guides.general_misc;
+      const tech = (g.techniques || []).map((x, i) => `${i + 1}. ${x}`).join("\n");
+      const forms = (g.formulas || []).length
+        ? "\n\nCore formulas / identities:\n" + g.formulas.map((f) => `• ${f}`).join("\n")
+        : "";
+      const moves = (g.examMoves || []).length
+        ? "\n\nExam moves:\n" + g.examMoves.map((m) => `• ${m}`).join("\n")
+        : "";
+      bridge.push({
+        id: `bridge_topic_${t}`,
+        type: "concept",
+        title: `Deep dive — ${g.label}`,
+        body: `Technique checklist for ${g.label}:\n\n${tech}${forms}${moves}`,
+      });
+    }
+
+    // Worked pattern section from real today's stems (short previews)
+    if (samples.length) {
+      const lines = samples
+        .slice(0, 5)
+        .map((q, i) => {
+          const tags = (q.topics || []).join(", ") || q.cluster || "?";
+          const preview = (q.stem || "").replace(/\s+/g, " ").slice(0, 160);
+          return `${i + 1}. [${q.id}] topics: ${tags}\n   Pattern cue: ${preview}${(q.stem || "").length > 160 ? "…" : ""}`;
+        })
+        .join("\n\n");
+      bridge.push({
+        id: "bridge_patterns",
+        type: "example",
+        title: "Patterns from today’s assigned sample set",
+        setup: `These are cues from questions you may see in today’s quiz (official PDF crops in the quiz view):\n\n${lines}`,
+        solution:
+          "For each cue, pause and write:\n• What is X (or the event)?\n• Which family / rule applies?\n• What is the target probability or expectation in symbols?\nThen open the PDF crop only after you have a plan.",
+        why: "Exam P speed comes from classification, not from re-reading the stem five times. Aligning the lesson with today’s queue trains that reflex.",
+      });
+    }
+
+    bridge.push({
+      id: "bridge_playbook",
+      type: "concept",
+      title: "60-second playbook before each question",
+      body:
+        "Use this every time in today’s quiz:\n\n" +
+        "1) Underline the quantity asked (probability, mean, payment, …).\n" +
+        "2) Define the RV / events in one line.\n" +
+        "3) Choose the tool (counting, conditional/Bayes, named distribution, insurance transform, joint, CLT, …).\n" +
+        "4) Write the formula, then compute.\n" +
+        "5) Sanity-check: units, range 0–1 for probabilities, mean vs support.\n\n" +
+        "If the PDF shows a density or table, copy the support and parameters before integrating.",
+    });
+
+    bridge.push({
+      id: "bridge_check",
+      type: "check",
+      title: "Today readiness check",
+      prompt: `For today’s topics (${topicLabels || "today’s plan"}), what is the best first move on a new stem?`,
+      choices: {
+        A: "Start integrating or expanding factorials immediately",
+        B: "Define the random variable / events and name the tool, then write the target in symbols",
+        C: "Guess the distribution family from the answer choices only",
+        D: "Skip reading the support and endpoints",
+      },
+      answer: "B",
+      explain:
+        "Classification first. Most Exam P errors are wrong setup, not arithmetic. Today’s lesson + quiz both reward that habit.",
+    });
+
+    // Keep base sections, drop trailing checks to end with bridge_check (or keep base checks then bridge)
+    const baseSections = (base.sections || []).map((s) => ({ ...s }));
+    const minutes = (base.minutes || 30) + 25 + uniqueTopics.length * 8;
+
+    return {
+      ...base,
+      title: base.title,
+      minutes,
+      sections: [...baseSections, ...bridge],
+      _enriched: true,
+      _topics: uniqueTopics,
+    };
+  }
+
+  function ensureLessonMastery(lessonId) {
+    if (!state.lessonMastery) state.lessonMastery = {};
+    if (!state.lessonMastery[lessonId]) {
+      state.lessonMastery[lessonId] = { sectionDone: [], checks: {}, updatedAt: 0 };
+    }
+    return state.lessonMastery[lessonId];
+  }
+
+  /** Progress = global mastery ∪ day-local (both sync to cloud) */
+  function getLessonProgress(date, lessonId) {
     const day = ensureDay(date);
     if (!day.lessons[lessonId]) day.lessons[lessonId] = { sectionDone: [], checks: {} };
+    const local = day.lessons[lessonId];
+    const global = ensureLessonMastery(lessonId);
+    return {
+      sectionDone: Array.from(new Set([...(global.sectionDone || []), ...(local.sectionDone || [])])),
+      checks: { ...(global.checks || {}), ...(local.checks || {}) },
+    };
+  }
+
+  function ensureLessonProgress(date, lessonId) {
+    // Mutable day slice; also mirrored to global on write helpers
+    const day = ensureDay(date);
+    if (!day.lessons[lessonId]) day.lessons[lessonId] = { sectionDone: [], checks: {} };
+    // hydrate day from global so UI sees synced progress immediately
+    const g = ensureLessonMastery(lessonId);
+    day.lessons[lessonId].sectionDone = Array.from(
+      new Set([...(day.lessons[lessonId].sectionDone || []), ...(g.sectionDone || [])])
+    );
+    day.lessons[lessonId].checks = { ...(g.checks || {}), ...(day.lessons[lessonId].checks || {}) };
     return day.lessons[lessonId];
   }
+
+  function markLessonSection(date, lessonId, sectionId, kind, value) {
+    const dayProg = ensureLessonProgress(date, lessonId);
+    const global = ensureLessonMastery(lessonId);
+    if (kind === "section") {
+      if (!dayProg.sectionDone.includes(sectionId)) dayProg.sectionDone.push(sectionId);
+      if (!global.sectionDone.includes(sectionId)) global.sectionDone.push(sectionId);
+    } else if (kind === "check") {
+      dayProg.checks[sectionId] = value;
+      global.checks[sectionId] = value;
+    }
+    global.updatedAt = Date.now();
+    dayProg.updatedAt = Date.now();
+  }
+
   function isLessonComplete(date, lessonId) {
-    const lesson = lessons[lessonId];
+    const lesson = resolveLesson(lessonId, date) || lessons[lessonId];
     if (!lesson) return true;
-    const prog = ensureLessonProgress(date, lessonId);
+    const prog = getLessonProgress(date, lessonId);
     for (const s of lesson.sections || []) {
       if (s.type === "check") {
         if (!prog.checks[s.id]) return false;
@@ -139,11 +300,12 @@
   function lessonProgressPct(date = todayISO()) {
     const ids = lessonIdsFor(dayPlan(date));
     if (!ids.length) return 100;
-    let total = 0, done = 0;
+    let total = 0,
+      done = 0;
     for (const id of ids) {
-      const lesson = lessons[id];
+      const lesson = resolveLesson(id, date) || lessons[id];
       if (!lesson) continue;
-      const prog = ensureLessonProgress(date, id);
+      const prog = getLessonProgress(date, id);
       for (const s of lesson.sections || []) {
         total++;
         if (s.type === "check" ? prog.checks[s.id] : prog.sectionDone.includes(s.id)) done++;
@@ -236,18 +398,21 @@
       toast("No lesson module mapped for this day");
       return;
     }
+    // hydrate mastery from cloud-shaped state before seeking position
+    ids.forEach((id) => ensureLessonProgress(date, id));
     learn = { date, lessonIds: ids, lessonIndex: 0, sectionIndex: 0, selectedCheck: null, checkRevealed: false };
     seekFirstIncomplete();
     updateStreakOnActivity();
-    saveState();
+    saveState({ immediate: true });
     showView("learn");
     renderLearn();
   }
   function seekFirstIncomplete() {
     if (!learn) return;
     for (let li = 0; li < learn.lessonIds.length; li++) {
-      const lesson = lessons[learn.lessonIds[li]];
-      const prog = ensureLessonProgress(learn.date, lesson.id);
+      const lesson = resolveLesson(learn.lessonIds[li], learn.date);
+      if (!lesson) continue;
+      const prog = getLessonProgress(learn.date, lesson.id);
       for (let si = 0; si < lesson.sections.length; si++) {
         const s = lesson.sections[si];
         const ok = s.type === "check" ? !!prog.checks[s.id] : prog.sectionDone.includes(s.id);
@@ -261,11 +426,12 @@
       }
     }
     const lastL = learn.lessonIds.length - 1;
+    const lastLesson = resolveLesson(learn.lessonIds[lastL], learn.date);
     learn.lessonIndex = lastL;
-    learn.sectionIndex = (lessons[learn.lessonIds[lastL]].sections.length || 1) - 1;
+    learn.sectionIndex = (lastLesson?.sections?.length || 1) - 1;
   }
   function currentLesson() {
-    return learn ? lessons[learn.lessonIds[learn.lessonIndex]] : null;
+    return learn ? resolveLesson(learn.lessonIds[learn.lessonIndex], learn.date) : null;
   }
   function currentSection() {
     const lesson = currentLesson();
@@ -275,18 +441,16 @@
     const lesson = currentLesson();
     const section = currentSection();
     if (!lesson || !section || section.type === "check") return;
-    const prog = ensureLessonProgress(learn.date, lesson.id);
-    if (!prog.sectionDone.includes(section.id)) {
-      prog.sectionDone.push(section.id);
-      state.xp += 5;
-    }
+    const before = getLessonProgress(learn.date, lesson.id).sectionDone.includes(section.id);
+    markLessonSection(learn.date, lesson.id, section.id, "section", true);
+    if (!before) state.xp += 5;
     const day = ensureDay(learn.date);
     const plan = dayPlan(learn.date);
     (plan?.readings || []).forEach((r) => {
       if (!day.readingsDone.includes(r.id)) day.readingsDone.push(r.id);
     });
     updateStreakOnActivity();
-    saveState();
+    saveState({ immediate: true }); // critical for cross-device lesson sync
   }
   function advanceLearn() {
     const lesson = currentLesson();
@@ -308,7 +472,8 @@
       renderChrome();
       return;
     }
-    toast("Lesson complete — quiz unlocked");
+    toast("Lesson complete — quiz unlocked · synced");
+    saveState({ immediate: true });
     learn = null;
     showView("home");
     renderAll();
@@ -320,10 +485,11 @@
     const ok = learn.selectedCheck === section.answer;
     learn.checkRevealed = true;
     if (ok) {
-      ensureLessonProgress(learn.date, lesson.id).checks[section.id] = true;
-      state.xp += 8;
+      const already = !!getLessonProgress(learn.date, lesson.id).checks[section.id];
+      markLessonSection(learn.date, lesson.id, section.id, "check", true);
+      if (!already) state.xp += 8;
       updateStreakOnActivity();
-      saveState();
+      saveState({ immediate: true });
     }
     renderLearn();
     renderChrome();
@@ -651,6 +817,8 @@
     const left = daysUntil(target);
     const locked = !stats.lessonDone;
     const quote = "Precision under pressure is the whole game — define the random variable first.";
+    const guides = window.SOA_TOPIC_GUIDES || {};
+    const topicLine = (plan?.topicPrefs || []).map((t) => guides[t]?.label || t).join(" · ");
 
     if (!plan) {
       root.innerHTML = `<div class="card"><h2 class="text-lg font-semibold">No lesson mapped for today</h2>
@@ -661,14 +829,15 @@
 
     root.innerHTML = `
       <section class="card">
-        <div class="flex items-start justify-between gap-3">
-          <div>
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+          <div class="min-w-0 flex-1">
             <div class="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-brand">${escapeHtml(plan.phase)}</div>
-            <h1 class="mt-3 text-xl font-semibold tracking-tight text-ink leading-snug">${escapeHtml(plan.title)}</h1>
+            <h1 class="mt-3 text-xl md:text-2xl font-semibold tracking-tight text-ink leading-snug">${escapeHtml(plan.title)}</h1>
             <p class="mt-1.5 text-sm text-mute">${escapeHtml(plan.weekday)} · ${escapeHtml(plan.date)}${plan.fmLight ? " · light FM" : ""}</p>
+            ${topicLine ? `<p class="mt-2 text-sm font-medium text-brand">Quiz topics today: ${escapeHtml(topicLine)}</p>` : ""}
             <p class="mt-3 text-sm text-mute">Exam P target <span class="font-medium text-ink">${target}</span> · <span class="font-semibold text-brand">${left}d</span></p>
           </div>
-          ${ringSvg(stats.overall)}
+          <div class="shrink-0">${ringSvg(stats.overall)}</div>
         </div>
 
         <div class="mt-5 grid grid-cols-3 gap-2">
@@ -698,7 +867,7 @@
         </div>
       </section>
 
-      <section class="grid grid-cols-2 gap-3">
+      <section class="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <button type="button" class="card card-interactive text-left" id="quickWrong">
           <i data-lucide="rotate-ccw" class="h-5 w-5 text-brand"></i>
           <div class="mt-3 text-sm font-semibold">Wrong pool</div>
@@ -742,18 +911,21 @@
     if (!learn) {
       const plan = dayPlan();
       const ids = lessonIdsFor(plan);
+      const guides = window.SOA_TOPIC_GUIDES || {};
+      const topicLine = (plan?.topicPrefs || []).map((t) => guides[t]?.label || t).join(" · ");
       root.innerHTML = `
         <div class="card">
           <h2 class="text-lg font-semibold tracking-tight">Learn</h2>
-          <p class="mt-1 text-sm text-mute">Teach-first modules unlock today’s quiz.</p>
+          <p class="mt-1 text-sm text-mute">Longer teach-first modules aligned to today’s quiz topics. Progress syncs across devices when signed in.</p>
+          ${topicLine ? `<p class="mt-3 text-sm text-brand font-medium">Today’s quiz topics: ${escapeHtml(topicLine)}</p>` : ""}
           <div class="mt-4 space-y-2">
             ${ids.map((id) => {
-              const L = lessons[id];
+              const L = resolveLesson(id, todayISO()) || lessons[id];
               const done = isLessonComplete(todayISO(), id);
               return `<div class="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 px-3 py-3">
                 <div>
-                  <div class="text-sm font-semibold">${done ? "Completed" : "Pending"} · ${escapeHtml(L?.title || id)}</div>
-                  <div class="text-xs text-mute mt-0.5">${L?.minutes || "?"} min · ${(L?.sections || []).length} sections</div>
+                  <div class="text-sm font-semibold">${done ? "Synced · complete" : "In progress / pending"} · ${escapeHtml(L?.title || id)}</div>
+                  <div class="text-xs text-mute mt-0.5">~${L?.minutes || "?"} min · ${(L?.sections || []).length} sections (core + quiz bridge)</div>
                 </div>
               </div>`;
             }).join("") || `<p class="text-sm text-mute">No modules for today.</p>`}
@@ -771,7 +943,7 @@
       root.innerHTML = `<div class="card"><p class="text-mute">Lesson data missing.</p></div>`;
       return;
     }
-    const prog = ensureLessonProgress(learn.date, lesson.id);
+    const prog = getLessonProgress(learn.date, lesson.id);
     const dots = lesson.sections
       .map((s, i) => {
         const ok = s.type === "check" ? !!prog.checks[s.id] : prog.sectionDone.includes(s.id);
@@ -829,19 +1001,26 @@
         </div>`;
     }
 
+    const topicHint = (lesson._topics || [])
+      .map((t) => (window.SOA_TOPIC_GUIDES || {})[t]?.label || t)
+      .filter(Boolean)
+      .join(" · ");
     root.innerHTML = `
       <div class="card">
         <div class="flex items-center justify-between gap-2 text-xs text-mute">
-          <span>Module ${learn.lessonIndex + 1}/${learn.lessonIds.length}</span>
+          <span>Module ${learn.lessonIndex + 1}/${learn.lessonIds.length} · ~${lesson.minutes || "?"} min</span>
           <span>Section ${learn.sectionIndex + 1}/${lesson.sections.length}</span>
         </div>
         <h2 class="mt-2 text-lg font-semibold tracking-tight">${escapeHtml(lesson.title)}</h2>
+        ${topicHint ? `<p class="mt-1 text-xs font-medium text-brand">Aligned to: ${escapeHtml(topicHint)}</p>` : ""}
+        <p class="mt-1 text-xs text-mute">Progress is saved to cloud immediately when signed in — no re-take on other devices.</p>
         <div class="stepper">${dots}</div>
         <div class="lesson-section">${body}</div>
         <button class="btn-ghost w-full mt-3" id="btnExitLearn">Save & return to Today</button>
       </div>`;
 
     $("#btnExitLearn").onclick = () => {
+      saveState({ immediate: true });
       learn = null;
       showView("home");
       renderAll();
@@ -1386,8 +1565,8 @@
     if ("serviceWorker" in navigator) {
       try {
         const keys = await caches.keys();
-        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v4").map((k) => caches.delete(k)));
-        await navigator.serviceWorker.register("./sw.js?v=4");
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v5").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=5");
       } catch (e) {
         console.warn(e);
       }

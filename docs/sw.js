@@ -1,11 +1,12 @@
 /* SOA Grind PWA — network-first for app shell & data */
-const CACHE = "soa-grind-v4";
+const CACHE = "soa-grind-v5";
 const SHELL = [
   "./",
   "./index.html",
   "./css/styles.css",
   "./js/app.js",
   "./js/cloud.js",
+  "./js/topic_guides.js",
   "./manifest.json",
   "./icons/icon-192.svg",
   "./icons/icon-512.svg",
