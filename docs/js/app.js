@@ -2765,8 +2765,8 @@
     if ("serviceWorker" in navigator) {
       try {
         const keys = await caches.keys();
-        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v16").map((k) => caches.delete(k)));
-        await navigator.serviceWorker.register("./sw.js?v=16");
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v17").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=17");
       } catch (e) {
         console.warn(e);
       }
