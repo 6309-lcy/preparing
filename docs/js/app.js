@@ -1371,7 +1371,7 @@
         <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div class="min-w-0 flex-1">
             <div class="flex flex-wrap gap-2">
-              <div class="inline-flex items-center gap-1.5 rounded-full bg-slate-900 text-white px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide">${escapeHtml(courseMeta(state.activeCourseId)?.shortName || state.activeCourseId || "Exam P")}</div>
+              <div class="inline-flex items-center gap-1.5 rounded-full bg-brand text-white px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide">${escapeHtml(courseMeta(state.activeCourseId)?.shortName || state.activeCourseId || "Exam P")}</div>
               <div class="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-brand">${escapeHtml(plan.phase)}</div>
               ${plan.week ? `<div class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-600">Week ${plan.week}/14</div>` : ""}
               ${activePath ? `<div class="inline-flex items-center gap-1.5 rounded-full bg-violet-50 text-violet-800 px-2.5 py-1 text-[11px] font-semibold">Path ${pathPct}%</div>` : ""}
@@ -1478,14 +1478,14 @@
         </div>
       </section>
 
-      <section class="card border-slate-900/10 bg-slate-900 text-white">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <section class="card" style="background:var(--brand);border-color:var(--brand);color:#fffcfa">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <div class="text-[11px] font-semibold uppercase tracking-wide text-slate-300">Official-style CBT</div>
-            <h2 class="mt-1 text-lg font-semibold tracking-tight">Exam P mock · 30 Q · 3 hours</h2>
-            <p class="mt-1 text-sm text-slate-300">No Grok · flag & navigator · scaled score 0–10 (pass ≥ 6) · answer guide after submit</p>
+            <div class="text-[11px] font-semibold uppercase tracking-wide" style="color:#b7d4d0">Official-style CBT</div>
+            <h2 class="mt-1 text-lg font-semibold tracking-tight" style="color:#fffcfa">Exam P mock · 30 Q · 3 hours</h2>
+            <p class="mt-1 text-sm" style="color:#cfe5e2">No Grok · flag & navigator · scaled 0–10 (pass ≥ 6)</p>
           </div>
-          <button type="button" class="btn-primary shrink-0" id="btnHomeExam" style="background:linear-gradient(180deg,#14b8a6,#0f766e)">
+          <button type="button" class="btn-secondary shrink-0" id="btnHomeExam" style="background:#fffcfa;color:var(--brand);border-color:#fffcfa">
             Open exam mode
           </button>
         </div>
