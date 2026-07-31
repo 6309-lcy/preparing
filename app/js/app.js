@@ -146,8 +146,8 @@
     // Dedicated banks when present
     if (id === "FM") return bank.filter((q) => (q.exam || "") === "FM");
     if (id === "P") return bank.filter((q) => (q.exam || "P") === "P");
-    if (id === "FAM") {
-      const own = bank.filter((q) => (q.exam || "") === "FAM");
+    if (id === "FAM" || id === "SRM") {
+      const own = bank.filter((q) => (q.exam || "") === id);
       if (own.length) return own;
     }
     // Future courses: own bank if large enough, else P
@@ -2332,7 +2332,7 @@
     root.innerHTML = `
       <div class="card">
         <h1 class="text-xl font-semibold tracking-tight">Courses</h1>
-        <p class="mt-1 text-sm text-mute">Built <strong>one course at a time</strong>. Ready: <strong>P</strong>, <strong>FM</strong>, <strong>FAM</strong>. SRM is next; others stay queued.</p>
+        <p class="mt-1 text-sm text-mute">Built <strong>one course at a time</strong>. Ready: <strong>P</strong>, <strong>FM</strong>, <strong>FAM</strong>, <strong>SRM</strong>. PA is next; others stay queued.</p>
         <p class="mt-2 text-xs text-mute">Mix: <strong>40% reading</strong> · <strong>50% practice</strong> · <strong>10% mock</strong> · multi-level days OK.</p>
       </div>
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
@@ -2747,8 +2747,8 @@
     if ("serviceWorker" in navigator) {
       try {
         const keys = await caches.keys();
-        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v15").map((k) => caches.delete(k)));
-        await navigator.serviceWorker.register("./sw.js?v=15");
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v16").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=16");
       } catch (e) {
         console.warn(e);
       }

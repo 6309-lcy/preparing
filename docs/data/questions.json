@@ -37134,5 +37134,1091 @@
       "data/qimg/P-SOA-383_b.png"
     ],
     "displayMode": "image"
+  },
+  {
+    "id": "SRM-DRILL-1",
+    "number": 1,
+    "exam": "SRM",
+    "stem": "Supervised learning requires:",
+    "stemRaw": "Supervised learning requires:",
+    "choices": {
+      "A": "No labeled response variable",
+      "B": "A labeled target Y for training",
+      "C": "Only principal components",
+      "D": "Only dendrograms",
+      "E": "Only ARIMA orders"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "learning"
+    ],
+    "cluster": "learning",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-2",
+    "number": 2,
+    "exam": "SRM",
+    "stem": "A model with excellent training performance but poor test performance is typically:",
+    "stemRaw": "A model with excellent training performance but poor test performance is typically:",
+    "choices": {
+      "A": "Underfitting",
+      "B": "Overfitting",
+      "C": "Unbiased and efficient always",
+      "D": "A perfect causal model",
+      "E": "Impossible"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "learning"
+    ],
+    "cluster": "learning",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-3",
+    "number": 3,
+    "exam": "SRM",
+    "stem": "k-fold cross-validation is mainly used to:",
+    "stemRaw": "k-fold cross-validation is mainly used to:",
+    "choices": {
+      "A": "Increase training R² only",
+      "B": "Estimate out-of-sample performance / select models",
+      "C": "Compute PCA loadings",
+      "D": "Force stationarity",
+      "E": "Replace all residual plots"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "learning"
+    ],
+    "cluster": "learning",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-4",
+    "number": 4,
+    "exam": "SRM",
+    "stem": "Using a feature that is only known after the outcome occurs is an example of:",
+    "stemRaw": "Using a feature that is only known after the outcome occurs is an example of:",
+    "choices": {
+      "A": "Good practice",
+      "B": "Data leakage risk",
+      "C": "Bagging",
+      "D": "An offset term",
+      "E": "Seasonality"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "learning"
+    ],
+    "cluster": "learning",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-5",
+    "number": 5,
+    "exam": "SRM",
+    "stem": "In a multiple linear regression, β_j is interpreted as:",
+    "stemRaw": "In a multiple linear regression, β_j is interpreted as:",
+    "choices": {
+      "A": "Correlation of Y with all X",
+      "B": "Expected change in Y per unit X_j holding other predictors fixed",
+      "C": "Always a causal effect",
+      "D": "The R² contribution only",
+      "E": "The residual variance"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "linear"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-6",
+    "number": 6,
+    "exam": "SRM",
+    "stem": "R² measures:",
+    "stemRaw": "R² measures:",
+    "choices": {
+      "A": "Causal identification",
+      "B": "Fraction of variance in Y explained by the model (in-sample)",
+      "C": "Test accuracy only",
+      "D": "VIF",
+      "E": "ACF at lag 1"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "linear"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-7",
+    "number": 7,
+    "exam": "SRM",
+    "stem": "A GLM consists of a random component, a linear predictor, and a:",
+    "stemRaw": "A GLM consists of a random component, a linear predictor, and a:",
+    "choices": {
+      "A": "Kernel density only",
+      "B": "Link function",
+      "C": "Dendrogram",
+      "D": "Seasonal period only",
+      "E": "Bootstrap forest only"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "glm"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-8",
+    "number": 8,
+    "exam": "SRM",
+    "stem": "With a log link, a coefficient β=0.1 multiplies the mean by approximately:",
+    "stemRaw": "With a log link, a coefficient β=0.1 multiplies the mean by approximately:",
+    "choices": {
+      "A": "0.1",
+      "B": "e^{0.1}",
+      "C": "log(0.1)",
+      "D": "1.1 without exponential always",
+      "E": "0.9"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "glm"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-9",
+    "number": 9,
+    "exam": "SRM",
+    "stem": "For binary outcomes, a common GLM choice is:",
+    "stemRaw": "For binary outcomes, a common GLM choice is:",
+    "choices": {
+      "A": "Poisson with identity link only",
+      "B": "Binomial with logit link (logistic regression)",
+      "C": "k-means",
+      "D": "PCA without Y",
+      "E": "AR(1) only"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "glm"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-10",
+    "number": 10,
+    "exam": "SRM",
+    "stem": "An offset in a count GLM is typically used to account for:",
+    "stemRaw": "An offset in a count GLM is typically used to account for:",
+    "choices": {
+      "A": "Random forests",
+      "B": "Exposure / population at risk",
+      "C": "Principal component rotation",
+      "D": "Seasonal dummy colors",
+      "E": "Tree depth"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "glm"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-11",
+    "number": 11,
+    "exam": "SRM",
+    "stem": "Compared with AIC, BIC generally:",
+    "stemRaw": "Compared with AIC, BIC generally:",
+    "choices": {
+      "A": "Penalizes complexity less",
+      "B": "Penalizes complexity more for large n",
+      "C": "Ignores the likelihood",
+      "D": "Only applies to time series",
+      "E": "Is identical always"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "glm",
+      "learning"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-12",
+    "number": 12,
+    "exam": "SRM",
+    "stem": "Multicollinearity in regression tends to:",
+    "stemRaw": "Multicollinearity in regression tends to:",
+    "choices": {
+      "A": "Reduce residual variance to zero always",
+      "B": "Inflate coefficient standard errors and destabilize estimates",
+      "C": "Guarantee causality",
+      "D": "Remove the need for an intercept",
+      "E": "Force R² negative"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "linear"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-13",
+    "number": 13,
+    "exam": "SRM",
+    "stem": "Poisson GLM, log link, coefficient on rating factor = 0.05. A one-unit increase multiplies expected count by about:",
+    "stemRaw": "Poisson GLM, log link, coefficient on rating factor = 0.05. A one-unit increase multiplies expected count by about:",
+    "choices": {
+      "A": "1.0513",
+      "B": "0.05",
+      "C": "1.0500",
+      "D": "-0.0500",
+      "E": "1.1052"
+    },
+    "answer": "A",
+    "lo": "SRM",
+    "topics": [
+      "glm"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-14",
+    "number": 14,
+    "exam": "SRM",
+    "stem": "Poisson GLM, log link, coefficient on rating factor = 0.2. A one-unit increase multiplies expected count by about:",
+    "stemRaw": "Poisson GLM, log link, coefficient on rating factor = 0.2. A one-unit increase multiplies expected count by about:",
+    "choices": {
+      "A": "1.2214",
+      "B": "0.2",
+      "C": "1.2000",
+      "D": "-0.2000",
+      "E": "1.4918"
+    },
+    "answer": "A",
+    "lo": "SRM",
+    "topics": [
+      "glm"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-15",
+    "number": 15,
+    "exam": "SRM",
+    "stem": "Poisson GLM, log link, coefficient on rating factor = -0.1. A one-unit increase multiplies expected count by about:",
+    "stemRaw": "Poisson GLM, log link, coefficient on rating factor = -0.1. A one-unit increase multiplies expected count by about:",
+    "choices": {
+      "A": "0.9048",
+      "B": "-0.1",
+      "C": "0.9000",
+      "D": "0.1000",
+      "E": "0.8187"
+    },
+    "answer": "A",
+    "lo": "SRM",
+    "topics": [
+      "glm"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-16",
+    "number": 16,
+    "exam": "SRM",
+    "stem": "Poisson GLM, log link, coefficient on rating factor = 0.5. A one-unit increase multiplies expected count by about:",
+    "stemRaw": "Poisson GLM, log link, coefficient on rating factor = 0.5. A one-unit increase multiplies expected count by about:",
+    "choices": {
+      "A": "1.6487",
+      "B": "0.5",
+      "C": "1.5000",
+      "D": "-0.5000",
+      "E": "2.7183"
+    },
+    "answer": "A",
+    "lo": "SRM",
+    "topics": [
+      "glm"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-17",
+    "number": 17,
+    "exam": "SRM",
+    "stem": "A weakly stationary series has roughly constant:",
+    "stemRaw": "A weakly stationary series has roughly constant:",
+    "choices": {
+      "A": "Only sample size",
+      "B": "Mean and autocovariance structure over time",
+      "C": "Forecast software version",
+      "D": "Number of trees",
+      "E": "PCA rank only"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "time_series"
+    ],
+    "cluster": "time_series",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-18",
+    "number": 18,
+    "exam": "SRM",
+    "stem": "An AR(1) model expresses Y_t primarily as a function of:",
+    "stemRaw": "An AR(1) model expresses Y_t primarily as a function of:",
+    "choices": {
+      "A": "Only future values",
+      "B": "Its own lagged value plus an error",
+      "C": "Only a seasonal dummy without lag",
+      "D": "Only PCA scores",
+      "E": "Only a random forest leaf"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "time_series"
+    ],
+    "cluster": "time_series",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-19",
+    "number": 19,
+    "exam": "SRM",
+    "stem": "Differencing in ARIMA is mainly used to:",
+    "stemRaw": "Differencing in ARIMA is mainly used to:",
+    "choices": {
+      "A": "Increase seasonality always",
+      "B": "Help achieve stationarity by removing stochastic trends",
+      "C": "Compute VIF",
+      "D": "Grow deeper trees",
+      "E": "Replace cross-validation"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "time_series"
+    ],
+    "cluster": "time_series",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-20",
+    "number": 20,
+    "exam": "SRM",
+    "stem": "Forecast intervals for many time series models typically:",
+    "stemRaw": "Forecast intervals for many time series models typically:",
+    "choices": {
+      "A": "Shrink as the horizon increases",
+      "B": "Widen as the horizon increases",
+      "C": "Are always points with zero width",
+      "D": "Ignore residual variance",
+      "E": "Equal training R²"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "time_series"
+    ],
+    "cluster": "time_series",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-21",
+    "number": 21,
+    "exam": "SRM",
+    "stem": "Exponential smoothing forecasts place relatively more weight on:",
+    "stemRaw": "Exponential smoothing forecasts place relatively more weight on:",
+    "choices": {
+      "A": "The oldest observations only",
+      "B": "More recent observations",
+      "C": "Only PCA loadings",
+      "D": "Only classification purity",
+      "E": "Negative time only"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "time_series"
+    ],
+    "cluster": "time_series",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-22",
+    "number": 22,
+    "exam": "SRM",
+    "stem": "Deep unpruned decision trees tend to:",
+    "stemRaw": "Deep unpruned decision trees tend to:",
+    "choices": {
+      "A": "Underfit always",
+      "B": "Overfit training data",
+      "C": "Have zero training error only if features are constant",
+      "D": "Be identical to logistic regression",
+      "E": "Ignore interactions"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "trees"
+    ],
+    "cluster": "trees",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-23",
+    "number": 23,
+    "exam": "SRM",
+    "stem": "Pruning a tree using validation error aims to:",
+    "stemRaw": "Pruning a tree using validation error aims to:",
+    "choices": {
+      "A": "Maximize training purity only",
+      "B": "Balance fit vs generalization",
+      "C": "Force more splits always",
+      "D": "Remove the response variable",
+      "E": "Compute ACF"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "trees"
+    ],
+    "cluster": "trees",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-24",
+    "number": 24,
+    "exam": "SRM",
+    "stem": "Bagging reduces error mainly by:",
+    "stemRaw": "Bagging reduces error mainly by:",
+    "choices": {
+      "A": "Increasing tree correlation always",
+      "B": "Averaging many bootstrap trees to reduce variance",
+      "C": "Deleting all features",
+      "D": "Using a single unpruned tree only",
+      "E": "Ignoring bootstrap samples"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "trees",
+      "ensembles"
+    ],
+    "cluster": "trees",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-25",
+    "number": 25,
+    "exam": "SRM",
+    "stem": "Random forests add randomness by:",
+    "stemRaw": "Random forests add randomness by:",
+    "choices": {
+      "A": "Using only one feature globally",
+      "B": "Considering random feature subsets at splits (plus bagging)",
+      "C": "Removing the response",
+      "D": "Forcing linear splits only",
+      "E": "Using test labels in training"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "trees",
+      "ensembles"
+    ],
+    "cluster": "trees",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-26",
+    "number": 26,
+    "exam": "SRM",
+    "stem": "Boosting builds models that:",
+    "stemRaw": "Boosting builds models that:",
+    "choices": {
+      "A": "Ignore previous errors",
+      "B": "Sequentially focus on residuals / hard examples",
+      "C": "Are always unsupervised",
+      "D": "Cannot overfit",
+      "E": "Replace PCA"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "trees",
+      "ensembles"
+    ],
+    "cluster": "trees",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-27",
+    "number": 27,
+    "exam": "SRM",
+    "stem": "Out-of-bag (OOB) error in random forests approximates:",
+    "stemRaw": "Out-of-bag (OOB) error in random forests approximates:",
+    "choices": {
+      "A": "Training purity only",
+      "B": "Test / generalization error",
+      "C": "ACF",
+      "D": "VIF",
+      "E": "Link function"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "trees",
+      "ensembles"
+    ],
+    "cluster": "trees",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-28",
+    "number": 28,
+    "exam": "SRM",
+    "stem": "The first principal component is the direction of:",
+    "stemRaw": "The first principal component is the direction of:",
+    "choices": {
+      "A": "Minimum variance",
+      "B": "Maximum variance",
+      "C": "The response Y only",
+      "D": "Time exclusively",
+      "E": "Zero loadings always"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "pca"
+    ],
+    "cluster": "pca_cluster",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-29",
+    "number": 29,
+    "exam": "SRM",
+    "stem": "Before PCA, when variables have different units, one should usually:",
+    "stemRaw": "Before PCA, when variables have different units, one should usually:",
+    "choices": {
+      "A": "Never scale",
+      "B": "Standardize / scale features",
+      "C": "Delete all continuous features",
+      "D": "Use only the target as a feature",
+      "E": "Force k=1 in k-means"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "pca"
+    ],
+    "cluster": "pca_cluster",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-30",
+    "number": 30,
+    "exam": "SRM",
+    "stem": "k-means clustering is primarily:",
+    "stemRaw": "k-means clustering is primarily:",
+    "choices": {
+      "A": "Supervised classification",
+      "B": "Unsupervised segmentation",
+      "C": "A GLM link",
+      "D": "An ARIMA order",
+      "E": "A boosting loss"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "clustering"
+    ],
+    "cluster": "pca_cluster",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-31",
+    "number": 31,
+    "exam": "SRM",
+    "stem": "A dendrogram is associated with:",
+    "stemRaw": "A dendrogram is associated with:",
+    "choices": {
+      "A": "Logistic regression coefficients only",
+      "B": "Hierarchical clustering",
+      "C": "Only exponential smoothing",
+      "D": "Only bagging votes",
+      "E": "Only R²"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "clustering"
+    ],
+    "cluster": "pca_cluster",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-32",
+    "number": 32,
+    "exam": "SRM",
+    "stem": "PCA is often used to:",
+    "stemRaw": "PCA is often used to:",
+    "choices": {
+      "A": "Replace the need for any model validation",
+      "B": "Reduce dimensionality / summarize correlated features",
+      "C": "Forecast seasonal periods directly without data",
+      "D": "Label supervised classes automatically always",
+      "E": "Compute claim reserves from life tables"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "pca"
+    ],
+    "cluster": "pca_cluster",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-33",
+    "number": 33,
+    "exam": "SRM",
+    "stem": "Classification problems have a response that is primarily:",
+    "stemRaw": "Classification problems have a response that is primarily:",
+    "choices": {
+      "A": "Continuous numeric only",
+      "B": "Categorical / class labels",
+      "C": "A principal component score only",
+      "D": "Always missing",
+      "E": "A time index only"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "learning"
+    ],
+    "cluster": "learning",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-34",
+    "number": 34,
+    "exam": "SRM",
+    "stem": "Heteroscedasticity in linear regression means:",
+    "stemRaw": "Heteroscedasticity in linear regression means:",
+    "choices": {
+      "A": "Constant residual variance",
+      "B": "Non-constant residual variance",
+      "C": "Perfect collinearity only",
+      "D": "Zero R²",
+      "E": "No intercept"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "linear"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-35",
+    "number": 35,
+    "exam": "SRM",
+    "stem": "A logit link models:",
+    "stemRaw": "A logit link models:",
+    "choices": {
+      "A": "log(μ)",
+      "B": "log(odds) = log(μ/(1−μ))",
+      "C": "μ directly only",
+      "D": "Only counts with identity",
+      "E": "PCA eigenvalues"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "glm"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-36",
+    "number": 36,
+    "exam": "SRM",
+    "stem": "Seasonality in a time series refers to:",
+    "stemRaw": "Seasonality in a time series refers to:",
+    "choices": {
+      "A": "One-time level shifts only",
+      "B": "Repeating patterns at fixed periods (e.g. monthly)",
+      "C": "Only white noise",
+      "D": "Only tree depth",
+      "E": "Only VIF > 10"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "time_series"
+    ],
+    "cluster": "time_series",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-37",
+    "number": 37,
+    "exam": "SRM",
+    "stem": "Variable importance in a random forest reflects:",
+    "stemRaw": "Variable importance in a random forest reflects:",
+    "choices": {
+      "A": "Alphabetical order of names",
+      "B": "Contribution of features to reducing error / impurity across trees",
+      "C": "Only the intercept",
+      "D": "Only time order",
+      "E": "Only test labels leaked in"
+    },
+    "answer": "B",
+    "lo": "SRM",
+    "topics": [
+      "trees",
+      "ensembles"
+    ],
+    "cluster": "trees",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-38",
+    "number": 38,
+    "exam": "SRM",
+    "stem": "Log-link GLM: η = 1.0 + 0.5·x. At x=2.0, fitted mean μ equals:",
+    "stemRaw": "Log-link GLM: η = 1.0 + 0.5·x. At x=2.0, fitted mean μ equals:",
+    "choices": {
+      "A": "7.3891",
+      "B": "2.0000",
+      "C": "1.0000",
+      "D": "0.5000",
+      "E": "2.0000"
+    },
+    "answer": "A",
+    "lo": "SRM",
+    "topics": [
+      "glm"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-39",
+    "number": 39,
+    "exam": "SRM",
+    "stem": "Log-link GLM: η = 0.0 + 1.0·x. At x=0.0, fitted mean μ equals:",
+    "stemRaw": "Log-link GLM: η = 0.0 + 1.0·x. At x=0.0, fitted mean μ equals:",
+    "choices": {
+      "A": "1.0000",
+      "B": "0.0000",
+      "C": "0.0000",
+      "D": "1.0000",
+      "E": "0.0000"
+    },
+    "answer": "A",
+    "lo": "SRM",
+    "topics": [
+      "glm"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
+  },
+  {
+    "id": "SRM-DRILL-40",
+    "number": 40,
+    "exam": "SRM",
+    "stem": "Log-link GLM: η = 2.0 + -0.5·x. At x=4.0, fitted mean μ equals:",
+    "stemRaw": "Log-link GLM: η = 2.0 + -0.5·x. At x=4.0, fitted mean μ equals:",
+    "choices": {
+      "A": "1.0000",
+      "B": "0.0000",
+      "C": "-4.0000",
+      "D": "2.5000",
+      "E": "4.0000"
+    },
+    "answer": "A",
+    "lo": "SRM",
+    "topics": [
+      "glm"
+    ],
+    "cluster": "linear_glm",
+    "source": "SOA Grind authored SRM drill (not official SOA sample)",
+    "quality": "drill",
+    "qualityNotes": [
+      "authored for course practice"
+    ],
+    "images": [],
+    "displayMode": "text"
   }
 ]

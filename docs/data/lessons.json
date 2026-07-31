@@ -1820,7 +1820,7 @@
   "srm_setup": {
     "id": "srm_setup",
     "title": "Exam SRM orientation",
-    "minutes": 20,
+    "minutes": 25,
     "lo": [
       "SRM"
     ],
@@ -1828,41 +1828,61 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "What SRM covers",
-        "body": "Statistics for Risk Modeling: supervised learning, GLMs, time series, PCA/clustering, tree-based models.\nYou need conceptual fluency + interpretation of model output, not production ML engineering."
+        "title": "What SRM tests",
+        "body": "Exam SRM (Statistics for Risk Modeling) is a 3.5-hour CBT with ~35 multiple-choice questions.\n\nApproximate weights:\n• Basics of statistical learning ~5–10%\n• Linear models (regression + GLMs) ~40–50%  ← largest\n• Time series ~10–15%\n• Decision trees & ensembles ~20–25%\n• PCA & clustering ~10–15%\n\nSRM is concept-heavy: interpret models, diagnose issues, choose methods — not production ML engineering."
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "Study rhythm",
+        "body": "Path: Learn → Practice → Drill → Chapter test (≥70%).\nSpend the most time on linear models/GLMs. Last two weeks: mixed mocks only."
+      },
+      {
+        "id": "s3",
         "type": "check",
-        "title": "Not the focus",
-        "prompt": "SRM is least about:",
+        "title": "Biggest block",
+        "prompt": "Which topic usually has the largest exam weight?",
         "choices": {
-          "A": "GLM interpretation",
-          "B": "Writing Kubernetes configs",
-          "C": "Train/test ideas",
-          "D": "Time series components"
+          "A": "Only PCA",
+          "B": "Linear models / GLMs",
+          "C": "Only k-means",
+          "D": "Only AR(1) formula memorization without interpretation"
         },
         "answer": "B",
-        "explain": "It is a modeling/statistics exam, not devops."
+        "explain": "Linear models (including GLMs) dominate the syllabus weight."
       }
     ]
   },
   "srm_learn": {
     "id": "srm_learn",
-    "title": "Problem framing & learning workflow",
-    "minutes": 35,
+    "title": "Basics of statistical learning",
+    "minutes": 45,
     "lo": [
-      "SRM"
+      "SRM1"
     ],
     "sections": [
       {
         "id": "s1",
         "type": "concept",
-        "title": "Train / validation / test",
-        "body": "Split data to estimate generalization.\nBias–variance tradeoff: flexible models can overfit.\nCross-validation estimates out-of-sample error.\nFeature engineering and leakage awareness matter."
+        "title": "Problem types",
+        "body": "Supervised vs unsupervised.\nRegression (numeric Y) vs classification (categorical Y).\nTraining / validation / test splits estimate generalization.\nBias–variance tradeoff: flexible models can overfit; rigid models underfit.\nCross-validation (e.g. k-fold) for model selection when data are limited."
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "Workflow pitfalls",
+        "body": "Data leakage: using future or target-derived features.\nImbalance: accuracy can mislead — prefer precision/recall/AUC as appropriate.\nFeature scaling matters for distance-based methods and some regularized models.\nInterpretability vs predictive accuracy tradeoff — exam stems often ask which matters for the business goal."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Worked: overfitting signal",
+        "setup": "Train R²=0.98, test R²=0.40. What happened?",
+        "solution": "Overfitting: model memorized training noise; fails out of sample.\nRemedies: simplify, regularize, more data, early stopping, better CV.",
+        "why": "Always compare train vs holdout metrics."
+      },
+      {
+        "id": "s4",
         "type": "check",
         "title": "Overfitting",
         "prompt": "Overfitting typically means:",
@@ -1870,7 +1890,7 @@
           "A": "Great train, weak test performance",
           "B": "Weak train, great test",
           "C": "No features",
-          "D": "Perfect causality"
+          "D": "Perfect causal identification"
         },
         "answer": "A",
         "explain": "Memorizing training noise fails on new data."
@@ -1879,28 +1899,42 @@
   },
   "srm_glm": {
     "id": "srm_glm",
-    "title": "GLMs for count & severity style responses",
-    "minutes": 45,
+    "title": "Generalized linear models",
+    "minutes": 55,
     "lo": [
-      "SRM"
+      "SRM2"
     ],
     "sections": [
       {
         "id": "s1",
         "type": "concept",
         "title": "GLM structure",
-        "body": "Random component (exponential family), linear predictor η=Xβ, link g(μ)=η.\nLog link for positive means; logit for probabilities.\nCoefficients: for log link, e^{β} is a multiplicative effect.\nOffset terms appear with exposure."
+        "body": "Three parts:\n1) Random: Y from exponential family (Normal, Poisson, Binomial, Gamma, …)\n2) Linear predictor: η = Xβ\n3) Link: g(μ)=η  so μ = g^{−1}(Xβ)\n\nCommon links: identity (normal), log (positive means, counts), logit (probabilities).\nOffset: known exposure on the linear predictor (e.g. log(exposure) for rates)."
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "Interpretation",
+        "body": "Log link: e^{βj} multiplies the mean when Xj increases by 1 (multiplicative effect).\nLogit link: e^{βj} is an odds ratio for a unit increase in Xj.\nDeviance / residual diagnostics; overdispersion for Poisson (maybe NB instead)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Worked: log link",
+        "setup": "Poisson GLM with log link, β_age=0.02. Effect of +1 year of age?",
+        "solution": "Mean multiplies by e^{0.02} ≈ 1.0202 (~2% increase), holding others fixed.",
+        "why": "Never treat log-link coefficients as additive on the mean scale."
+      },
+      {
+        "id": "s4",
         "type": "check",
         "title": "Log link",
-        "prompt": "With log link, a coefficient β=0.2 roughly multiplies mean by:",
+        "prompt": "With log link, coefficient β=0.2 multiplies the mean by about:",
         "choices": {
           "A": "0.2",
           "B": "e^{0.2}",
-          "C": "1.2 exactly always",
-          "D": "log(0.2)"
+          "C": "log(0.2)",
+          "D": "1.2 exactly always without e"
         },
         "answer": "B",
         "explain": "μ ∝ e^{Xβ}; unit increase multiplies by e^β."
@@ -1909,31 +1943,45 @@
   },
   "srm_ts": {
     "id": "srm_ts",
-    "title": "Time series components & forecasting ideas",
-    "minutes": 40,
+    "title": "Time series models",
+    "minutes": 50,
     "lo": [
-      "SRM"
+      "SRM3"
     ],
     "sections": [
       {
         "id": "s1",
         "type": "concept",
-        "title": "Trend, seasonality, noise",
-        "body": "Decompose series; stationary vs nonstationary.\nAR, MA, ARIMA intuition: lags of series and shocks.\nACF/PACF patterns guide orders (conceptually).\nForecast intervals widen with horizon."
+        "title": "Components & stationarity",
+        "body": "Trend, seasonality, cycle, irregular noise.\nStationarity: stable mean/variance/dependence over time (weak stationarity ideas).\nDifferencing and transformations can reduce nonstationarity.\nACF/PACF patterns guide AR/MA orders (conceptual recognition)."
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "AR, MA, ARIMA, smoothing",
+        "body": "AR(p): regress on past values.\nMA(q): regress on past shocks.\nARIMA: differencing + ARMA.\nExponential smoothing: weighted recent observations; good for short-term forecasts.\nForecast uncertainty generally widens with horizon."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Worked: AR(1) intuition",
+        "setup": "Y_t = 0.7 Y_{t−1} + ε_t. What does 0.7 mean?",
+        "solution": "Strong persistence: yesterday's level heavily influences today; shocks decay geometrically.",
+        "why": "Interpretation beats memorizing only formulas."
+      },
+      {
+        "id": "s4",
         "type": "check",
         "title": "Stationarity",
-        "prompt": "A stationary series has roughly stable:",
+        "prompt": "A weakly stationary series has roughly stable:",
         "choices": {
-          "A": "Only maximum value",
+          "A": "Only the maximum value",
           "B": "Mean/variance structure over time",
           "C": "Sample size",
           "D": "Software version"
         },
         "answer": "B",
-        "explain": "Classical stationarity assumptions target stable moments/dependence."
+        "explain": "Classical stationarity targets stable moments/dependence."
       }
     ]
   },
@@ -1969,38 +2017,52 @@
   },
   "srm_trees": {
     "id": "srm_trees",
-    "title": "Trees, bagging, random forests, boosting (concepts)",
-    "minutes": 40,
+    "title": "Decision trees (CART)",
+    "minutes": 50,
     "lo": [
-      "SRM"
+      "SRM4"
     ],
     "sections": [
       {
         "id": "s1",
         "type": "concept",
-        "title": "Tree family",
-        "body": "Decision trees partition feature space; easy to overfit if deep.\nBagging/RF: average many trees, reduce variance; RF also randomizes features.\nBoosting: sequential focus on residuals/errors; strong predictive performance, less interpretable."
+        "title": "How trees work",
+        "body": "Recursive binary splits partition feature space to reduce impurity (classification) or SSE (regression).\nDeep trees overfit; prune using cost-complexity / validation error.\nPros: nonlinearities, interactions, mixed feature types, interpretability of a single tree.\nCons: high variance, unstable splits, stepwise predictions."
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "Reading a tree",
+        "body": "Follow decision rules from root to leaf.\nVariable importance: total impurity decrease from splits on that feature.\nMissing values and categorical splits are handled by the algorithm's rules (know conceptually)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Worked: prune decision",
+        "setup": "Train error falls as tree grows; validation error U-shapes. Where to stop?",
+        "solution": "Choose size near minimum validation error (or 1-SE rule), not the deepest train-perfect tree.",
+        "why": "Validation, not training purity, guides pruning."
+      },
+      {
+        "id": "s4",
         "type": "check",
-        "title": "RF idea",
-        "prompt": "Random forests mainly reduce error by:",
+        "title": "Overfit trees",
+        "prompt": "Very deep trees without pruning tend to:",
         "choices": {
-          "A": "Deleting all features",
-          "B": "Averaging many de-correlated trees",
-          "C": "Using only linear regression",
-          "D": "Ignoring bootstrap"
+          "A": "Underfit always",
+          "B": "Overfit training data",
+          "C": "Have zero variance",
+          "D": "Ignore all features"
         },
         "answer": "B",
-        "explain": "Ensemble averaging + feature randomness."
+        "explain": "They memorize training partitions."
       }
     ]
   },
   "srm_final": {
     "id": "srm_final",
     "title": "SRM wrap-up",
-    "minutes": 25,
+    "minutes": 30,
     "lo": [
       "SRM"
     ],
@@ -2008,8 +2070,8 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Interpretation first",
-        "body": "On exam day, read the stem for the modeling goal, metric, and pitfall (leakage, imbalance, overfitting)."
+        "title": "Exam-day priorities",
+        "body": "Read the stem for the goal: prediction vs explanation, regression vs classification, supervised vs unsupervised.\nFor GLMs, translate coefficients via the link.\nFor trees/ensembles, think bias–variance and interpretability.\nFor time series, stationarity and forecast horizon.\nFormula sheet light — concepts heavy."
       },
       {
         "id": "s2",
@@ -2700,6 +2762,196 @@
         },
         "answer": "B",
         "explain": "That's the definition of the equivalence principle (net)."
+      }
+    ]
+  },
+  "srm_lm": {
+    "id": "srm_lm",
+    "title": "Linear regression essentials",
+    "minutes": 50,
+    "lo": [
+      "SRM2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "OLS model",
+        "body": "Y = β0 + β1 X1 + … + βp Xp + ε.\nAssumptions (classical): linearity in parameters, independent errors, constant variance, (for inference) normality.\nInterpret βj as expected change in Y per unit Xj holding others fixed (ceteris paribus).\nR² = 1 − SS_res/SS_tot; adjusted R² penalizes extra predictors.\nResiduals diagnose curvature, heteroscedasticity, outliers."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Inference & collinearity",
+        "body": "t-tests for coefficients; F-test for overall regression.\nMulticollinearity: inflated SEs, unstable coefficients — check VIF/correlations.\nCategorical predictors via dummy variables (drop one level as baseline)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Worked: coefficient meaning",
+        "setup": "Model: claim_cost = 200 + 15·age − 40·safe_driver. Interpret −40.",
+        "solution": "Holding age fixed, expected claim cost is 40 lower for safe drivers than the baseline group.",
+        "why": "Always state the holding-others-fixed condition."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "R²",
+        "prompt": "R² measures:",
+        "choices": {
+          "A": "Causal effect size only",
+          "B": "Fraction of variance in Y explained by the model",
+          "C": "Always the best model selector alone",
+          "D": "Test-set accuracy only"
+        },
+        "answer": "B",
+        "explain": "In-sample variance explained — not automatic proof of best model."
+      }
+    ]
+  },
+  "srm_glm_select": {
+    "id": "srm_glm_select",
+    "title": "Model selection & diagnostics for GLMs",
+    "minutes": 45,
+    "lo": [
+      "SRM2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Comparing models",
+        "body": "Nested models: likelihood ratio / deviance tests.\nInformation criteria: AIC, BIC (BIC penalizes complexity more).\nCross-validated predictive metrics on holdout.\nResidual plots, leverage, influence — same spirit as linear models, adjusted for GLM variance functions."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Practical choices",
+        "body": "Count data with variance >> mean → consider negative binomial or overdispersed Poisson.\nBinary outcomes → logistic (binomial + logit).\nPositive continuous skewed severity → gamma/lognormal-style GLM choices (per syllabus readings)."
+      },
+      {
+        "id": "s3",
+        "type": "check",
+        "title": "AIC vs BIC",
+        "prompt": "Compared with AIC, BIC typically:",
+        "choices": {
+          "A": "Penalizes extra parameters less",
+          "B": "Penalizes extra parameters more (for large n)",
+          "C": "Ignores likelihood",
+          "D": "Only works for trees"
+        },
+        "answer": "B",
+        "explain": "BIC's penalty grows with log(n)."
+      }
+    ]
+  },
+  "srm_ensembles": {
+    "id": "srm_ensembles",
+    "title": "Bagging, random forests, boosting",
+    "minutes": 50,
+    "lo": [
+      "SRM4"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Bagging & random forests",
+        "body": "Bagging: bootstrap many trees, average (regression) or vote (classification) → lower variance.\nRandom forest: bagging + random feature subset at each split → decorrelated trees.\nOOB error approximates test error without a separate set."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Boosting",
+        "body": "Sequentially fit weak learners to residuals / reweighted errors (AdaBoost, gradient boosting ideas).\nStrong predictive performance; easier to overfit if too many iterations — use validation.\nLess interpretable than a single shallow tree; still offers importance measures."
+      },
+      {
+        "id": "s3",
+        "type": "check",
+        "title": "RF idea",
+        "prompt": "Random forests mainly improve over one tree by:",
+        "choices": {
+          "A": "Deleting all features",
+          "B": "Averaging many de-correlated trees",
+          "C": "Using only linear regression",
+          "D": "Ignoring bootstrap samples"
+        },
+        "answer": "B",
+        "explain": "Ensemble averaging + feature randomness."
+      }
+    ]
+  },
+  "srm_pca": {
+    "id": "srm_pca",
+    "title": "Principal components analysis",
+    "minutes": 45,
+    "lo": [
+      "SRM5"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "PCA goal",
+        "body": "Find orthogonal directions of maximum variance in feature space.\nPC1 captures the most variance; PC2 next, subject to orthogonality.\nUse for dimension reduction, visualization, multicollinearity relief before regression.\nScale features before PCA when units differ."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Interpretation",
+        "body": "Loadings: how original variables contribute to a PC.\nScree plot / cumulative variance to choose number of components.\nPCs are linear combinations — not always business-interpretable factors."
+      },
+      {
+        "id": "s3",
+        "type": "check",
+        "title": "PC1",
+        "prompt": "The first principal component captures:",
+        "choices": {
+          "A": "Minimum variance direction",
+          "B": "Maximum variance direction",
+          "C": "Only the target Y",
+          "D": "Time index only"
+        },
+        "answer": "B",
+        "explain": "PC1 maximizes variance among unit linear combinations."
+      }
+    ]
+  },
+  "srm_cluster": {
+    "id": "srm_cluster",
+    "title": "Cluster analysis",
+    "minutes": 45,
+    "lo": [
+      "SRM5"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "k-means & hierarchical",
+        "body": "k-means: partition into k clusters minimizing within-cluster SS; choose k with care (elbow, silhouette concepts).\nHierarchical: build dendrogram (agglomerative); cut tree for clusters.\nDistance metrics and scaling drive results.\nUnsupervised: no Y — evaluate cohesion/separation, stability, business usefulness."
+      },
+      {
+        "id": "s2",
+        "type": "example",
+        "title": "Worked: when clustering helps",
+        "setup": "Insurer wants customer segments for product design without a labeled target.",
+        "solution": "Clustering on behavior/risk features can propose segments; validate with SME review and holdout stability.",
+        "why": "Unsupervised ≠ automatic truth; it's a structure-discovery tool."
+      },
+      {
+        "id": "s3",
+        "type": "check",
+        "title": "Supervised?",
+        "prompt": "k-means clustering is primarily:",
+        "choices": {
+          "A": "Supervised classification",
+          "B": "Unsupervised segmentation",
+          "C": "Time series forecasting",
+          "D": "A GLM link function"
+        },
+        "answer": "B",
+        "explain": "No labeled response required."
       }
     ]
   }

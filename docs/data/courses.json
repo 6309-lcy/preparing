@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "updated": "2026-07-31",
   "activeDefault": "P",
   "buildPolicy": "one_course_at_a_time",
@@ -79,32 +79,32 @@
       "id": "SRM",
       "name": "Exam SRM \u2014 Statistics for Risk Modeling",
       "shortName": "Exam SRM",
-      "status": "next",
+      "status": "ready",
       "durationWeeks": 14,
-      "examFormat": "CBT multiple choice",
+      "examFormat": "35 MCQ \u00b7 3.5 hours \u00b7 CBT",
       "weights": {
-        "learning": 0.2,
-        "glm": 0.35,
-        "time_series": 0.2,
-        "pca_clustering": 0.15,
-        "decision_trees": 0.1
+        "learning": 0.08,
+        "linear_glm": 0.45,
+        "time_series": 0.12,
+        "trees": 0.22,
+        "pca_cluster": 0.13
       },
       "mix": {
         "reading": 0.4,
         "practice": 0.5,
         "mock": 0.1
       },
-      "description": "Next up after FAM. Not study-ready yet.",
-      "planPath": null,
-      "pathPath": null,
+      "description": "COMPLETE track: learning, GLMs, time series, trees/ensembles, PCA/clustering \u2014 full path, lessons, drill bank, 14-week plan.",
+      "planPath": "data/courses/srm/plan.json",
+      "pathPath": "data/courses/srm/path.json",
       "structure": "duo_path",
-      "syllabusNote": "One-by-one queue \u2014 after FAM"
+      "syllabusNote": "SOA SRM: Learning 5\u201310%, Linear/GLM 40\u201350%, Time series 10\u201315%, Trees 20\u201325%, PCA/clustering ~10\u201315%"
     },
     {
       "id": "PA",
       "name": "Exam PA \u2014 Predictive Analytics",
       "shortName": "Exam PA",
-      "status": "scaffold",
+      "status": "next",
       "durationWeeks": 14,
       "examFormat": "Project / written CBT-style",
       "weights": {
@@ -118,11 +118,11 @@
         "practice": 0.45,
         "mock": 0.2
       },
-      "description": "Queued. Not study-ready yet.",
+      "description": "Next up after SRM. Not study-ready yet.",
       "planPath": null,
       "pathPath": null,
       "structure": "duo_path",
-      "syllabusNote": "One-by-one queue"
+      "syllabusNote": "One-by-one queue \u2014 after SRM"
     },
     {
       "id": "ST",
