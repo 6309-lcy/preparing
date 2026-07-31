@@ -143,10 +143,14 @@
   function questionsForCourse(courseId) {
     const bank = allQuestions.length ? allQuestions : questions;
     const id = courseId || state.activeCourseId || "P";
-    // P and FM have dedicated banks; other courses share P bank for drills + their own lessons
+    // Dedicated banks when present
     if (id === "FM") return bank.filter((q) => (q.exam || "") === "FM");
     if (id === "P") return bank.filter((q) => (q.exam || "P") === "P");
-    // FAM/SRM/PA/ST/LT: prefer same-exam items if any, else P samples for quantitative drill
+    if (id === "FAM") {
+      const own = bank.filter((q) => (q.exam || "") === "FAM");
+      if (own.length) return own;
+    }
+    // Future courses: own bank if large enough, else P
     const own = bank.filter((q) => (q.exam || "") === id);
     if (own.length >= 30) return own;
     return bank.filter((q) => (q.exam || "P") === "P");
@@ -2328,7 +2332,7 @@
     root.innerHTML = `
       <div class="card">
         <h1 class="text-xl font-semibold tracking-tight">Courses</h1>
-        <p class="mt-1 text-sm text-mute">Built <strong>one course at a time</strong>. Ready now: <strong>Exam P</strong> and <strong>Exam FM</strong>. FAM is next; others stay queued.</p>
+        <p class="mt-1 text-sm text-mute">Built <strong>one course at a time</strong>. Ready: <strong>P</strong>, <strong>FM</strong>, <strong>FAM</strong>. SRM is next; others stay queued.</p>
         <p class="mt-2 text-xs text-mute">Mix: <strong>40% reading</strong> · <strong>50% practice</strong> · <strong>10% mock</strong> · multi-level days OK.</p>
       </div>
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
@@ -2743,8 +2747,8 @@
     if ("serviceWorker" in navigator) {
       try {
         const keys = await caches.keys();
-        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v14").map((k) => caches.delete(k)));
-        await navigator.serviceWorker.register("./sw.js?v=14");
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v15").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=15");
       } catch (e) {
         console.warn(e);
       }

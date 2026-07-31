@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "updated": "2026-07-31",
   "activeDefault": "P",
   "buildPolicy": "one_course_at_a_time",
@@ -56,29 +56,30 @@
       "id": "FAM",
       "name": "Exam FAM \u2014 Fundamentals of Actuarial Mathematics",
       "shortName": "Exam FAM",
-      "status": "next",
-      "durationWeeks": 16,
-      "examFormat": "CBT multiple choice",
+      "status": "ready",
+      "durationWeeks": 14,
+      "examFormat": "34 MCQ \u00b7 3.5 hours \u00b7 CBT",
       "weights": {
-        "short_term": 0.45,
-        "long_term": 0.55
+        "short_term": 0.4,
+        "long_term": 0.5,
+        "other": 0.1
       },
       "mix": {
         "reading": 0.4,
         "practice": 0.5,
         "mock": 0.1
       },
-      "description": "Next up after FM. Not study-ready yet.",
-      "planPath": null,
-      "pathPath": null,
+      "description": "COMPLETE track: ST+LT path, full lessons, FAM drill bank + P-bridged severity items, chapter tests, 14-week plan.",
+      "planPath": "data/courses/fam/plan.json",
+      "pathPath": "data/courses/fam/path.json",
       "structure": "duo_path",
-      "syllabusNote": "One-by-one queue \u2014 after FM"
+      "syllabusNote": "SOA FAM: short-term models (severity/freq/agg, credibility) + long-term contingencies (survival, insurance, annuities, premiums, reserves)"
     },
     {
       "id": "SRM",
       "name": "Exam SRM \u2014 Statistics for Risk Modeling",
       "shortName": "Exam SRM",
-      "status": "scaffold",
+      "status": "next",
       "durationWeeks": 14,
       "examFormat": "CBT multiple choice",
       "weights": {
@@ -93,11 +94,11 @@
         "practice": 0.5,
         "mock": 0.1
       },
-      "description": "Queued. Not study-ready yet.",
+      "description": "Next up after FAM. Not study-ready yet.",
       "planPath": null,
       "pathPath": null,
       "structure": "duo_path",
-      "syllabusNote": "One-by-one queue"
+      "syllabusNote": "One-by-one queue \u2014 after FAM"
     },
     {
       "id": "PA",

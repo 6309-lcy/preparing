@@ -1497,8 +1497,8 @@
   },
   "fam_setup": {
     "id": "fam_setup",
-    "title": "Exam FAM map (short-term + long-term)",
-    "minutes": 25,
+    "title": "Exam FAM orientation (ST + LT)",
+    "minutes": 30,
     "lo": [
       "FAM"
     ],
@@ -1506,29 +1506,35 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Two halves",
-        "body": "FAM blends short-term actuarial math (severity severity/frequency, credibility, ratemaking/reserving themes) with long-term life contingencies (survival models, insurance/annuities, reserves).\nTreat it as two mini-courses with shared exam discipline."
+        "title": "What FAM is",
+        "body": "Exam FAM (Fundamentals of Actuarial Mathematics) is a 3.5-hour CBT with ~34 multiple-choice questions.\n\nIt blends:\n• Short-term: severity/frequency/aggregate, policy mods, intro estimation & credibility\n• Long-term: survival models, life insurance & annuities, premiums & reserves\n\nPrerequisites: Exam P (probability), FM (financial math), and VEE mathematical statistics ideas.\nTables (life/decrement and distribution inventories) are provided in the exam environment."
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "How this course runs",
+        "body": "Duolingo path: Learn → Practice → Drill → Chapter test (≥70%).\nRough study split follows weights: ST block first, then LT (larger share of exam time for many sittings),\nthen wrap with mixed mocks. Multi-level days are allowed."
+      },
+      {
+        "id": "s3",
         "type": "check",
         "title": "Structure",
         "prompt": "FAM content is best studied as:",
         "choices": {
-          "A": "Only calculus",
-          "B": "Short-term + long-term tracks",
-          "C": "Only FM formulas",
-          "D": "Only Python"
+          "A": "Only calculus drills",
+          "B": "Short-term models + long-term contingencies",
+          "C": "Only FM bond formulas",
+          "D": "Only Python coding"
         },
         "answer": "B",
-        "explain": "Official FAM spans ST and LT foundations."
+        "explain": "Official FAM spans short-term and long-term foundations."
       }
     ]
   },
   "fam_st_severity": {
     "id": "fam_st_severity",
-    "title": "Short-term: severity, frequency, aggregate",
-    "minutes": 40,
+    "title": "Severity models",
+    "minutes": 50,
     "lo": [
       "FAM-ST"
     ],
@@ -1536,29 +1542,43 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Building blocks",
-        "body": "Severity: distribution of loss size (given a loss).\nFrequency: distribution of claim count N.\nAggregate S = X1+...+XN (collective risk).\nKey: E[S]=E[N]E[X], Var(S)=E[N]Var(X)+Var(N)(E[X])^2 for independent identical Xi ⊥ N."
+        "title": "Severity building blocks",
+        "body": "Severity = size of loss (given a loss occurs).\nCommon families: exponential, gamma, Pareto, lognormal, Weibull (use provided tables on exam).\nKnow mean, variance, limited expected value e(d)=E[X∧d], and mean excess e_X(d)=E[X−d|X>d].\nFor positive continuous X: E[X] = ∫_0^∞ S(x) dx (when finite)."
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "Limited loss & excess",
+        "body": "E[X∧u] is expected payment with limit u (no deductible).\nWith ordinary deductible d and max payment u−d (limit u ground-up):\nE[payment] = E[X∧u] − E[X∧d]  (common identity).\nMean excess for memoryless exponential equals mean — classic trap check."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Worked: exponential deductible",
+        "setup": "X ~ Exp(mean θ=1000). Ordinary deductible 200. E[payment per loss]?",
+        "solution": "Memoryless: E[(X−200)+] = E[X]·P(X>200) = 1000 e^{−200/1000} = 1000 e^{−0.2}.",
+        "why": "Exponential memoryless turns excess problems into survival × mean."
+      },
+      {
+        "id": "s4",
         "type": "check",
-        "title": "Mean aggregate",
-        "prompt": "If N and X independent, E[S] equals:",
+        "title": "Limited expected value use",
+        "prompt": "E[X∧u] is most directly the expected:",
         "choices": {
-          "A": "E[N]+E[X]",
-          "B": "E[N]E[X]",
-          "C": "Var(N)E[X]",
-          "D": "E[N]/E[X]"
+          "A": "Payment with ordinary deductible u only",
+          "B": "Loss capped at u (policy limit, no deductible)",
+          "C": "Frequency of claims",
+          "D": "Force of interest"
         },
         "answer": "B",
-        "explain": "Wald identity for random sums."
+        "explain": "Limited expected value caps the ground-up loss at u."
       }
     ]
   },
   "fam_st_mod": {
     "id": "fam_st_mod",
-    "title": "Short-term: modifications & risk measures",
-    "minutes": 40,
+    "title": "Policy modifications & risk measures",
+    "minutes": 45,
     "lo": [
       "FAM-ST"
     ],
@@ -1566,29 +1586,35 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Policy mods",
-        "body": "Ordinary deductible, policy limit, coinsurance change the payment Y vs ground-up loss X.\nYou already saw this on Exam P — FAM reuses it in pricing context.\nRisk measures (e.g. VaR, TVaR) appear at intro level depending on current syllabus wording."
+        "title": "Modifications",
+        "body": "Deductible, limit, coinsurance α: payment often α·min(max(X−d,0), u−d).\nPer-payment vs per-loss: conditioning on X>d changes the distribution of payment.\nInflation: scale severity, then re-apply mods (order matters)."
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "Risk measures (intro)",
+        "body": "VaR_p(X) = F^{-1}(p) (quantile).\nTVaR_p(X) = E[X | X > VaR_p] (or integral form of tail expectation).\nKnow qualitative: TVaR ≥ VaR; coherence properties at a high level."
+      },
+      {
+        "id": "s3",
         "type": "check",
-        "title": "Deductible payment",
-        "prompt": "With ordinary deductible d, insurer payment per loss is:",
+        "title": "Coinsurance",
+        "prompt": "With coinsurance α∈(0,1) and no other mods, insurer payment is:",
         "choices": {
-          "A": "min(X,d)",
-          "B": "max(X−d,0)",
-          "C": "X+d",
-          "D": "X/d"
+          "A": "αX",
+          "B": "X/α",
+          "C": "X−α",
+          "D": "max(X,α)"
         },
-        "answer": "B",
-        "explain": "Ordinary deductible pays the excess over d."
+        "answer": "A",
+        "explain": "Insurer pays fraction α of the loss (as worded)."
       }
     ]
   },
   "fam_st_cred": {
     "id": "fam_st_cred",
-    "title": "Credibility & experience rating intro",
-    "minutes": 35,
+    "title": "Introduction to credibility",
+    "minutes": 45,
     "lo": [
       "FAM-ST"
     ],
@@ -1596,14 +1622,28 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Limited fluctuation & Bühlmann ideas",
-        "body": "Credibility blends data with prior/manual rate.\nLimited fluctuation (classical) sets n so P(|X̄−μ|<kμ)≥p.\nBühlmann: Z = n/(n+K), K=EVPV/VHM.\nEstimate = Z·X̄ + (1−Z)·prior."
+        "title": "Limited fluctuation (classical)",
+        "body": "Choose n so the sample mean is within k of μ with probability p (standard normal approximation).\nFull credibility standard n0; partial credibility Z=√(n/n0) (capped at 1) in classical approach."
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "Bühlmann credibility",
+        "body": "Z = n / (n+K), K = EVPV / VHM\n(expected process variance / variance of hypothetical means).\nEstimate = Z·X̄ + (1−Z)·prior mean (manual/complementary).\nAs n→∞, Z→1."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Worked: Bühlmann Z",
+        "setup": "n=20, K=30. Find Z.",
+        "solution": "Z = 20/(20+30)=0.4.",
+        "why": "More data or smaller K ⇒ higher credibility."
+      },
+      {
+        "id": "s4",
         "type": "check",
-        "title": "Bühlmann Z",
-        "prompt": "As n → ∞, Bühlmann Z approaches:",
+        "title": "Bühlmann Z limit",
+        "prompt": "As n→∞, Bühlmann Z approaches:",
         "choices": {
           "A": "0",
           "B": "1",
@@ -1611,14 +1651,14 @@
           "D": "0.5"
         },
         "answer": "B",
-        "explain": "More data ⇒ full credibility on the sample."
+        "explain": "Full weight on the observed mean."
       }
     ]
   },
   "fam_lt_surv": {
     "id": "fam_lt_surv",
-    "title": "Long-term: survival models & life tables",
-    "minutes": 40,
+    "title": "Survival models & life tables",
+    "minutes": 55,
     "lo": [
       "FAM-LT"
     ],
@@ -1626,18 +1666,32 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Time-until-death",
-        "body": "T_x = future lifetime of (x).\nSurvival function s(x), force μ_x, curtate K_x.\nStandard probabilities: _t p_x, _t q_x, _t|u q_x.\nLife table: l_x, d_x, L_x, T_x (table), e_x."
+        "title": "Lifetime random variables",
+        "body": "T_x = future lifetime of (x).\nSurvival: _t p_x = P(T_x > t)\nDeath: _t q_x = 1 − _t p_x\nDeferred: _t|u q_x = _t p_x · _u q_{x+t}\nForce of mortality μ_{x+t}; relationships with survival function.\nCurate K_x = ⌊T_x⌋ for discrete models."
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "Life table functions",
+        "body": "l_x, d_x = l_x − l_{x+1}, q_x = d_x/l_x, p_x = 1−q_x.\ne_x = curtate expectation of future lifetime (sum of p's).\nUnder UDD or constant force, convert between continuous and discrete probabilities."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Worked: two-year survival",
+        "setup": "p_x=0.99, p_{x+1}=0.98. Find _2 p_x.",
+        "solution": "_2 p_x = p_x p_{x+1} = 0.99·0.98 = 0.9702.",
+        "why": "Chain single-year survivals for multi-year."
+      },
+      {
+        "id": "s4",
         "type": "check",
         "title": "Notation",
         "prompt": "_t p_x is the probability that (x):",
         "choices": {
           "A": "Dies within t years",
           "B": "Survives t years",
-          "C": "Is exactly age t",
+          "C": "Is age t exactly",
           "D": "Buys insurance"
         },
         "answer": "B",
@@ -1647,8 +1701,8 @@
   },
   "fam_lt_ins": {
     "id": "fam_lt_ins",
-    "title": "Insurance & annuities (discrete/continuous intro)",
-    "minutes": 45,
+    "title": "Life insurance benefits (APV)",
+    "minutes": 55,
     "lo": [
       "FAM-LT"
     ],
@@ -1656,11 +1710,25 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Actuarial PV",
-        "body": "Whole life insurance Ā_x / A_x: PV of 1 on death.\nTerm, pure endowment, endowment insurance variants.\nLife annuities ä_x, a_x pay while alive.\nRelationships: A_x = 1 − d ä_x (discrete whole life under constant i)."
+        "title": "Insurance EPV",
+        "body": "Whole life insurance pays 1 at end of year of death: A_x = Σ v^{k+1} · _k|q_x\nContinuous whole life Ā_x integrates v^t · _t p_x μ_{x+t} dt.\nTerm, pure endowment A_{x:n|}^1 , endowment insurance A_{x:n|}.\nIdentity (discrete whole life, level i): A_x = 1 − d ä_x."
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "Relations",
+        "body": "Pure endowment: A_{x:n|}^{1|} = v^n · _n p_x\nEndowment insurance = term insurance + pure endowment.\nHigher interest rate lowers insurance APVs (discount harder)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Worked: identity",
+        "setup": "Given ä_x and d, find A_x for whole life discrete.",
+        "solution": "A_x = 1 − d ä_x.",
+        "why": "Memorize this identity cold."
+      },
+      {
+        "id": "s4",
         "type": "check",
         "title": "Insurance vs annuity",
         "prompt": "A_x = 1 − d ä_x links:",
@@ -1671,14 +1739,14 @@
           "D": "Poisson to gamma"
         },
         "answer": "B",
-        "explain": "Classic identity under level effective rate."
+        "explain": "Classic discrete whole-life identity."
       }
     ]
   },
   "fam_lt_res": {
     "id": "fam_lt_res",
-    "title": "Reserves intro",
-    "minutes": 35,
+    "title": "Reserves (net premium)",
+    "minutes": 50,
     "lo": [
       "FAM-LT"
     ],
@@ -1686,29 +1754,43 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Net premium reserve",
-        "body": "Prospective reserve: EPV future benefits − EPV future net premiums.\nRetrospective: accumulated past premiums − accumulated past benefits.\nAt issue, reserve is 0 under equivalence principle."
+        "title": "Prospective reserve",
+        "body": "Net premium reserve at duration t:\n  _t V = EPV future benefits − EPV future net premiums\n(conditional on survival to t, using select/ultimate as given).\nAt issue, _0 V = 0 under equivalence.\nRetrospective: accumulated past premiums − accumulated past benefits (with interest/survivorship)."
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "Whole life formula",
+        "body": "Discrete whole life: _t V_x = A_{x+t} − P_x · ä_{x+t}\nwith P_x = A_x / ä_x.\nReserves typically increase with duration for level-premium whole life."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Worked: prospective idea",
+        "setup": "After t years, future benefit APV is 0.4, future premium annuity APV is 8, net P=0.03.",
+        "solution": "_t V = 0.4 − 0.03·8 = 0.16.",
+        "why": "Prospective: future benefits minus future premiums."
+      },
+      {
+        "id": "s4",
         "type": "check",
-        "title": "Prospective idea",
-        "prompt": "Net premium reserve is primarily:",
+        "title": "Issue reserve",
+        "prompt": "Under equivalence net premium, issue reserve is typically:",
         "choices": {
-          "A": "Cash under the mattress",
-          "B": "EPV future benefits minus EPV future premiums",
-          "C": "Only company profit",
-          "D": "Only expenses"
+          "A": "Huge positive always",
+          "B": "Zero",
+          "C": "Equal to face amount",
+          "D": "Equal to δ"
         },
         "answer": "B",
-        "explain": "Prospective formula is the main definition."
+        "explain": "EPV premiums = EPV benefits at issue ⇒ reserve 0."
       }
     ]
   },
   "fam_final": {
     "id": "fam_final",
-    "title": "FAM wrap-up",
-    "minutes": 25,
+    "title": "FAM wrap-up & mixed strategy",
+    "minutes": 35,
     "lo": [
       "FAM"
     ],
@@ -1717,7 +1799,7 @@
         "id": "s1",
         "type": "concept",
         "title": "Two-track review",
-        "body": "Split mocks: ST day (severity/credibility) and LT day (life contingencies/reserves), then mixed."
+        "body": "Split practice days: ST (severity/aggregate/credibility) vs LT (A_x, ä_x, P, V).\nThen mixed timed sets. Use exam tables in practice if you have them.\nFormula sheet: compound variance, Bühlmann Z, A=1−dä, P=A/ä, prospective V."
       },
       {
         "id": "s2",
@@ -2422,6 +2504,202 @@
         },
         "answer": "B",
         "explain": "Matches the track."
+      }
+    ]
+  },
+  "fam_st_cover": {
+    "id": "fam_st_cover",
+    "title": "Short-term insurance & reinsurance coverages",
+    "minutes": 40,
+    "lo": [
+      "FAM-ST"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Coverage language",
+        "body": "Short-term coverages pay benefits over a short policy period (often one year).\nKey ideas: ground-up loss vs payment, per-loss vs per-payment, ordinary deductible, franchise,\npolicy limit, coinsurance, maximum covered loss.\nReinsurance layers (quota share, excess of loss) shift which portion of losses the insurer retains."
+      },
+      {
+        "id": "s2",
+        "type": "example",
+        "title": "Worked: ordinary deductible payment",
+        "setup": "Loss X. Ordinary deductible d. Insurer payment per loss?",
+        "solution": "Y = max(X − d, 0)  (also written (X−d)+).\nIf a policy limit u applies to ground-up, payment is min(max(X−d,0), u−d) depending on wording — read carefully.",
+        "why": "Always define the payment random variable before computing E[Y] or F_Y."
+      },
+      {
+        "id": "s3",
+        "type": "check",
+        "title": "Ordinary deductible",
+        "prompt": "With ordinary deductible d, insurer payment per loss is:",
+        "choices": {
+          "A": "min(X,d)",
+          "B": "max(X−d,0)",
+          "C": "X+d",
+          "D": "X/d"
+        },
+        "answer": "B",
+        "explain": "Ordinary deductible pays the excess over d."
+      }
+    ]
+  },
+  "fam_st_freq": {
+    "id": "fam_st_freq",
+    "title": "Frequency & aggregate models",
+    "minutes": 50,
+    "lo": [
+      "FAM-ST"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Frequency",
+        "body": "N = claim count. Common models: Poisson(λ), binomial(m,q), negative binomial.\nPoisson: E[N]=Var(N)=λ.\nNB has variance > mean (overdispersion vs Poisson)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Aggregate S",
+        "body": "Collective risk: S = X1+···+XN with Xi iid severity, independent of N (usual assumption).\nE[S] = E[N] E[X]\nVar(S) = E[N] Var(X) + Var(N) (E[X])²\nCompound Poisson is especially tractable; (a,b,0) class recursions appear at intro level."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Worked: mean and variance of S",
+        "setup": "N~Poisson(3), X has E[X]=100, Var(X)=400, independent.",
+        "solution": "E[S]=3·100=300.\nVar(S)=3·400 + 3·100² = 1200 + 30000 = 31200.",
+        "why": "Plug into the compound variance formula; don't forget the Var(N)(EX)² term."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Aggregate mean",
+        "prompt": "If N ⊥ X_i iid, E[S] equals:",
+        "choices": {
+          "A": "E[N]+E[X]",
+          "B": "E[N]E[X]",
+          "C": "Var(N)E[X]",
+          "D": "E[N]/E[X]"
+        },
+        "answer": "B",
+        "explain": "Wald identity for random sums."
+      }
+    ]
+  },
+  "fam_st_est": {
+    "id": "fam_st_est",
+    "title": "Parametric estimation intro",
+    "minutes": 40,
+    "lo": [
+      "FAM-ST"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "MLE / method of moments ideas",
+        "body": "Fit a parametric severity/frequency by matching sample moments or maximizing likelihood.\nFor exponential, MLE of mean is sample mean.\nCensoring/truncation (policy limits, deductibles) change the likelihood — write the correct contribution per observation."
+      },
+      {
+        "id": "s2",
+        "type": "example",
+        "title": "Worked: exponential MLE",
+        "setup": "Ground-up losses, Exp(θ), complete data x1..xn. Estimate θ=E[X].",
+        "solution": "θ̂ = x̄.",
+        "why": "Complete i.i.d. exponential: MLE is the sample mean."
+      },
+      {
+        "id": "s3",
+        "type": "check",
+        "title": "Data type",
+        "prompt": "A policy limit typically creates:",
+        "choices": {
+          "A": "Left truncation only always",
+          "B": "Right censoring of large losses",
+          "C": "No effect on likelihood",
+          "D": "Force of mortality"
+        },
+        "answer": "B",
+        "explain": "You observe the limit, not the full ground-up amount."
+      }
+    ]
+  },
+  "fam_lt_ann": {
+    "id": "fam_lt_ann",
+    "title": "Life annuities",
+    "minutes": 50,
+    "lo": [
+      "FAM-LT"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Annuity EPVs",
+        "body": "Annuity-due ä_x : 1 per year while (x) alive, paid at beginning of year.\nAnnuity-immediate a_x : payments at end of year.\nTemporary ä_{x:n|}, deferred _n|ä_x.\nContinuous ā_x.\nRelationships: ä_x = 1 + a_x  (under standard discrete timing)."
+      },
+      {
+        "id": "s2",
+        "type": "example",
+        "title": "Worked: temporary due",
+        "setup": "Express ä_{x:n|} in terms of pure endowment and whole-life style sums.",
+        "solution": "ä_{x:n|} = Σ_{k=0}^{n−1} v^k · _k p_x.",
+        "why": "Finite sum of discounted survival probabilities."
+      },
+      {
+        "id": "s3",
+        "type": "check",
+        "title": "Due vs immediate",
+        "prompt": "Under standard annual models, ä_x equals:",
+        "choices": {
+          "A": "a_x − 1",
+          "B": "1 + a_x",
+          "C": "A_x",
+          "D": "v a_x"
+        },
+        "answer": "B",
+        "explain": "Due pays one more certain first payment structure ⇒ 1+a_x."
+      }
+    ]
+  },
+  "fam_lt_prem": {
+    "id": "fam_lt_prem",
+    "title": "Equivalence principle premiums",
+    "minutes": 50,
+    "lo": [
+      "FAM-LT"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Net premiums",
+        "body": "Equivalence: EPV(premiums) = EPV(benefits) at issue (ignore expenses for net premium).\nWhole life level annual due: P_x = A_x / ä_x\nTerm, endowment have analogous ratios benefit APV / annuity APV.\nGross premiums add expense loading (percent of premium, per policy, per face)."
+      },
+      {
+        "id": "s2",
+        "type": "example",
+        "title": "Worked: whole life P",
+        "setup": "Given A_x=0.3, ä_x=12. Find net level premium for benefit 1.",
+        "solution": "P = 0.3/12 = 0.025.",
+        "why": "Benefit APV over premium annuity APV."
+      },
+      {
+        "id": "s3",
+        "type": "check",
+        "title": "Equivalence",
+        "prompt": "At issue under net equivalence, EPV premiums equal:",
+        "choices": {
+          "A": "Face amount",
+          "B": "EPV benefits",
+          "C": "Variance of benefits",
+          "D": "δ only"
+        },
+        "answer": "B",
+        "explain": "That's the definition of the equivalence principle (net)."
       }
     ]
   }
