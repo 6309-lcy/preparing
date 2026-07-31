@@ -1196,10 +1196,10 @@
     const offset = c * (1 - Math.min(100, Math.max(0, pct)) / 100);
     return `<div class="ring-wrap" style="width:${size}px;height:${size}px">
       <svg width="${size}" height="${size}" viewBox="0 0 88 88">
-        <circle cx="44" cy="44" r="${r}" fill="none" stroke="#e2e8f0" stroke-width="8"/>
-        <circle cx="44" cy="44" r="${r}" fill="none" stroke="#0f766e" stroke-width="8"
+        <circle cx="44" cy="44" r="${r}" fill="none" stroke="#e4e0d8" stroke-width="7"/>
+        <circle cx="44" cy="44" r="${r}" fill="none" stroke="#0b3d3a" stroke-width="7"
           stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${offset}"
-          style="transition: stroke-dashoffset 600ms ease"/>
+          style="transition: stroke-dashoffset 500ms cubic-bezier(0.16,1,0.3,1)"/>
       </svg>
       <div class="ring-center">${pct}%</div>
     </div>`;
@@ -1209,20 +1209,27 @@
   function renderAccountChip() {
     const label = $("#accountBarLabel");
     const cta = $("#accountBarCta");
+    const chip = $("#accountChip");
     const cloud = window.SOACloud;
-    if (!label) return;
     if (!cloud || cloud.status === "need-config") {
-      label.textContent = "Local progress only · cloud optional";
-      if (cta) cta.textContent = "Setup";
+      if (label) label.textContent = "Local progress only · cloud optional";
+      if (cta) cta.textContent = "Local";
+      if (chip) chip.title = "Local only · open settings for cloud setup";
       return;
     }
     if (cloud.user) {
-      const mark = cloud.status === "syncing" ? "syncing…" : cloud.status === "error" ? "error" : "synced";
-      label.innerHTML = `Signed in as <strong>${escapeHtml(cloud.user.email || "account")}</strong> · ${mark}`;
-      if (cta) cta.textContent = "Account";
+      const email = cloud.user.email || "account";
+      const mark = cloud.status === "syncing" ? "syncing" : cloud.status === "error" ? "error" : "synced";
+      if (label) label.textContent = `Signed in as ${email} · ${mark}`;
+      if (cta) {
+        const short = email.includes("@") ? email.split("@")[0] : email;
+        cta.textContent = short.length > 10 ? short.slice(0, 9) + "…" : short;
+      }
+      if (chip) chip.title = `${email} · ${mark} · tap for account`;
     } else {
-      label.textContent = "Cloud: Sign in to sync phone & PC";
+      if (label) label.textContent = "Cloud: Sign in to sync phone & PC";
       if (cta) cta.textContent = "Sign in";
+      if (chip) chip.title = "Sign in to sync progress";
     }
   }
   function renderChrome() {
@@ -2601,8 +2608,8 @@
     if ("serviceWorker" in navigator) {
       try {
         const keys = await caches.keys();
-        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v9").map((k) => caches.delete(k)));
-        await navigator.serviceWorker.register("./sw.js?v=9");
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v10").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=10");
       } catch (e) {
         console.warn(e);
       }
