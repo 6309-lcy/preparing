@@ -98,7 +98,7 @@
   "general_count": {
     "id": "general_count",
     "title": "Counting: permutations & combinations",
-    "minutes": 45,
+    "minutes": 55,
     "lo": [
       "P1b"
     ],
@@ -130,13 +130,41 @@
         },
         "answer": "C",
         "explain": "A hand is an unordered set of cards → combinations."
+      },
+      {
+        "id": "s4",
+        "type": "concept",
+        "title": "With/without replacement & identical objects",
+        "body": "Without replacement: denominators shrink (hypergeometric-style counting).\nWith replacement / independent trials: denominators stay fixed.\n\nMultinomial coefficient for splitting n distinct into groups of sizes n1,...,nk:\n n!/(n1! ... nk!).\n\nIf objects are identical within type, count distinct sequences carefully — do not overcount."
+      },
+      {
+        "id": "s5",
+        "type": "example",
+        "title": "Worked: committee with roles vs without",
+        "setup": "10 people. (a) Choose 3 for a committee. (b) Choose president, secretary, treasurer (distinct).",
+        "solution": "(a) C(10,3)=120.\n(b) P(10,3)=10·9·8=720.",
+        "why": "Same people, different whether order/roles matter. Misreading this is the #1 counting trap."
+      },
+      {
+        "id": "s6",
+        "type": "check",
+        "title": "Order check",
+        "prompt": "Passwords of length 4 from 10 distinct chars, no repeat — use:",
+        "choices": {
+          "A": "C(10,4)",
+          "B": "P(10,4)",
+          "C": "10^4 only if no-repeat",
+          "D": "4!"
+        },
+        "answer": "B",
+        "explain": "Order matters and no repeats ⇒ permutation P(10,4)."
       }
     ]
   },
   "general_axioms": {
     "id": "general_axioms",
     "title": "Probability axioms & classical probability",
-    "minutes": 40,
+    "minutes": 50,
     "lo": [
       "P1a",
       "P1e"
@@ -169,6 +197,34 @@
         },
         "answer": "B",
         "explain": "Axiom consequence: A and Aᶜ partition S."
+      },
+      {
+        "id": "s4",
+        "type": "concept",
+        "title": "Boole / Bonferroni and partitions",
+        "body": "If A1,...,An are a partition of S (disjoint, union S), then P(B)=Σ P(B∩Ai).\n\nBoole's inequality: P(∪Ai) ≤ Σ P(Ai).\nLower bound sometimes: P(∪Ai) ≥ max P(Ai).\n\nExam habit: rewrite messy 'at least one' as complement of 'none', and rewrite 'exactly one' as mutually exclusive pieces."
+      },
+      {
+        "id": "s5",
+        "type": "example",
+        "title": "Worked: exactly one of two events",
+        "setup": "P(A)=0.5, P(B)=0.4, P(A∩B)=0.2. Find P(exactly one of A,B).",
+        "solution": "Exactly one = (A∩Bᶜ) ∪ (Aᶜ∩B) = P(A)+P(B)−2P(A∩B)=0.5+0.4−0.4=0.5.",
+        "why": "Inclusion-exclusion for the symmetric difference. Draw a Venn if the algebra feels slippery."
+      },
+      {
+        "id": "s6",
+        "type": "check",
+        "title": "Complement habit",
+        "prompt": "P(at least one of A,B) is best rewritten as:",
+        "choices": {
+          "A": "P(A)P(B)",
+          "B": "1 − P(Aᶜ∩Bᶜ)",
+          "C": "P(A)−P(B)",
+          "D": "P(A∩B) only"
+        },
+        "answer": "B",
+        "explain": "At least one is the complement of none (neither)."
       }
     ]
   },
@@ -469,7 +525,7 @@
   "uni_normal": {
     "id": "uni_normal",
     "title": "Normal distribution",
-    "minutes": 45,
+    "minutes": 55,
     "lo": [
       "P2"
     ],
@@ -501,6 +557,34 @@
         },
         "answer": "B",
         "explain": "Standardization maps any normal to standard normal."
+      },
+      {
+        "id": "s4",
+        "type": "concept",
+        "title": "Linear transforms & sums of independents",
+        "body": "If X~N(μ,σ²) then aX+b ~ N(aμ+b, a²σ²).\n\nIf X,Y independent normals, then X+Y is normal with mean sum and variance sum.\n\nExam P rarely needs the full bivariate normal density; it does need standardize + table + variance of linear combos."
+      },
+      {
+        "id": "s5",
+        "type": "example",
+        "title": "Worked: between two values",
+        "setup": "X~N(50, 10²). Find P(40 < X < 65).",
+        "solution": "Z1=(40−50)/10=−1, Z2=(65−50)/10=1.5.\nP=Φ(1.5)−Φ(−1)=Φ(1.5)−(1−Φ(1)).\n≈0.9332 − (1−0.8413)=0.7745.",
+        "why": "Always convert both endpoints to Z, then subtract CDFs. Sketch the bell if inequalities confuse you."
+      },
+      {
+        "id": "s6",
+        "type": "check",
+        "title": "Linear transform",
+        "prompt": "If X~N(2, 3²) then 4X+1 has variance:",
+        "choices": {
+          "A": "12",
+          "B": "36",
+          "C": "144",
+          "D": "13"
+        },
+        "answer": "C",
+        "explain": "Var(4X+1)=16·Var(X)=16·9=144."
       }
     ]
   },
@@ -596,7 +680,7 @@
   "multi_joint": {
     "id": "multi_joint",
     "title": "Joint, marginal, conditional (discrete focus)",
-    "minutes": 50,
+    "minutes": 60,
     "lo": [
       "P3a",
       "P3b"
@@ -629,13 +713,41 @@
         },
         "answer": "B",
         "explain": "Factorization of the joint PMF is the definition."
+      },
+      {
+        "id": "s4",
+        "type": "concept",
+        "title": "Continuous joint densities",
+        "body": "Joint PDF f(x,y) ≥ 0 with ∬ f=1.\nMarginal fX(x)=∫ f(x,y) dy.\nConditional f(y|x)=f(x,y)/fX(x).\nIndependent iff f(x,y)=fX(x)fY(y) on a rectangle support (careful with non-rectangle supports — dependence can hide in the region)."
+      },
+      {
+        "id": "s5",
+        "type": "example",
+        "title": "Worked: independence via factorization",
+        "setup": "f(x,y)=2 on 0<x<y<1 (and 0 else). Are X,Y independent?",
+        "solution": "Support is a triangle, not a product rectangle ⇒ not independent.\n(You can also check f ≠ fX fY.)",
+        "why": "Support shape alone can kill independence even if the formula 'looks separable' on the triangle."
+      },
+      {
+        "id": "s6",
+        "type": "check",
+        "title": "Marginal continuous",
+        "prompt": "Continuous marginal fX(x) is obtained by:",
+        "choices": {
+          "A": "Multiplying f by x",
+          "B": "Integrating joint f over y",
+          "C": "Differentiating joint f",
+          "D": "Setting y=0 only"
+        },
+        "answer": "B",
+        "explain": "Integrate out the other variable."
       }
     ]
   },
   "multi_cov": {
     "id": "multi_cov",
     "title": "Covariance, correlation, linear combinations",
-    "minutes": 45,
+    "minutes": 55,
     "lo": [
       "P3e",
       "P3g",
@@ -669,6 +781,34 @@
         },
         "answer": "A",
         "explain": "Independence ⇒ covariance 0 ⇒ variances add."
+      },
+      {
+        "id": "s4",
+        "type": "concept",
+        "title": "E[XY] and bilinearity",
+        "body": "E[aX+bY]=aE[X]+bE[Y] always.\nCov is bilinear and symmetric; Cov(X,X)=Var(X).\nCov(X,c)=0 for constant c.\n\nFor uncorrelated variables Cov=0, Var(X+Y)=VarX+VarY.\nIndependence ⇒ uncorrelated; uncorrelated ⇏ independent in general."
+      },
+      {
+        "id": "s5",
+        "type": "example",
+        "title": "Worked: correlation from cov",
+        "setup": "VarX=4, VarY=9, Cov(X,Y)=3. Find Corr(X,Y).",
+        "solution": "Corr=3/(2·3)=3/6=0.5.",
+        "why": "Divide by product of SDs, not variances."
+      },
+      {
+        "id": "s6",
+        "type": "check",
+        "title": "Var of linear combo",
+        "prompt": "Var(2X−3Y) expands to:",
+        "choices": {
+          "A": "4VarX+9VarY−12Cov",
+          "B": "4VarX+9VarY+12Cov",
+          "C": "2VarX−3VarY",
+          "D": "VarX+VarY"
+        },
+        "answer": "A",
+        "explain": "a=2,b=−3 ⇒ a²VarX+b²VarY+2ab Cov=4VarX+9VarY−12Cov."
       }
     ]
   },
@@ -720,7 +860,7 @@
   "final": {
     "id": "final",
     "title": "Final-week method (no new theory)",
-    "minutes": 20,
+    "minutes": 30,
     "lo": [
       "review"
     ],
@@ -744,6 +884,20 @@
         },
         "answer": "B",
         "explain": "Mocks and diagnosis raise scores; new theory does not stabilize under time pressure."
+      },
+      {
+        "id": "s3",
+        "type": "concept",
+        "title": "High-yield LO triage",
+        "body": "Spend final-week time proportional to syllabus weight:\n• Univariate (incl. insurance payments) — largest\n• General conditionals/Bayes — frequent traps\n• Multivariate joint/cov/CLT — fewer items but easy points if drilled\n\nKeep a one-page formula sheet you can rewrite from memory in 10 minutes."
+      },
+      {
+        "id": "s4",
+        "type": "example",
+        "title": "Worked: 3-hour mock diagnosis loop",
+        "setup": "You score 18/30 on a mock. How to spend the next day?",
+        "solution": "Tag each miss: setup error / formula / arithmetic / misread.\nIf ≥5 misses share a tag (e.g. deductible), do a 20-question micro-set only on that tag, then re-test 10 mixed.",
+        "why": "Random re-reading is comfort; tagged micro-drills change the score."
       }
     ]
   },

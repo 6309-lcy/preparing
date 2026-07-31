@@ -1,7 +1,8 @@
 {
-  "version": 3,
+  "version": 4,
   "updated": "2026-07-31",
   "activeDefault": "P",
+  "buildPolicy": "one_course_at_a_time",
   "courses": [
     {
       "id": "P",
@@ -20,7 +21,7 @@
         "practice": 0.5,
         "mock": 0.1
       },
-      "description": "Full path + 661 SOA samples. Chapters, levels, chapter tests.",
+      "description": "COMPLETE track: Duolingo path, full lessons, 661 SOA samples with PDF crops, chapter tests, 14-week plan.",
       "planPath": "data/courses/p/plan.json",
       "pathPath": "data/courses/p/path.json",
       "structure": "duo_path",
@@ -29,8 +30,8 @@
     {
       "id": "FM",
       "name": "Exam FM — Financial Mathematics",
-      "shortName": "FM",
-      "status": "ready",
+      "shortName": "Exam FM",
+      "status": "next",
       "durationWeeks": 14,
       "examFormat": "30 MCQ · 2.5 hours · CBT",
       "weights": {
@@ -45,18 +46,18 @@
         "practice": 0.5,
         "mock": 0.1
       },
-      "description": "Full path + SOA sample bank. TVM, annuities, loans, bonds, duration.",
+      "description": "Next up after P. Draft path + 455 SOA samples exist — not polished/released yet.",
       "planPath": "data/courses/fm/plan.json",
       "pathPath": "data/courses/fm/path.json",
       "structure": "duo_path",
-      "syllabusNote": "SOA FM weights midpoints"
+      "syllabusNote": "Build one-by-one: unlock after Exam P is solid for you"
     },
     {
       "id": "FAM",
       "name": "Exam FAM — Fundamentals of Actuarial Mathematics",
-      "shortName": "FAM",
-      "status": "ready",
-      "durationWeeks": 14,
+      "shortName": "Exam FAM",
+      "status": "scaffold",
+      "durationWeeks": 16,
       "examFormat": "CBT multiple choice",
       "weights": {
         "short_term": 0.45,
@@ -67,17 +68,17 @@
         "practice": 0.5,
         "mock": 0.1
       },
-      "description": "Full learn path for ST+LT foundations. Practice draws from related banks when available.",
-      "planPath": "data/courses/fam/plan.json",
-      "pathPath": "data/courses/fam/path.json",
+      "description": "Queued after FM. Draft files may exist; not study-ready yet.",
+      "planPath": null,
+      "pathPath": null,
       "structure": "duo_path",
-      "syllabusNote": "FAM ST+LT structure"
+      "syllabusNote": "One-by-one queue"
     },
     {
       "id": "SRM",
       "name": "Exam SRM — Statistics for Risk Modeling",
-      "shortName": "SRM",
-      "status": "ready",
+      "shortName": "Exam SRM",
+      "status": "scaffold",
       "durationWeeks": 14,
       "examFormat": "CBT multiple choice",
       "weights": {
@@ -92,17 +93,17 @@
         "practice": 0.5,
         "mock": 0.1
       },
-      "description": "Full concept path: learning, GLMs, TS, PCA, trees. Lesson-first with chapter tests.",
-      "planPath": "data/courses/srm/plan.json",
-      "pathPath": "data/courses/srm/path.json",
+      "description": "Queued. Not study-ready yet.",
+      "planPath": null,
+      "pathPath": null,
       "structure": "duo_path",
-      "syllabusNote": "SOA SRM objectives"
+      "syllabusNote": "One-by-one queue"
     },
     {
       "id": "PA",
       "name": "Exam PA — Predictive Analytics",
-      "shortName": "PA",
-      "status": "ready",
+      "shortName": "Exam PA",
+      "status": "scaffold",
       "durationWeeks": 14,
       "examFormat": "Project / written CBT-style",
       "weights": {
@@ -112,22 +113,22 @@
         "communication": 0.25
       },
       "mix": {
-        "reading": 0.4,
-        "practice": 0.5,
-        "mock": 0.1
+        "reading": 0.35,
+        "practice": 0.45,
+        "mock": 0.2
       },
-      "description": "Full project workflow path with mock project checkpoints.",
-      "planPath": "data/courses/pa/plan.json",
-      "pathPath": "data/courses/pa/path.json",
+      "description": "Queued. Not study-ready yet.",
+      "planPath": null,
+      "pathPath": null,
       "structure": "duo_path",
-      "syllabusNote": "PA communication-heavy"
+      "syllabusNote": "One-by-one queue"
     },
     {
       "id": "ST",
       "name": "Short-Term Specialty Track",
-      "shortName": "ST",
-      "status": "ready",
-      "durationWeeks": 14,
+      "shortName": "Short-Term",
+      "status": "scaffold",
+      "durationWeeks": 12,
       "examFormat": "Pathway-dependent",
       "weights": {
         "reserve": 0.35,
@@ -140,18 +141,18 @@
         "practice": 0.5,
         "mock": 0.1
       },
-      "description": "Post-FAM short-term practice themes: rate, reserve, reinsurance.",
-      "planPath": "data/courses/st/plan.json",
-      "pathPath": "data/courses/st/path.json",
+      "description": "Queued after FAM. Not study-ready yet.",
+      "planPath": null,
+      "pathPath": null,
       "structure": "duo_path",
-      "syllabusNote": "ST specialty prep"
+      "syllabusNote": "One-by-one queue"
     },
     {
       "id": "LT",
       "name": "Long-Term Specialty Track",
-      "shortName": "LT",
-      "status": "ready",
-      "durationWeeks": 14,
+      "shortName": "Long-Term",
+      "status": "scaffold",
+      "durationWeeks": 12,
       "examFormat": "Pathway-dependent",
       "weights": {
         "life_contingencies": 0.4,
@@ -164,11 +165,11 @@
         "practice": 0.5,
         "mock": 0.1
       },
-      "description": "Post-FAM long-term themes: multi-state, products, reserves.",
-      "planPath": "data/courses/lt/plan.json",
-      "pathPath": "data/courses/lt/path.json",
+      "description": "Queued after FAM. Not study-ready yet.",
+      "planPath": null,
+      "pathPath": null,
       "structure": "duo_path",
-      "syllabusNote": "LT specialty prep"
+      "syllabusNote": "One-by-one queue"
     }
   ]
 }

@@ -2272,8 +2272,8 @@
     root.innerHTML = `
       <div class="card">
         <h1 class="text-xl font-semibold tracking-tight">Courses</h1>
-        <p class="mt-1 text-sm text-mute">All exam tracks are loaded: units, chapters, levels, chapter tests, and lessons. P & FM use full SOA sample banks; others are lesson-complete with shared drill banks.</p>
-        <p class="mt-2 text-xs text-mute">Mix: <strong>40% reading</strong> · <strong>50% practice</strong> · <strong>10% mock</strong> · ~3–4 months · multi-level days OK.</p>
+        <p class="mt-1 text-sm text-mute">We build courses <strong>one at a time</strong>. Only <strong>Exam P</strong> is fully study-ready right now. FM is next; others stay locked until finished properly.</p>
+        <p class="mt-2 text-xs text-mute">Mix: <strong>40% reading</strong> · <strong>50% practice</strong> · <strong>10% mock</strong> · multi-level days OK.</p>
       </div>
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
         ${list
@@ -2281,6 +2281,9 @@
             const active = state.activeCourseId === c.id;
             const prog = state.courses?.[c.id];
             const ready = c.status === "ready";
+            const next = c.status === "next";
+            const badge = ready ? "Ready" : next ? "Next up" : "Queued";
+            const badgeCls = ready ? "text-brand" : next ? "text-amber-800" : "text-mute";
             const pathDone = (() => {
               if (!ready || state.activeCourseId !== c.id || !activePath) return null;
               return pathOverallPct();
@@ -2289,7 +2292,7 @@
             <article class="card ${active ? "ring-2 ring-brand" : ""} ${ready ? "card-interactive" : "opacity-90"}">
               <div class="flex items-start justify-between gap-2">
                 <div>
-                  <div class="text-[11px] font-semibold uppercase tracking-wide ${ready ? "text-brand" : "text-mute"}">${ready ? "Ready" : "Scaffold"}</div>
+                  <div class="text-[11px] font-semibold uppercase tracking-wide ${badgeCls}">${badge}</div>
                   <h2 class="mt-1 text-lg font-semibold tracking-tight">${escapeHtml(c.shortName)}</h2>
                   <p class="mt-1 text-sm text-mute leading-relaxed">${escapeHtml(c.description || "")}</p>
                 </div>
@@ -2298,10 +2301,10 @@
               <div class="mt-3 text-xs text-mute space-y-1">
                 <div>${c.durationWeeks || "—"} weeks · ${escapeHtml(c.examFormat || "")}</div>
                 <div>${escapeHtml(c.syllabusNote || "")}</div>
-                ${prog ? `<div class="pt-1">XP ${prog.xp || 0} · streak ${prog.streak || 0} · wrong ${Object.keys(prog.wrongPool || {}).length}${pathDone != null ? ` · path ${pathDone}%` : ""}</div>` : ""}
+                ${prog && ready ? `<div class="pt-1">XP ${prog.xp || 0} · streak ${prog.streak || 0} · wrong ${Object.keys(prog.wrongPool || {}).length}${pathDone != null ? ` · path ${pathDone}%` : ""}</div>` : ""}
               </div>
               <button type="button" class="btn-${ready ? "primary" : "secondary"} w-full mt-4" data-course="${c.id}" ${ready ? "" : "disabled"}>
-                ${active ? "Continue" : ready ? "Start / switch" : "Coming soon"}
+                ${active && ready ? "Continue Exam P" : ready ? "Study this course" : next ? "After P" : "Not built yet"}
               </button>
             </article>`;
           })
@@ -2312,7 +2315,7 @@
         const id = btn.dataset.course;
         const meta = courseMeta(id);
         if (meta?.status !== "ready") {
-          toast("Course not ready yet");
+          toast(meta?.status === "next" ? "FM is next — finish Exam P path first" : "Not built yet — one course at a time");
           return;
         }
         btn.disabled = true;
@@ -2568,13 +2571,18 @@
     }
     state = migrateState(state);
     syncActiveCourseToTop();
-    // Prefetch all ready course assets (paths/plans) in background
+    // Prefetch only ready courses (one-by-one policy)
     if (coursesCatalog?.courses?.length) {
       await Promise.all(
         coursesCatalog.courses
           .filter((c) => c.status === "ready")
           .map((c) => ensureCourseAssets(c.id))
       );
+    }
+    // Force active course to a ready one (default P)
+    const readyIds = new Set((coursesCatalog?.courses || []).filter((c) => c.status === "ready").map((c) => c.id));
+    if (!readyIds.has(state.activeCourseId || "P")) {
+      state.activeCourseId = coursesCatalog?.activeDefault || "P";
     }
     // Active course path/plan + filtered question bank
     await ensureCourseAssets(state.activeCourseId || "P");
@@ -2677,8 +2685,8 @@
     if ("serviceWorker" in navigator) {
       try {
         const keys = await caches.keys();
-        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v11").map((k) => caches.delete(k)));
-        await navigator.serviceWorker.register("./sw.js?v=11");
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v12").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=12");
       } catch (e) {
         console.warn(e);
       }
