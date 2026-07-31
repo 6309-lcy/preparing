@@ -1,5 +1,5 @@
 /* SOA Grind PWA — network-first for app shell & data */
-const CACHE = "soa-grind-v8";
+const CACHE = "soa-grind-v9";
 const SHELL = [
   "./",
   "./index.html",

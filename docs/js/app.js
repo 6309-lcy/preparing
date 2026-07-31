@@ -41,7 +41,7 @@
     examHistory: [],
     activeExam: null,
     pathProgress: {},
-    settings: { dailyGoal: 20, grokBase: "https://grok.com/?q=" },
+    settings: { dailyGoal: 20, pathDailyGoal: 3, grokBase: "https://grok.com/?q=" },
   });
 
   let state = loadState();
@@ -235,6 +235,40 @@
     return null;
   }
 
+  /** Next incomplete unlocked level after a finished one (or overall current). */
+  function nextPlayableLevel(afterLevelId) {
+    const order = activePath?.levelOrder || allPathLevels().map((l) => l.id);
+    if (!order.length) return null;
+    let start = 0;
+    if (afterLevelId) {
+      const i = order.indexOf(afterLevelId);
+      if (i >= 0) start = i + 1;
+    }
+    for (let i = start; i < order.length; i++) {
+      const id = order[i];
+      if (!isLevelDone(id) && isLevelUnlocked(id)) return findLevel(id);
+    }
+    // wrap search from start if we skipped earlier fails
+    return currentPathLevel();
+  }
+
+  function levelsCompletedToday(date = todayISO()) {
+    const pp = ensurePathProgress();
+    let n = 0;
+    for (const [id, rec] of Object.entries(pp)) {
+      if (!rec || id.startsWith("_")) continue;
+      if (rec.status !== "done" && rec.status !== "passed") continue;
+      const at = String(rec.at || "");
+      if (at.startsWith(date)) n++;
+    }
+    return n;
+  }
+
+  /** Suggested daily path volume (no hard cap — grind as many as you want). */
+  function pathDailyTarget() {
+    return Math.max(2, Number(state.settings?.pathDailyGoal) || 3);
+  }
+
   function pathOverallPct() {
     const order = activePath?.levelOrder || [];
     if (!order.length) return 0;
@@ -317,7 +351,7 @@
     return queue.slice(0, target);
   }
 
-  function startPathLevel(levelId) {
+  function startPathLevel(levelId, opts = {}) {
     const lv = findLevel(levelId);
     if (!lv) {
       toast("Level not found");
@@ -343,10 +377,25 @@
       if (!ids.length || !lessons[ids[0]]) {
         toast("Lesson module missing — mark complete to continue");
         completePathLevel(levelId, { score: 100 });
-        renderPath();
+        continueAfterPathLevel(levelId);
         return;
       }
       ids.forEach((id) => ensureLessonProgress(date, id));
+      const alreadyMastered = ids.every((id) => isLessonComplete(date, id));
+      // First time on path but lesson already done earlier → check off (limit skip-ahead so we don't blaze the whole path)
+      if (alreadyMastered && !isLevelDone(levelId) && !opts.forceReplay) {
+        completePathLevel(levelId, { score: 100 });
+        const depth = (opts.skipChainDepth || 0) + 1;
+        if (depth > 2) {
+          toast("Mastered lessons checked off — continue from Path (multi-level OK)");
+          showView("path");
+          renderPath();
+          return;
+        }
+        toast("Lesson already mastered — level checked · keep going");
+        continueAfterPathLevel(levelId, { autoStart: opts.autoChain !== false, skipChainDepth: depth });
+        return;
+      }
       learn = {
         date,
         lessonIds: ids,
@@ -355,8 +404,16 @@
         selectedCheck: null,
         checkRevealed: false,
         pathLevelId: levelId,
+        forceReplay: !!opts.forceReplay || (alreadyMastered && isLevelDone(levelId)),
       };
-      seekFirstIncomplete();
+      if (!learn.forceReplay) seekFirstIncomplete();
+      // If still nothing incomplete (edge), complete path level
+      if (!learn.forceReplay && arePathLessonIdsComplete(learn)) {
+        completePathLevel(levelId, { score: 100 });
+        learn = null;
+        continueAfterPathLevel(levelId, { autoStart: opts.autoChain !== false });
+        return;
+      }
       updateStreakOnActivity();
       saveState({ immediate: true });
       showView("learn");
@@ -390,6 +447,43 @@
     saveState();
     showView("quiz");
     renderQuiz();
+  }
+
+  function arePathLessonIdsComplete(learnState) {
+    if (!learnState?.lessonIds?.length) return true;
+    return learnState.lessonIds.every((id) => isLessonComplete(learnState.date, id));
+  }
+
+  /**
+   * After a path level: allow many levels per day.
+   * Prefer auto-starting the next level so grinding sessions stay smooth.
+   */
+  function continueAfterPathLevel(finishedLevelId, opts = {}) {
+    const autoStart = opts.autoStart !== false;
+    const next = nextPlayableLevel(finishedLevelId);
+    const todayN = levelsCompletedToday();
+    const target = pathDailyTarget();
+    if (next && autoStart && opts.forcePrompt !== true) {
+      // brief pause via toast then start — keep flow for multi-lesson days
+      toast(`Level ${todayN} today · next: ${next.title}`);
+      // Defer so toast/render can settle
+      setTimeout(
+        () =>
+          startPathLevel(next.id, {
+            autoChain: true,
+            skipChainDepth: opts.skipChainDepth || 0,
+          }),
+        120
+      );
+      return;
+    }
+    showView("path");
+    renderPath();
+    if (next) {
+      toast(`${todayN} levels today (goal ${target}+) · continue anytime`);
+    } else {
+      toast(todayN ? `${todayN} levels today · path caught up` : "Path open");
+    }
   }
 
   function finishPathQuizSession() {
@@ -731,10 +825,28 @@
     const correct = answeredIds.filter((id) => day.answered[id].correct).length;
     const lessonPct = lessonProgressPct(date) / 100;
     const qPct = target > 0 ? Math.min(1, answeredIds.length / target) : 1;
-    const overall = Math.round((0.4 * lessonPct + 0.6 * qPct) * 100);
+    const levelsToday = levelsCompletedToday(date);
+    const pathTarget = pathDailyTarget();
+    const pathPct = Math.min(1, levelsToday / pathTarget);
+    // Blend calendar day + path grind (multiple levels/day encouraged)
+    const overall = Math.round(
+      (activePath ? 0.25 * lessonPct + 0.35 * qPct + 0.4 * pathPct : 0.4 * lessonPct + 0.6 * qPct) * 100
+    );
     const lessonDone = areAllLessonsComplete(date);
-    const done = lessonDone && answeredIds.length >= target;
-    return { target, answered: answeredIds.length, correct, lessonPct: Math.round(lessonPct * 100), lessonDone, overall, done };
+    const pathGoalMet = levelsToday >= pathTarget;
+    const done = pathGoalMet || (lessonDone && answeredIds.length >= target);
+    return {
+      target,
+      answered: answeredIds.length,
+      correct,
+      lessonPct: Math.round(lessonPct * 100),
+      lessonDone,
+      overall,
+      done,
+      levelsToday,
+      pathTarget,
+      pathGoalMet,
+    };
   }
 
   function wrongList() {
@@ -831,16 +943,15 @@
       renderChrome();
       return;
     }
-    // Path level lesson complete
+    // Path level lesson complete → chain next level (multi-lesson days OK)
     if (learn.pathLevelId) {
-      completePathLevel(learn.pathLevelId, { score: 100 });
-      toast("Level complete — next level unlocked · synced");
-      const nextId = learn.pathLevelId;
+      const finishedId = learn.pathLevelId;
+      completePathLevel(finishedId, { score: 100 });
       learn = null;
       saveState({ immediate: true });
-      showView("path");
-      renderPath();
-      // scroll focus stays on path
+      const n = levelsCompletedToday();
+      toast(`Lesson level done · ${n} levels today · synced`);
+      continueAfterPathLevel(finishedId, { autoStart: true });
       return;
     }
     toast("Lesson complete — quiz unlocked · synced");
@@ -1233,6 +1344,20 @@
 
     const curLv = currentPathLevel();
     const pathPct = pathOverallPct();
+    const levelsToday = stats.levelsToday || 0;
+    const pathTarget = stats.pathTarget || pathDailyTarget();
+    // Preview next few playable levels for multi-lesson days
+    const queuePreview = [];
+    if (activePath) {
+      const order = activePath.levelOrder || [];
+      for (const id of order) {
+        if (queuePreview.length >= 4) break;
+        if (!isLevelDone(id) && isLevelUnlocked(id)) {
+          const lv = findLevel(id);
+          if (lv) queuePreview.push(lv);
+        }
+      }
+    }
 
     root.innerHTML = `
       <section class="card">
@@ -1243,27 +1368,55 @@
               <div class="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-brand">${escapeHtml(plan.phase)}</div>
               ${plan.week ? `<div class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-600">Week ${plan.week}/14</div>` : ""}
               ${activePath ? `<div class="inline-flex items-center gap-1.5 rounded-full bg-violet-50 text-violet-800 px-2.5 py-1 text-[11px] font-semibold">Path ${pathPct}%</div>` : ""}
+              ${activePath ? `<div class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 text-amber-900 px-2.5 py-1 text-[11px] font-semibold">${levelsToday} levels today</div>` : ""}
             </div>
             <h1 class="mt-3 text-xl md:text-2xl font-semibold tracking-tight text-ink leading-snug">${escapeHtml(plan.title)}</h1>
             <p class="mt-1.5 text-sm text-mute">${escapeHtml(plan.weekday)} · ${escapeHtml(plan.date)}${plan.fmLight ? " · light FM" : ""}</p>
             ${topicLine ? `<p class="mt-2 text-sm font-medium text-brand">Quiz topics today: ${escapeHtml(topicLine)}</p>` : ""}
             <p class="mt-3 text-sm text-mute">Plan target <span class="font-medium text-ink">${target}</span> · <span class="font-semibold text-brand">${left}d</span></p>
-            <p class="mt-1 text-xs text-mute">Mix: 40% read · 50% practice · 10% mock · chapters + levels + chapter tests</p>
+            <p class="mt-1 text-xs text-mute">Do as many path levels as you want per day · soft goal ${pathTarget}+ · mix 40/50/10</p>
           </div>
-          <div class="shrink-0">${ringSvg(activePath ? pathPct : stats.overall)}</div>
+          <div class="shrink-0">${ringSvg(activePath ? Math.min(100, Math.round((100 * levelsToday) / pathTarget)) : stats.overall)}</div>
         </div>
 
         ${
-          curLv
-            ? `<div class="mt-4 rounded-xl border border-brand/25 bg-gradient-to-r from-brand-soft/50 to-white px-3 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          queuePreview.length
+            ? `<div class="mt-4 rounded-xl border border-brand/25 bg-gradient-to-r from-brand-soft/50 to-white px-3 py-3">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                  <div class="min-w-0">
+                    <div class="text-[11px] font-semibold uppercase tracking-wide text-brand">Multi-level session</div>
+                    <div class="text-sm font-semibold">Next up · Ch ${queuePreview[0].chapterNumber}: ${escapeHtml(queuePreview[0].chapterTitle)}</div>
+                    <div class="text-xs text-mute mt-0.5">${escapeHtml(queuePreview[0].title)} · then keep chaining</div>
+                  </div>
+                  <button type="button" class="btn-primary shrink-0" id="btnHomePath">Start · then auto-continue</button>
+                </div>
+                <div class="mt-3 space-y-1.5">
+                  ${queuePreview
+                    .map(
+                      (lv, i) => `
+                    <button type="button" class="w-full flex items-center gap-2 rounded-lg border border-slate-100 bg-white/80 px-2.5 py-2 text-left hover:border-brand/30" data-home-level="${lv.id}">
+                      <span class="flex h-7 w-7 items-center justify-center rounded-full ${i === 0 ? "bg-brand text-white" : "bg-slate-100 text-slate-600"} text-xs font-bold">${i + 1}</span>
+                      <span class="min-w-0 flex-1">
+                        <span class="block text-sm font-medium truncate">${escapeHtml(lv.title)}</span>
+                        <span class="block text-[11px] text-mute truncate">Ch ${lv.chapterNumber} · ${escapeHtml(lv.chapterTitle)}</span>
+                      </span>
+                      <span class="text-[11px] font-semibold text-brand shrink-0">${lv.type === "chapter_test" ? "Test" : lv.type === "lesson" ? "Learn" : "Practice"}</span>
+                    </button>`
+                    )
+                    .join("")}
+                </div>
+                <p class="mt-2 text-[11px] text-mute">No cap — finish one level and the next starts automatically (or pick any unlocked level).</p>
+              </div>`
+            : curLv
+              ? `<div class="mt-4 rounded-xl border border-brand/25 bg-gradient-to-r from-brand-soft/50 to-white px-3 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div class="min-w-0">
                   <div class="text-[11px] font-semibold uppercase tracking-wide text-brand">Continue path</div>
                   <div class="text-sm font-semibold">Ch ${curLv.chapterNumber}: ${escapeHtml(curLv.chapterTitle)}</div>
-                  <div class="text-xs text-mute mt-0.5">${escapeHtml(curLv.title)} · ${escapeHtml(curLv.subtitle || "")}</div>
+                  <div class="text-xs text-mute mt-0.5">${escapeHtml(curLv.title)}</div>
                 </div>
                 <button type="button" class="btn-primary shrink-0" id="btnHomePath">Open level</button>
               </div>`
-            : ""
+              : ""
         }
 
         ${plan.readPct != null ? `
@@ -1282,10 +1435,14 @@
           </div>
         </div>` : ""}
 
-        <div class="mt-5 grid grid-cols-3 gap-2">
+        <div class="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <div class="rounded-xl bg-slate-50 border border-slate-100 px-3 py-3">
+            <div class="text-lg font-semibold tabular-nums">${levelsToday}<span class="text-sm font-medium text-mute">/${pathTarget}+</span></div>
+            <div class="text-[11px] font-medium text-mute mt-0.5">Levels today</div>
+          </div>
           <div class="rounded-xl bg-slate-50 border border-slate-100 px-3 py-3">
             <div class="text-lg font-semibold tabular-nums">${stats.lessonPct}%</div>
-            <div class="text-[11px] font-medium text-mute mt-0.5">Lesson</div>
+            <div class="text-[11px] font-medium text-mute mt-0.5">Daily lesson</div>
           </div>
           <div class="rounded-xl bg-slate-50 border border-slate-100 px-3 py-3">
             <div class="text-lg font-semibold tabular-nums">${stats.answered}/${stats.target}</div>
@@ -1363,11 +1520,15 @@
       renderPath();
     });
     $("#btnHomePath")?.addEventListener("click", () => {
-      if (curLv) startPathLevel(curLv.id);
+      const first = queuePreview[0] || curLv;
+      if (first) startPathLevel(first.id, { autoChain: true });
       else {
         showView("path");
         renderPath();
       }
+    });
+    root.querySelectorAll("[data-home-level]").forEach((btn) => {
+      btn.onclick = () => startPathLevel(btn.dataset.homeLevel, { autoChain: true });
     });
     $("#btnHomeExam")?.addEventListener("click", () => {
       showView("exam");
@@ -1396,26 +1557,81 @@
       const ids = lessonIdsFor(plan);
       const guides = window.SOA_TOPIC_GUIDES || {};
       const topicLine = (plan?.topicPrefs || []).map((t) => guides[t]?.label || t).join(" · ");
+      const todayN = levelsCompletedToday();
+      // Upcoming path *lesson* levels (can do many per day)
+      const pathLessons = [];
+      if (activePath) {
+        for (const id of activePath.levelOrder || []) {
+          if (pathLessons.length >= 6) break;
+          const lv = findLevel(id);
+          if (!lv) continue;
+          if (lv.type !== "lesson" && lv.mode !== "lesson") continue;
+          if (!isLevelUnlocked(id)) continue;
+          pathLessons.push(lv);
+        }
+      }
       root.innerHTML = `
         <div class="card">
           <h2 class="text-lg font-semibold tracking-tight">Learn</h2>
-          <p class="mt-1 text-sm text-mute">Longer teach-first modules aligned to today’s quiz topics. Progress syncs across devices when signed in.</p>
-          ${topicLine ? `<p class="mt-3 text-sm text-brand font-medium">Today’s quiz topics: ${escapeHtml(topicLine)}</p>` : ""}
-          <div class="mt-4 space-y-2">
-            ${ids.map((id) => {
-              const L = resolveLesson(id, todayISO()) || lessons[id];
-              const done = isLessonComplete(todayISO(), id);
-              return `<div class="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 px-3 py-3">
-                <div>
-                  <div class="text-sm font-semibold">${done ? "Synced · complete" : "In progress / pending"} · ${escapeHtml(L?.title || id)}</div>
-                  <div class="text-xs text-mute mt-0.5">~${L?.minutes || "?"} min · ${(L?.sections || []).length} sections (core + quiz bridge)</div>
-                </div>
-              </div>`;
-            }).join("") || `<p class="text-sm text-mute">No modules for today.</p>`}
+          <p class="mt-1 text-sm text-mute">Do <strong>multiple lessons per day</strong> on the path — no daily cap. Soft goal ${pathDailyTarget()}+ levels (any type).</p>
+          <p class="mt-2 text-sm font-medium text-brand">${todayN} path level${todayN === 1 ? "" : "s"} finished today</p>
+          ${
+            pathLessons.length
+              ? `<div class="mt-4">
+                  <div class="text-[11px] font-semibold uppercase tracking-wide text-mute">Path lessons (unlocked)</div>
+                  <div class="mt-2 space-y-2">
+                    ${pathLessons
+                      .map((lv) => {
+                        const done = isLevelDone(lv.id);
+                        return `<button type="button" class="w-full flex items-center justify-between gap-2 rounded-xl border border-slate-100 bg-slate-50 px-3 py-3 text-left hover:border-brand/30" data-path-lesson="${lv.id}">
+                          <div class="min-w-0">
+                            <div class="text-sm font-semibold truncate">${done ? "✓ " : ""}${escapeHtml(lv.chapterTitle)} · ${escapeHtml(lv.title)}</div>
+                            <div class="text-xs text-mute mt-0.5">Ch ${lv.chapterNumber} · ~teach-first · then auto-continue next level</div>
+                          </div>
+                          <span class="shrink-0 text-xs font-bold text-brand">${done ? "Replay" : "Start"}</span>
+                        </button>`;
+                      })
+                      .join("")}
+                  </div>
+                  <button class="btn-primary w-full mt-3" id="btnStartPathLessonChain">Start next lesson · chain levels</button>
+                </div>`
+              : ""
+          }
+          <div class="mt-5 border-t border-slate-100 pt-4">
+            <div class="text-[11px] font-semibold uppercase tracking-wide text-mute">Calendar day module</div>
+            ${topicLine ? `<p class="mt-2 text-sm text-brand font-medium">Today’s quiz topics: ${escapeHtml(topicLine)}</p>` : ""}
+            <div class="mt-3 space-y-2">
+              ${
+                ids
+                  .map((id) => {
+                    const L = resolveLesson(id, todayISO()) || lessons[id];
+                    const done = isLessonComplete(todayISO(), id);
+                    return `<div class="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 px-3 py-3">
+                      <div>
+                        <div class="text-sm font-semibold">${done ? "Synced · complete" : "In progress / pending"} · ${escapeHtml(L?.title || id)}</div>
+                        <div class="text-xs text-mute mt-0.5">~${L?.minutes || "?"} min · ${(L?.sections || []).length} sections</div>
+                      </div>
+                    </div>`;
+                  })
+                  .join("") || `<p class="text-sm text-mute">No calendar module for today.</p>`
+              }
+            </div>
+            <button class="btn-secondary w-full mt-3" id="btnStartLearnEmpty">${areAllLessonsComplete() ? "Review calendar lesson" : "Start calendar lesson"}</button>
           </div>
-          <button class="btn-primary w-full mt-4" id="btnStartLearnEmpty">${areAllLessonsComplete() ? "Review lesson" : "Start lesson"}</button>
         </div>`;
       $("#btnStartLearnEmpty").onclick = () => startLearn();
+      $("#btnStartPathLessonChain")?.addEventListener("click", () => {
+        const next = pathLessons.find((l) => !isLevelDone(l.id)) || pathLessons[0] || currentPathLevel();
+        if (next) startPathLevel(next.id, { autoChain: true });
+        else toast("No path lesson available");
+      });
+      root.querySelectorAll("[data-path-lesson]").forEach((btn) => {
+        btn.onclick = () =>
+          startPathLevel(btn.dataset.pathLesson, {
+            autoChain: true,
+            forceReplay: isLevelDone(btn.dataset.pathLesson),
+          });
+      });
       refreshIcons();
       return;
     }
@@ -1579,6 +1795,10 @@
           ? `Score ${pct}% · next chapter unlocked.`
           : `Score ${pct}% · need ${quiz.pathResult?.status === "failed" ? "≥70%" : "pass"} · retry when ready.`
         : "Clean work. Review misses while they’re fresh.";
+      const levelId = quiz.pathLevelId;
+      const nextLv = isPath && passed ? nextPlayableLevel(levelId) : null;
+      const todayN = levelsCompletedToday();
+      const todayGoal = pathDailyTarget();
       root.innerHTML = `
         <div class="card text-center py-8">
           <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl ${passed ? "bg-brand-soft text-brand" : "bg-amber-50 text-amber-700"}">
@@ -1586,16 +1806,29 @@
           </div>
           <h2 class="mt-4 text-xl font-semibold tracking-tight">${title}</h2>
           <p class="mt-2 text-sm text-mute">${escapeHtml(sub)}</p>
+          ${
+            isPath
+              ? `<p class="mt-2 text-sm font-medium text-brand">${todayN} level${todayN === 1 ? "" : "s"} today · goal ${todayGoal}+ (no daily cap)</p>`
+              : ""
+          }
           <div class="mt-6 flex justify-center">${ringSvg(pct, 100)}</div>
           <p class="mt-3 text-sm font-medium">${quiz.correct}/${quiz.total} correct${isTest ? ` · ${pct}%` : ""}</p>
           <div class="mt-6 space-y-2">
-            ${isPath ? `<button class="btn-primary w-full" id="btnQuizPath">Back to Path</button>` : ""}
-            <button class="${isPath ? "btn-secondary" : "btn-primary"} w-full" id="btnQuizHome">Back to Today</button>
+            ${
+              nextLv
+                ? `<button class="btn-primary w-full" id="btnNextLevel">Continue next level · ${escapeHtml(nextLv.title)}</button>`
+                : ""
+            }
+            ${isPath ? `<button class="${nextLv ? "btn-secondary" : "btn-primary"} w-full" id="btnQuizPath">Back to Path</button>` : ""}
+            <button class="btn-secondary w-full" id="btnQuizHome">Back to Today</button>
             ${isTest && !passed ? `<button class="btn-secondary w-full" id="btnRetryLevel">Retry chapter test</button>` : ""}
             <button class="btn-secondary w-full" id="btnQuizWrong">Open wrong pool</button>
           </div>
         </div>`;
-      const levelId = quiz.pathLevelId;
+      $("#btnNextLevel")?.addEventListener("click", () => {
+        quiz = null;
+        if (nextLv) startPathLevel(nextLv.id, { autoChain: true });
+      });
       $("#btnQuizPath")?.addEventListener("click", () => {
         quiz = null;
         showView("path");
@@ -1880,10 +2113,11 @@
           cur
             ? `<div class="mt-4 rounded-xl border border-brand/20 bg-brand-soft/40 px-3 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div class="min-w-0">
-                  <div class="text-[11px] font-semibold uppercase tracking-wide text-brand">Continue</div>
+                  <div class="text-[11px] font-semibold uppercase tracking-wide text-brand">Continue · multi-level day OK</div>
                   <div class="text-sm font-semibold truncate">Ch ${cur.chapterNumber}: ${escapeHtml(cur.chapterTitle)} — ${escapeHtml(cur.title)}</div>
+                  <div class="text-xs text-mute mt-0.5">${levelsCompletedToday()} levels today · soft goal ${pathDailyTarget()}+ · no cap · auto-chains after each level</div>
                 </div>
-                <button type="button" class="btn-primary shrink-0" id="btnContinuePath">Start level</button>
+                <button type="button" class="btn-primary shrink-0" id="btnContinuePath">Start · keep going</button>
               </div>`
             : ""
         }
@@ -1923,7 +2157,7 @@
       };
     });
     $("#btnContinuePath")?.addEventListener("click", () => {
-      if (cur) startPathLevel(cur.id);
+      if (cur) startPathLevel(cur.id, { autoChain: true });
     });
     refreshIcons();
   }
@@ -2123,8 +2357,11 @@
         </div>
         <label class="block text-xs font-medium text-mute mt-4">Reminder hour</label>
         <input id="reminderHour" type="number" min="0" max="23" value="${state.reminderHour}" class="field mt-1" />
-        <label class="block text-xs font-medium text-mute mt-3">Daily question goal</label>
+        <label class="block text-xs font-medium text-mute mt-3">Daily question goal (calendar drill)</label>
         <input id="dailyGoal" type="number" min="5" max="40" value="${state.settings.dailyGoal}" class="field mt-1" />
+        <label class="block text-xs font-medium text-mute mt-3">Path levels soft goal / day (no hard cap)</label>
+        <input id="pathDailyGoal" type="number" min="1" max="20" value="${state.settings.pathDailyGoal || 3}" class="field mt-1" />
+        <p class="mt-1 text-xs text-mute">You can always do more lessons and levels in one day — this is only a progress target.</p>
         <button class="btn-primary w-full mt-4" id="btnSaveSettings">Save settings</button>
       </div>
       <div class="card">
@@ -2170,6 +2407,7 @@
     $("#btnSaveSettings").onclick = () => {
       state.reminderHour = Number($("#reminderHour").value) || 19;
       state.settings.dailyGoal = Number($("#dailyGoal").value) || 20;
+      state.settings.pathDailyGoal = Math.max(1, Number($("#pathDailyGoal")?.value) || 3);
       saveState({ immediate: true });
       toast("Settings saved");
     };
@@ -2363,8 +2601,8 @@
     if ("serviceWorker" in navigator) {
       try {
         const keys = await caches.keys();
-        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v8").map((k) => caches.delete(k)));
-        await navigator.serviceWorker.register("./sw.js?v=8");
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v9").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=9");
       } catch (e) {
         console.warn(e);
       }
