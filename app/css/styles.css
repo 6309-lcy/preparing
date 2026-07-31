@@ -364,6 +364,174 @@ body { background: var(--canvas); color: var(--ink); }
 .path-node.done .path-dot { background: #d1fae5; color: #047857; }
 .path-node.today .path-dot { background: #ccfbf1; color: #0f766e; }
 
+/* Duolingo-style path: units · chapters · levels */
+.duo-unit-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+@media (min-width: 768px) {
+  .duo-unit-tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.duo-unit-tab {
+  text-align: left;
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  padding: 0.75rem 0.85rem;
+  transition: border-color 200ms ease, box-shadow 200ms ease, transform 150ms ease;
+  cursor: pointer;
+}
+.duo-unit-tab:hover {
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+.duo-unit-tab.active {
+  border-color: var(--unit-color, #0f766e);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--unit-color, #0f766e) 18%, transparent);
+  background: linear-gradient(180deg, #fff, #f8fafc);
+}
+.duo-unit-num {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+.duo-unit-name {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+.duo-unit-meta {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.7rem;
+  color: #64748b;
+}
+.duo-chapter { margin-bottom: 0.75rem; }
+.duo-chapter-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+.duo-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  position: relative;
+  padding-left: 0.25rem;
+}
+.duo-track::before {
+  content: "";
+  position: absolute;
+  left: 1.55rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ccfbf1, #e2e8f0);
+  z-index: 0;
+}
+.duo-node {
+  display: grid;
+  grid-template-columns: 3.1rem 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.duo-bubble {
+  width: 3.1rem;
+  height: 3.1rem;
+  border-radius: 999px;
+  border: 3px solid #e2e8f0;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #e2e8f0;
+  transition: transform 150ms ease, border-color 200ms ease, background 200ms ease;
+}
+.duo-bubble:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+.duo-bubble:disabled {
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+.duo-bubble-mark {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #475569;
+}
+.duo-bubble-icon {
+  display: none;
+}
+.duo-node.current .duo-bubble {
+  border-color: #0f766e;
+  background: #0f766e;
+  box-shadow: 0 3px 0 #115e59, 0 0 0 4px rgba(15, 118, 110, 0.15);
+}
+.duo-node.current .duo-bubble-mark { color: #fff; }
+.duo-node.done .duo-bubble {
+  border-color: #34d399;
+  background: #ecfdf5;
+  box-shadow: 0 2px 0 #a7f3d0;
+}
+.duo-node.done .duo-bubble-mark { color: #047857; }
+.duo-node.failed .duo-bubble {
+  border-color: #fbbf24;
+  background: #fffbeb;
+}
+.duo-node.failed .duo-bubble-mark { color: #b45309; }
+.duo-node.locked .duo-bubble {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  box-shadow: none;
+}
+.duo-node-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+.duo-node-sub {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.1rem;
+}
+.duo-start-btn {
+  margin-top: 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #0f766e;
+  background: #ccfbf1;
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  border: none;
+  cursor: pointer;
+}
+.duo-start-btn:hover { background: #99f6e4; }
+.duo-locked-label {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
 .list-item {
   display: flex;
   justify-content: space-between;

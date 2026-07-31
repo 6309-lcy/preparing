@@ -220,6 +220,7 @@
         ),
         examHistory: [...(lc.examHistory || []), ...(rc.examHistory || [])].slice(0, 30),
         lessonMastery: { ...(rc.lessonMastery || {}), ...(lc.lessonMastery || {}) },
+        pathProgress: { ...(rc.pathProgress || {}), ...(lc.pathProgress || {}) },
         days: { ...(rc.days || {}), ...(lc.days || {}) },
         activeExam: lc.activeExam?.status === "in_progress" ? lc.activeExam : rc.activeExam || lc.activeExam || null,
       };
@@ -234,6 +235,24 @@
           (lc.lessonMastery || {})[mid],
           (rc.lessonMastery || {})[mid]
         );
+      }
+      // path progress: keep higher score / done status
+      const lids = new Set([
+        ...Object.keys(lc.pathProgress || {}),
+        ...Object.keys(rc.pathProgress || {}),
+      ]);
+      out.courses[cid].pathProgress = {};
+      for (const lid of lids) {
+        const a = (lc.pathProgress || {})[lid];
+        const b = (rc.pathProgress || {})[lid];
+        if (!a) out.courses[cid].pathProgress[lid] = b;
+        else if (!b) out.courses[cid].pathProgress[lid] = a;
+        else {
+          const aDone = a.status === "done" || a.status === "passed";
+          const bDone = b.status === "done" || b.status === "passed";
+          out.courses[cid].pathProgress[lid] =
+            aDone && !bDone ? a : bDone && !aDone ? b : (a.score || 0) >= (b.score || 0) ? a : b;
+        }
       }
       const dates = new Set([...Object.keys(lc.days || {}), ...Object.keys(rc.days || {})]);
       out.courses[cid].days = {};
@@ -261,6 +280,25 @@
         (L.lessonMastery || {})[id],
         (R.lessonMastery || {})[id]
       );
+    }
+
+    // Top-level path progress (active course mirror)
+    const pathIds = new Set([
+      ...Object.keys(L.pathProgress || {}),
+      ...Object.keys(R.pathProgress || {}),
+    ]);
+    out.pathProgress = {};
+    for (const lid of pathIds) {
+      const a = (L.pathProgress || {})[lid];
+      const b = (R.pathProgress || {})[lid];
+      if (!a) out.pathProgress[lid] = b;
+      else if (!b) out.pathProgress[lid] = a;
+      else {
+        const aDone = a.status === "done" || a.status === "passed";
+        const bDone = b.status === "done" || b.status === "passed";
+        out.pathProgress[lid] =
+          aDone && !bDone ? a : bDone && !aDone ? b : (a.score || 0) >= (b.score || 0) ? a : b;
+      }
     }
 
     // Days: union all dates from both sides

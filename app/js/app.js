@@ -16,10 +16,12 @@
     examUsedQuestionIds: [],
     examHistory: [],
     activeExam: null,
+    /** Duolingo-style path: levelId → { status, score, correct, total, at, attempts } */
+    pathProgress: {},
   });
 
   const DEFAULT_STATE = () => ({
-    version: 4,
+    version: 5,
     activeCourseId: "P",
     /** Per-course progress (Duolingo-style multi-track) */
     courses: { P: emptyCourseProgress() },
@@ -38,6 +40,7 @@
     examUsedQuestionIds: [],
     examHistory: [],
     activeExam: null,
+    pathProgress: {},
     settings: { dailyGoal: 20, grokBase: "https://grok.com/?q=" },
   });
 
@@ -47,11 +50,14 @@
   let lessons = {};
   let coursesCatalog = null;
   let coursePlans = {}; // courseId -> plan
+  let coursePaths = {}; // courseId -> duo path
+  let activePath = null; // current course path object
   let qById = new Map();
   let quiz = null;
   let learn = null;
   let currentView = "home";
   let quizDisplayMode = "image";
+  let pathFocusUnitId = null;
 
   function migrateState(raw) {
     const s = { ...DEFAULT_STATE(), ...raw };
@@ -70,11 +76,16 @@
         examUsedQuestionIds: raw.examUsedQuestionIds || [],
         examHistory: raw.examHistory || [],
         activeExam: raw.activeExam || null,
+        pathProgress: raw.pathProgress || {},
       };
     }
     if (!s.activeCourseId) s.activeCourseId = "P";
     if (!s.courses[s.activeCourseId]) s.courses[s.activeCourseId] = emptyCourseProgress();
-    s.version = 4;
+    Object.keys(s.courses).forEach((cid) => {
+      if (!s.courses[cid].pathProgress) s.courses[cid].pathProgress = {};
+    });
+    if (!s.pathProgress) s.pathProgress = s.courses[s.activeCourseId]?.pathProgress || {};
+    s.version = 5;
     return s;
   }
 
@@ -99,6 +110,7 @@
   /** Mirror active course fields onto top-level state for shared modules (exam.js) */
   function syncActiveCourseToTop() {
     const c = course();
+    if (!c.pathProgress) c.pathProgress = {};
     state.xp = c.xp;
     state.streak = c.streak;
     state.lastActiveDate = c.lastActiveDate;
@@ -109,6 +121,7 @@
     state.examUsedQuestionIds = c.examUsedQuestionIds;
     state.examHistory = c.examHistory;
     state.activeExam = c.activeExam;
+    state.pathProgress = c.pathProgress;
   }
 
   function syncTopToActiveCourse() {
@@ -123,6 +136,7 @@
     c.examUsedQuestionIds = state.examUsedQuestionIds;
     c.examHistory = state.examHistory;
     c.activeExam = state.activeExam;
+    c.pathProgress = state.pathProgress || c.pathProgress || {};
   }
 
   function switchCourse(courseId) {
@@ -145,6 +159,8 @@
         window: [plan.startDate, plan.endDate],
       };
     }
+    activePath = coursePaths[courseId] || null;
+    pathFocusUnitId = null;
     quiz = null;
     learn = null;
     saveState({ immediate: true });
@@ -155,6 +171,233 @@
 
   function courseMeta(id) {
     return coursesCatalog?.courses?.find((c) => c.id === id) || null;
+  }
+
+  /* ---------- Duolingo-style path (units → chapters → levels) ---------- */
+  function ensurePathProgress() {
+    if (!state.pathProgress) state.pathProgress = {};
+    return state.pathProgress;
+  }
+
+  function allPathLevels() {
+    if (!activePath?.units) return [];
+    const out = [];
+    for (const u of activePath.units) {
+      for (const ch of u.chapters || []) {
+        for (const lv of ch.levels || []) {
+          out.push({ ...lv, unit: u, chapter: ch });
+        }
+      }
+    }
+    return out;
+  }
+
+  function findLevel(levelId) {
+    return allPathLevels().find((l) => l.id === levelId) || null;
+  }
+
+  function findChapter(chapterId) {
+    if (!activePath?.units) return null;
+    for (const u of activePath.units) {
+      const ch = (u.chapters || []).find((c) => c.id === chapterId);
+      if (ch) return { chapter: ch, unit: u };
+    }
+    return null;
+  }
+
+  function levelRecord(levelId) {
+    return ensurePathProgress()[levelId] || null;
+  }
+
+  function isLevelDone(levelId) {
+    const r = levelRecord(levelId);
+    return !!(r && (r.status === "done" || r.status === "passed"));
+  }
+
+  function isLevelUnlocked(levelId) {
+    const order = activePath?.levelOrder || allPathLevels().map((l) => l.id);
+    const idx = order.indexOf(levelId);
+    if (idx <= 0) return true;
+    // unlocked if previous level is done
+    for (let i = 0; i < idx; i++) {
+      if (!isLevelDone(order[i])) return false;
+    }
+    return true;
+  }
+
+  function currentPathLevel() {
+    const order = activePath?.levelOrder || allPathLevels().map((l) => l.id);
+    for (const id of order) {
+      if (!isLevelDone(id) && isLevelUnlocked(id)) return findLevel(id);
+    }
+    // all done → last level
+    if (order.length) return findLevel(order[order.length - 1]);
+    return null;
+  }
+
+  function pathOverallPct() {
+    const order = activePath?.levelOrder || [];
+    if (!order.length) return 0;
+    const done = order.filter((id) => isLevelDone(id)).length;
+    return Math.round((100 * done) / order.length);
+  }
+
+  function chapterDonePct(chapter) {
+    const levels = chapter.levels || [];
+    if (!levels.length) return 0;
+    const done = levels.filter((l) => isLevelDone(l.id)).length;
+    return Math.round((100 * done) / levels.length);
+  }
+
+  function completePathLevel(levelId, meta = {}) {
+    const lv = findLevel(levelId);
+    const pp = ensurePathProgress();
+    const prev = pp[levelId] || { attempts: 0 };
+    const isTest = lv && (lv.type === "chapter_test" || lv.type === "full_mock");
+    const passPct = lv?.passPct ?? 0;
+    const score = meta.total ? Math.round((100 * (meta.correct || 0)) / meta.total) : meta.score ?? 100;
+    let status = "done";
+    if (isTest && passPct > 0) {
+      status = score >= passPct ? "passed" : "failed";
+    }
+    pp[levelId] = {
+      ...prev,
+      status,
+      score,
+      correct: meta.correct ?? prev.correct,
+      total: meta.total ?? prev.total,
+      at: new Date().toISOString(),
+      attempts: (prev.attempts || 0) + 1,
+    };
+    if (status === "done" || status === "passed") {
+      const xpGain = lv?.xp || 25;
+      if (!prev.status || prev.status === "failed") state.xp += xpGain;
+    }
+    updateStreakOnActivity();
+    saveState({ immediate: true });
+    return pp[levelId];
+  }
+
+  function buildLevelQueue(level) {
+    const target = level.questionTarget || 10;
+    const queue = [];
+    const assigned = level.assignedQuestionIds || [];
+    const prefs = new Set(level.topics || []);
+    const preferWrong = !!level.preferWrong || level.mode === "wrong_pool";
+
+    if (preferWrong) {
+      for (const w of wrongList()) {
+        if (queue.length >= target) break;
+        if (qById.has(w.id)) queue.push(w.id);
+      }
+    }
+    for (const id of assigned) {
+      if (queue.length >= target) break;
+      if (qById.has(id) && !queue.includes(id)) queue.push(id);
+    }
+    if (queue.length < target && prefs.size) {
+      for (const q of questions) {
+        if (queue.length >= target) break;
+        if (q.answer && !queue.includes(q.id) && (q.topics || []).some((t) => prefs.has(t))) queue.push(q.id);
+      }
+    }
+    if (queue.length < target) {
+      for (const q of questions) {
+        if (queue.length >= target) break;
+        if (q.answer && !queue.includes(q.id)) queue.push(q.id);
+      }
+    }
+    // shuffle lightly for chapter tests
+    if (level.type === "chapter_test" || level.type === "full_mock") {
+      for (let i = queue.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [queue[i], queue[j]] = [queue[j], queue[i]];
+      }
+    }
+    return queue.slice(0, target);
+  }
+
+  function startPathLevel(levelId) {
+    const lv = findLevel(levelId);
+    if (!lv) {
+      toast("Level not found");
+      return;
+    }
+    if (!isLevelUnlocked(levelId)) {
+      toast("Finish the previous level first");
+      return;
+    }
+    // Full mock → exam mode
+    if (lv.useExamMode || lv.type === "full_mock" || lv.mode === "full_mock") {
+      showView("exam");
+      window.SOAExam?.onShow?.();
+      toast("Full mock — use Exam mode (30Q · 3h). Mark level done after you finish.");
+      // stash pending mock level for optional complete later
+      ensurePathProgress()._pendingMockLevelId = levelId;
+      saveState();
+      return;
+    }
+    if (lv.type === "lesson" || lv.mode === "lesson") {
+      const date = todayISO();
+      const ids = [lv.lessonId].filter(Boolean);
+      if (!ids.length || !lessons[ids[0]]) {
+        toast("Lesson module missing — mark complete to continue");
+        completePathLevel(levelId, { score: 100 });
+        renderPath();
+        return;
+      }
+      ids.forEach((id) => ensureLessonProgress(date, id));
+      learn = {
+        date,
+        lessonIds: ids,
+        lessonIndex: 0,
+        sectionIndex: 0,
+        selectedCheck: null,
+        checkRevealed: false,
+        pathLevelId: levelId,
+      };
+      seekFirstIncomplete();
+      updateStreakOnActivity();
+      saveState({ immediate: true });
+      showView("learn");
+      renderLearn();
+      return;
+    }
+    // practice / chapter_test / wrong_pool
+    const queue = buildLevelQueue(lv);
+    if (!queue.length) {
+      toast("No questions available for this level");
+      return;
+    }
+    quiz = {
+      date: todayISO(),
+      queue,
+      index: 0,
+      selected: null,
+      revealed: false,
+      _modeTouched: false,
+      pathLevelId: levelId,
+      levelType: lv.type,
+      passPct: lv.passPct || 0,
+      sessionCorrect: 0,
+      sessionTotal: 0,
+      isChapterTest: lv.type === "chapter_test",
+      minutes: lv.minutes || null,
+      startedAt: Date.now(),
+    };
+    quizDisplayMode = "image";
+    updateStreakOnActivity();
+    saveState();
+    showView("quiz");
+    renderQuiz();
+  }
+
+  function finishPathQuizSession() {
+    if (!quiz?.pathLevelId) return null;
+    const correct = quiz.sessionCorrect || 0;
+    const total = quiz.sessionTotal || quiz.queue?.length || 0;
+    const rec = completePathLevel(quiz.pathLevelId, { correct, total });
+    return rec;
   }
 
   function saveState(opts = {}) {
@@ -588,6 +831,18 @@
       renderChrome();
       return;
     }
+    // Path level lesson complete
+    if (learn.pathLevelId) {
+      completePathLevel(learn.pathLevelId, { score: 100 });
+      toast("Level complete — next level unlocked · synced");
+      const nextId = learn.pathLevelId;
+      learn = null;
+      saveState({ immediate: true });
+      showView("path");
+      renderPath();
+      // scroll focus stays on path
+      return;
+    }
     toast("Lesson complete — quiz unlocked · synced");
     saveState({ immediate: true });
     learn = null;
@@ -688,6 +943,10 @@
       };
     }
     quiz.revealed = true;
+    if (quiz.pathLevelId != null) {
+      quiz.sessionTotal = (quiz.sessionTotal || 0) + 1;
+      if (correct) quiz.sessionCorrect = (quiz.sessionCorrect || 0) + 1;
+    }
     if (dayStats(quiz.date).done) {
       day.completed = true;
       state.xp += 25;
@@ -700,6 +959,26 @@
   function nextQuestion() {
     if (!quiz) return;
     if (quiz.index >= quiz.queue.length - 1) {
+      if (quiz.pathLevelId) {
+        const rec = finishPathQuizSession();
+        const correct = quiz.sessionCorrect || 0;
+        const total = quiz.sessionTotal || quiz.queue.length;
+        const pct = total ? Math.round((100 * correct) / total) : 0;
+        const passed = !rec || rec.status === "done" || rec.status === "passed";
+        quiz = {
+          finished: true,
+          correct,
+          total,
+          date: quiz.date,
+          pathLevelId: quiz.pathLevelId,
+          isChapterTest: quiz.isChapterTest,
+          pathResult: rec,
+          passed,
+          pct,
+        };
+        renderQuiz();
+        return;
+      }
       const score = Object.values(ensureDay(quiz.date).answered || {});
       const correct = score.filter((x) => x.correct).length;
       quiz = { finished: true, correct, total: score.length, date: quiz.date };
@@ -841,13 +1120,21 @@
     const xpEl = $("#xpChip");
     if (streakEl) streakEl.textContent = String(state.streak);
     if (xpEl) xpEl.textContent = String(state.xp);
+    const pathPct = activePath ? pathOverallPct() : null;
     const fill = $("#progressFill");
-    if (fill) fill.style.width = `${stats.overall}%`;
+    if (fill) fill.style.width = `${pathPct != null ? pathPct : stats.overall}%`;
     const lab = $("#progressLabel");
     if (lab) {
       const cloud = window.SOACloud;
       const sync = cloud?.user ? (cloud.status === "synced" ? " · synced" : " · cloud") : "";
-      lab.textContent = `Today ${stats.overall}% · Learn ${stats.lessonPct}% · Quiz ${stats.answered}/${stats.target}${sync}`;
+      if (activePath) {
+        const cur = currentPathLevel();
+        lab.textContent = cur
+          ? `Path ${pathPct}% · Ch ${cur.chapterNumber}: ${cur.chapterTitle}${sync}`
+          : `Path ${pathPct}% complete${sync}`;
+      } else {
+        lab.textContent = `Today ${stats.overall}% · Learn ${stats.lessonPct}% · Quiz ${stats.answered}/${stats.target}${sync}`;
+      }
     }
     renderAccountChip();
   }
@@ -944,6 +1231,9 @@
       return;
     }
 
+    const curLv = currentPathLevel();
+    const pathPct = pathOverallPct();
+
     root.innerHTML = `
       <section class="card">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
@@ -952,15 +1242,29 @@
               <div class="inline-flex items-center gap-1.5 rounded-full bg-slate-900 text-white px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide">${escapeHtml(courseMeta(state.activeCourseId)?.shortName || state.activeCourseId || "Exam P")}</div>
               <div class="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-brand">${escapeHtml(plan.phase)}</div>
               ${plan.week ? `<div class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-600">Week ${plan.week}/14</div>` : ""}
+              ${activePath ? `<div class="inline-flex items-center gap-1.5 rounded-full bg-violet-50 text-violet-800 px-2.5 py-1 text-[11px] font-semibold">Path ${pathPct}%</div>` : ""}
             </div>
             <h1 class="mt-3 text-xl md:text-2xl font-semibold tracking-tight text-ink leading-snug">${escapeHtml(plan.title)}</h1>
             <p class="mt-1.5 text-sm text-mute">${escapeHtml(plan.weekday)} · ${escapeHtml(plan.date)}${plan.fmLight ? " · light FM" : ""}</p>
             ${topicLine ? `<p class="mt-2 text-sm font-medium text-brand">Quiz topics today: ${escapeHtml(topicLine)}</p>` : ""}
             <p class="mt-3 text-sm text-mute">Plan target <span class="font-medium text-ink">${target}</span> · <span class="font-semibold text-brand">${left}d</span></p>
-            <p class="mt-1 text-xs text-mute">Mix target: 40% reading · 50% practice · 10% mock · last 2 weeks wrap-up</p>
+            <p class="mt-1 text-xs text-mute">Mix: 40% read · 50% practice · 10% mock · chapters + levels + chapter tests</p>
           </div>
-          <div class="shrink-0">${ringSvg(stats.overall)}</div>
+          <div class="shrink-0">${ringSvg(activePath ? pathPct : stats.overall)}</div>
         </div>
+
+        ${
+          curLv
+            ? `<div class="mt-4 rounded-xl border border-brand/25 bg-gradient-to-r from-brand-soft/50 to-white px-3 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div class="min-w-0">
+                  <div class="text-[11px] font-semibold uppercase tracking-wide text-brand">Continue path</div>
+                  <div class="text-sm font-semibold">Ch ${curLv.chapterNumber}: ${escapeHtml(curLv.chapterTitle)}</div>
+                  <div class="text-xs text-mute mt-0.5">${escapeHtml(curLv.title)} · ${escapeHtml(curLv.subtitle || "")}</div>
+                </div>
+                <button type="button" class="btn-primary shrink-0" id="btnHomePath">Open level</button>
+              </div>`
+            : ""
+        }
 
         ${plan.readPct != null ? `
         <div class="mt-4 grid grid-cols-3 gap-2 text-center">
@@ -1000,11 +1304,12 @@
         </div>
 
         <div class="mt-4 space-y-2">
+          <button class="btn-primary w-full" id="btnOpenPathMain">Learning path (chapters & levels)</button>
           ${plan.mode === "full_mock" || plan.activity === "mock"
-            ? `<button class="btn-primary w-full" id="btnHomeExam2">Start / continue mock exam</button>
+            ? `<button class="btn-secondary w-full" id="btnHomeExam2">Start / continue mock exam</button>
                <button class="btn-secondary w-full" id="btnQuiz" ${locked && plan.requireLesson ? "disabled" : ""}>Topic drill (${stats.target} Q)</button>`
-            : `<button class="btn-primary w-full" id="btnLearn">${stats.lessonDone ? "Review lesson" : "Continue lesson (reading)"}</button>
-               <button class="btn-secondary w-full" id="btnQuiz" ${locked && plan.requireLesson !== false ? "disabled" : ""}>${stats.done ? "Bonus practice" : "Practice questions"}</button>`}
+            : `<button class="btn-secondary w-full" id="btnLearn">${stats.lessonDone ? "Review daily lesson" : "Daily lesson (calendar)"}</button>
+               <button class="btn-secondary w-full" id="btnQuiz" ${locked && plan.requireLesson !== false ? "disabled" : ""}>${stats.done ? "Bonus practice" : "Daily practice questions"}</button>`}
           <button class="btn-ghost w-full" id="btnCourses">All courses (P · FM · FAM · SRM · PA…)</button>
         </div>
       </section>
@@ -1036,7 +1341,7 @@
         <button type="button" class="card card-interactive text-left" id="quickPath">
           <i data-lucide="map" class="h-5 w-5 text-brand"></i>
           <div class="mt-3 text-sm font-semibold">Path</div>
-          <div class="mt-1 text-xs text-mute">Upcoming study days</div>
+          <div class="mt-1 text-xs text-mute">${activePath ? `${pathPct}% · chapters & levels` : "Study path"}</div>
         </button>
         <button type="button" class="card card-interactive text-left" id="quickStats">
           <i data-lucide="bar-chart-2" class="h-5 w-5 text-brand"></i>
@@ -1053,6 +1358,17 @@
 
     $("#btnLearn")?.addEventListener("click", () => startLearn());
     $("#btnQuiz")?.addEventListener("click", () => startQuiz());
+    $("#btnOpenPathMain")?.addEventListener("click", () => {
+      showView("path");
+      renderPath();
+    });
+    $("#btnHomePath")?.addEventListener("click", () => {
+      if (curLv) startPathLevel(curLv.id);
+      else {
+        showView("path");
+        renderPath();
+      }
+    });
     $("#btnHomeExam")?.addEventListener("click", () => {
       showView("exam");
       window.SOAExam?.onShow?.();
@@ -1247,23 +1563,58 @@
     if (!root) return;
 
     if (quiz?.finished) {
-      const pct = quiz.total ? Math.round((100 * quiz.correct) / quiz.total) : 0;
+      const pct = quiz.pct != null ? quiz.pct : quiz.total ? Math.round((100 * quiz.correct) / quiz.total) : 0;
+      const isPath = !!quiz.pathLevelId;
+      const isTest = !!quiz.isChapterTest;
+      const passed = quiz.passed !== false;
+      const title = isTest
+        ? passed
+          ? "Chapter test passed"
+          : "Chapter test — not yet"
+        : isPath
+          ? "Level complete"
+          : "Session complete";
+      const sub = isTest
+        ? passed
+          ? `Score ${pct}% · next chapter unlocked.`
+          : `Score ${pct}% · need ${quiz.pathResult?.status === "failed" ? "≥70%" : "pass"} · retry when ready.`
+        : "Clean work. Review misses while they’re fresh.";
       root.innerHTML = `
         <div class="card text-center py-8">
-          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-soft text-brand">
-            <i data-lucide="check" class="h-7 w-7"></i>
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl ${passed ? "bg-brand-soft text-brand" : "bg-amber-50 text-amber-700"}">
+            <i data-lucide="${passed ? "check" : "alert-circle"}" class="h-7 w-7"></i>
           </div>
-          <h2 class="mt-4 text-xl font-semibold tracking-tight">Session complete</h2>
-          <p class="mt-2 text-sm text-mute">Clean work. Review misses while they’re fresh.</p>
+          <h2 class="mt-4 text-xl font-semibold tracking-tight">${title}</h2>
+          <p class="mt-2 text-sm text-mute">${escapeHtml(sub)}</p>
           <div class="mt-6 flex justify-center">${ringSvg(pct, 100)}</div>
-          <p class="mt-3 text-sm font-medium">${quiz.correct} correct of recent answers logged today</p>
+          <p class="mt-3 text-sm font-medium">${quiz.correct}/${quiz.total} correct${isTest ? ` · ${pct}%` : ""}</p>
           <div class="mt-6 space-y-2">
-            <button class="btn-primary w-full" id="btnQuizHome">Back to Today</button>
+            ${isPath ? `<button class="btn-primary w-full" id="btnQuizPath">Back to Path</button>` : ""}
+            <button class="${isPath ? "btn-secondary" : "btn-primary"} w-full" id="btnQuizHome">Back to Today</button>
+            ${isTest && !passed ? `<button class="btn-secondary w-full" id="btnRetryLevel">Retry chapter test</button>` : ""}
             <button class="btn-secondary w-full" id="btnQuizWrong">Open wrong pool</button>
           </div>
         </div>`;
-      $("#btnQuizHome").onclick = () => { quiz = null; showView("home"); renderAll(); };
-      $("#btnQuizWrong").onclick = () => { quiz = null; showView("wrong"); renderWrong(); };
+      const levelId = quiz.pathLevelId;
+      $("#btnQuizPath")?.addEventListener("click", () => {
+        quiz = null;
+        showView("path");
+        renderPath();
+      });
+      $("#btnQuizHome").onclick = () => {
+        quiz = null;
+        showView("home");
+        renderAll();
+      };
+      $("#btnQuizWrong").onclick = () => {
+        quiz = null;
+        showView("wrong");
+        renderWrong();
+      };
+      $("#btnRetryLevel")?.addEventListener("click", () => {
+        quiz = null;
+        if (levelId) startPathLevel(levelId);
+      });
       refreshIcons();
       return;
     }
@@ -1290,7 +1641,7 @@
     root.innerHTML = `
       <div class="card">
         <div class="flex items-center justify-between text-xs text-mute">
-          <span>Question ${n} of ${total}${hasImg ? " · PDF" : ""}</span>
+          <span>${quiz.isChapterTest ? "Chapter test · " : quiz.pathLevelId ? "Path level · " : ""}Question ${n} of ${total}${hasImg ? " · PDF" : ""}${quiz.isChapterTest ? " · pass ≥70%" : ""}</span>
           <span class="font-medium text-slate-600">${escapeHtml(q.id)}</span>
         </div>
         <div class="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
@@ -1304,8 +1655,8 @@
           <button class="btn-primary grow" id="btnNext" style="display:${quiz.revealed ? "inline-flex" : "none"}">Next</button>
         </div>
         <div class="row mt-2">
-          <button class="btn-grok grow" id="btnGrokQ"><i data-lucide="message-circle" class="h-4 w-4"></i> Ask Grok</button>
-          <button class="btn-ghost grow" id="btnQuitQuiz">End session</button>
+          ${quiz.isChapterTest ? "" : `<button class="btn-grok grow" id="btnGrokQ"><i data-lucide="message-circle" class="h-4 w-4"></i> Ask Grok</button>`}
+          <button class="btn-ghost grow" id="btnQuitQuiz">${quiz.isChapterTest ? "Abandon test" : "End session"}</button>
         </div>
       </div>`;
 
@@ -1361,11 +1712,15 @@
 
     $("#btnSubmit").onclick = submitAnswer;
     $("#btnNext").onclick = nextQuestion;
-    $("#btnGrokQ").onclick = () => openGrok(explainPrompt(q, quiz.selected));
+    $("#btnGrokQ")?.addEventListener("click", () => openGrok(explainPrompt(q, quiz.selected)));
     $("#btnQuitQuiz").onclick = () => {
+      if (quiz?.isChapterTest && !confirm("Abandon chapter test? Progress on this attempt will not count as a pass.")) {
+        return;
+      }
       quiz = null;
-      showView("home");
-      renderAll();
+      showView(activePath ? "path" : "home");
+      if (activePath) renderPath();
+      else renderAll();
     };
     renderMath($("#quizStemText"));
     refreshIcons();
@@ -1391,36 +1746,184 @@
   function renderPath() {
     const root = $("#view-path");
     if (!root) return;
-    const days = curriculum?.days || [];
-    const t = todayISO();
-    const start = Math.max(0, days.findIndex((d) => d.date >= t) - 2);
-    const slice = days.slice(start, start + 14);
+
+    if (!activePath?.units?.length) {
+      // fallback calendar strip
+      const days = curriculum?.days || [];
+      const t = todayISO();
+      const start = Math.max(0, days.findIndex((d) => d.date >= t) - 2);
+      const slice = days.slice(start, start + 14);
+      root.innerHTML = `
+        <div class="card">
+          <h2 class="text-lg font-semibold tracking-tight">Learning path</h2>
+          <p class="mt-1 text-sm text-mute">Path data not loaded — showing calendar plan.</p>
+          <div class="mt-4">
+            ${slice
+              .map((d) => {
+                const st = dayStats(d.date);
+                const cls = d.date === t ? "today" : st.done ? "done" : "";
+                return `<div class="path-node ${cls}">
+                  <div class="path-dot">${st.done ? "✓" : "•"}</div>
+                  <div class="min-w-0">
+                    <div class="text-sm font-semibold truncate">${escapeHtml(d.title)}</div>
+                    <div class="text-xs text-mute mt-0.5">${d.date}</div>
+                  </div>
+                </div>`;
+              })
+              .join("")}
+          </div>
+        </div>`;
+      refreshIcons();
+      return;
+    }
+
+    const cur = currentPathLevel();
+    const overall = pathOverallPct();
+    const units = activePath.units;
+    if (!pathFocusUnitId) pathFocusUnitId = cur?.unitId || units[0]?.id;
+
+    const focusUnit = units.find((u) => u.id === pathFocusUnitId) || units[0];
+
+    const unitTabs = units
+      .map((u) => {
+        const chDone = (u.chapters || []).filter((ch) => chapterDonePct(ch) === 100).length;
+        const active = u.id === focusUnit.id ? "active" : "";
+        return `<button type="button" class="duo-unit-tab ${active}" data-unit="${u.id}" style="--unit-color:${u.color || "#0F766E"}">
+          <span class="duo-unit-num">Unit ${u.number}</span>
+          <span class="duo-unit-name">${escapeHtml(u.shortTitle || u.title)}</span>
+          <span class="duo-unit-meta">${chDone}/${u.chapterCount || (u.chapters || []).length} ch${u.weight ? ` · ${Math.round(u.weight * 100)}%` : ""}</span>
+        </button>`;
+      })
+      .join("");
+
+    const chaptersHtml = (focusUnit.chapters || [])
+      .map((ch) => {
+        const pct = chapterDonePct(ch);
+        const levelsHtml = (ch.levels || [])
+          .map((lv, i) => {
+            const done = isLevelDone(lv.id);
+            const unlocked = isLevelUnlocked(lv.id);
+            const current = cur && cur.id === lv.id;
+            const rec = levelRecord(lv.id);
+            const failed = rec?.status === "failed";
+            let cls = "duo-node";
+            if (done) cls += " done";
+            else if (failed) cls += " failed";
+            else if (current) cls += " current";
+            else if (!unlocked) cls += " locked";
+            const icon =
+              lv.type === "chapter_test"
+                ? "trophy"
+                : lv.type === "full_mock"
+                  ? "clipboard-check"
+                  : lv.type === "lesson"
+                    ? "book-open"
+                    : "target";
+            const mark = done ? "✓" : !unlocked ? "🔒" : lv.type === "chapter_test" ? "★" : String(lv.index || i + 1);
+            const scoreBit =
+              rec?.score != null && (lv.type === "chapter_test" || rec.total)
+                ? ` · ${rec.score}%`
+                : "";
+            return `
+              <div class="${cls}" data-level="${lv.id}" style="--i:${i}">
+                <button type="button" class="duo-bubble" data-start="${lv.id}" ${unlocked ? "" : "disabled"} title="${escapeHtml(lv.title)}">
+                  <span class="duo-bubble-mark">${mark}</span>
+                  <i data-lucide="${icon}" class="duo-bubble-icon h-4 w-4"></i>
+                </button>
+                <div class="duo-node-meta">
+                  <div class="duo-node-title">${escapeHtml(lv.title)}</div>
+                  <div class="duo-node-sub">${escapeHtml(lv.subtitle || "")}${scoreBit}</div>
+                  ${
+                    unlocked
+                      ? `<button type="button" class="duo-start-btn" data-start="${lv.id}">${done ? "Replay" : failed ? "Retry test" : current ? "Start" : "Open"}</button>`
+                      : `<span class="duo-locked-label">Locked</span>`
+                  }
+                </div>
+              </div>`;
+          })
+          .join("");
+
+        return `
+          <section class="duo-chapter card">
+            <div class="duo-chapter-head">
+              <div class="min-w-0">
+                <div class="text-[11px] font-semibold uppercase tracking-wide text-mute">Chapter ${ch.number}</div>
+                <h3 class="mt-0.5 text-base font-semibold tracking-tight">${escapeHtml(ch.title)}</h3>
+                <p class="mt-1 text-xs text-mute">${(ch.topics || []).join(" · ")}${ch.hasChapterTest ? " · ends with chapter test" : ""}</p>
+              </div>
+              <div class="shrink-0 text-right">
+                <div class="text-sm font-semibold tabular-nums text-brand">${pct}%</div>
+                <div class="mt-1 h-1.5 w-16 overflow-hidden rounded-full bg-slate-100">
+                  <div class="h-full rounded-full bg-brand" style="width:${pct}%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="duo-track">${levelsHtml}</div>
+          </section>`;
+      })
+      .join("");
+
     root.innerHTML = `
       <div class="card">
-        <h2 class="text-lg font-semibold tracking-tight">Learning path</h2>
-        <p class="mt-1 text-sm text-mute">Upcoming days in your Exam P plan.</p>
-        <div class="mt-4">
-          ${slice.map((d) => {
-            const st = dayStats(d.date);
-            const cls = d.date === t ? "today" : st.done ? "done" : "";
-            const mark = st.done ? "✓" : d.date === t ? "•" : String(d.dayIndex + 1);
-            return `<div class="path-node ${cls}">
-              <div class="path-dot">${mark}</div>
-              <div class="min-w-0">
-                <div class="text-sm font-semibold truncate">${escapeHtml(d.title)}</div>
-                <div class="text-xs text-mute mt-0.5">${d.date} · Learn ${st.lessonPct}% · ${st.answered}/${d.questionTarget} Q</div>
-              </div>
-              <button class="btn-secondary" style="padding:0.5rem 0.75rem;font-size:0.75rem" data-go="${d.date}" ${d.date > t ? "disabled" : ""}>Open</button>
-            </div>`;
-          }).join("")}
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+          <div>
+            <h2 class="text-lg font-semibold tracking-tight">Exam P path</h2>
+            <p class="mt-1 text-sm text-mute">Duolingo-style: chapters · levels · chapter test at the end of each chapter.</p>
+            <p class="mt-1 text-xs text-mute">${activePath.stats?.chapters || "—"} chapters · ${activePath.stats?.levels || "—"} levels · ${activePath.stats?.testsAndMocks || "—"} tests/mocks · SOA weights General 27% · Uni 47% · Multi 26%</p>
+          </div>
+          <div class="shrink-0 text-right">
+            <div class="text-2xl font-semibold tabular-nums text-brand">${overall}%</div>
+            <div class="text-[11px] text-mute">path complete</div>
+          </div>
         </div>
+        ${
+          cur
+            ? `<div class="mt-4 rounded-xl border border-brand/20 bg-brand-soft/40 px-3 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div class="min-w-0">
+                  <div class="text-[11px] font-semibold uppercase tracking-wide text-brand">Continue</div>
+                  <div class="text-sm font-semibold truncate">Ch ${cur.chapterNumber}: ${escapeHtml(cur.chapterTitle)} — ${escapeHtml(cur.title)}</div>
+                </div>
+                <button type="button" class="btn-primary shrink-0" id="btnContinuePath">Start level</button>
+              </div>`
+            : ""
+        }
+      </div>
+
+      <div class="duo-unit-tabs">${unitTabs}</div>
+
+      <div class="card" style="border-left:4px solid ${focusUnit.color || "#0F766E"}">
+        <div class="text-[11px] font-semibold uppercase tracking-wide text-mute">Unit ${focusUnit.number}</div>
+        <h3 class="mt-1 text-base font-semibold">${escapeHtml(focusUnit.title)}</h3>
+        <p class="mt-1 text-sm text-mute">${escapeHtml(focusUnit.description || "")}</p>
+        <p class="mt-1 text-xs font-medium text-brand">Exam weight ${focusUnit.weightRange || ""}${focusUnit.weight ? ` (plan uses ${Math.round(focusUnit.weight * 100)}%)` : ""}</p>
+      </div>
+
+      ${chaptersHtml}
+
+      <div class="card">
+        <div class="text-[11px] font-semibold uppercase tracking-wide text-mute">How it works</div>
+        <ul class="mt-2 text-sm text-slate-700 space-y-1.5 list-disc pl-4">
+          <li><strong>Level 1 Learn</strong> — teach-first reading (~40% of study time overall)</li>
+          <li><strong>Levels 2–3 Practice / Drill</strong> — MC questions (~50%)</li>
+          <li><strong>Chapter test</strong> — timed checkpoint, pass ≥70% to unlock the next chapter (~10% with mocks)</li>
+          <li>Last unit = wrap-up + full 30Q mocks only (no new topics)</li>
+        </ul>
       </div>`;
-    root.querySelectorAll("[data-go]").forEach((btn) => {
+
+    root.querySelectorAll("[data-unit]").forEach((btn) => {
       btn.onclick = () => {
-        const date = btn.dataset.go;
-        if (!areAllLessonsComplete(date)) startLearn(date);
-        else startQuiz(date);
+        pathFocusUnitId = btn.dataset.unit;
+        renderPath();
       };
+    });
+    root.querySelectorAll("[data-start]").forEach((btn) => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        startPathLevel(btn.dataset.start);
+      };
+    });
+    $("#btnContinuePath")?.addEventListener("click", () => {
+      if (cur) startPathLevel(cur.id);
     });
     refreshIcons();
   }
@@ -1489,7 +1992,7 @@
     root.innerHTML = `
       <div class="card">
         <h1 class="text-xl font-semibold tracking-tight">Courses</h1>
-        <p class="mt-1 text-sm text-mute">Like Duolingo language tracks — pick an exam path. Each course has its own XP, streak, wrong pool, and mock history.</p>
+        <p class="mt-1 text-sm text-mute">Like Duolingo languages — each exam is a course with units, chapters, levels, and chapter tests. Progress is separate per course.</p>
         <p class="mt-2 text-xs text-mute">Standard mix: <strong>40% reading</strong> · <strong>50% practice</strong> · <strong>10% mock</strong> · last 2 weeks wrap-up. Timeline ~3–4 months.</p>
       </div>
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
@@ -1741,17 +2244,22 @@
       }
     }
 
-    const [cRes, qRes, lRes, catRes, planRes] = await Promise.all([
+    const [cRes, qRes, lRes, catRes, planRes, pathRes] = await Promise.all([
       fetch("./data/curriculum.json"),
       fetch("./data/questions.json"),
       fetch("./data/lessons.json"),
       fetch("./data/courses.json").catch(() => null),
       fetch("./data/courses/p/plan.json").catch(() => null),
+      fetch("./data/courses/p/path.json").catch(() => null),
     ]);
     curriculum = await cRes.json();
     questions = await qRes.json();
     lessons = await lRes.json();
     if (catRes && catRes.ok) coursesCatalog = await catRes.json();
+    if (pathRes && pathRes.ok) {
+      coursePaths.P = await pathRes.json();
+      activePath = coursePaths.P;
+    }
     if (planRes && planRes.ok) {
       coursePlans.P = await planRes.json();
       // Prefer full 14-week plan as curriculum when present
@@ -1855,8 +2363,8 @@
     if ("serviceWorker" in navigator) {
       try {
         const keys = await caches.keys();
-        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v7").map((k) => caches.delete(k)));
-        await navigator.serviceWorker.register("./sw.js?v=7");
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v8").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=8");
       } catch (e) {
         console.warn(e);
       }

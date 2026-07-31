@@ -18,6 +18,8 @@
     "multivariate": 0.26
   },
   "planNotes": [
+    "Primary progression is the Duolingo-style Path (chapters \u2192 levels \u2192 chapter tests).",
+    "Today view is a calendar guide aligned to the same topics.",
     "Last 2 weeks are wrap-up + full mocks only (minimal new learning).",
     "Daily targets: ~40% reading/lesson, ~50% practice MC, ~10% timed/mock overall.",
     "Topic weeks follow SOA weight midpoints: General 27%, Univariate 47%, Multivariate 26%."
@@ -46,33 +48,8 @@
       "mockPct": 50,
       "requireLesson": false,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-1",
-        "P-SOA-5",
-        "P-SOA-12",
-        "P-SOA-100",
-        "P-SOA-105",
-        "P-SOA-156",
-        "P-SOA-159",
-        "P-SOA-258",
-        "P-SOA-325",
-        "P-SOA-334",
-        "P-SOA-367",
-        "P-SOA-372",
-        "P-SOA-387",
-        "P-SOA-389",
-        "P-SOA-445",
-        "P-SOA-487",
-        "P-SOA-505",
-        "P-SOA-525",
-        "P-SOA-562",
-        "P-SOA-572",
-        "P-SOA-621",
-        "P-SOA-676",
-        "P-SOA-2",
-        "P-SOA-3",
-        "P-SOA-4"
-      ]
+      "chapterId": "p_ch00_setup",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-02",
@@ -97,33 +74,8 @@
       "mockPct": 10,
       "requireLesson": false,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-6",
-        "P-SOA-7",
-        "P-SOA-8",
-        "P-SOA-9",
-        "P-SOA-10",
-        "P-SOA-11",
-        "P-SOA-13",
-        "P-SOA-14",
-        "P-SOA-15",
-        "P-SOA-16",
-        "P-SOA-17",
-        "P-SOA-18",
-        "P-SOA-19",
-        "P-SOA-20",
-        "P-SOA-21",
-        "P-SOA-22",
-        "P-SOA-23",
-        "P-SOA-24",
-        "P-SOA-25",
-        "P-SOA-26",
-        "P-SOA-27",
-        "P-SOA-28",
-        "P-SOA-30",
-        "P-SOA-31",
-        "P-SOA-32"
-      ]
+      "chapterId": "p_ch00_setup",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-03",
@@ -131,7 +83,7 @@
       "weekday": "Monday",
       "week": 2,
       "phase": "general",
-      "title": "Sets, Venn, axioms",
+      "title": "Sets, Venn & axioms",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -148,36 +100,8 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-34",
-        "P-SOA-35",
-        "P-SOA-36",
-        "P-SOA-37",
-        "P-SOA-39",
-        "P-SOA-40",
-        "P-SOA-41",
-        "P-SOA-42",
-        "P-SOA-44",
-        "P-SOA-45",
-        "P-SOA-46",
-        "P-SOA-58",
-        "P-SOA-64",
-        "P-SOA-65",
-        "P-SOA-66",
-        "P-SOA-67",
-        "P-SOA-68",
-        "P-SOA-69",
-        "P-SOA-71",
-        "P-SOA-72",
-        "P-SOA-73",
-        "P-SOA-74",
-        "P-SOA-77",
-        "P-SOA-79",
-        "P-SOA-80",
-        "P-SOA-81",
-        "P-SOA-82",
-        "P-SOA-83"
-      ]
+      "chapterId": "p_ch01_sets",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-04",
@@ -185,7 +109,7 @@
       "weekday": "Tuesday",
       "week": 2,
       "phase": "general",
-      "title": "Sets, Venn, axioms",
+      "title": "Sets, Venn & axioms",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -202,36 +126,8 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-84",
-        "P-SOA-86",
-        "P-SOA-87",
-        "P-SOA-88",
-        "P-SOA-89",
-        "P-SOA-90",
-        "P-SOA-91",
-        "P-SOA-92",
-        "P-SOA-94",
-        "P-SOA-95",
-        "P-SOA-96",
-        "P-SOA-97",
-        "P-SOA-98",
-        "P-SOA-99",
-        "P-SOA-102",
-        "P-SOA-103",
-        "P-SOA-106",
-        "P-SOA-108",
-        "P-SOA-110",
-        "P-SOA-112",
-        "P-SOA-113",
-        "P-SOA-116",
-        "P-SOA-117",
-        "P-SOA-120",
-        "P-SOA-121",
-        "P-SOA-122",
-        "P-SOA-123",
-        "P-SOA-124"
-      ]
+      "chapterId": "p_ch01_sets",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-05",
@@ -239,7 +135,7 @@
       "weekday": "Wednesday",
       "week": 2,
       "phase": "general",
-      "title": "Sets, Venn, axioms",
+      "title": "Sets, Venn & axioms",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -256,36 +152,8 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-125",
-        "P-SOA-126",
-        "P-SOA-127",
-        "P-SOA-128",
-        "P-SOA-130",
-        "P-SOA-132",
-        "P-SOA-134",
-        "P-SOA-135",
-        "P-SOA-138",
-        "P-SOA-140",
-        "P-SOA-145",
-        "P-SOA-147",
-        "P-SOA-148",
-        "P-SOA-149",
-        "P-SOA-150",
-        "P-SOA-151",
-        "P-SOA-153",
-        "P-SOA-154",
-        "P-SOA-157",
-        "P-SOA-158",
-        "P-SOA-166",
-        "P-SOA-168",
-        "P-SOA-170",
-        "P-SOA-172",
-        "P-SOA-173",
-        "P-SOA-174",
-        "P-SOA-175",
-        "P-SOA-176"
-      ]
+      "chapterId": "p_ch01_sets",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-06",
@@ -293,7 +161,7 @@
       "weekday": "Thursday",
       "week": 2,
       "phase": "general",
-      "title": "Sets, Venn, axioms",
+      "title": "Sets, Venn & axioms",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -310,38 +178,8 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-177",
-        "P-SOA-178",
-        "P-SOA-179",
-        "P-SOA-180",
-        "P-SOA-251",
-        "P-SOA-252",
-        "P-SOA-253",
-        "P-SOA-255",
-        "P-SOA-256",
-        "P-SOA-257",
-        "P-SOA-259",
-        "P-SOA-260",
-        "P-SOA-261",
-        "P-SOA-262",
-        "P-SOA-263",
-        "P-SOA-264",
-        "P-SOA-265",
-        "P-SOA-266",
-        "P-SOA-267",
-        "P-SOA-268",
-        "P-SOA-269",
-        "P-SOA-270",
-        "P-SOA-274",
-        "P-SOA-285",
-        "P-SOA-288",
-        "P-SOA-290",
-        "P-SOA-293",
-        "P-SOA-294",
-        "P-SOA-295",
-        "P-SOA-296"
-      ]
+      "chapterId": "p_ch01_sets",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-07",
@@ -349,7 +187,7 @@
       "weekday": "Friday",
       "week": 2,
       "phase": "general",
-      "title": "Practice push \u2014 Sets, Venn, axioms",
+      "title": "Practice push \u2014 Sets, Venn & axioms",
       "mode": "practice",
       "activity": "practice",
       "isWeekend": false,
@@ -366,40 +204,8 @@
       "mockPct": 15,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-298",
-        "P-SOA-299",
-        "P-SOA-300",
-        "P-SOA-302",
-        "P-SOA-303",
-        "P-SOA-304",
-        "P-SOA-305",
-        "P-SOA-306",
-        "P-SOA-308",
-        "P-SOA-309",
-        "P-SOA-312",
-        "P-SOA-313",
-        "P-SOA-314",
-        "P-SOA-315",
-        "P-SOA-316",
-        "P-SOA-317",
-        "P-SOA-318",
-        "P-SOA-319",
-        "P-SOA-320",
-        "P-SOA-321",
-        "P-SOA-322",
-        "P-SOA-323",
-        "P-SOA-324",
-        "P-SOA-329",
-        "P-SOA-330",
-        "P-SOA-331",
-        "P-SOA-332",
-        "P-SOA-333",
-        "P-SOA-335",
-        "P-SOA-338",
-        "P-SOA-339",
-        "P-SOA-340"
-      ]
+      "chapterId": "p_ch01_sets",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-08",
@@ -424,33 +230,8 @@
       "mockPct": 50,
       "requireLesson": false,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-343",
-        "P-SOA-345",
-        "P-SOA-346",
-        "P-SOA-347",
-        "P-SOA-348",
-        "P-SOA-349",
-        "P-SOA-351",
-        "P-SOA-352",
-        "P-SOA-353",
-        "P-SOA-354",
-        "P-SOA-357",
-        "P-SOA-359",
-        "P-SOA-360",
-        "P-SOA-362",
-        "P-SOA-363",
-        "P-SOA-364",
-        "P-SOA-365",
-        "P-SOA-366",
-        "P-SOA-368",
-        "P-SOA-369",
-        "P-SOA-370",
-        "P-SOA-375",
-        "P-SOA-376",
-        "P-SOA-377",
-        "P-SOA-378"
-      ]
+      "chapterId": "p_ch01_sets",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-09",
@@ -475,33 +256,8 @@
       "mockPct": 10,
       "requireLesson": false,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-380",
-        "P-SOA-381",
-        "P-SOA-382",
-        "P-SOA-393",
-        "P-SOA-397",
-        "P-SOA-398",
-        "P-SOA-399",
-        "P-SOA-400",
-        "P-SOA-401",
-        "P-SOA-402",
-        "P-SOA-403",
-        "P-SOA-405",
-        "P-SOA-406",
-        "P-SOA-408",
-        "P-SOA-409",
-        "P-SOA-410",
-        "P-SOA-412",
-        "P-SOA-413",
-        "P-SOA-414",
-        "P-SOA-415",
-        "P-SOA-416",
-        "P-SOA-417",
-        "P-SOA-418",
-        "P-SOA-419",
-        "P-SOA-421"
-      ]
+      "chapterId": "p_ch01_sets",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-10",
@@ -527,36 +283,8 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-422",
-        "P-SOA-423",
-        "P-SOA-424",
-        "P-SOA-426",
-        "P-SOA-428",
-        "P-SOA-429",
-        "P-SOA-433",
-        "P-SOA-436",
-        "P-SOA-437",
-        "P-SOA-438",
-        "P-SOA-439",
-        "P-SOA-440",
-        "P-SOA-441",
-        "P-SOA-444",
-        "P-SOA-447",
-        "P-SOA-448",
-        "P-SOA-449",
-        "P-SOA-450",
-        "P-SOA-451",
-        "P-SOA-452",
-        "P-SOA-455",
-        "P-SOA-456",
-        "P-SOA-458",
-        "P-SOA-459",
-        "P-SOA-460",
-        "P-SOA-461",
-        "P-SOA-462",
-        "P-SOA-464"
-      ]
+      "chapterId": "p_ch02_count",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-11",
@@ -582,36 +310,8 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-467",
-        "P-SOA-468",
-        "P-SOA-470",
-        "P-SOA-472",
-        "P-SOA-474",
-        "P-SOA-475",
-        "P-SOA-476",
-        "P-SOA-477",
-        "P-SOA-478",
-        "P-SOA-479",
-        "P-SOA-480",
-        "P-SOA-481",
-        "P-SOA-483",
-        "P-SOA-484",
-        "P-SOA-486",
-        "P-SOA-488",
-        "P-SOA-489",
-        "P-SOA-490",
-        "P-SOA-491",
-        "P-SOA-493",
-        "P-SOA-496",
-        "P-SOA-497",
-        "P-SOA-498",
-        "P-SOA-500",
-        "P-SOA-501",
-        "P-SOA-502",
-        "P-SOA-503",
-        "P-SOA-504"
-      ]
+      "chapterId": "p_ch02_count",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-12",
@@ -637,36 +337,8 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-506",
-        "P-SOA-509",
-        "P-SOA-511",
-        "P-SOA-514",
-        "P-SOA-517",
-        "P-SOA-519",
-        "P-SOA-520",
-        "P-SOA-521",
-        "P-SOA-522",
-        "P-SOA-523",
-        "P-SOA-524",
-        "P-SOA-526",
-        "P-SOA-527",
-        "P-SOA-528",
-        "P-SOA-529",
-        "P-SOA-530",
-        "P-SOA-531",
-        "P-SOA-532",
-        "P-SOA-533",
-        "P-SOA-534",
-        "P-SOA-535",
-        "P-SOA-536",
-        "P-SOA-537",
-        "P-SOA-538",
-        "P-SOA-539",
-        "P-SOA-540",
-        "P-SOA-541",
-        "P-SOA-542"
-      ]
+      "chapterId": "p_ch02_count",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-13",
@@ -692,38 +364,8 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-544",
-        "P-SOA-546",
-        "P-SOA-547",
-        "P-SOA-548",
-        "P-SOA-549",
-        "P-SOA-550",
-        "P-SOA-551",
-        "P-SOA-552",
-        "P-SOA-553",
-        "P-SOA-554",
-        "P-SOA-557",
-        "P-SOA-558",
-        "P-SOA-559",
-        "P-SOA-561",
-        "P-SOA-564",
-        "P-SOA-567",
-        "P-SOA-568",
-        "P-SOA-569",
-        "P-SOA-570",
-        "P-SOA-573",
-        "P-SOA-575",
-        "P-SOA-576",
-        "P-SOA-577",
-        "P-SOA-578",
-        "P-SOA-579",
-        "P-SOA-580",
-        "P-SOA-581",
-        "P-SOA-582",
-        "P-SOA-583",
-        "P-SOA-584"
-      ]
+      "chapterId": "p_ch02_count",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-14",
@@ -749,40 +391,8 @@
       "mockPct": 15,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-588",
-        "P-SOA-589",
-        "P-SOA-590",
-        "P-SOA-592",
-        "P-SOA-594",
-        "P-SOA-599",
-        "P-SOA-600",
-        "P-SOA-602",
-        "P-SOA-603",
-        "P-SOA-604",
-        "P-SOA-607",
-        "P-SOA-608",
-        "P-SOA-614",
-        "P-SOA-615",
-        "P-SOA-617",
-        "P-SOA-619",
-        "P-SOA-620",
-        "P-SOA-622",
-        "P-SOA-623",
-        "P-SOA-624",
-        "P-SOA-625",
-        "P-SOA-627",
-        "P-SOA-631",
-        "P-SOA-632",
-        "P-SOA-633",
-        "P-SOA-634",
-        "P-SOA-635",
-        "P-SOA-636",
-        "P-SOA-637",
-        "P-SOA-638",
-        "P-SOA-639",
-        "P-SOA-640"
-      ]
+      "chapterId": "p_ch02_count",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-15",
@@ -808,33 +418,8 @@
       "mockPct": 50,
       "requireLesson": false,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-641",
-        "P-SOA-642",
-        "P-SOA-644",
-        "P-SOA-645",
-        "P-SOA-646",
-        "P-SOA-647",
-        "P-SOA-648",
-        "P-SOA-650",
-        "P-SOA-651",
-        "P-SOA-653",
-        "P-SOA-654",
-        "P-SOA-656",
-        "P-SOA-658",
-        "P-SOA-659",
-        "P-SOA-660",
-        "P-SOA-661",
-        "P-SOA-662",
-        "P-SOA-663",
-        "P-SOA-664",
-        "P-SOA-665",
-        "P-SOA-668",
-        "P-SOA-669",
-        "P-SOA-671",
-        "P-SOA-673",
-        "P-SOA-678"
-      ]
+      "chapterId": "p_ch02_count",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-16",
@@ -860,33 +445,8 @@
       "mockPct": 10,
       "requireLesson": false,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-29",
-        "P-SOA-33",
-        "P-SOA-38",
-        "P-SOA-43",
-        "P-SOA-47",
-        "P-SOA-48",
-        "P-SOA-49",
-        "P-SOA-50",
-        "P-SOA-51",
-        "P-SOA-52",
-        "P-SOA-53",
-        "P-SOA-54",
-        "P-SOA-55",
-        "P-SOA-56",
-        "P-SOA-57",
-        "P-SOA-59",
-        "P-SOA-60",
-        "P-SOA-61",
-        "P-SOA-62",
-        "P-SOA-63",
-        "P-SOA-70",
-        "P-SOA-75",
-        "P-SOA-76",
-        "P-SOA-78",
-        "P-SOA-85"
-      ]
+      "chapterId": "p_ch02_count",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-17",
@@ -912,36 +472,8 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-93",
-        "P-SOA-101",
-        "P-SOA-107",
-        "P-SOA-137",
-        "P-SOA-139",
-        "P-SOA-162",
-        "P-SOA-163",
-        "P-SOA-165",
-        "P-SOA-171",
-        "P-SOA-254",
-        "P-SOA-292",
-        "P-SOA-311",
-        "P-SOA-328",
-        "P-SOA-342",
-        "P-SOA-344",
-        "P-SOA-355",
-        "P-SOA-358",
-        "P-SOA-373",
-        "P-SOA-386",
-        "P-SOA-388",
-        "P-SOA-404",
-        "P-SOA-407",
-        "P-SOA-411",
-        "P-SOA-425",
-        "P-SOA-430",
-        "P-SOA-434",
-        "P-SOA-435",
-        "P-SOA-442"
-      ]
+      "chapterId": "p_ch07_disc",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-18",
@@ -967,36 +499,8 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-446",
-        "P-SOA-453",
-        "P-SOA-457",
-        "P-SOA-463",
-        "P-SOA-473",
-        "P-SOA-494",
-        "P-SOA-499",
-        "P-SOA-512",
-        "P-SOA-513",
-        "P-SOA-518",
-        "P-SOA-543",
-        "P-SOA-566",
-        "P-SOA-571",
-        "P-SOA-574",
-        "P-SOA-587",
-        "P-SOA-596",
-        "P-SOA-597",
-        "P-SOA-598",
-        "P-SOA-601",
-        "P-SOA-613",
-        "P-SOA-618",
-        "P-SOA-626",
-        "P-SOA-628",
-        "P-SOA-629",
-        "P-SOA-643",
-        "P-SOA-652",
-        "P-SOA-655",
-        "P-SOA-672"
-      ]
+      "chapterId": "p_ch07_disc",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-19",
@@ -1022,36 +526,8 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-674",
-        "P-SOA-675",
-        "P-SOA-104",
-        "P-SOA-109",
-        "P-SOA-111",
-        "P-SOA-115",
-        "P-SOA-119",
-        "P-SOA-129",
-        "P-SOA-133",
-        "P-SOA-136",
-        "P-SOA-141",
-        "P-SOA-142",
-        "P-SOA-143",
-        "P-SOA-144",
-        "P-SOA-146",
-        "P-SOA-152",
-        "P-SOA-155",
-        "P-SOA-160",
-        "P-SOA-161",
-        "P-SOA-164",
-        "P-SOA-167",
-        "P-SOA-181",
-        "P-SOA-182",
-        "P-SOA-183",
-        "P-SOA-184",
-        "P-SOA-185",
-        "P-SOA-186",
-        "P-SOA-187"
-      ]
+      "chapterId": "p_ch07_disc",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-20",
@@ -1077,38 +553,8 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-188",
-        "P-SOA-189",
-        "P-SOA-190",
-        "P-SOA-191",
-        "P-SOA-192",
-        "P-SOA-193",
-        "P-SOA-194",
-        "P-SOA-195",
-        "P-SOA-196",
-        "P-SOA-197",
-        "P-SOA-198",
-        "P-SOA-199",
-        "P-SOA-200",
-        "P-SOA-201",
-        "P-SOA-202",
-        "P-SOA-203",
-        "P-SOA-204",
-        "P-SOA-205",
-        "P-SOA-206",
-        "P-SOA-207",
-        "P-SOA-208",
-        "P-SOA-209",
-        "P-SOA-210",
-        "P-SOA-211",
-        "P-SOA-212",
-        "P-SOA-213",
-        "P-SOA-214",
-        "P-SOA-215",
-        "P-SOA-216",
-        "P-SOA-217"
-      ]
+      "chapterId": "p_ch07_disc",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-21",
@@ -1134,40 +580,8 @@
       "mockPct": 15,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-218",
-        "P-SOA-219",
-        "P-SOA-220",
-        "P-SOA-221",
-        "P-SOA-222",
-        "P-SOA-223",
-        "P-SOA-224",
-        "P-SOA-225",
-        "P-SOA-226",
-        "P-SOA-227",
-        "P-SOA-228",
-        "P-SOA-229",
-        "P-SOA-230",
-        "P-SOA-231",
-        "P-SOA-232",
-        "P-SOA-233",
-        "P-SOA-237",
-        "P-SOA-238",
-        "P-SOA-239",
-        "P-SOA-240",
-        "P-SOA-241",
-        "P-SOA-242",
-        "P-SOA-243",
-        "P-SOA-244",
-        "P-SOA-245",
-        "P-SOA-246",
-        "P-SOA-247",
-        "P-SOA-248",
-        "P-SOA-249",
-        "P-SOA-250",
-        "P-SOA-297",
-        "P-SOA-307"
-      ]
+      "chapterId": "p_ch07_disc",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-22",
@@ -1193,33 +607,8 @@
       "mockPct": 50,
       "requireLesson": false,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-310",
-        "P-SOA-326",
-        "P-SOA-327",
-        "P-SOA-336",
-        "P-SOA-337",
-        "P-SOA-341",
-        "P-SOA-361",
-        "P-SOA-371",
-        "P-SOA-374",
-        "P-SOA-379",
-        "P-SOA-383",
-        "P-SOA-384",
-        "P-SOA-385",
-        "P-SOA-390",
-        "P-SOA-391",
-        "P-SOA-392",
-        "P-SOA-394",
-        "P-SOA-395",
-        "P-SOA-396",
-        "P-SOA-420",
-        "P-SOA-431",
-        "P-SOA-432",
-        "P-SOA-443",
-        "P-SOA-454",
-        "P-SOA-465"
-      ]
+      "chapterId": "p_ch07_disc",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-23",
@@ -1245,33 +634,8 @@
       "mockPct": 10,
       "requireLesson": false,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-469",
-        "P-SOA-482",
-        "P-SOA-485",
-        "P-SOA-492",
-        "P-SOA-495",
-        "P-SOA-507",
-        "P-SOA-508",
-        "P-SOA-516",
-        "P-SOA-545",
-        "P-SOA-555",
-        "P-SOA-556",
-        "P-SOA-565",
-        "P-SOA-585",
-        "P-SOA-586",
-        "P-SOA-591",
-        "P-SOA-593",
-        "P-SOA-595",
-        "P-SOA-605",
-        "P-SOA-609",
-        "P-SOA-611",
-        "P-SOA-612",
-        "P-SOA-616",
-        "P-SOA-630",
-        "P-SOA-649",
-        "P-SOA-657"
-      ]
+      "chapterId": "p_ch07_disc",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-24",
@@ -1297,31 +661,8 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
-      "assignedQuestionIds": [
-        "P-SOA-666",
-        "P-SOA-667",
-        "P-SOA-670",
-        "P-SOA-677",
-        "P-SOA-679",
-        "P-SOA-680",
-        "P-SOA-114",
-        "P-SOA-118",
-        "P-SOA-131",
-        "P-SOA-169",
-        "P-SOA-284",
-        "P-SOA-289",
-        "P-SOA-291",
-        "P-SOA-301",
-        "P-SOA-350",
-        "P-SOA-466",
-        "P-SOA-471",
-        "P-SOA-510",
-        "P-SOA-515",
-        "P-SOA-560",
-        "P-SOA-563",
-        "P-SOA-606",
-        "P-SOA-610"
-      ]
+      "chapterId": "p_ch08_binom",
+      "assignedQuestionIds": []
     },
     {
       "date": "2026-08-25",
@@ -1347,6 +688,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch08_binom",
       "assignedQuestionIds": []
     },
     {
@@ -1373,6 +715,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch08_binom",
       "assignedQuestionIds": []
     },
     {
@@ -1399,6 +742,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch08_binom",
       "assignedQuestionIds": []
     },
     {
@@ -1425,6 +769,7 @@
       "mockPct": 15,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch08_binom",
       "assignedQuestionIds": []
     },
     {
@@ -1451,6 +796,7 @@
       "mockPct": 50,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch08_binom",
       "assignedQuestionIds": []
     },
     {
@@ -1477,6 +823,7 @@
       "mockPct": 10,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch08_binom",
       "assignedQuestionIds": []
     },
     {
@@ -1502,6 +849,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch09_other_disc",
       "assignedQuestionIds": []
     },
     {
@@ -1527,6 +875,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch09_other_disc",
       "assignedQuestionIds": []
     },
     {
@@ -1552,6 +901,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch09_other_disc",
       "assignedQuestionIds": []
     },
     {
@@ -1577,6 +927,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch09_other_disc",
       "assignedQuestionIds": []
     },
     {
@@ -1602,6 +953,7 @@
       "mockPct": 15,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch09_other_disc",
       "assignedQuestionIds": []
     },
     {
@@ -1627,6 +979,7 @@
       "mockPct": 50,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch09_other_disc",
       "assignedQuestionIds": []
     },
     {
@@ -1652,6 +1005,7 @@
       "mockPct": 10,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch09_other_disc",
       "assignedQuestionIds": []
     },
     {
@@ -1678,6 +1032,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch10_cont",
       "assignedQuestionIds": []
     },
     {
@@ -1704,6 +1059,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch10_cont",
       "assignedQuestionIds": []
     },
     {
@@ -1730,6 +1086,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch10_cont",
       "assignedQuestionIds": []
     },
     {
@@ -1756,6 +1113,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch10_cont",
       "assignedQuestionIds": []
     },
     {
@@ -1782,6 +1140,7 @@
       "mockPct": 15,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch10_cont",
       "assignedQuestionIds": []
     },
     {
@@ -1808,6 +1167,7 @@
       "mockPct": 50,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch10_cont",
       "assignedQuestionIds": []
     },
     {
@@ -1834,6 +1194,7 @@
       "mockPct": 10,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch10_cont",
       "assignedQuestionIds": []
     },
     {
@@ -1860,6 +1221,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch11_normal",
       "assignedQuestionIds": []
     },
     {
@@ -1886,6 +1248,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch11_normal",
       "assignedQuestionIds": []
     },
     {
@@ -1912,6 +1275,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch11_normal",
       "assignedQuestionIds": []
     },
     {
@@ -1938,6 +1302,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch11_normal",
       "assignedQuestionIds": []
     },
     {
@@ -1964,6 +1329,7 @@
       "mockPct": 15,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch11_normal",
       "assignedQuestionIds": []
     },
     {
@@ -1990,6 +1356,7 @@
       "mockPct": 50,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch11_normal",
       "assignedQuestionIds": []
     },
     {
@@ -2016,6 +1383,7 @@
       "mockPct": 10,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch11_normal",
       "assignedQuestionIds": []
     },
     {
@@ -2042,6 +1410,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch12_exp",
       "assignedQuestionIds": []
     },
     {
@@ -2068,6 +1437,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch12_exp",
       "assignedQuestionIds": []
     },
     {
@@ -2094,6 +1464,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch12_exp",
       "assignedQuestionIds": []
     },
     {
@@ -2120,6 +1491,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch12_exp",
       "assignedQuestionIds": []
     },
     {
@@ -2147,6 +1519,7 @@
       "mockPct": 15,
       "requireLesson": true,
       "fmLight": true,
+      "chapterId": "p_ch12_exp",
       "assignedQuestionIds": []
     },
     {
@@ -2173,6 +1546,7 @@
       "mockPct": 50,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch12_exp",
       "assignedQuestionIds": []
     },
     {
@@ -2199,6 +1573,7 @@
       "mockPct": 10,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch12_exp",
       "assignedQuestionIds": []
     },
     {
@@ -2225,6 +1600,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch14_joint",
       "assignedQuestionIds": []
     },
     {
@@ -2251,6 +1627,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch14_joint",
       "assignedQuestionIds": []
     },
     {
@@ -2277,6 +1654,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch14_joint",
       "assignedQuestionIds": []
     },
     {
@@ -2303,6 +1681,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch14_joint",
       "assignedQuestionIds": []
     },
     {
@@ -2329,6 +1708,7 @@
       "mockPct": 15,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch14_joint",
       "assignedQuestionIds": []
     },
     {
@@ -2355,6 +1735,7 @@
       "mockPct": 50,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch14_joint",
       "assignedQuestionIds": []
     },
     {
@@ -2381,6 +1762,7 @@
       "mockPct": 10,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch14_joint",
       "assignedQuestionIds": []
     },
     {
@@ -2398,7 +1780,8 @@
         "multi_cov"
       ],
       "topicPrefs": [
-        "joint"
+        "joint",
+        "expectation_var"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -2406,6 +1789,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch15_cov",
       "assignedQuestionIds": []
     },
     {
@@ -2423,7 +1807,8 @@
         "multi_cov"
       ],
       "topicPrefs": [
-        "joint"
+        "joint",
+        "expectation_var"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -2431,6 +1816,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch15_cov",
       "assignedQuestionIds": []
     },
     {
@@ -2448,7 +1834,8 @@
         "multi_cov"
       ],
       "topicPrefs": [
-        "joint"
+        "joint",
+        "expectation_var"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -2456,6 +1843,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch15_cov",
       "assignedQuestionIds": []
     },
     {
@@ -2473,7 +1861,8 @@
         "multi_cov"
       ],
       "topicPrefs": [
-        "joint"
+        "joint",
+        "expectation_var"
       ],
       "questionTarget": 20,
       "readPct": 45,
@@ -2481,6 +1870,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch15_cov",
       "assignedQuestionIds": []
     },
     {
@@ -2498,7 +1888,8 @@
         "multi_cov"
       ],
       "topicPrefs": [
-        "joint"
+        "joint",
+        "expectation_var"
       ],
       "questionTarget": 22,
       "readPct": 20,
@@ -2506,6 +1897,7 @@
       "mockPct": 15,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch15_cov",
       "assignedQuestionIds": []
     },
     {
@@ -2523,7 +1915,8 @@
         "multi_cov"
       ],
       "topicPrefs": [
-        "joint"
+        "joint",
+        "expectation_var"
       ],
       "questionTarget": 20,
       "readPct": 10,
@@ -2531,6 +1924,7 @@
       "mockPct": 50,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch15_cov",
       "assignedQuestionIds": []
     },
     {
@@ -2548,7 +1942,8 @@
         "multi_cov"
       ],
       "topicPrefs": [
-        "joint"
+        "joint",
+        "expectation_var"
       ],
       "questionTarget": 12,
       "readPct": 35,
@@ -2556,6 +1951,7 @@
       "mockPct": 10,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch15_cov",
       "assignedQuestionIds": []
     },
     {
@@ -2583,6 +1979,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch16_order",
       "assignedQuestionIds": []
     },
     {
@@ -2610,6 +2007,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch16_order",
       "assignedQuestionIds": []
     },
     {
@@ -2637,6 +2035,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch16_order",
       "assignedQuestionIds": []
     },
     {
@@ -2664,6 +2063,7 @@
       "mockPct": 5,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch16_order",
       "assignedQuestionIds": []
     },
     {
@@ -2691,6 +2091,7 @@
       "mockPct": 15,
       "requireLesson": true,
       "fmLight": false,
+      "chapterId": "p_ch16_order",
       "assignedQuestionIds": []
     },
     {
@@ -2718,6 +2119,7 @@
       "mockPct": 50,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch16_order",
       "assignedQuestionIds": []
     },
     {
@@ -2745,6 +2147,7 @@
       "mockPct": 10,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch16_order",
       "assignedQuestionIds": []
     },
     {
@@ -2775,6 +2178,7 @@
       "mockPct": 30,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch17_mix_gen",
       "assignedQuestionIds": []
     },
     {
@@ -2805,6 +2209,7 @@
       "mockPct": 30,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch17_mix_gen",
       "assignedQuestionIds": []
     },
     {
@@ -2835,6 +2240,7 @@
       "mockPct": 30,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch17_mix_gen",
       "assignedQuestionIds": []
     },
     {
@@ -2865,6 +2271,7 @@
       "mockPct": 30,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch17_mix_gen",
       "assignedQuestionIds": []
     },
     {
@@ -2895,6 +2302,7 @@
       "mockPct": 30,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch17_mix_gen",
       "assignedQuestionIds": []
     },
     {
@@ -2925,6 +2333,7 @@
       "mockPct": 80,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch17_mix_gen",
       "assignedQuestionIds": []
     },
     {
@@ -2955,6 +2364,7 @@
       "mockPct": 20,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch17_mix_gen",
       "assignedQuestionIds": []
     },
     {
@@ -2985,6 +2395,7 @@
       "mockPct": 30,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch17_mix_gen",
       "assignedQuestionIds": []
     },
     {
@@ -3015,6 +2426,7 @@
       "mockPct": 30,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch17_mix_gen",
       "assignedQuestionIds": []
     },
     {
@@ -3045,6 +2457,7 @@
       "mockPct": 30,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch17_mix_gen",
       "assignedQuestionIds": []
     },
     {
@@ -3075,6 +2488,7 @@
       "mockPct": 30,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch17_mix_gen",
       "assignedQuestionIds": []
     },
     {
@@ -3105,6 +2519,7 @@
       "mockPct": 30,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch17_mix_gen",
       "assignedQuestionIds": []
     },
     {
@@ -3135,6 +2550,7 @@
       "mockPct": 80,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch17_mix_gen",
       "assignedQuestionIds": []
     },
     {
@@ -3165,7 +2581,9 @@
       "mockPct": 20,
       "requireLesson": false,
       "fmLight": false,
+      "chapterId": "p_ch17_mix_gen",
       "assignedQuestionIds": []
     }
-  ]
+  ],
+  "pathPath": "data/courses/p/path.json"
 }
