@@ -18,10 +18,10 @@
       theme: {
         extend: {
           colors: {
-            canvas: "#F4F1EC",
+            canvas: "#F3F0EA",
             paper: "#FFFCFA",
-            ink: "#1A1F1E",
-            mute: "#5C6563",
+            ink: "#141816",
+            mute: "#5E6764",
             brand: { DEFAULT: "#0B3D3A", soft: "#E4F0EE", mid: "#14756F", deep: "#072E2C" },
             ok: "#1F7A4C",
             bad: "#B42318",
@@ -31,11 +31,9 @@
             sans: ["Source Sans 3", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
           },
           boxShadow: {
-            card: "0 1px 0 rgba(26,31,30,0.06), 0 8px 24px rgba(26,31,30,0.04)",
-            lift: "0 2px 4px rgba(26,31,30,0.04), 0 12px 28px rgba(26,31,30,0.08)",
-            soft: "0 1px 2px rgba(26,31,30,0.05)",
+            card: "0 1px 0 rgba(20,24,22,0.05), 0 10px 28px rgba(20,24,22,0.05)",
+            soft: "0 1px 2px rgba(20,24,22,0.05)",
           },
-          transitionDuration: { DEFAULT: "220ms" },
         },
       },
     };
@@ -50,66 +48,66 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="h-full bg-canvas text-ink font-sans antialiased">
-  <div class="min-h-full w-full flex flex-col pb-20">
-    <!-- Slim masthead — Hallmark edge-aligned, single row -->
+  <div class="min-h-full w-full flex flex-col">
+    <!-- Top chrome: brand + menu (replaces bottom bar) -->
     <header class="app-header sticky top-0 z-30">
-      <div class="app-header-inner">
+      <div class="app-header-row">
         <div class="app-brand min-w-0">
           <span class="app-mark" aria-hidden="true">P</span>
-          <div class="min-w-0 leading-tight">
+          <div class="min-w-0">
             <div class="app-wordmark">SOA Grind</div>
             <div id="progressLabel" class="app-status truncate">Loading…</div>
           </div>
         </div>
 
-        <div class="app-header-actions">
-          <div class="stat-pill" title="Streak">
+        <div class="app-header-meta">
+          <span class="stat-pill" title="Streak">
             <i data-lucide="flame" class="h-3.5 w-3.5 text-amber-600"></i>
             <span id="streakChip" class="font-semibold tabular-nums">0</span>
-          </div>
-          <div class="stat-pill" title="XP">
+          </span>
+          <span class="stat-pill" title="XP">
             <i data-lucide="zap" class="h-3.5 w-3.5 text-brand-mid"></i>
             <span id="xpChip" class="font-semibold tabular-nums">0</span>
-          </div>
-          <button type="button" id="accountChip" class="account-chip" title="Account / cloud sync" aria-label="Account">
+          </span>
+          <button type="button" id="accountChip" class="account-chip" title="Account" aria-label="Account">
             <i data-lucide="user" class="h-4 w-4"></i>
             <span id="accountBarCta" class="account-chip-label">Sign in</span>
           </button>
         </div>
       </div>
+
+      <nav class="top-menu" aria-label="Main">
+        <div class="top-menu-scroll">
+          <button class="nav-btn active" data-view="home" type="button"><i data-lucide="home" class="h-3.5 w-3.5"></i><span>Today</span></button>
+          <button class="nav-btn" data-view="path" type="button"><i data-lucide="map" class="h-3.5 w-3.5"></i><span>Path</span></button>
+          <button class="nav-btn" data-view="learn" type="button"><i data-lucide="book-open" class="h-3.5 w-3.5"></i><span>Learn</span></button>
+          <button class="nav-btn" data-view="quiz" type="button"><i data-lucide="target" class="h-3.5 w-3.5"></i><span>Practice</span></button>
+          <button class="nav-btn" data-view="exam" type="button"><i data-lucide="clipboard-check" class="h-3.5 w-3.5"></i><span>Exam</span></button>
+          <button class="nav-btn" data-view="wrong" type="button"><i data-lucide="rotate-ccw" class="h-3.5 w-3.5"></i><span>Wrong</span></button>
+          <button class="nav-btn" data-view="courses" type="button"><i data-lucide="library" class="h-3.5 w-3.5"></i><span>Courses</span></button>
+          <button class="nav-btn" data-view="stats" type="button"><i data-lucide="bar-chart-2" class="h-3.5 w-3.5"></i><span>Stats</span></button>
+          <button class="nav-btn" data-view="settings" type="button"><i data-lucide="settings" class="h-3.5 w-3.5"></i><span>More</span></button>
+        </div>
+      </nav>
+
       <div class="app-progress-track" aria-hidden="true">
         <div id="progressFill" class="app-progress-fill" style="width:0%"></div>
       </div>
-      <!-- Screen-reader / legacy label hook kept off-layout -->
       <span id="accountBarLabel" class="sr-only">Cloud account</span>
     </header>
 
-    <main class="flex-1 w-full px-4 sm:px-6 lg:px-10 xl:px-14 py-4 space-y-3.5">
-      <section id="view-home" class="view active space-y-3.5 w-full"></section>
-      <section id="view-courses" class="view space-y-3.5 w-full"></section>
-      <section id="view-learn" class="view space-y-3.5 w-full"></section>
-      <section id="view-quiz" class="view space-y-3.5 w-full"></section>
-      <section id="view-exam" class="view space-y-3.5 w-full"></section>
-      <section id="view-path" class="view space-y-3.5 w-full"></section>
-      <section id="view-wrong" class="view space-y-3.5 w-full"></section>
-      <section id="view-stats" class="view space-y-3.5 w-full"></section>
-      <section id="view-settings" class="view space-y-3.5 w-full"></section>
+    <main class="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-5 space-y-4">
+      <section id="view-home" class="view active space-y-4 w-full"></section>
+      <section id="view-courses" class="view space-y-4 w-full"></section>
+      <section id="view-learn" class="view space-y-4 w-full"></section>
+      <section id="view-quiz" class="view space-y-4 w-full"></section>
+      <section id="view-exam" class="view space-y-4 w-full"></section>
+      <section id="view-path" class="view space-y-4 w-full"></section>
+      <section id="view-wrong" class="view space-y-4 w-full"></section>
+      <section id="view-stats" class="view space-y-4 w-full"></section>
+      <section id="view-settings" class="view space-y-4 w-full"></section>
     </main>
   </div>
-
-  <!-- Compact bottom nav -->
-  <nav class="app-nav" style="padding-bottom: env(safe-area-inset-bottom)">
-    <div class="app-nav-inner">
-      <button class="nav-btn active" data-view="home" type="button"><i data-lucide="home" class="h-4 w-4"></i><span>Today</span></button>
-      <button class="nav-btn" data-view="courses" type="button"><i data-lucide="library" class="h-4 w-4"></i><span>Courses</span></button>
-      <button class="nav-btn" data-view="learn" type="button"><i data-lucide="book-open" class="h-4 w-4"></i><span>Learn</span></button>
-      <button class="nav-btn" data-view="quiz" type="button"><i data-lucide="target" class="h-4 w-4"></i><span>Quiz</span></button>
-      <button class="nav-btn" data-view="exam" type="button"><i data-lucide="clipboard-check" class="h-4 w-4"></i><span>Exam</span></button>
-      <button class="nav-btn" data-view="wrong" type="button"><i data-lucide="rotate-ccw" class="h-4 w-4"></i><span>Wrong</span></button>
-      <button class="nav-btn" data-view="stats" type="button"><i data-lucide="bar-chart-2" class="h-4 w-4"></i><span>Stats</span></button>
-      <button class="nav-btn" data-view="settings" type="button"><i data-lucide="settings" class="h-4 w-4"></i><span>More</span></button>
-    </div>
-  </nav>
 
   <!-- Auth modal -->
   <div id="authModal" class="modal-backdrop" aria-hidden="true">

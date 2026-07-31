@@ -24,7 +24,8 @@ P_DIR = DATA / "courses" / "p"
 DATA.mkdir(parents=True, exist_ok=True)
 P_DIR.mkdir(parents=True, exist_ok=True)
 
-START = date(2026, 8, 1)
+# Align plan to "today" so Today view always has a mapped day
+START = date.today()
 WEEKS = 14
 LEARN_WEEKS = 12
 

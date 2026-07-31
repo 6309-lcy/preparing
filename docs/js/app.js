@@ -602,7 +602,43 @@
     return state.days[date];
   }
   function dayPlan(date = todayISO()) {
-    return curriculum?.days?.find((d) => d.date === date) || null;
+    const days = curriculum?.days || [];
+    if (!days.length) return null;
+    const exact = days.find((d) => d.date === date);
+    if (exact) return exact;
+    // Before plan window → start early on day 0 (progress keys use real today)
+    if (date < days[0].date) {
+      return {
+        ...days[0],
+        date,
+        weekday: parseISO(date).toLocaleDateString("en-US", { weekday: "long" }),
+        title: days[0].title,
+        _earlyStart: true,
+      };
+    }
+    // After window → keep last review day active
+    if (date > days[days.length - 1].date) {
+      return {
+        ...days[days.length - 1],
+        date,
+        weekday: parseISO(date).toLocaleDateString("en-US", { weekday: "long" }),
+        _pastEnd: true,
+      };
+    }
+    // Sparse gap: nearest previous plan day content
+    let prev = null;
+    for (const d of days) {
+      if (d.date <= date) prev = d;
+      else break;
+    }
+    return prev
+      ? {
+          ...prev,
+          date,
+          weekday: parseISO(date).toLocaleDateString("en-US", { weekday: "long" }),
+          _borrowed: true,
+        }
+      : null;
   }
   function lessonIdsFor(plan) {
     if (!plan) return [];
@@ -1382,8 +1418,25 @@
     const topicLine = (plan?.topicPrefs || []).map((t) => guides[t]?.label || t).join(" · ");
 
     if (!plan) {
-      root.innerHTML = `<div class="card"><h2 class="text-lg font-semibold">No lesson mapped for today</h2>
-        <p class="muted small mt-2">Curriculum covers the planned window. Use Path or Wrong Pool.</p></div>`;
+      const cur = currentPathLevel();
+      root.innerHTML = `
+        <div class="card">
+          <h2 class="text-lg font-semibold">Continue your Exam P path</h2>
+          <p class="mt-2 text-sm text-mute">Calendar plan is still loading or empty. Use the learning path — you can do multiple levels today.</p>
+          ${
+            cur
+              ? `<p class="mt-3 text-sm font-medium">Next: Ch ${cur.chapterNumber} · ${escapeHtml(cur.chapterTitle)} · ${escapeHtml(cur.title)}</p>
+                 <button class="btn-primary w-full mt-4" id="btnHomePathEmpty">Start level</button>`
+              : `<button class="btn-primary w-full mt-4" id="btnHomePathEmpty">Open Path</button>`
+          }
+        </div>`;
+      $("#btnHomePathEmpty")?.addEventListener("click", () => {
+        if (cur) startPathLevel(cur.id, { autoChain: true });
+        else {
+          showView("path");
+          renderPath();
+        }
+      });
       refreshIcons();
       return;
     }
@@ -1417,7 +1470,7 @@
               ${activePath ? `<div class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 text-amber-900 px-2.5 py-1 text-[11px] font-semibold">${levelsToday} levels today</div>` : ""}
             </div>
             <h1 class="mt-3 text-xl md:text-2xl font-semibold tracking-tight text-ink leading-snug">${escapeHtml(plan.title)}</h1>
-            <p class="mt-1.5 text-sm text-mute">${escapeHtml(plan.weekday)} · ${escapeHtml(plan.date)}${plan.fmLight ? " · light FM" : ""}</p>
+            <p class="mt-1.5 text-sm text-mute">${escapeHtml(plan.weekday)} · ${escapeHtml(plan.date)}${plan.fmLight ? " · light FM" : ""}${plan._earlyStart ? " · starting early" : ""}${plan._pastEnd ? " · past calendar · keep drilling" : ""}</p>
             ${topicLine ? `<p class="mt-2 text-sm font-medium text-brand">Quiz topics today: ${escapeHtml(topicLine)}</p>` : ""}
             <p class="mt-3 text-sm text-mute">Plan target <span class="font-medium text-ink">${target}</span> · <span class="font-semibold text-brand">${left}d</span></p>
             <p class="mt-1 text-xs text-mute">Do as many path levels as you want per day · soft goal ${pathTarget}+ · mix 40/50/10</p>
@@ -2616,6 +2669,14 @@
     document.querySelectorAll(".nav-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const v = btn.dataset.view;
+        if (state.activeExam?.status === "in_progress" && v !== "exam") {
+          if (!confirm("Leave exam mode? Progress is saved.")) {
+            showView("exam");
+            window.SOAExam?.onShow?.();
+            return;
+          }
+          window.SOAExam?.stopTicker?.();
+        }
         if (v === "courses") {
           showView("courses");
           renderCourses();
@@ -2626,16 +2687,12 @@
           window.SOAExam?.onShow?.();
           return;
         }
+        if (v === "path") {
+          showView("path");
+          renderPath();
+          return;
+        }
         if (v === "quiz") {
-          // Block daily quiz navigation into exam rules: allow quiz as usual
-          if (state.activeExam?.status === "in_progress") {
-            if (!confirm("You have an exam in progress. Leave exam mode? (Progress is saved.)")) {
-              showView("exam");
-              window.SOAExam?.onShow?.();
-              return;
-            }
-            window.SOAExam?.stopTicker?.();
-          }
           if (!quiz) startQuiz();
           else {
             showView("quiz");
@@ -2644,22 +2701,18 @@
           return;
         }
         if (v === "learn") {
-          if (state.activeExam?.status === "in_progress") {
-            window.SOAExam?.stopTicker?.();
-          }
-          if (!learn) startLearn();
-          else {
+          // Prefer path lessons hub over forced calendar start
+          if (!learn) {
+            showView("learn");
+            renderLearn();
+          } else {
             showView("learn");
             renderLearn();
           }
           return;
         }
-        if (state.activeExam?.status === "in_progress" && v !== "exam") {
-          window.SOAExam?.stopTicker?.();
-        }
         showView(v);
         if (v === "home") renderHome();
-        if (v === "path") renderPath();
         if (v === "wrong") renderWrong();
         if (v === "stats") renderStats();
         if (v === "settings") renderSettings();
@@ -2685,8 +2738,8 @@
     if ("serviceWorker" in navigator) {
       try {
         const keys = await caches.keys();
-        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v12").map((k) => caches.delete(k)));
-        await navigator.serviceWorker.register("./sw.js?v=12");
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v13").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=13");
       } catch (e) {
         console.warn(e);
       }

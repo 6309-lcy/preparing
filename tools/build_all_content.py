@@ -30,7 +30,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 import build_courses as pbuild  # noqa: E402
 
 TODAY = date.today().isoformat()
-START = date(2026, 8, 1)
+START = date.today()
 
 
 # ---------------------------------------------------------------------------
