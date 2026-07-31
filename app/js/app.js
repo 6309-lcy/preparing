@@ -52,6 +52,7 @@
   let coursePlans = {}; // courseId -> plan
   let coursePaths = {}; // courseId -> duo path
   let activePath = null; // current course path object
+  let allQuestions = []; // full multi-exam bank
   let qById = new Map();
   let quiz = null;
   let learn = null;
@@ -139,11 +140,48 @@
     c.pathProgress = state.pathProgress || c.pathProgress || {};
   }
 
-  function switchCourse(courseId) {
+  function questionsForCourse(courseId) {
+    const bank = allQuestions.length ? allQuestions : questions;
+    const id = courseId || state.activeCourseId || "P";
+    // P and FM have dedicated banks; other courses share P bank for drills + their own lessons
+    if (id === "FM") return bank.filter((q) => (q.exam || "") === "FM");
+    if (id === "P") return bank.filter((q) => (q.exam || "P") === "P");
+    // FAM/SRM/PA/ST/LT: prefer same-exam items if any, else P samples for quantitative drill
+    const own = bank.filter((q) => (q.exam || "") === id);
+    if (own.length >= 30) return own;
+    return bank.filter((q) => (q.exam || "P") === "P");
+  }
+
+  function applyCourseQuestionFilter(courseId) {
+    questions = questionsForCourse(courseId);
+    qById = new Map(questions.map((q) => [q.id, q]));
+  }
+
+  async function ensureCourseAssets(courseId) {
+    const meta = courseMeta(courseId);
+    if (!meta) return false;
+    if (!coursePaths[courseId] && meta.pathPath) {
+      try {
+        const res = await fetch(`./${meta.pathPath}`);
+        if (res.ok) coursePaths[courseId] = await res.json();
+      } catch (_) {}
+    }
+    if (!coursePlans[courseId] && meta.planPath) {
+      try {
+        const res = await fetch(`./${meta.planPath}`);
+        if (res.ok) coursePlans[courseId] = await res.json();
+      } catch (_) {}
+    }
+    return !!(coursePaths[courseId] || coursePlans[courseId]);
+  }
+
+  async function switchCourse(courseId) {
     syncTopToActiveCourse();
     state.activeCourseId = courseId;
     if (!state.courses[courseId]) state.courses[courseId] = emptyCourseProgress();
     syncActiveCourseToTop();
+    await ensureCourseAssets(courseId);
+    applyCourseQuestionFilter(courseId);
     // Load curriculum for course
     const plan = coursePlans[courseId];
     if (plan?.days) {
@@ -164,7 +202,8 @@
     quiz = null;
     learn = null;
     saveState({ immediate: true });
-    toast(`Switched to ${courseMeta(courseId)?.shortName || courseId}`);
+    const nq = questions.length;
+    toast(`Switched to ${courseMeta(courseId)?.shortName || courseId} · ${nq} questions · path ${activePath ? "ready" : "—"}`);
     showView("home");
     renderAll();
   }
@@ -2233,8 +2272,8 @@
     root.innerHTML = `
       <div class="card">
         <h1 class="text-xl font-semibold tracking-tight">Courses</h1>
-        <p class="mt-1 text-sm text-mute">Like Duolingo languages — each exam is a course with units, chapters, levels, and chapter tests. Progress is separate per course.</p>
-        <p class="mt-2 text-xs text-mute">Standard mix: <strong>40% reading</strong> · <strong>50% practice</strong> · <strong>10% mock</strong> · last 2 weeks wrap-up. Timeline ~3–4 months.</p>
+        <p class="mt-1 text-sm text-mute">All exam tracks are loaded: units, chapters, levels, chapter tests, and lessons. P & FM use full SOA sample banks; others are lesson-complete with shared drill banks.</p>
+        <p class="mt-2 text-xs text-mute">Mix: <strong>40% reading</strong> · <strong>50% practice</strong> · <strong>10% mock</strong> · ~3–4 months · multi-level days OK.</p>
       </div>
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
         ${list
@@ -2242,6 +2281,10 @@
             const active = state.activeCourseId === c.id;
             const prog = state.courses?.[c.id];
             const ready = c.status === "ready";
+            const pathDone = (() => {
+              if (!ready || state.activeCourseId !== c.id || !activePath) return null;
+              return pathOverallPct();
+            })();
             return `
             <article class="card ${active ? "ring-2 ring-brand" : ""} ${ready ? "card-interactive" : "opacity-90"}">
               <div class="flex items-start justify-between gap-2">
@@ -2255,7 +2298,7 @@
               <div class="mt-3 text-xs text-mute space-y-1">
                 <div>${c.durationWeeks || "—"} weeks · ${escapeHtml(c.examFormat || "")}</div>
                 <div>${escapeHtml(c.syllabusNote || "")}</div>
-                ${prog ? `<div class="pt-1">XP ${prog.xp || 0} · streak ${prog.streak || 0} · wrong ${(Object.keys(prog.wrongPool || {}).length)}</div>` : ""}
+                ${prog ? `<div class="pt-1">XP ${prog.xp || 0} · streak ${prog.streak || 0} · wrong ${Object.keys(prog.wrongPool || {}).length}${pathDone != null ? ` · path ${pathDone}%` : ""}</div>` : ""}
               </div>
               <button type="button" class="btn-${ready ? "primary" : "secondary"} w-full mt-4" data-course="${c.id}" ${ready ? "" : "disabled"}>
                 ${active ? "Continue" : ready ? "Start / switch" : "Coming soon"}
@@ -2265,14 +2308,15 @@
           .join("")}
       </div>`;
     root.querySelectorAll("[data-course]").forEach((btn) => {
-      btn.onclick = () => {
+      btn.onclick = async () => {
         const id = btn.dataset.course;
         const meta = courseMeta(id);
         if (meta?.status !== "ready") {
-          toast("This course path is scaffolded — Exam P is fully built first");
+          toast("Course not ready yet");
           return;
         }
-        switchCourse(id);
+        btn.disabled = true;
+        await switchCourse(id);
       };
     });
     refreshIcons();
@@ -2498,7 +2542,8 @@
       fetch("./data/courses/p/path.json").catch(() => null),
     ]);
     curriculum = await cRes.json();
-    questions = await qRes.json();
+    allQuestions = await qRes.json();
+    if (!Array.isArray(allQuestions)) allQuestions = [];
     lessons = await lRes.json();
     if (catRes && catRes.ok) coursesCatalog = await catRes.json();
     if (pathRes && pathRes.ok) {
@@ -2521,9 +2566,33 @@
         };
       }
     }
-    qById = new Map(questions.map((q) => [q.id, q]));
     state = migrateState(state);
     syncActiveCourseToTop();
+    // Prefetch all ready course assets (paths/plans) in background
+    if (coursesCatalog?.courses?.length) {
+      await Promise.all(
+        coursesCatalog.courses
+          .filter((c) => c.status === "ready")
+          .map((c) => ensureCourseAssets(c.id))
+      );
+    }
+    // Active course path/plan + filtered question bank
+    await ensureCourseAssets(state.activeCourseId || "P");
+    activePath = coursePaths[state.activeCourseId || "P"] || activePath;
+    if (coursePlans[state.activeCourseId]?.days?.length && state.activeCourseId !== "P") {
+      const plan = coursePlans[state.activeCourseId];
+      curriculum = {
+        courseId: state.activeCourseId,
+        examTarget: plan.endDate,
+        dailyQuestionGoal: 20,
+        mix: plan.mix,
+        weights: plan.weights,
+        planNotes: plan.notes,
+        days: plan.days,
+        window: [plan.startDate, plan.endDate],
+      };
+    }
+    applyCourseQuestionFilter(state.activeCourseId || "P");
 
     if (window.SOACloud) {
       await SOACloud.init();
@@ -2608,8 +2677,8 @@
     if ("serviceWorker" in navigator) {
       try {
         const keys = await caches.keys();
-        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v10").map((k) => caches.delete(k)));
-        await navigator.serviceWorker.register("./sw.js?v=10");
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v11").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=11");
       } catch (e) {
         console.warn(e);
       }

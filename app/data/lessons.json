@@ -3,7 +3,9 @@
     "id": "setup",
     "title": "How Exam P works & how to study",
     "minutes": 25,
-    "lo": ["all"],
+    "lo": [
+      "all"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -45,7 +47,9 @@
     "id": "general_sets",
     "title": "Sets, events, and Venn probability",
     "minutes": 40,
-    "lo": ["P1a"],
+    "lo": [
+      "P1a"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -95,7 +99,9 @@
     "id": "general_count",
     "title": "Counting: permutations & combinations",
     "minutes": 45,
-    "lo": ["P1b"],
+    "lo": [
+      "P1b"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -131,7 +137,10 @@
     "id": "general_axioms",
     "title": "Probability axioms & classical probability",
     "minutes": 40,
-    "lo": ["P1a", "P1e"],
+    "lo": [
+      "P1a",
+      "P1e"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -167,7 +176,9 @@
     "id": "general_cond",
     "title": "Conditional probability",
     "minutes": 45,
-    "lo": ["P1f"],
+    "lo": [
+      "P1f"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -203,7 +214,9 @@
     "id": "general_bayes",
     "title": "Total probability & Bayes",
     "minutes": 50,
-    "lo": ["P1g"],
+    "lo": [
+      "P1g"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -245,7 +258,10 @@
     "id": "general_indep",
     "title": "Independence vs mutually exclusive",
     "minutes": 35,
-    "lo": ["P1c", "P1d"],
+    "lo": [
+      "P1c",
+      "P1d"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -281,7 +297,11 @@
     "id": "uni_discrete_def",
     "title": "Discrete RVs: PMF, CDF, E, Var",
     "minutes": 50,
-    "lo": ["P2a", "P2c", "P2d"],
+    "lo": [
+      "P2a",
+      "P2c",
+      "P2d"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -323,7 +343,9 @@
     "id": "uni_binom_pois",
     "title": "Binomial and Poisson",
     "minutes": 50,
-    "lo": ["P2"],
+    "lo": [
+      "P2"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -365,7 +387,9 @@
     "id": "uni_other_disc",
     "title": "Geometric, Negative Binomial, Hypergeometric",
     "minutes": 45,
-    "lo": ["P2"],
+    "lo": [
+      "P2"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -401,7 +425,10 @@
     "id": "uni_cont",
     "title": "Continuous RVs: PDF, CDF, Uniform",
     "minutes": 50,
-    "lo": ["P2a", "P2c"],
+    "lo": [
+      "P2a",
+      "P2c"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -443,7 +470,9 @@
     "id": "uni_normal",
     "title": "Normal distribution",
     "minutes": 45,
-    "lo": ["P2"],
+    "lo": [
+      "P2"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -479,7 +508,9 @@
     "id": "uni_exp_gamma",
     "title": "Exponential, Gamma, Beta",
     "minutes": 50,
-    "lo": ["P2"],
+    "lo": [
+      "P2"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -521,7 +552,10 @@
     "id": "uni_insurance",
     "title": "Insurance payments: deductible, limit, coinsurance",
     "minutes": 55,
-    "lo": ["P2e", "P2f"],
+    "lo": [
+      "P2e",
+      "P2f"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -563,7 +597,10 @@
     "id": "multi_joint",
     "title": "Joint, marginal, conditional (discrete focus)",
     "minutes": 50,
-    "lo": ["P3a", "P3b"],
+    "lo": [
+      "P3a",
+      "P3b"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -599,7 +636,11 @@
     "id": "multi_cov",
     "title": "Covariance, correlation, linear combinations",
     "minutes": 45,
-    "lo": ["P3e", "P3g", "P3h"],
+    "lo": [
+      "P3e",
+      "P3g",
+      "P3h"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -635,7 +676,10 @@
     "id": "multi_order_clt",
     "title": "Order statistics & Central Limit Theorem",
     "minutes": 50,
-    "lo": ["P3f", "P3i"],
+    "lo": [
+      "P3f",
+      "P3i"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -677,7 +721,9 @@
     "id": "final",
     "title": "Final-week method (no new theory)",
     "minutes": 20,
-    "lo": ["review"],
+    "lo": [
+      "review"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -705,7 +751,9 @@
     "id": "fm_tvm",
     "title": "Light FM: Time Value of Money",
     "minutes": 30,
-    "lo": ["FM1"],
+    "lo": [
+      "FM1"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -741,7 +789,9 @@
     "id": "fm_ann",
     "title": "Light FM: Level annuities",
     "minutes": 30,
-    "lo": ["FM2"],
+    "lo": [
+      "FM2"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -777,7 +827,9 @@
     "id": "transition",
     "title": "After Exam P: shift to FM",
     "minutes": 30,
-    "lo": ["FM"],
+    "lo": [
+      "FM"
+    ],
     "sections": [
       {
         "id": "s1",
@@ -798,6 +850,1312 @@
         },
         "answer": "B",
         "explain": "Your plan was P-first then FM primary after the sitting."
+      }
+    ]
+  },
+  "fm_setup": {
+    "id": "fm_setup",
+    "title": "Exam FM orientation & calculator habits",
+    "minutes": 25,
+    "lo": [
+      "FM"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "What FM tests",
+        "body": "Exam FM (Financial Mathematics) is a 2.5-hour, 30-question CBT.\n\nSyllabus weights (approx midpoints):\n• Time value of money ~10%\n• Annuities ~25%\n• Loans ~20%\n• Bonds ~20%\n• General cash flows / portfolios / duration ~25%\n\nYou need speed with i, v, d, δ, annuity symbols, amortization, bond pricing, and duration/immunization."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Study rhythm",
+        "body": "Same Duolingo path as Exam P: Learn → Practice → Drill → Chapter test.\nLast two weeks: wrap + full mocks only. Financial calculator fluency is non-negotiable."
+      },
+      {
+        "id": "s3",
+        "type": "check",
+        "title": "Weight check",
+        "prompt": "Which block is usually the largest combined share on FM?",
+        "choices": {
+          "A": "Only TVM formulas",
+          "B": "Annuities + loans + bonds together",
+          "C": "Only swaps",
+          "D": "Only continuous force of interest"
+        },
+        "answer": "B",
+        "explain": "Most exam mass sits in annuities, loans, and bonds — not pure theory of i."
+      }
+    ]
+  },
+  "fm_tvm_core": {
+    "id": "fm_tvm_core",
+    "title": "Interest measures: i, v, d, δ",
+    "minutes": 40,
+    "lo": [
+      "FM1"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Core symbols",
+        "body": "Effective annual rate i: growth factor (1+i) per year.\nDiscount factor v = 1/(1+i).\nDiscount rate d = i/(1+i) = 1−v.\nForce of interest δ = ln(1+i) when constant; a(t)=e^{δt}.\nNominal rates i^{(m)}, d^{(m)} convert via (1+i)=(1+i^{(m)}/m)^m."
+      },
+      {
+        "id": "s2",
+        "type": "example",
+        "title": "Force from effective",
+        "setup": "i = 0.05 effective annual. Find δ.",
+        "solution": "δ = ln(1.05) ≈ 0.04879.",
+        "why": "Force is the continuous intensity that matches the same annual growth."
+      },
+      {
+        "id": "s3",
+        "type": "check",
+        "title": "Identity",
+        "prompt": "Which identity is always true?",
+        "choices": {
+          "A": "d = i(1+i)",
+          "B": "v = 1−d",
+          "C": "δ = i/(1+i)",
+          "D": "i = d/(1−d) is false"
+        },
+        "answer": "B",
+        "explain": "v=1/(1+i) and d=i/(1+i) ⇒ v=1−d. Also i=d/(1−d)."
+      }
+    ]
+  },
+  "fm_accum": {
+    "id": "fm_accum",
+    "title": "Accumulation & present value of single payments",
+    "minutes": 35,
+    "lo": [
+      "FM1"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Moving money in time",
+        "body": "Future value: FV = PV · (1+i)^n  (or e^{δn}).\nPresent value: PV = FV · v^n.\nBe careful with payment timing (beginning vs end of period) and nominal conversion periods."
+      },
+      {
+        "id": "s2",
+        "type": "example",
+        "title": "Semiannual nominal",
+        "setup": "100 grows for 7.25 years at 4% convertible semiannually. Find accumulated value.",
+        "solution": "i^{(2)}=0.04 ⇒ j=0.02 per half-year. Periods = 7.25×2 = 14.5.\nAV = 100(1.02)^{14.5}.",
+        "why": "Convert nominal → period rate first; never apply 4% as an effective annual by accident."
+      },
+      {
+        "id": "s3",
+        "type": "check",
+        "title": "PV factor",
+        "prompt": "At effective i, the PV of 1 due in n years is:",
+        "choices": {
+          "A": "(1+i)^n",
+          "B": "v^n",
+          "C": "d^n",
+          "D": "δ^n"
+        },
+        "answer": "B",
+        "explain": "Discount with v^n = (1+i)^{-n}."
+      }
+    ]
+  },
+  "fm_ann_level": {
+    "id": "fm_ann_level",
+    "title": "Level annuities-immediate & due",
+    "minutes": 45,
+    "lo": [
+      "FM2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Standard symbols",
+        "body": "Annuity-immediate ä with n payments of 1 at end of each year:\na-angle-n = (1−v^n)/i.\nAnnuity-due (payments at beginning):\nä-angle-n = (1−v^n)/d = (1+i) a-angle-n.\nPerpetuity-immediate: 1/i; due: 1/d."
+      },
+      {
+        "id": "s2",
+        "type": "example",
+        "title": "PV of payments",
+        "setup": "Level 500 at end of each year for 10 years, i=6%. PV?",
+        "solution": "PV = 500 · a-angle-10 at 6% = 500(1−1.06^{-10})/0.06.",
+        "why": "Factor out the payment level; use the correct immediate vs due form."
+      },
+      {
+        "id": "s3",
+        "type": "check",
+        "title": "Due vs immediate",
+        "prompt": "ä-angle-n equals:",
+        "choices": {
+          "A": "a-angle-n / (1+i)",
+          "B": "(1+i) a-angle-n",
+          "C": "a-angle-n − 1",
+          "D": "i · a-angle-n"
+        },
+        "answer": "B",
+        "explain": "Due payments are each one period earlier ⇒ multiply immediate PV by (1+i)."
+      }
+    ]
+  },
+  "fm_ann_mthly": {
+    "id": "fm_ann_mthly",
+    "title": "m-thly & continuous annuities",
+    "minutes": 40,
+    "lo": [
+      "FM2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Payable m-thly",
+        "body": "a-angle-n^{(m)} uses period rate i^{(m)}/m or standard formula\na-angle-n^{(m)} = (1−v^n)/i^{(m)}.\nContinuous: ā-angle-n = (1−v^n)/δ.\nRemember: higher payment frequency raises PV for the same annual rate of payment."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Continuous denom",
+        "prompt": "Continuous annuity PV of rate 1 for n years uses denominator:",
+        "choices": {
+          "A": "i",
+          "B": "d",
+          "C": "δ",
+          "D": "v"
+        },
+        "answer": "C",
+        "explain": "ā-angle-n = (1−v^n)/δ."
+      }
+    ]
+  },
+  "fm_ann_vary": {
+    "id": "fm_ann_vary",
+    "title": "Increasing / decreasing annuities",
+    "minutes": 40,
+    "lo": [
+      "FM2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Arithmetic patterns",
+        "body": "Payments 1,2,...,n (immediate) have PV (Ia)-angle-n = (ä-angle-n − n v^n)/i.\nDecreasing n,n−1,...,1: (Da)-angle-n = (n − a-angle-n)/i.\nGeometric growth: payments grow at rate g; use adjusted rate j with 1+j=(1+i)/(1+g)."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Geometric idea",
+        "prompt": "If payments grow at g and interest is i, the PV annuity formula uses an adjusted rate from:",
+        "choices": {
+          "A": "i−g only always",
+          "B": "(1+i)/(1+g)−1",
+          "C": "i+g",
+          "D": "δ−g always"
+        },
+        "answer": "B",
+        "explain": "Standard substitution 1+j=(1+i)/(1+g)."
+      }
+    ]
+  },
+  "fm_loans": {
+    "id": "fm_loans",
+    "title": "Loans & amortization",
+    "minutes": 45,
+    "lo": [
+      "FM3"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Prospective & retrospective",
+        "body": "Loan of L repaid by level payments X for n periods: L = X · a-angle-n.\nOutstanding balance after k payments (prospective):\nOB_k = X · a-angle-(n−k).\nRetrospective: OB_k = L(1+i)^k − X · s-angle-k.\nInterest in payment k: i · OB_{k−1}; principal = X − interest."
+      },
+      {
+        "id": "s2",
+        "type": "example",
+        "title": "Level loan payment",
+        "setup": "Loan 10,000, n=5, i=6% annual. Level end-of-year payment?",
+        "solution": "X = 10000 / a-angle-5 at 6%.",
+        "why": "Always start from L = X a-angle-n unless stated otherwise."
+      },
+      {
+        "id": "s3",
+        "type": "check",
+        "title": "Prospective OB",
+        "prompt": "After k level payments on an n-payment loan, OB equals payment times:",
+        "choices": {
+          "A": "a-angle-n",
+          "B": "a-angle-(n−k)",
+          "C": "s-angle-k",
+          "D": "v^k"
+        },
+        "answer": "B",
+        "explain": "Prospective method: remaining annuity of n−k payments."
+      }
+    ]
+  },
+  "fm_sinking": {
+    "id": "fm_sinking",
+    "title": "Sinking funds",
+    "minutes": 35,
+    "lo": [
+      "FM3"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Interest + sinking deposit",
+        "body": "Borrower pays interest each period on full principal plus deposits into a sinking fund that accumulates to principal at maturity.\nTotal payment = L·i + L / s-angle-n  (if SF earns same i).\nIf SF rate differs, use that rate in s-angle-n only."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "SF deposit",
+        "prompt": "To accumulate L in n periods at rate j in a sinking fund, level deposit is:",
+        "choices": {
+          "A": "L / a-angle-n",
+          "B": "L / s-angle-n at j",
+          "C": "L·j",
+          "D": "L·v^n"
+        },
+        "answer": "B",
+        "explain": "Future-value annuity s-angle-n accumulates deposits to L."
+      }
+    ]
+  },
+  "fm_bonds": {
+    "id": "fm_bonds",
+    "title": "Bond price, premium, discount",
+    "minutes": 45,
+    "lo": [
+      "FM4"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Price formula",
+        "body": "Bond with face F, redemption C, coupon rate r (coupon Fr per year, or Fr/m m-thly), yield rate i:\nPrice P = Fr · a-angle-n + C v^n  (adjust for m-thly).\nIf P>C: premium; P<C: discount.\nBook value follows amortization of premium/discount."
+      },
+      {
+        "id": "s2",
+        "type": "example",
+        "title": "Par bond",
+        "setup": "If coupon rate equals yield and C=F, price is par.",
+        "solution": "P = F — coupons exactly compensate required yield.",
+        "why": "Par is the special case r=i (with matching payment frequency)."
+      },
+      {
+        "id": "s3",
+        "type": "check",
+        "title": "Premium",
+        "prompt": "A bond sells at a premium when:",
+        "choices": {
+          "A": "Price < redemption",
+          "B": "Price > redemption",
+          "C": "Coupon rate is zero",
+          "D": "n=1 always"
+        },
+        "answer": "B",
+        "explain": "Premium means market price above redemption amount."
+      }
+    ]
+  },
+  "fm_duration": {
+    "id": "fm_duration",
+    "title": "Duration, convexity, immunization",
+    "minutes": 45,
+    "lo": [
+      "FM5"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Macaulay & modified",
+        "body": "Macaulay duration MacD = weighted average payment time using PV weights.\nModified duration ModD = MacD / (1+i)  (for effective i per period).\nRelative price change ≈ −ModD · Δi.\nRedington immunization: PV assets = PV liabilities, ModD match, convexity assets ≥ liabilities."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Price sensitivity",
+        "prompt": "If yields rise slightly, bond prices:",
+        "choices": {
+          "A": "Rise by about ModD·Δi",
+          "B": "Fall by about ModD·Δi",
+          "C": "Do not change",
+          "D": "Double"
+        },
+        "answer": "B",
+        "explain": "dP/P ≈ −ModD·Δi."
+      }
+    ]
+  },
+  "fm_final": {
+    "id": "fm_final",
+    "title": "FM wrap-up checklist",
+    "minutes": 30,
+    "lo": [
+      "FM"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Formula gate",
+        "body": "Before mocks, recite cold:\n• v,d,δ conversions\n• a, ä, s, s̈, (Ia), (Da)\n• Loan OB prospective/retrospective\n• Bond price + book value\n• MacD / ModD / Redington conditions"
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Ready?",
+        "prompt": "Last two weeks of the path should emphasize:",
+        "choices": {
+          "A": "Brand new theory only",
+          "B": "Mixed timed sets + full mocks",
+          "C": "Only reading Finan once",
+          "D": "Skipping bonds"
+        },
+        "answer": "B",
+        "explain": "Wrap unit is mock-heavy by design."
+      }
+    ]
+  },
+  "fam_setup": {
+    "id": "fam_setup",
+    "title": "Exam FAM map (short-term + long-term)",
+    "minutes": 25,
+    "lo": [
+      "FAM"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Two halves",
+        "body": "FAM blends short-term actuarial math (severity severity/frequency, credibility, ratemaking/reserving themes) with long-term life contingencies (survival models, insurance/annuities, reserves).\nTreat it as two mini-courses with shared exam discipline."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Structure",
+        "prompt": "FAM content is best studied as:",
+        "choices": {
+          "A": "Only calculus",
+          "B": "Short-term + long-term tracks",
+          "C": "Only FM formulas",
+          "D": "Only Python"
+        },
+        "answer": "B",
+        "explain": "Official FAM spans ST and LT foundations."
+      }
+    ]
+  },
+  "fam_st_severity": {
+    "id": "fam_st_severity",
+    "title": "Short-term: severity, frequency, aggregate",
+    "minutes": 40,
+    "lo": [
+      "FAM-ST"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Building blocks",
+        "body": "Severity: distribution of loss size (given a loss).\nFrequency: distribution of claim count N.\nAggregate S = X1+...+XN (collective risk).\nKey: E[S]=E[N]E[X], Var(S)=E[N]Var(X)+Var(N)(E[X])^2 for independent identical Xi ⊥ N."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Mean aggregate",
+        "prompt": "If N and X independent, E[S] equals:",
+        "choices": {
+          "A": "E[N]+E[X]",
+          "B": "E[N]E[X]",
+          "C": "Var(N)E[X]",
+          "D": "E[N]/E[X]"
+        },
+        "answer": "B",
+        "explain": "Wald identity for random sums."
+      }
+    ]
+  },
+  "fam_st_mod": {
+    "id": "fam_st_mod",
+    "title": "Short-term: modifications & risk measures",
+    "minutes": 40,
+    "lo": [
+      "FAM-ST"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Policy mods",
+        "body": "Ordinary deductible, policy limit, coinsurance change the payment Y vs ground-up loss X.\nYou already saw this on Exam P — FAM reuses it in pricing context.\nRisk measures (e.g. VaR, TVaR) appear at intro level depending on current syllabus wording."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Deductible payment",
+        "prompt": "With ordinary deductible d, insurer payment per loss is:",
+        "choices": {
+          "A": "min(X,d)",
+          "B": "max(X−d,0)",
+          "C": "X+d",
+          "D": "X/d"
+        },
+        "answer": "B",
+        "explain": "Ordinary deductible pays the excess over d."
+      }
+    ]
+  },
+  "fam_st_cred": {
+    "id": "fam_st_cred",
+    "title": "Credibility & experience rating intro",
+    "minutes": 35,
+    "lo": [
+      "FAM-ST"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Limited fluctuation & Bühlmann ideas",
+        "body": "Credibility blends data with prior/manual rate.\nLimited fluctuation (classical) sets n so P(|X̄−μ|<kμ)≥p.\nBühlmann: Z = n/(n+K), K=EVPV/VHM.\nEstimate = Z·X̄ + (1−Z)·prior."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Bühlmann Z",
+        "prompt": "As n → ∞, Bühlmann Z approaches:",
+        "choices": {
+          "A": "0",
+          "B": "1",
+          "C": "K",
+          "D": "0.5"
+        },
+        "answer": "B",
+        "explain": "More data ⇒ full credibility on the sample."
+      }
+    ]
+  },
+  "fam_lt_surv": {
+    "id": "fam_lt_surv",
+    "title": "Long-term: survival models & life tables",
+    "minutes": 40,
+    "lo": [
+      "FAM-LT"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Time-until-death",
+        "body": "T_x = future lifetime of (x).\nSurvival function s(x), force μ_x, curtate K_x.\nStandard probabilities: _t p_x, _t q_x, _t|u q_x.\nLife table: l_x, d_x, L_x, T_x (table), e_x."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Notation",
+        "prompt": "_t p_x is the probability that (x):",
+        "choices": {
+          "A": "Dies within t years",
+          "B": "Survives t years",
+          "C": "Is exactly age t",
+          "D": "Buys insurance"
+        },
+        "answer": "B",
+        "explain": "p is survival; q is death."
+      }
+    ]
+  },
+  "fam_lt_ins": {
+    "id": "fam_lt_ins",
+    "title": "Insurance & annuities (discrete/continuous intro)",
+    "minutes": 45,
+    "lo": [
+      "FAM-LT"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Actuarial PV",
+        "body": "Whole life insurance Ā_x / A_x: PV of 1 on death.\nTerm, pure endowment, endowment insurance variants.\nLife annuities ä_x, a_x pay while alive.\nRelationships: A_x = 1 − d ä_x (discrete whole life under constant i)."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Insurance vs annuity",
+        "prompt": "A_x = 1 − d ä_x links:",
+        "choices": {
+          "A": "Loan balance to coupon",
+          "B": "Whole life insurance to life annuity-due",
+          "C": "Bond price to duration",
+          "D": "Poisson to gamma"
+        },
+        "answer": "B",
+        "explain": "Classic identity under level effective rate."
+      }
+    ]
+  },
+  "fam_lt_res": {
+    "id": "fam_lt_res",
+    "title": "Reserves intro",
+    "minutes": 35,
+    "lo": [
+      "FAM-LT"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Net premium reserve",
+        "body": "Prospective reserve: EPV future benefits − EPV future net premiums.\nRetrospective: accumulated past premiums − accumulated past benefits.\nAt issue, reserve is 0 under equivalence principle."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Prospective idea",
+        "prompt": "Net premium reserve is primarily:",
+        "choices": {
+          "A": "Cash under the mattress",
+          "B": "EPV future benefits minus EPV future premiums",
+          "C": "Only company profit",
+          "D": "Only expenses"
+        },
+        "answer": "B",
+        "explain": "Prospective formula is the main definition."
+      }
+    ]
+  },
+  "fam_final": {
+    "id": "fam_final",
+    "title": "FAM wrap-up",
+    "minutes": 25,
+    "lo": [
+      "FAM"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Two-track review",
+        "body": "Split mocks: ST day (severity/credibility) and LT day (life contingencies/reserves), then mixed."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Mix",
+        "prompt": "A good FAM wrap week includes:",
+        "choices": {
+          "A": "Only ST",
+          "B": "Only LT",
+          "C": "Both ST and LT timed mixes",
+          "D": "Neither"
+        },
+        "answer": "C",
+        "explain": "The exam mixes both domains."
+      }
+    ]
+  },
+  "srm_setup": {
+    "id": "srm_setup",
+    "title": "Exam SRM orientation",
+    "minutes": 20,
+    "lo": [
+      "SRM"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "What SRM covers",
+        "body": "Statistics for Risk Modeling: supervised learning, GLMs, time series, PCA/clustering, tree-based models.\nYou need conceptual fluency + interpretation of model output, not production ML engineering."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Not the focus",
+        "prompt": "SRM is least about:",
+        "choices": {
+          "A": "GLM interpretation",
+          "B": "Writing Kubernetes configs",
+          "C": "Train/test ideas",
+          "D": "Time series components"
+        },
+        "answer": "B",
+        "explain": "It is a modeling/statistics exam, not devops."
+      }
+    ]
+  },
+  "srm_learn": {
+    "id": "srm_learn",
+    "title": "Problem framing & learning workflow",
+    "minutes": 35,
+    "lo": [
+      "SRM"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Train / validation / test",
+        "body": "Split data to estimate generalization.\nBias–variance tradeoff: flexible models can overfit.\nCross-validation estimates out-of-sample error.\nFeature engineering and leakage awareness matter."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Overfitting",
+        "prompt": "Overfitting typically means:",
+        "choices": {
+          "A": "Great train, weak test performance",
+          "B": "Weak train, great test",
+          "C": "No features",
+          "D": "Perfect causality"
+        },
+        "answer": "A",
+        "explain": "Memorizing training noise fails on new data."
+      }
+    ]
+  },
+  "srm_glm": {
+    "id": "srm_glm",
+    "title": "GLMs for count & severity style responses",
+    "minutes": 45,
+    "lo": [
+      "SRM"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "GLM structure",
+        "body": "Random component (exponential family), linear predictor η=Xβ, link g(μ)=η.\nLog link for positive means; logit for probabilities.\nCoefficients: for log link, e^{β} is a multiplicative effect.\nOffset terms appear with exposure."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Log link",
+        "prompt": "With log link, a coefficient β=0.2 roughly multiplies mean by:",
+        "choices": {
+          "A": "0.2",
+          "B": "e^{0.2}",
+          "C": "1.2 exactly always",
+          "D": "log(0.2)"
+        },
+        "answer": "B",
+        "explain": "μ ∝ e^{Xβ}; unit increase multiplies by e^β."
+      }
+    ]
+  },
+  "srm_ts": {
+    "id": "srm_ts",
+    "title": "Time series components & forecasting ideas",
+    "minutes": 40,
+    "lo": [
+      "SRM"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Trend, seasonality, noise",
+        "body": "Decompose series; stationary vs nonstationary.\nAR, MA, ARIMA intuition: lags of series and shocks.\nACF/PACF patterns guide orders (conceptually).\nForecast intervals widen with horizon."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Stationarity",
+        "prompt": "A stationary series has roughly stable:",
+        "choices": {
+          "A": "Only maximum value",
+          "B": "Mean/variance structure over time",
+          "C": "Sample size",
+          "D": "Software version"
+        },
+        "answer": "B",
+        "explain": "Classical stationarity assumptions target stable moments/dependence."
+      }
+    ]
+  },
+  "srm_unsup": {
+    "id": "srm_unsup",
+    "title": "PCA & clustering",
+    "minutes": 35,
+    "lo": [
+      "SRM"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Unsupervised tools",
+        "body": "PCA: orthogonal directions of maximum variance; use for dimension reduction.\nClustering (k-means, hierarchical): group similar observations; choose k with care.\nScale features before distance-based methods."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "PCA goal",
+        "prompt": "First principal component captures:",
+        "choices": {
+          "A": "Minimum variance direction",
+          "B": "Maximum variance direction",
+          "C": "Only the target Y",
+          "D": "Time index"
+        },
+        "answer": "B",
+        "explain": "PC1 maximizes variance among unit linear combinations."
+      }
+    ]
+  },
+  "srm_trees": {
+    "id": "srm_trees",
+    "title": "Trees, bagging, random forests, boosting (concepts)",
+    "minutes": 40,
+    "lo": [
+      "SRM"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Tree family",
+        "body": "Decision trees partition feature space; easy to overfit if deep.\nBagging/RF: average many trees, reduce variance; RF also randomizes features.\nBoosting: sequential focus on residuals/errors; strong predictive performance, less interpretable."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "RF idea",
+        "prompt": "Random forests mainly reduce error by:",
+        "choices": {
+          "A": "Deleting all features",
+          "B": "Averaging many de-correlated trees",
+          "C": "Using only linear regression",
+          "D": "Ignoring bootstrap"
+        },
+        "answer": "B",
+        "explain": "Ensemble averaging + feature randomness."
+      }
+    ]
+  },
+  "srm_final": {
+    "id": "srm_final",
+    "title": "SRM wrap-up",
+    "minutes": 25,
+    "lo": [
+      "SRM"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Interpretation first",
+        "body": "On exam day, read the stem for the modeling goal, metric, and pitfall (leakage, imbalance, overfitting)."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Priority",
+        "prompt": "When a stem gives GLM coefficients with log link, first translate to:",
+        "choices": {
+          "A": "Kubernetes YAML",
+          "B": "Multiplicative effects on the mean",
+          "C": "Bond duration",
+          "D": "Life table l_x"
+        },
+        "answer": "B",
+        "explain": "Interpretation is the SRM skill."
+      }
+    ]
+  },
+  "pa_setup": {
+    "id": "pa_setup",
+    "title": "Exam PA workflow",
+    "minutes": 25,
+    "lo": [
+      "PA"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Project mindset",
+        "body": "Predictive Analytics is a structured written/project-style assessment:\nproblem statement → data/EDA → modeling → communication.\nGrading rewards clear business framing and justified model choices, not only accuracy."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Communication",
+        "prompt": "PA success requires:",
+        "choices": {
+          "A": "Only highest R²",
+          "B": "Clear audience-ready explanation of choices",
+          "C": "No EDA",
+          "D": "Hiding limitations"
+        },
+        "answer": "B",
+        "explain": "Communication is explicitly weighted."
+      }
+    ]
+  },
+  "pa_problem": {
+    "id": "pa_problem",
+    "title": "Problem statement & success metrics",
+    "minutes": 30,
+    "lo": [
+      "PA"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Define the decision",
+        "body": "Translate a business ask into a modeling target, population, time frame, and metric (loss, AUC, RMSE, lift).\nState constraints: fairness, latency, interpretability, data freshness."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Metric match",
+        "prompt": "Class imbalance often makes raw accuracy:",
+        "choices": {
+          "A": "Always ideal",
+          "B": "Misleading",
+          "C": "Impossible",
+          "D": "Equal to AUC always"
+        },
+        "answer": "B",
+        "explain": "Prefer precision/recall/AUC/log-loss as appropriate."
+      }
+    ]
+  },
+  "pa_eda": {
+    "id": "pa_eda",
+    "title": "Data quality & EDA",
+    "minutes": 35,
+    "lo": [
+      "PA"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Look before you model",
+        "body": "Missingness patterns, outliers, leakage, target leakage from future fields, leakage via IDs.\nPlots: distributions, relationships, time drift.\nDocument cleaning rules so results are reproducible."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Leakage",
+        "prompt": "Using a feature only known after the claim is closed is often:",
+        "choices": {
+          "A": "Good practice",
+          "B": "Target/data leakage risk",
+          "C": "Required by SOA",
+          "D": "A GLM link"
+        },
+        "answer": "B",
+        "explain": "Training on future information invents fake performance."
+      }
+    ]
+  },
+  "pa_model": {
+    "id": "pa_model",
+    "title": "Model selection & validation",
+    "minutes": 40,
+    "lo": [
+      "PA"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Compare honestly",
+        "body": "Baselines first. Then GLM / trees / others as appropriate.\nValidate with proper splits or time-based splits for temporal data.\nTune complexity with CV; report uncertainty and error analysis."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Baseline",
+        "prompt": "A simple baseline model is useful because:",
+        "choices": {
+          "A": "It wastes time",
+          "B": "It anchors whether complexity is worth it",
+          "C": "SOA forbids it",
+          "D": "It replaces communication"
+        },
+        "answer": "B",
+        "explain": "Always beat a sane baseline."
+      }
+    ]
+  },
+  "pa_comms": {
+    "id": "pa_comms",
+    "title": "Recommendations & exhibits",
+    "minutes": 35,
+    "lo": [
+      "PA"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Tell a decision story",
+        "body": "Lead with the recommendation, then evidence.\nLimitations, monitoring plan, and next data collection step.\nExhibits should be labeled for a non-ML manager."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Audience",
+        "prompt": "PA writeups should primarily serve:",
+        "choices": {
+          "A": "Only GPU hardware specs",
+          "B": "A business/actuarial decision maker",
+          "C": "Only code golf",
+          "D": "No recommendations"
+        },
+        "answer": "B",
+        "explain": "Decision-oriented communication."
+      }
+    ]
+  },
+  "pa_final": {
+    "id": "pa_final",
+    "title": "PA mock project habits",
+    "minutes": 25,
+    "lo": [
+      "PA"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Timed practice",
+        "body": "Rehearse full project cycles with a clock. Practice past PA-style prompts if available."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Order",
+        "prompt": "Best default order:",
+        "choices": {
+          "A": "Model → ignore data → hope",
+          "B": "Problem → EDA → model → communicate",
+          "C": "Communicate with no data",
+          "D": "Only hyperparameter sweep"
+        },
+        "answer": "B",
+        "explain": "Matches the PA scoring narrative."
+      }
+    ]
+  },
+  "st_setup": {
+    "id": "st_setup",
+    "title": "Short-term track map",
+    "minutes": 20,
+    "lo": [
+      "ST"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "After FAM",
+        "body": "Specialty short-term deepens ratemaking, reserving, reinsurance, and portfolio metrics used in P&C practice.\nBuild on FAM-ST; add professional practice context."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Focus",
+        "prompt": "Short-term track is closest to:",
+        "choices": {
+          "A": "Life reserves only",
+          "B": "P&C pricing/reserving themes",
+          "C": "Only SRM PCA",
+          "D": "Only FM bonds"
+        },
+        "answer": "B",
+        "explain": "Property & casualty style problems."
+      }
+    ]
+  },
+  "st_rate": {
+    "id": "st_rate",
+    "title": "Ratemaking themes",
+    "minutes": 40,
+    "lo": [
+      "ST"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Premium building blocks",
+        "body": "Pure premium, loss ratio methods, exposure bases, classification relativities, trend and development.\nIndicate when to use limited fluctuation credibility on segment rates."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Exposure",
+        "prompt": "An exposure base should ideally be proportional to:",
+        "choices": {
+          "A": "Marketing spend only",
+          "B": "Expected loss",
+          "C": "Office rent",
+          "D": "Stock price"
+        },
+        "answer": "B",
+        "explain": "Good exposure tracks risk volume."
+      }
+    ]
+  },
+  "st_reserve": {
+    "id": "st_reserve",
+    "title": "Loss reserving themes",
+    "minutes": 40,
+    "lo": [
+      "ST"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Triangles & IBNR",
+        "body": "Development triangles, age-to-age factors, chain-ladder intuition.\nCase reserves vs IBNR. Tail factors. Diagnostic checks for changes in settlement patterns."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "IBNR",
+        "prompt": "IBNR broadly covers:",
+        "choices": {
+          "A": "Only paid losses",
+          "B": "Incurred but not reported (and related) liabilities",
+          "C": "Only premiums",
+          "D": "Only expenses"
+        },
+        "answer": "B",
+        "explain": "Reserve for claims not fully known/reported."
+      }
+    ]
+  },
+  "st_reins": {
+    "id": "st_reins",
+    "title": "Reinsurance basics",
+    "minutes": 35,
+    "lo": [
+      "ST"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Proportional vs excess",
+        "body": "Quota share, surplus, excess of loss, stop-loss — who pays which layer.\nEffect on net severity/frequency and capital."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "XOL idea",
+        "prompt": "Excess of loss primarily protects against:",
+        "choices": {
+          "A": "Tiny frequency only",
+          "B": "Large individual or aggregate losses above a retention",
+          "C": "Only life mortality",
+          "D": "Interest rates"
+        },
+        "answer": "B",
+        "explain": "Layers above retention."
+      }
+    ]
+  },
+  "st_final": {
+    "id": "st_final",
+    "title": "ST wrap-up",
+    "minutes": 20,
+    "lo": [
+      "ST"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Practice",
+        "body": "Mix ratemaking + reserving caselets; explain net vs gross of reinsurance."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Balance",
+        "prompt": "A balanced ST week includes:",
+        "choices": {
+          "A": "Only reinsurance trivia",
+          "B": "Pricing and reserving drills",
+          "C": "Only FM duration",
+          "D": "Only PA writing"
+        },
+        "answer": "B",
+        "explain": "Both pillars."
+      }
+    ]
+  },
+  "lt_setup": {
+    "id": "lt_setup",
+    "title": "Long-term track map",
+    "minutes": 20,
+    "lo": [
+      "LT"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "After FAM",
+        "body": "Long-term specialty deepens multi-state models, product design, profit testing, and reserve/capital themes for life & annuity."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Core object",
+        "prompt": "Long-term models center on:",
+        "choices": {
+          "A": "Only claim count per day",
+          "B": "Lifetime contingent cash flows",
+          "C": "Only PCA",
+          "D": "Only bond immunization"
+        },
+        "answer": "B",
+        "explain": "Life-contingent payments over decades."
+      }
+    ]
+  },
+  "lt_multi": {
+    "id": "lt_multi",
+    "title": "Multiple state & decrements intro",
+    "minutes": 40,
+    "lo": [
+      "LT"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Beyond single life death",
+        "body": "Healthy/disabled/dead states; transition intensities.\nMultiple decrement tables; associated single decrement rates.\nCareful with timing assumptions."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Multi-state",
+        "prompt": "A disability model typically needs:",
+        "choices": {
+          "A": "No transitions",
+          "B": "States and transition rates/probabilities",
+          "C": "Only one cash flow at t=0",
+          "D": "Only FM coupons"
+        },
+        "answer": "B",
+        "explain": "States + transitions drive contingent benefits."
+      }
+    ]
+  },
+  "lt_products": {
+    "id": "lt_products",
+    "title": "Products & profit testing themes",
+    "minutes": 40,
+    "lo": [
+      "LT"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Design levers",
+        "body": "Term, whole life, endowments, annuities, riders.\nProfit testing: best-estimate assumptions, risk discount rate, surplus emerging.\nSensitivities: mortality, lapse, expense, interest."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Lapse risk",
+        "prompt": "Higher lapses can hurt products that:",
+        "choices": {
+          "A": "Never pre-fund anything",
+          "B": "Rely on long persistency to recover acquisition costs",
+          "C": "Are pure one-day policies",
+          "D": "Ignore expenses"
+        },
+        "answer": "B",
+        "explain": "Acquisition cost recovery needs persistency."
+      }
+    ]
+  },
+  "lt_res_cap": {
+    "id": "lt_res_cap",
+    "title": "Reserves & capital themes",
+    "minutes": 35,
+    "lo": [
+      "LT"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Valuation mindset",
+        "body": "Net premium vs modified reserves; expense loads.\nRegulatory vs economic views (high level).\nConnect to FAM reserve basics; add product-level detail."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Issue reserve",
+        "prompt": "Under equivalence net premium, issue reserve is typically:",
+        "choices": {
+          "A": "Huge positive always",
+          "B": "Zero",
+          "C": "Equal to face amount",
+          "D": "Equal to δ"
+        },
+        "answer": "B",
+        "explain": "Equivalence sets EPV premiums = EPV benefits at issue."
+      }
+    ]
+  },
+  "lt_final": {
+    "id": "lt_final",
+    "title": "LT wrap-up",
+    "minutes": 20,
+    "lo": [
+      "LT"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Drill",
+        "body": "Mixed life-contingency calculations + short written interpretation of profit test output."
+      },
+      {
+        "id": "s2",
+        "type": "check",
+        "title": "Balance",
+        "prompt": "LT wrap should include:",
+        "choices": {
+          "A": "Only PCA",
+          "B": "Multi-state + product/reserve drills",
+          "C": "Only FM sinking funds",
+          "D": "Only PA posters"
+        },
+        "answer": "B",
+        "explain": "Matches the track."
       }
     ]
   }
