@@ -1874,28 +1874,13 @@
   function questionBodyHtml(q) {
     const hasImg = Array.isArray(q.images) && q.images.length > 0;
     const mode = hasImg ? (quizDisplayMode === "text" ? "text" : "image") : "text";
-    const toggle = hasImg
-      ? `<div class="mode-toggle">
-          <button type="button" data-mode="image" class="${mode === "image" ? "active" : ""}">Official PDF</button>
-          <button type="button" data-mode="text" class="${mode === "text" ? "active" : ""}">Text / LaTeX</button>
-        </div>`
-      : "";
     if (mode === "image" && hasImg) {
-      return (
-        toggle +
-        `<p class="text-xs font-medium text-brand mb-1">Official SOA layout · tap image to enlarge</p>
-        <div class="q-images">
-          ${q.images.map((src, i) => `<img src="./${src}?v=4" alt="Q${q.number}-${i}" data-full="./${src}?v=4" />`).join("")}
+      return `<div class="q-images">
+          ${q.images.map((src, i) => `<img src="./${src}?v=5" alt="Q${q.number}-${i}" data-full="./${src}?v=5" />`).join("")}
         </div>
-        <div id="imgFail" class="img-error" style="display:none">Image failed to load. Serve via <code>python -m http.server</code> from <code>app/</code> and hard-refresh.</div>
-        <p class="text-xs text-mute">Select A–E below after reading the figure.</p>`
-      );
+        <div id="imgFail" class="img-error" style="display:none">Image failed to load.</div>`;
     }
-    return (
-      toggle +
-      `<div class="lock-banner warn mb-3">Text mode may omit symbols. Prefer Official PDF when available.</div>
-       <div class="quiz-stem" id="quizStemText">${escapeHtml(q.stem)}</div>`
-    );
+    return `<div class="quiz-stem" id="quizStemText">${escapeHtml(q.stem || "")}</div>`;
   }
 
   function renderQuiz() {
@@ -1994,36 +1979,85 @@
     const hasImg = Array.isArray(q.images) && q.images.length > 0;
     if (hasImg && !quiz._modeTouched) quizDisplayMode = "image";
     const showingImage = hasImg && quizDisplayMode !== "text";
+    const kind = quiz.isChapterTest ? "Test" : quiz.pathLevelId ? "Level" : "Drill";
+    const canCheck = !!(quiz.selected && !quiz.revealed);
+    const showNext = !!quiz.revealed;
+
+    // Build horizontal A–E tiles
+    const letters = ["A", "B", "C", "D", "E"].filter((L) => hasImg || q.choices?.[L]);
+    const tilesHtml = letters
+      .map((letter) => {
+        let cls = "opt-tile";
+        if (quiz.selected === letter) cls += " selected";
+        if (quiz.revealed) {
+          if (q.answer === letter) cls += " correct";
+          if (quiz.selected === letter && quiz.selected !== q.answer) cls += " wrong";
+        }
+        return `<button type="button" class="${cls}" data-opt="${letter}" ${quiz.revealed ? "disabled" : ""} aria-label="Option ${letter}">${letter}</button>`;
+      })
+      .join("");
+
+    let caption = "Tap A–E · Enter to check";
+    if (quiz.selected && !quiz.revealed) {
+      const raw = q.choices?.[quiz.selected];
+      const short =
+        showingImage || !raw || String(raw).trim().length < 2
+          ? `Selected <strong>${quiz.selected}</strong>`
+          : `<strong>${quiz.selected}.</strong> ${escapeHtml(String(raw).slice(0, 120))}${String(raw).length > 120 ? "…" : ""}`;
+      caption = short;
+    }
+    if (quiz.revealed) {
+      caption =
+        quiz.selected === q.answer
+          ? `Correct · <strong>${q.answer}</strong>`
+          : `Answer <strong>${q.answer || "?"}</strong> · you picked ${quiz.selected || "—"}`;
+    }
 
     root.innerHTML = `
-      <div class="card">
-        <div class="flex items-center justify-between text-xs text-mute">
-          <span>${quiz.isChapterTest ? "Chapter test · " : quiz.pathLevelId ? "Path level · " : ""}Question ${n} of ${total}${hasImg ? " · PDF" : ""}${quiz.isChapterTest ? " · pass ≥70%" : ""}</span>
-          <span class="font-medium text-slate-600">${escapeHtml(q.id)}</span>
+      <div class="quiz-shell">
+        <div class="quiz-top">
+          <div class="quiz-meta">
+            <span>${kind}</span>
+            <span aria-hidden="true">·</span>
+            <span class="tabular-nums">${n}/${total}</span>
+            ${quiz.isChapterTest ? `<span aria-hidden="true">·</span><span>pass ≥70%</span>` : ""}
+          </div>
+          <div class="quiz-tools">
+            ${
+              hasImg
+                ? `<button type="button" class="icon-btn" id="btnModeToggle" title="${showingImage ? "Text stem" : "PDF figure"}" aria-label="Toggle display mode">
+                    <i data-lucide="${showingImage ? "type" : "image"}" class="h-3.5 w-3.5"></i>
+                  </button>`
+                : ""
+            }
+            ${
+              quiz.isChapterTest
+                ? ""
+                : `<button type="button" class="icon-btn" id="btnGrokQ" title="Ask Grok" aria-label="Ask Grok">
+                    <i data-lucide="sparkles" class="h-3.5 w-3.5"></i>
+                  </button>`
+            }
+            <button type="button" class="icon-btn" id="btnQuitQuiz" title="${quiz.isChapterTest ? "Abandon test" : "End"}" aria-label="Close">
+              <i data-lucide="x" class="h-3.5 w-3.5"></i>
+            </button>
+            ${
+              showNext
+                ? `<button type="button" class="icon-btn primary" id="btnNext" title="Next" aria-label="Next question">
+                    <i data-lucide="arrow-right" class="h-3.5 w-3.5"></i>
+                  </button>`
+                : `<button type="button" class="icon-btn primary" id="btnSubmit" title="Check (Enter)" aria-label="Check answer" ${canCheck ? "" : "disabled"}>
+                    <i data-lucide="check" class="h-3.5 w-3.5"></i>
+                  </button>`
+            }
+          </div>
         </div>
-        <div class="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
-          <div class="h-full rounded-full bg-brand transition-all duration-500" style="width:${(100 * n) / total}%"></div>
-        </div>
-        <div id="qBody" class="mt-4">${questionBodyHtml(q)}</div>
-        <div id="choices" class="mt-2"></div>
-        <div class="feedback" id="feedback"></div>
-        <div class="row mt-4">
-          <button class="btn-secondary grow" id="btnSubmit" ${quiz.selected && !quiz.revealed ? "" : "disabled"}>Check</button>
-          <button class="btn-primary grow" id="btnNext" style="display:${quiz.revealed ? "inline-flex" : "none"}">Next</button>
-        </div>
-        <div class="row mt-2">
-          ${quiz.isChapterTest ? "" : `<button class="btn-grok grow" id="btnGrokQ"><i data-lucide="message-circle" class="h-4 w-4"></i> Ask Grok</button>`}
-          <button class="btn-ghost grow" id="btnQuitQuiz">${quiz.isChapterTest ? "Abandon test" : "End session"}</button>
-        </div>
+        <div class="quiz-progress"><span style="width:${(100 * n) / total}%"></span></div>
+        <div class="quiz-stage" id="qBody">${questionBodyHtml(q)}</div>
+        <div class="opt-row" id="choices" role="group" aria-label="Answer choices">${tilesHtml}</div>
+        <div class="opt-caption" id="optCaption">${caption}</div>
+        <div class="quiz-feedback" id="feedback"></div>
       </div>`;
 
-    $("#qBody")?.querySelectorAll("[data-mode]").forEach((btn) => {
-      btn.onclick = () => {
-        quizDisplayMode = btn.dataset.mode;
-        quiz._modeTouched = true;
-        renderQuiz();
-      };
-    });
     $("#qBody")?.querySelectorAll("img").forEach((img) => {
       img.onerror = () => {
         const box = $("#imgFail");
@@ -2033,52 +2067,60 @@
       img.onclick = () => openLightbox(img.getAttribute("data-full") || img.src);
     });
 
-    const box = $("#choices");
-    for (const letter of ["A", "B", "C", "D", "E"]) {
-      if (!q.choices?.[letter] && !hasImg) continue;
-      const label =
-        showingImage || !q.choices?.[letter] || String(q.choices[letter]).trim().length < 3
-          ? `Choice ${letter}`
-          : q.choices[letter];
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "choice";
-      btn.innerHTML = `<span class="letter">${letter}</span><span>${escapeHtml(label)}</span>`;
-      if (quiz.selected === letter) btn.classList.add("selected");
-      if (quiz.revealed) {
-        if (q.answer === letter) btn.classList.add("correct");
-        if (quiz.selected === letter && quiz.selected !== q.answer) btn.classList.add("wrong");
-        btn.disabled = true;
-      } else {
-        btn.onclick = () => {
-          quiz.selected = letter;
-          renderQuiz();
-        };
-      }
-      box.appendChild(btn);
-    }
+    root.querySelectorAll("[data-opt]").forEach((btn) => {
+      btn.onclick = () => {
+        if (quiz.revealed) return;
+        quiz.selected = btn.dataset.opt;
+        renderQuiz();
+      };
+    });
 
     const fb = $("#feedback");
-    if (quiz.revealed) {
+    if (quiz.revealed && fb) {
       fb.classList.add("show", quiz.selected === q.answer ? "ok" : "bad");
-      fb.innerHTML =
-        quiz.selected === q.answer
-          ? `<div class="flex items-start gap-2"><i data-lucide="check-circle-2" class="h-5 w-5 text-ok shrink-0"></i><div><strong>Correct</strong> · +10 XP</div></div>`
-          : `<div class="flex items-start gap-2"><i data-lucide="x-circle" class="h-5 w-5 text-bad shrink-0"></i><div><strong>Not quite.</strong> Answer key: <strong>${q.answer || "?"}</strong>. Saved to wrong pool.</div></div>`;
+      fb.textContent =
+        quiz.selected === q.answer ? "Correct · +10 XP" : "Incorrect · saved to wrong pool";
     }
 
-    $("#btnSubmit").onclick = submitAnswer;
-    $("#btnNext").onclick = nextQuestion;
+    $("#btnSubmit")?.addEventListener("click", submitAnswer);
+    $("#btnNext")?.addEventListener("click", nextQuestion);
     $("#btnGrokQ")?.addEventListener("click", () => openGrok(explainPrompt(q, quiz.selected)));
-    $("#btnQuitQuiz").onclick = () => {
-      if (quiz?.isChapterTest && !confirm("Abandon chapter test? Progress on this attempt will not count as a pass.")) {
+    $("#btnModeToggle")?.addEventListener("click", () => {
+      quizDisplayMode = showingImage ? "text" : "image";
+      quiz._modeTouched = true;
+      renderQuiz();
+    });
+    $("#btnQuitQuiz")?.addEventListener("click", () => {
+      if (quiz?.isChapterTest && !confirm("Abandon chapter test? This attempt will not count as a pass.")) {
         return;
       }
       quiz = null;
       showView(activePath ? "path" : "home");
       if (activePath) renderPath();
       else renderAll();
+    });
+
+    // Keyboard: A–E select, Enter check/next
+    root.onkeydown = null;
+    const keyHandler = (ev) => {
+      if (currentView !== "quiz" || !quiz || quiz.finished) return;
+      const key = (ev.key || "").toUpperCase();
+      if (["A", "B", "C", "D", "E"].includes(key) && !quiz.revealed) {
+        if (hasImg || q.choices?.[key]) {
+          quiz.selected = key;
+          renderQuiz();
+          ev.preventDefault();
+        }
+      } else if (ev.key === "Enter") {
+        if (quiz.revealed) nextQuestion();
+        else if (quiz.selected) submitAnswer();
+        ev.preventDefault();
+      }
     };
+    document.removeEventListener("keydown", window._soaQuizKeys);
+    window._soaQuizKeys = keyHandler;
+    document.addEventListener("keydown", keyHandler);
+
     renderMath($("#quizStemText"));
     refreshIcons();
   }
@@ -2765,8 +2807,8 @@
     if ("serviceWorker" in navigator) {
       try {
         const keys = await caches.keys();
-        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v17").map((k) => caches.delete(k)));
-        await navigator.serviceWorker.register("./sw.js?v=17");
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v18").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=18");
       } catch (e) {
         console.warn(e);
       }
