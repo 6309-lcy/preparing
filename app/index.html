@@ -93,6 +93,7 @@
 
     <main class="flex-1 w-full px-4 sm:px-6 lg:px-10 xl:px-14 py-5 space-y-4">
       <section id="view-home" class="view active space-y-4 w-full"></section>
+      <section id="view-courses" class="view space-y-4 w-full"></section>
       <section id="view-learn" class="view space-y-4 w-full"></section>
       <section id="view-quiz" class="view space-y-4 w-full"></section>
       <section id="view-exam" class="view space-y-4 w-full"></section>
@@ -105,14 +106,15 @@
 
   <!-- Bottom nav — full width -->
   <nav class="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200/80 bg-white/90 backdrop-blur-md" style="padding-bottom: env(safe-area-inset-bottom)">
-    <div class="w-full grid grid-cols-7 gap-0 px-1 sm:px-4 lg:px-8 py-1.5">
-      <button class="nav-btn active" data-view="home" type="button"><i data-lucide="home" class="h-5 w-5"></i><span>Today</span></button>
-      <button class="nav-btn" data-view="learn" type="button"><i data-lucide="book-open" class="h-5 w-5"></i><span>Learn</span></button>
-      <button class="nav-btn" data-view="quiz" type="button"><i data-lucide="target" class="h-5 w-5"></i><span>Quiz</span></button>
-      <button class="nav-btn" data-view="exam" type="button"><i data-lucide="clipboard-check" class="h-5 w-5"></i><span>Exam</span></button>
-      <button class="nav-btn" data-view="wrong" type="button"><i data-lucide="rotate-ccw" class="h-5 w-5"></i><span>Wrong</span></button>
-      <button class="nav-btn" data-view="stats" type="button"><i data-lucide="bar-chart-2" class="h-5 w-5"></i><span>Stats</span></button>
-      <button class="nav-btn" data-view="settings" type="button"><i data-lucide="settings" class="h-5 w-5"></i><span>More</span></button>
+    <div class="w-full grid grid-cols-8 gap-0 px-0.5 sm:px-3 lg:px-6 py-1.5">
+      <button class="nav-btn active" data-view="home" type="button"><i data-lucide="home" class="h-4 w-4 sm:h-5 sm:w-5"></i><span>Today</span></button>
+      <button class="nav-btn" data-view="courses" type="button"><i data-lucide="library" class="h-4 w-4 sm:h-5 sm:w-5"></i><span>Courses</span></button>
+      <button class="nav-btn" data-view="learn" type="button"><i data-lucide="book-open" class="h-4 w-4 sm:h-5 sm:w-5"></i><span>Learn</span></button>
+      <button class="nav-btn" data-view="quiz" type="button"><i data-lucide="target" class="h-4 w-4 sm:h-5 sm:w-5"></i><span>Quiz</span></button>
+      <button class="nav-btn" data-view="exam" type="button"><i data-lucide="clipboard-check" class="h-4 w-4 sm:h-5 sm:w-5"></i><span>Exam</span></button>
+      <button class="nav-btn" data-view="wrong" type="button"><i data-lucide="rotate-ccw" class="h-4 w-4 sm:h-5 sm:w-5"></i><span>Wrong</span></button>
+      <button class="nav-btn" data-view="stats" type="button"><i data-lucide="bar-chart-2" class="h-4 w-4 sm:h-5 sm:w-5"></i><span>Stats</span></button>
+      <button class="nav-btn" data-view="settings" type="button"><i data-lucide="settings" class="h-4 w-4 sm:h-5 sm:w-5"></i><span>More</span></button>
     </div>
   </nav>
 

@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "updated": "2026-07-31",
+  "activeDefault": "P",
+  "courses": [
+    {
+      "id": "P",
+      "name": "Exam P \u2014 Probability",
+      "shortName": "Exam P",
+      "status": "ready",
+      "durationWeeks": 14,
+      "examFormat": "30 MCQ \u00b7 3 hours \u00b7 CBT",
+      "weights": {
+        "general": 0.27,
+        "univariate": 0.47,
+        "multivariate": 0.26
+      },
+      "mix": {
+        "reading": 0.4,
+        "practice": 0.5,
+        "mock": 0.1
+      },
+      "description": "General probability, univariate & multivariate RVs. Full path ready.",
+      "planPath": "data/courses/p/plan.json",
+      "syllabusNote": "SOA 2026: General 23\u201330%, Univariate 44\u201350%, Multivariate 23\u201330%"
+    },
+    {
+      "id": "FM",
+      "name": "Exam FM \u2014 Financial Mathematics",
+      "shortName": "Exam FM",
+      "status": "scaffold",
+      "durationWeeks": 14,
+      "examFormat": "30 MCQ \u00b7 2.5 hours \u00b7 CBT",
+      "weights": {
+        "tvm": 0.1,
+        "annuities": 0.25,
+        "loans": 0.2,
+        "bonds": 0.2,
+        "portfolios": 0.25
+      },
+      "mix": {
+        "reading": 0.4,
+        "practice": 0.5,
+        "mock": 0.1
+      },
+      "description": "TVM, annuities, loans, bonds, duration/immunization. Coming next.",
+      "planPath": null,
+      "syllabusNote": "SOA FM: TVM 5\u201315%, Annuities 20\u201330%, Loans 15\u201325%, Bonds 15\u201325%, Portfolios/ALM 20\u201330%"
+    },
+    {
+      "id": "FAM",
+      "name": "Exam FAM \u2014 Fundamentals of Actuarial Mathematics",
+      "shortName": "Exam FAM",
+      "status": "scaffold",
+      "durationWeeks": 16,
+      "examFormat": "CBT multiple choice",
+      "weights": {
+        "short_term": 0.45,
+        "long_term": 0.55
+      },
+      "mix": {
+        "reading": 0.4,
+        "practice": 0.5,
+        "mock": 0.1
+      },
+      "description": "Short-term & long-term actuarial math foundations. Scaffolded for later.",
+      "planPath": null,
+      "syllabusNote": "Covers ST + LT intro topics per current SOA FAM syllabus"
+    },
+    {
+      "id": "SRM",
+      "name": "Exam SRM \u2014 Statistics for Risk Modeling",
+      "shortName": "Exam SRM",
+      "status": "scaffold",
+      "durationWeeks": 14,
+      "examFormat": "CBT multiple choice",
+      "weights": {
+        "learning": 0.2,
+        "glm": 0.35,
+        "time_series": 0.2,
+        "pca_clustering": 0.15,
+        "decision_trees": 0.1
+      },
+      "mix": {
+        "reading": 0.4,
+        "practice": 0.5,
+        "mock": 0.1
+      },
+      "description": "Statistical learning, GLMs, time series, trees. Scaffolded for later.",
+      "planPath": null,
+      "syllabusNote": "Per current SOA SRM learning objectives"
+    },
+    {
+      "id": "PA",
+      "name": "Exam PA \u2014 Predictive Analytics",
+      "shortName": "Exam PA",
+      "status": "scaffold",
+      "durationWeeks": 14,
+      "examFormat": "Project / written CBT-style",
+      "weights": {
+        "problem_statement": 0.15,
+        "data_eda": 0.25,
+        "modeling": 0.35,
+        "communication": 0.25
+      },
+      "mix": {
+        "reading": 0.35,
+        "practice": 0.45,
+        "mock": 0.2
+      },
+      "description": "End-to-end predictive analytics project skills. Scaffolded for later.",
+      "planPath": null,
+      "syllabusNote": "Practice with past PA projects; heavier mock/project share"
+    },
+    {
+      "id": "ST",
+      "name": "Short-Term Specialty Track (prep)",
+      "shortName": "Short-Term",
+      "status": "scaffold",
+      "durationWeeks": 12,
+      "examFormat": "Pathway-dependent",
+      "weights": {
+        "reserve": 0.35,
+        "pricing": 0.35,
+        "reinsurance": 0.15,
+        "other": 0.15
+      },
+      "mix": {
+        "reading": 0.4,
+        "practice": 0.5,
+        "mock": 0.1
+      },
+      "description": "Bridge after FAM toward short-term practice. Coming later.",
+      "planPath": null,
+      "syllabusNote": "Aligns with short-term actuarial practice themes"
+    },
+    {
+      "id": "LT",
+      "name": "Long-Term Specialty Track (prep)",
+      "shortName": "Long-Term",
+      "status": "scaffold",
+      "durationWeeks": 12,
+      "examFormat": "Pathway-dependent",
+      "weights": {
+        "life_contingencies": 0.4,
+        "reserves": 0.3,
+        "products": 0.2,
+        "other": 0.1
+      },
+      "mix": {
+        "reading": 0.4,
+        "practice": 0.5,
+        "mock": 0.1
+      },
+      "description": "Bridge after FAM toward long-term practice. Coming later.",
+      "planPath": null,
+      "syllabusNote": "Aligns with long-term actuarial practice themes"
+    }
+  ]
+}

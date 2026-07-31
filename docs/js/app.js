@@ -5,8 +5,25 @@
   const STORAGE_KEY = "soa_grind_v1";
   const IDB_NAME = "soa_grind_db";
   const IDB_STORE = "progress";
+  const emptyCourseProgress = () => ({
+    xp: 0,
+    streak: 0,
+    lastActiveDate: null,
+    days: {},
+    lessonMastery: {},
+    wrongPool: {},
+    history: [],
+    examUsedQuestionIds: [],
+    examHistory: [],
+    activeExam: null,
+  });
+
   const DEFAULT_STATE = () => ({
-    version: 3,
+    version: 4,
+    activeCourseId: "P",
+    /** Per-course progress (Duolingo-style multi-track) */
+    courses: { P: emptyCourseProgress() },
+    // legacy top-level fields kept in sync with active course for exam.js / older code
     xp: 0,
     streak: 0,
     lastActiveDate: null,
@@ -15,11 +32,9 @@
     reminderHour: 19,
     updatedAt: 0,
     days: {},
-    /** Module-level lesson progress — synced across devices & days */
     lessonMastery: {},
     wrongPool: {},
     history: [],
-    /** Mock Exam P: used IDs + history + optional in-progress form */
     examUsedQuestionIds: [],
     examHistory: [],
     activeExam: null,
@@ -30,24 +45,121 @@
   let curriculum = null;
   let questions = [];
   let lessons = {};
+  let coursesCatalog = null;
+  let coursePlans = {}; // courseId -> plan
   let qById = new Map();
   let quiz = null;
   let learn = null;
   let currentView = "home";
   let quizDisplayMode = "image";
 
+  function migrateState(raw) {
+    const s = { ...DEFAULT_STATE(), ...raw };
+    if (!s.courses) s.courses = {};
+    // Lift legacy flat progress into courses.P
+    if (!s.courses.P) {
+      s.courses.P = {
+        ...emptyCourseProgress(),
+        xp: raw.xp || 0,
+        streak: raw.streak || 0,
+        lastActiveDate: raw.lastActiveDate || null,
+        days: raw.days || {},
+        lessonMastery: raw.lessonMastery || {},
+        wrongPool: raw.wrongPool || {},
+        history: raw.history || [],
+        examUsedQuestionIds: raw.examUsedQuestionIds || [],
+        examHistory: raw.examHistory || [],
+        activeExam: raw.activeExam || null,
+      };
+    }
+    if (!s.activeCourseId) s.activeCourseId = "P";
+    if (!s.courses[s.activeCourseId]) s.courses[s.activeCourseId] = emptyCourseProgress();
+    s.version = 4;
+    return s;
+  }
+
   function loadState() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return DEFAULT_STATE();
-      return { ...DEFAULT_STATE(), ...JSON.parse(raw) };
+      return migrateState(JSON.parse(raw));
     } catch {
       return DEFAULT_STATE();
     }
   }
 
+  /** Active course progress object (mutated in place) */
+  function course() {
+    if (!state.courses) state.courses = {};
+    if (!state.activeCourseId) state.activeCourseId = "P";
+    if (!state.courses[state.activeCourseId]) state.courses[state.activeCourseId] = emptyCourseProgress();
+    return state.courses[state.activeCourseId];
+  }
+
+  /** Mirror active course fields onto top-level state for shared modules (exam.js) */
+  function syncActiveCourseToTop() {
+    const c = course();
+    state.xp = c.xp;
+    state.streak = c.streak;
+    state.lastActiveDate = c.lastActiveDate;
+    state.days = c.days;
+    state.lessonMastery = c.lessonMastery;
+    state.wrongPool = c.wrongPool;
+    state.history = c.history;
+    state.examUsedQuestionIds = c.examUsedQuestionIds;
+    state.examHistory = c.examHistory;
+    state.activeExam = c.activeExam;
+  }
+
+  function syncTopToActiveCourse() {
+    const c = course();
+    c.xp = state.xp;
+    c.streak = state.streak;
+    c.lastActiveDate = state.lastActiveDate;
+    c.days = state.days;
+    c.lessonMastery = state.lessonMastery;
+    c.wrongPool = state.wrongPool;
+    c.history = state.history;
+    c.examUsedQuestionIds = state.examUsedQuestionIds;
+    c.examHistory = state.examHistory;
+    c.activeExam = state.activeExam;
+  }
+
+  function switchCourse(courseId) {
+    syncTopToActiveCourse();
+    state.activeCourseId = courseId;
+    if (!state.courses[courseId]) state.courses[courseId] = emptyCourseProgress();
+    syncActiveCourseToTop();
+    // Load curriculum for course
+    const plan = coursePlans[courseId];
+    if (plan?.days) {
+      curriculum = {
+        courseId,
+        examTarget: plan.endDate,
+        dailyQuestionGoal: 20,
+        mix: plan.mix,
+        weights: plan.weights,
+        planNotes: plan.notes,
+        days: plan.days,
+        registrationDeadline: plan.endDate,
+        window: [plan.startDate, plan.endDate],
+      };
+    }
+    quiz = null;
+    learn = null;
+    saveState({ immediate: true });
+    toast(`Switched to ${courseMeta(courseId)?.shortName || courseId}`);
+    showView("home");
+    renderAll();
+  }
+
+  function courseMeta(id) {
+    return coursesCatalog?.courses?.find((c) => c.id === id) || null;
+  }
+
   function saveState(opts = {}) {
     state.updatedAt = Date.now();
+    syncTopToActiveCourse();
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (e) {
@@ -801,7 +913,8 @@
       const remote = await cloud.loadProgress();
       if (remote) {
         state = cloud.mergeProgress(state, remote);
-        state = { ...DEFAULT_STATE(), ...state };
+        state = migrateState(state);
+        syncActiveCourseToTop();
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
         idbSave(state);
       }
@@ -835,14 +948,35 @@
       <section class="card">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div class="min-w-0 flex-1">
-            <div class="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-brand">${escapeHtml(plan.phase)}</div>
+            <div class="flex flex-wrap gap-2">
+              <div class="inline-flex items-center gap-1.5 rounded-full bg-slate-900 text-white px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide">${escapeHtml(courseMeta(state.activeCourseId)?.shortName || state.activeCourseId || "Exam P")}</div>
+              <div class="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-brand">${escapeHtml(plan.phase)}</div>
+              ${plan.week ? `<div class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-600">Week ${plan.week}/14</div>` : ""}
+            </div>
             <h1 class="mt-3 text-xl md:text-2xl font-semibold tracking-tight text-ink leading-snug">${escapeHtml(plan.title)}</h1>
             <p class="mt-1.5 text-sm text-mute">${escapeHtml(plan.weekday)} · ${escapeHtml(plan.date)}${plan.fmLight ? " · light FM" : ""}</p>
             ${topicLine ? `<p class="mt-2 text-sm font-medium text-brand">Quiz topics today: ${escapeHtml(topicLine)}</p>` : ""}
-            <p class="mt-3 text-sm text-mute">Exam P target <span class="font-medium text-ink">${target}</span> · <span class="font-semibold text-brand">${left}d</span></p>
+            <p class="mt-3 text-sm text-mute">Plan target <span class="font-medium text-ink">${target}</span> · <span class="font-semibold text-brand">${left}d</span></p>
+            <p class="mt-1 text-xs text-mute">Mix target: 40% reading · 50% practice · 10% mock · last 2 weeks wrap-up</p>
           </div>
           <div class="shrink-0">${ringSvg(stats.overall)}</div>
         </div>
+
+        ${plan.readPct != null ? `
+        <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+          <div class="rounded-xl border border-slate-100 bg-slate-50 px-2 py-2">
+            <div class="text-sm font-semibold text-brand">${plan.readPct}%</div>
+            <div class="text-[10px] text-mute">Read today</div>
+          </div>
+          <div class="rounded-xl border border-slate-100 bg-slate-50 px-2 py-2">
+            <div class="text-sm font-semibold text-brand">${plan.practicePct}%</div>
+            <div class="text-[10px] text-mute">Practice</div>
+          </div>
+          <div class="rounded-xl border border-slate-100 bg-slate-50 px-2 py-2">
+            <div class="text-sm font-semibold text-brand">${plan.mockPct}%</div>
+            <div class="text-[10px] text-mute">Mock/timed</div>
+          </div>
+        </div>` : ""}
 
         <div class="mt-5 grid grid-cols-3 gap-2">
           <div class="rounded-xl bg-slate-50 border border-slate-100 px-3 py-3">
@@ -866,8 +1000,12 @@
         </div>
 
         <div class="mt-4 space-y-2">
-          <button class="btn-primary w-full" id="btnLearn">${stats.lessonDone ? "Review lesson" : "Continue lesson"}</button>
-          <button class="btn-secondary w-full" id="btnQuiz" ${locked ? "disabled" : ""}>${stats.done ? "Bonus practice" : "Start today’s questions"}</button>
+          ${plan.mode === "full_mock" || plan.activity === "mock"
+            ? `<button class="btn-primary w-full" id="btnHomeExam2">Start / continue mock exam</button>
+               <button class="btn-secondary w-full" id="btnQuiz" ${locked && plan.requireLesson ? "disabled" : ""}>Topic drill (${stats.target} Q)</button>`
+            : `<button class="btn-primary w-full" id="btnLearn">${stats.lessonDone ? "Review lesson" : "Continue lesson (reading)"}</button>
+               <button class="btn-secondary w-full" id="btnQuiz" ${locked && plan.requireLesson !== false ? "disabled" : ""}>${stats.done ? "Bonus practice" : "Practice questions"}</button>`}
+          <button class="btn-ghost w-full" id="btnCourses">All courses (P · FM · FAM · SRM · PA…)</button>
         </div>
       </section>
 
@@ -913,11 +1051,19 @@
       </section>
     `;
 
-    $("#btnLearn").onclick = () => startLearn();
-    $("#btnQuiz").onclick = () => startQuiz();
+    $("#btnLearn")?.addEventListener("click", () => startLearn());
+    $("#btnQuiz")?.addEventListener("click", () => startQuiz());
     $("#btnHomeExam")?.addEventListener("click", () => {
       showView("exam");
       window.SOAExam?.onShow?.();
+    });
+    $("#btnHomeExam2")?.addEventListener("click", () => {
+      showView("exam");
+      window.SOAExam?.onShow?.();
+    });
+    $("#btnCourses")?.addEventListener("click", () => {
+      showView("courses");
+      renderCourses();
     });
     $("#quickWrong").onclick = () => { showView("wrong"); renderWrong(); };
     $("#quickSunday").onclick = () => { showView("wrong"); renderWrong(); setTimeout(() => $("#btnSunday")?.click(), 50); };
@@ -1336,6 +1482,58 @@
     refreshIcons();
   }
 
+  function renderCourses() {
+    const root = $("#view-courses");
+    if (!root) return;
+    const list = coursesCatalog?.courses || [];
+    root.innerHTML = `
+      <div class="card">
+        <h1 class="text-xl font-semibold tracking-tight">Courses</h1>
+        <p class="mt-1 text-sm text-mute">Like Duolingo language tracks — pick an exam path. Each course has its own XP, streak, wrong pool, and mock history.</p>
+        <p class="mt-2 text-xs text-mute">Standard mix: <strong>40% reading</strong> · <strong>50% practice</strong> · <strong>10% mock</strong> · last 2 weeks wrap-up. Timeline ~3–4 months.</p>
+      </div>
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
+        ${list
+          .map((c) => {
+            const active = state.activeCourseId === c.id;
+            const prog = state.courses?.[c.id];
+            const ready = c.status === "ready";
+            return `
+            <article class="card ${active ? "ring-2 ring-brand" : ""} ${ready ? "card-interactive" : "opacity-90"}">
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <div class="text-[11px] font-semibold uppercase tracking-wide ${ready ? "text-brand" : "text-mute"}">${ready ? "Ready" : "Scaffold"}</div>
+                  <h2 class="mt-1 text-lg font-semibold tracking-tight">${escapeHtml(c.shortName)}</h2>
+                  <p class="mt-1 text-sm text-mute leading-relaxed">${escapeHtml(c.description || "")}</p>
+                </div>
+                ${active ? `<span class="text-xs font-semibold text-brand bg-brand-soft px-2 py-1 rounded-full">Active</span>` : ""}
+              </div>
+              <div class="mt-3 text-xs text-mute space-y-1">
+                <div>${c.durationWeeks || "—"} weeks · ${escapeHtml(c.examFormat || "")}</div>
+                <div>${escapeHtml(c.syllabusNote || "")}</div>
+                ${prog ? `<div class="pt-1">XP ${prog.xp || 0} · streak ${prog.streak || 0} · wrong ${(Object.keys(prog.wrongPool || {}).length)}</div>` : ""}
+              </div>
+              <button type="button" class="btn-${ready ? "primary" : "secondary"} w-full mt-4" data-course="${c.id}" ${ready ? "" : "disabled"}>
+                ${active ? "Continue" : ready ? "Start / switch" : "Coming soon"}
+              </button>
+            </article>`;
+          })
+          .join("")}
+      </div>`;
+    root.querySelectorAll("[data-course]").forEach((btn) => {
+      btn.onclick = () => {
+        const id = btn.dataset.course;
+        const meta = courseMeta(id);
+        if (meta?.status !== "ready") {
+          toast("This course path is scaffolded — Exam P is fully built first");
+          return;
+        }
+        switchCourse(id);
+      };
+    });
+    refreshIcons();
+  }
+
   function renderStats() {
     const root = $("#view-stats");
     if (!root) return;
@@ -1503,6 +1701,7 @@
     if (currentView === "learn") renderLearn();
     if (currentView === "quiz") renderQuiz();
     if (currentView === "exam") window.SOAExam?.onShow?.();
+    if (currentView === "courses") renderCourses();
     if (currentView === "path") renderPath();
     if (currentView === "wrong") renderWrong();
     if (currentView === "stats") renderStats();
@@ -1542,15 +1741,36 @@
       }
     }
 
-    const [cRes, qRes, lRes] = await Promise.all([
+    const [cRes, qRes, lRes, catRes, planRes] = await Promise.all([
       fetch("./data/curriculum.json"),
       fetch("./data/questions.json"),
       fetch("./data/lessons.json"),
+      fetch("./data/courses.json").catch(() => null),
+      fetch("./data/courses/p/plan.json").catch(() => null),
     ]);
     curriculum = await cRes.json();
     questions = await qRes.json();
     lessons = await lRes.json();
+    if (catRes && catRes.ok) coursesCatalog = await catRes.json();
+    if (planRes && planRes.ok) {
+      coursePlans.P = await planRes.json();
+      // Prefer full 14-week plan as curriculum when present
+      if (coursePlans.P?.days?.length) {
+        curriculum = {
+          ...curriculum,
+          courseId: "P",
+          examTarget: coursePlans.P.endDate,
+          mix: coursePlans.P.mix,
+          weights: coursePlans.P.weights,
+          planNotes: coursePlans.P.notes,
+          days: coursePlans.P.days,
+          window: [coursePlans.P.startDate, coursePlans.P.endDate],
+        };
+      }
+    }
     qById = new Map(questions.map((q) => [q.id, q]));
+    state = migrateState(state);
+    syncActiveCourseToTop();
 
     if (window.SOACloud) {
       await SOACloud.init();
@@ -1566,6 +1786,11 @@
     document.querySelectorAll(".nav-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const v = btn.dataset.view;
+        if (v === "courses") {
+          showView("courses");
+          renderCourses();
+          return;
+        }
         if (v === "exam") {
           showView("exam");
           window.SOAExam?.onShow?.();
@@ -1630,8 +1855,8 @@
     if ("serviceWorker" in navigator) {
       try {
         const keys = await caches.keys();
-        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v6").map((k) => caches.delete(k)));
-        await navigator.serviceWorker.register("./sw.js?v=6");
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v7").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=7");
       } catch (e) {
         console.warn(e);
       }

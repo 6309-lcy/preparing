@@ -196,6 +196,53 @@
     const R = remote;
     const out = JSON.parse(JSON.stringify(L));
 
+    // Multi-course maps
+    out.courses = { ...(R.courses || {}), ...(L.courses || {}) };
+    const allCourseIds = new Set([
+      ...Object.keys(R.courses || {}),
+      ...Object.keys(L.courses || {}),
+    ]);
+    for (const cid of allCourseIds) {
+      const lc = (L.courses || {})[cid] || {};
+      const rc = (R.courses || {})[cid] || {};
+      // shallow merge scalars; deep merge via recursive-style day/mastery below on active only
+      out.courses[cid] = {
+        ...rc,
+        ...lc,
+        xp: Math.max(lc.xp || 0, rc.xp || 0),
+        streak: Math.max(lc.streak || 0, rc.streak || 0),
+        lastActiveDate:
+          (lc.lastActiveDate || "") > (rc.lastActiveDate || "") ? lc.lastActiveDate : rc.lastActiveDate,
+        wrongPool: { ...(rc.wrongPool || {}), ...(lc.wrongPool || {}) },
+        history: [...(lc.history || []), ...(rc.history || [])].slice(0, 400),
+        examUsedQuestionIds: Array.from(
+          new Set([...(lc.examUsedQuestionIds || []), ...(rc.examUsedQuestionIds || [])])
+        ),
+        examHistory: [...(lc.examHistory || []), ...(rc.examHistory || [])].slice(0, 30),
+        lessonMastery: { ...(rc.lessonMastery || {}), ...(lc.lessonMastery || {}) },
+        days: { ...(rc.days || {}), ...(lc.days || {}) },
+        activeExam: lc.activeExam?.status === "in_progress" ? lc.activeExam : rc.activeExam || lc.activeExam || null,
+      };
+      // deep merge lesson mastery keys
+      const mids = new Set([
+        ...Object.keys(lc.lessonMastery || {}),
+        ...Object.keys(rc.lessonMastery || {}),
+      ]);
+      out.courses[cid].lessonMastery = {};
+      for (const mid of mids) {
+        out.courses[cid].lessonMastery[mid] = mergeLessonProg(
+          (lc.lessonMastery || {})[mid],
+          (rc.lessonMastery || {})[mid]
+        );
+      }
+      const dates = new Set([...Object.keys(lc.days || {}), ...Object.keys(rc.days || {})]);
+      out.courses[cid].days = {};
+      for (const date of dates) {
+        out.courses[cid].days[date] = mergeDay((rc.days || {})[date], (lc.days || {})[date]);
+      }
+    }
+    if (!out.activeCourseId) out.activeCourseId = L.activeCourseId || R.activeCourseId || "P";
+
     out.xp = Math.max(L.xp || 0, R.xp || 0);
     out.streak = Math.max(L.streak || 0, R.streak || 0);
     if ((R.lastActiveDate || "") > (L.lastActiveDate || "")) out.lastActiveDate = R.lastActiveDate;

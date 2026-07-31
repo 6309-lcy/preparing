@@ -1,12 +1,11 @@
 {
   "courseId": "P",
-  "examTarget": "2026-11-07",
-  "registrationDeadline": "2026-09-30",
-  "window": [
-    "2026-11-01",
-    "2026-11-15"
-  ],
-  "dailyQuestionGoal": 20,
+  "name": "Exam P \u2014 Probability",
+  "examCode": "P",
+  "startDate": "2026-08-01",
+  "endDate": "2026-11-07",
+  "weeks": 14,
+  "learnWeeks": 12,
   "mix": {
     "reading": 0.4,
     "practice": 0.5,
@@ -17,7 +16,23 @@
     "univariate": 0.47,
     "multivariate": 0.26
   },
-  "planNotes": [
+  "weekAllocation": [
+    {
+      "cluster": "general",
+      "weeks": 3
+    },
+    {
+      "cluster": "univariate",
+      "weeks": 6
+    },
+    {
+      "cluster": "multivariate",
+      "weeks": 3
+    }
+  ],
+  "targetExamWindow": "November 2026 (adjust to your sitting)",
+  "dailyHoursWeekday": 2,
+  "notes": [
     "Last 2 weeks are wrap-up + full mocks only (minimal new learning).",
     "Daily targets: ~40% reading/lesson, ~50% practice MC, ~10% timed/mock overall.",
     "Topic weeks follow SOA weight midpoints: General 27%, Univariate 47%, Multivariate 26%."
