@@ -2,8 +2,8 @@
   "courseId": "FM",
   "name": "Exam FM — Financial Mathematics",
   "examCode": "FM",
-  "startDate": "2026-08-01",
-  "endDate": "2026-11-07",
+  "startDate": "2026-07-31",
+  "endDate": "2026-11-06",
   "weeks": 14,
   "learnWeeks": 12,
   "mix": {
@@ -22,14 +22,64 @@
   "targetExamWindow": "Adjust to your sitting",
   "dailyHoursWeekday": 2,
   "notes": [
-    "Primary progression is the Path (chapters → levels → chapter tests).",
-    "Calendar is a guide; do multiple levels per day if you want.",
-    "Last 2 weeks: wrap + mocks only."
+    "Primary progression is Path (chapters → levels → chapter tests).",
+    "Calendar is a guide; multi-level days OK.",
+    "Last 2 weeks: wrap + mocks only.",
+    "Mix target 40% read / 50% practice / 10% mock."
   ],
   "days": [
     {
-      "date": "2026-08-01",
+      "date": "2026-07-31",
       "dayIndex": 0,
+      "weekday": "Friday",
+      "week": 1,
+      "phase": "tvm",
+      "title": "Practice — FM orientation",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "fm_setup",
+      "lessonIds": [
+        "fm_setup"
+      ],
+      "topicPrefs": [
+        "tvm"
+      ],
+      "questionTarget": 22,
+      "readPct": 20,
+      "practicePct": 65,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "fm_ch0",
+      "assignedQuestionIds": [
+        "FM-SOA-1",
+        "FM-SOA-2",
+        "FM-SOA-3",
+        "FM-SOA-4",
+        "FM-SOA-5",
+        "FM-SOA-6",
+        "FM-SOA-7",
+        "FM-SOA-8",
+        "FM-SOA-9",
+        "FM-SOA-10",
+        "FM-SOA-11",
+        "FM-SOA-12",
+        "FM-SOA-13",
+        "FM-SOA-14",
+        "FM-SOA-15",
+        "FM-SOA-16",
+        "FM-SOA-17",
+        "FM-SOA-18",
+        "FM-SOA-19",
+        "FM-SOA-20",
+        "FM-SOA-21",
+        "FM-SOA-22"
+      ]
+    },
+    {
+      "date": "2026-08-01",
+      "dayIndex": 1,
       "weekday": "Saturday",
       "week": 1,
       "phase": "tvm",
@@ -71,7 +121,7 @@
     },
     {
       "date": "2026-08-02",
-      "dayIndex": 1,
+      "dayIndex": 2,
       "weekday": "Sunday",
       "week": 1,
       "phase": "tvm",
@@ -110,7 +160,7 @@
     },
     {
       "date": "2026-08-03",
-      "dayIndex": 2,
+      "dayIndex": 3,
       "weekday": "Monday",
       "week": 2,
       "phase": "tvm",
@@ -155,7 +205,7 @@
     },
     {
       "date": "2026-08-04",
-      "dayIndex": 3,
+      "dayIndex": 4,
       "weekday": "Tuesday",
       "week": 2,
       "phase": "tvm",
@@ -200,7 +250,7 @@
     },
     {
       "date": "2026-08-05",
-      "dayIndex": 4,
+      "dayIndex": 5,
       "weekday": "Wednesday",
       "week": 2,
       "phase": "tvm",
@@ -245,7 +295,7 @@
     },
     {
       "date": "2026-08-06",
-      "dayIndex": 5,
+      "dayIndex": 6,
       "weekday": "Thursday",
       "week": 2,
       "phase": "tvm",
@@ -290,7 +340,7 @@
     },
     {
       "date": "2026-08-07",
-      "dayIndex": 6,
+      "dayIndex": 7,
       "weekday": "Friday",
       "week": 2,
       "phase": "tvm",
@@ -339,7 +389,7 @@
     },
     {
       "date": "2026-08-08",
-      "dayIndex": 7,
+      "dayIndex": 8,
       "weekday": "Saturday",
       "week": 2,
       "phase": "tvm",
@@ -381,7 +431,7 @@
     },
     {
       "date": "2026-08-09",
-      "dayIndex": 8,
+      "dayIndex": 9,
       "weekday": "Sunday",
       "week": 2,
       "phase": "tvm",
@@ -420,11 +470,11 @@
     },
     {
       "date": "2026-08-10",
-      "dayIndex": 9,
+      "dayIndex": 10,
       "weekday": "Monday",
       "week": 3,
       "phase": "tvm",
-      "title": "i, v, d, δ",
+      "title": "i, v, d, δ & nominal rates",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -465,11 +515,11 @@
     },
     {
       "date": "2026-08-11",
-      "dayIndex": 10,
+      "dayIndex": 11,
       "weekday": "Tuesday",
       "week": 3,
       "phase": "tvm",
-      "title": "i, v, d, δ",
+      "title": "i, v, d, δ & nominal rates",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -510,11 +560,11 @@
     },
     {
       "date": "2026-08-12",
-      "dayIndex": 11,
+      "dayIndex": 12,
       "weekday": "Wednesday",
       "week": 3,
       "phase": "tvm",
-      "title": "i, v, d, δ",
+      "title": "i, v, d, δ & nominal rates",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -555,11 +605,11 @@
     },
     {
       "date": "2026-08-13",
-      "dayIndex": 12,
+      "dayIndex": 13,
       "weekday": "Thursday",
       "week": 3,
       "phase": "tvm",
-      "title": "i, v, d, δ",
+      "title": "i, v, d, δ & nominal rates",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -600,11 +650,11 @@
     },
     {
       "date": "2026-08-14",
-      "dayIndex": 13,
+      "dayIndex": 14,
       "weekday": "Friday",
       "week": 3,
       "phase": "tvm",
-      "title": "Practice — i, v, d, δ",
+      "title": "Practice — i, v, d, δ & nominal rates",
       "mode": "practice",
       "activity": "practice",
       "isWeekend": false,
@@ -649,7 +699,7 @@
     },
     {
       "date": "2026-08-15",
-      "dayIndex": 14,
+      "dayIndex": 15,
       "weekday": "Saturday",
       "week": 3,
       "phase": "tvm",
@@ -691,7 +741,7 @@
     },
     {
       "date": "2026-08-16",
-      "dayIndex": 15,
+      "dayIndex": 16,
       "weekday": "Sunday",
       "week": 3,
       "phase": "tvm",
@@ -730,7 +780,7 @@
     },
     {
       "date": "2026-08-17",
-      "dayIndex": 16,
+      "dayIndex": 17,
       "weekday": "Monday",
       "week": 4,
       "phase": "tvm",
@@ -775,7 +825,7 @@
     },
     {
       "date": "2026-08-18",
-      "dayIndex": 17,
+      "dayIndex": 18,
       "weekday": "Tuesday",
       "week": 4,
       "phase": "tvm",
@@ -820,7 +870,7 @@
     },
     {
       "date": "2026-08-19",
-      "dayIndex": 18,
+      "dayIndex": 19,
       "weekday": "Wednesday",
       "week": 4,
       "phase": "tvm",
@@ -865,7 +915,7 @@
     },
     {
       "date": "2026-08-20",
-      "dayIndex": 19,
+      "dayIndex": 20,
       "weekday": "Thursday",
       "week": 4,
       "phase": "tvm",
@@ -910,7 +960,7 @@
     },
     {
       "date": "2026-08-21",
-      "dayIndex": 20,
+      "dayIndex": 21,
       "weekday": "Friday",
       "week": 4,
       "phase": "tvm",
@@ -959,7 +1009,7 @@
     },
     {
       "date": "2026-08-22",
-      "dayIndex": 21,
+      "dayIndex": 22,
       "weekday": "Saturday",
       "week": 4,
       "phase": "tvm",
@@ -1001,7 +1051,7 @@
     },
     {
       "date": "2026-08-23",
-      "dayIndex": 22,
+      "dayIndex": 23,
       "weekday": "Sunday",
       "week": 4,
       "phase": "tvm",
@@ -1040,11 +1090,11 @@
     },
     {
       "date": "2026-08-24",
-      "dayIndex": 23,
+      "dayIndex": 24,
       "weekday": "Monday",
       "week": 5,
       "phase": "annuities",
-      "title": "Level annuities",
+      "title": "Level annuities immediate & due",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -1053,7 +1103,8 @@
         "fm_ann_level"
       ],
       "topicPrefs": [
-        "annuities"
+        "annuities",
+        "tvm"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -1064,32 +1115,32 @@
       "chapterId": "fm_ch3",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-08-25",
-      "dayIndex": 24,
+      "dayIndex": 25,
       "weekday": "Tuesday",
       "week": 5,
       "phase": "annuities",
-      "title": "Level annuities",
+      "title": "Level annuities immediate & due",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -1098,7 +1149,8 @@
         "fm_ann_level"
       ],
       "topicPrefs": [
-        "annuities"
+        "annuities",
+        "tvm"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -1109,32 +1161,32 @@
       "chapterId": "fm_ch3",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-08-26",
-      "dayIndex": 25,
+      "dayIndex": 26,
       "weekday": "Wednesday",
       "week": 5,
       "phase": "annuities",
-      "title": "Level annuities",
+      "title": "Level annuities immediate & due",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -1143,7 +1195,8 @@
         "fm_ann_level"
       ],
       "topicPrefs": [
-        "annuities"
+        "annuities",
+        "tvm"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -1154,32 +1207,32 @@
       "chapterId": "fm_ch3",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-08-27",
-      "dayIndex": 26,
+      "dayIndex": 27,
       "weekday": "Thursday",
       "week": 5,
       "phase": "annuities",
-      "title": "Level annuities",
+      "title": "Level annuities immediate & due",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -1188,7 +1241,8 @@
         "fm_ann_level"
       ],
       "topicPrefs": [
-        "annuities"
+        "annuities",
+        "tvm"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -1199,32 +1253,32 @@
       "chapterId": "fm_ch3",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-08-28",
-      "dayIndex": 27,
+      "dayIndex": 28,
       "weekday": "Friday",
       "week": 5,
       "phase": "annuities",
-      "title": "Practice — Level annuities",
+      "title": "Practice — Level annuities immediate & due",
       "mode": "practice",
       "activity": "practice",
       "isWeekend": false,
@@ -1233,7 +1287,8 @@
         "fm_ann_level"
       ],
       "topicPrefs": [
-        "annuities"
+        "annuities",
+        "tvm"
       ],
       "questionTarget": 22,
       "readPct": 20,
@@ -1244,32 +1299,32 @@
       "chapterId": "fm_ch3",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
         "FM-SOA-105",
         "FM-SOA-106",
         "FM-SOA-107",
+        "FM-SOA-113",
         "FM-SOA-115",
-        "FM-SOA-117"
+        "FM-SOA-116",
+        "FM-SOA-119"
       ]
     },
     {
       "date": "2026-08-29",
-      "dayIndex": 28,
+      "dayIndex": 29,
       "weekday": "Saturday",
       "week": 5,
       "phase": "annuities",
@@ -1282,7 +1337,8 @@
         "fm_ann_level"
       ],
       "topicPrefs": [
-        "annuities"
+        "annuities",
+        "tvm"
       ],
       "questionTarget": 15,
       "readPct": 10,
@@ -1293,17 +1349,17 @@
       "chapterId": "fm_ch3",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87"
@@ -1311,7 +1367,7 @@
     },
     {
       "date": "2026-08-30",
-      "dayIndex": 29,
+      "dayIndex": 30,
       "weekday": "Sunday",
       "week": 5,
       "phase": "annuities",
@@ -1324,7 +1380,8 @@
         "fm_ann_level"
       ],
       "topicPrefs": [
-        "annuities"
+        "annuities",
+        "tvm"
       ],
       "questionTarget": 12,
       "readPct": 35,
@@ -1335,22 +1392,22 @@
       "chapterId": "fm_ch3",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
-        "FM-SOA-80",
-        "FM-SOA-81"
+        "FM-SOA-67",
+        "FM-SOA-80"
       ]
     },
     {
       "date": "2026-08-31",
-      "dayIndex": 30,
+      "dayIndex": 31,
       "weekday": "Monday",
       "week": 6,
       "phase": "annuities",
@@ -1363,7 +1420,8 @@
         "fm_ann_mthly"
       ],
       "topicPrefs": [
-        "annuities"
+        "annuities",
+        "tvm"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -1374,28 +1432,28 @@
       "chapterId": "fm_ch4",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-09-01",
-      "dayIndex": 31,
+      "dayIndex": 32,
       "weekday": "Tuesday",
       "week": 6,
       "phase": "annuities",
@@ -1408,7 +1466,8 @@
         "fm_ann_mthly"
       ],
       "topicPrefs": [
-        "annuities"
+        "annuities",
+        "tvm"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -1419,28 +1478,28 @@
       "chapterId": "fm_ch4",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-09-02",
-      "dayIndex": 32,
+      "dayIndex": 33,
       "weekday": "Wednesday",
       "week": 6,
       "phase": "annuities",
@@ -1453,7 +1512,8 @@
         "fm_ann_mthly"
       ],
       "topicPrefs": [
-        "annuities"
+        "annuities",
+        "tvm"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -1464,28 +1524,28 @@
       "chapterId": "fm_ch4",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-09-03",
-      "dayIndex": 33,
+      "dayIndex": 34,
       "weekday": "Thursday",
       "week": 6,
       "phase": "annuities",
@@ -1498,7 +1558,8 @@
         "fm_ann_mthly"
       ],
       "topicPrefs": [
-        "annuities"
+        "annuities",
+        "tvm"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -1509,28 +1570,28 @@
       "chapterId": "fm_ch4",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-09-04",
-      "dayIndex": 34,
+      "dayIndex": 35,
       "weekday": "Friday",
       "week": 6,
       "phase": "annuities",
@@ -1543,7 +1604,8 @@
         "fm_ann_mthly"
       ],
       "topicPrefs": [
-        "annuities"
+        "annuities",
+        "tvm"
       ],
       "questionTarget": 22,
       "readPct": 20,
@@ -1554,32 +1616,32 @@
       "chapterId": "fm_ch4",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
         "FM-SOA-105",
         "FM-SOA-106",
         "FM-SOA-107",
+        "FM-SOA-113",
         "FM-SOA-115",
-        "FM-SOA-117"
+        "FM-SOA-116",
+        "FM-SOA-119"
       ]
     },
     {
       "date": "2026-09-05",
-      "dayIndex": 35,
+      "dayIndex": 36,
       "weekday": "Saturday",
       "week": 6,
       "phase": "annuities",
@@ -1592,7 +1654,8 @@
         "fm_ann_mthly"
       ],
       "topicPrefs": [
-        "annuities"
+        "annuities",
+        "tvm"
       ],
       "questionTarget": 15,
       "readPct": 10,
@@ -1603,17 +1666,17 @@
       "chapterId": "fm_ch4",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87"
@@ -1621,7 +1684,7 @@
     },
     {
       "date": "2026-09-06",
-      "dayIndex": 36,
+      "dayIndex": 37,
       "weekday": "Sunday",
       "week": 6,
       "phase": "annuities",
@@ -1634,7 +1697,8 @@
         "fm_ann_mthly"
       ],
       "topicPrefs": [
-        "annuities"
+        "annuities",
+        "tvm"
       ],
       "questionTarget": 12,
       "readPct": 35,
@@ -1645,22 +1709,22 @@
       "chapterId": "fm_ch4",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
-        "FM-SOA-80",
-        "FM-SOA-81"
+        "FM-SOA-67",
+        "FM-SOA-80"
       ]
     },
     {
       "date": "2026-09-07",
-      "dayIndex": 37,
+      "dayIndex": 38,
       "weekday": "Monday",
       "week": 7,
       "phase": "annuities",
@@ -1684,28 +1748,28 @@
       "chapterId": "fm_ch5",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-09-08",
-      "dayIndex": 38,
+      "dayIndex": 39,
       "weekday": "Tuesday",
       "week": 7,
       "phase": "annuities",
@@ -1729,28 +1793,28 @@
       "chapterId": "fm_ch5",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-09-09",
-      "dayIndex": 39,
+      "dayIndex": 40,
       "weekday": "Wednesday",
       "week": 7,
       "phase": "annuities",
@@ -1774,28 +1838,28 @@
       "chapterId": "fm_ch5",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-09-10",
-      "dayIndex": 40,
+      "dayIndex": 41,
       "weekday": "Thursday",
       "week": 7,
       "phase": "annuities",
@@ -1819,28 +1883,28 @@
       "chapterId": "fm_ch5",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-09-11",
-      "dayIndex": 41,
+      "dayIndex": 42,
       "weekday": "Friday",
       "week": 7,
       "phase": "annuities",
@@ -1864,32 +1928,32 @@
       "chapterId": "fm_ch5",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
         "FM-SOA-105",
         "FM-SOA-106",
         "FM-SOA-107",
+        "FM-SOA-113",
         "FM-SOA-115",
-        "FM-SOA-117"
+        "FM-SOA-116",
+        "FM-SOA-119"
       ]
     },
     {
       "date": "2026-09-12",
-      "dayIndex": 42,
+      "dayIndex": 43,
       "weekday": "Saturday",
       "week": 7,
       "phase": "annuities",
@@ -1913,17 +1977,17 @@
       "chapterId": "fm_ch5",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87"
@@ -1931,7 +1995,7 @@
     },
     {
       "date": "2026-09-13",
-      "dayIndex": 43,
+      "dayIndex": 44,
       "weekday": "Sunday",
       "week": 7,
       "phase": "annuities",
@@ -1955,22 +2019,22 @@
       "chapterId": "fm_ch5",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
-        "FM-SOA-80",
-        "FM-SOA-81"
+        "FM-SOA-67",
+        "FM-SOA-80"
       ]
     },
     {
       "date": "2026-09-14",
-      "dayIndex": 44,
+      "dayIndex": 45,
       "weekday": "Monday",
       "week": 8,
       "phase": "annuities",
@@ -1994,28 +2058,28 @@
       "chapterId": "fm_ch5",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-09-15",
-      "dayIndex": 45,
+      "dayIndex": 46,
       "weekday": "Tuesday",
       "week": 8,
       "phase": "annuities",
@@ -2039,28 +2103,28 @@
       "chapterId": "fm_ch5",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-09-16",
-      "dayIndex": 46,
+      "dayIndex": 47,
       "weekday": "Wednesday",
       "week": 8,
       "phase": "annuities",
@@ -2084,28 +2148,28 @@
       "chapterId": "fm_ch5",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-09-17",
-      "dayIndex": 47,
+      "dayIndex": 48,
       "weekday": "Thursday",
       "week": 8,
       "phase": "annuities",
@@ -2129,28 +2193,28 @@
       "chapterId": "fm_ch5",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
-        "FM-SOA-105"
+        "FM-SOA-105",
+        "FM-SOA-106",
+        "FM-SOA-107"
       ]
     },
     {
       "date": "2026-09-18",
-      "dayIndex": 48,
+      "dayIndex": 49,
       "weekday": "Friday",
       "week": 8,
       "phase": "annuities",
@@ -2174,32 +2238,32 @@
       "chapterId": "fm_ch5",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87",
-        "FM-SOA-96",
-        "FM-SOA-102",
         "FM-SOA-105",
         "FM-SOA-106",
         "FM-SOA-107",
+        "FM-SOA-113",
         "FM-SOA-115",
-        "FM-SOA-117"
+        "FM-SOA-116",
+        "FM-SOA-119"
       ]
     },
     {
       "date": "2026-09-19",
-      "dayIndex": 49,
+      "dayIndex": 50,
       "weekday": "Saturday",
       "week": 8,
       "phase": "annuities",
@@ -2223,17 +2287,17 @@
       "chapterId": "fm_ch5",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
+        "FM-SOA-67",
         "FM-SOA-80",
-        "FM-SOA-81",
         "FM-SOA-82",
         "FM-SOA-84",
         "FM-SOA-87"
@@ -2241,7 +2305,7 @@
     },
     {
       "date": "2026-09-20",
-      "dayIndex": 50,
+      "dayIndex": 51,
       "weekday": "Sunday",
       "week": 8,
       "phase": "annuities",
@@ -2265,22 +2329,22 @@
       "chapterId": "fm_ch5",
       "assignedQuestionIds": [
         "FM-SOA-6",
-        "FM-SOA-8",
-        "FM-SOA-11",
-        "FM-SOA-20",
+        "FM-SOA-23",
         "FM-SOA-37",
         "FM-SOA-38",
         "FM-SOA-39",
+        "FM-SOA-44",
+        "FM-SOA-49",
         "FM-SOA-56",
         "FM-SOA-57",
         "FM-SOA-66",
-        "FM-SOA-80",
-        "FM-SOA-81"
+        "FM-SOA-67",
+        "FM-SOA-80"
       ]
     },
     {
       "date": "2026-09-21",
-      "dayIndex": 51,
+      "dayIndex": 52,
       "weekday": "Monday",
       "week": 9,
       "phase": "loans",
@@ -2293,7 +2357,8 @@
         "fm_loans"
       ],
       "topicPrefs": [
-        "loans"
+        "loans",
+        "annuities"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -2303,13 +2368,13 @@
       "fmLight": false,
       "chapterId": "fm_ch6",
       "assignedQuestionIds": [
-        "FM-SOA-5",
         "FM-SOA-6",
         "FM-SOA-12",
         "FM-SOA-13",
         "FM-SOA-21",
         "FM-SOA-23",
         "FM-SOA-33",
+        "FM-SOA-38",
         "FM-SOA-48",
         "FM-SOA-49",
         "FM-SOA-60",
@@ -2325,7 +2390,7 @@
     },
     {
       "date": "2026-09-22",
-      "dayIndex": 52,
+      "dayIndex": 53,
       "weekday": "Tuesday",
       "week": 9,
       "phase": "loans",
@@ -2338,7 +2403,8 @@
         "fm_loans"
       ],
       "topicPrefs": [
-        "loans"
+        "loans",
+        "annuities"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -2348,13 +2414,13 @@
       "fmLight": false,
       "chapterId": "fm_ch6",
       "assignedQuestionIds": [
-        "FM-SOA-5",
         "FM-SOA-6",
         "FM-SOA-12",
         "FM-SOA-13",
         "FM-SOA-21",
         "FM-SOA-23",
         "FM-SOA-33",
+        "FM-SOA-38",
         "FM-SOA-48",
         "FM-SOA-49",
         "FM-SOA-60",
@@ -2370,7 +2436,7 @@
     },
     {
       "date": "2026-09-23",
-      "dayIndex": 53,
+      "dayIndex": 54,
       "weekday": "Wednesday",
       "week": 9,
       "phase": "loans",
@@ -2383,7 +2449,8 @@
         "fm_loans"
       ],
       "topicPrefs": [
-        "loans"
+        "loans",
+        "annuities"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -2393,13 +2460,13 @@
       "fmLight": false,
       "chapterId": "fm_ch6",
       "assignedQuestionIds": [
-        "FM-SOA-5",
         "FM-SOA-6",
         "FM-SOA-12",
         "FM-SOA-13",
         "FM-SOA-21",
         "FM-SOA-23",
         "FM-SOA-33",
+        "FM-SOA-38",
         "FM-SOA-48",
         "FM-SOA-49",
         "FM-SOA-60",
@@ -2415,7 +2482,7 @@
     },
     {
       "date": "2026-09-24",
-      "dayIndex": 54,
+      "dayIndex": 55,
       "weekday": "Thursday",
       "week": 9,
       "phase": "loans",
@@ -2428,7 +2495,8 @@
         "fm_loans"
       ],
       "topicPrefs": [
-        "loans"
+        "loans",
+        "annuities"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -2438,13 +2506,13 @@
       "fmLight": false,
       "chapterId": "fm_ch6",
       "assignedQuestionIds": [
-        "FM-SOA-5",
         "FM-SOA-6",
         "FM-SOA-12",
         "FM-SOA-13",
         "FM-SOA-21",
         "FM-SOA-23",
         "FM-SOA-33",
+        "FM-SOA-38",
         "FM-SOA-48",
         "FM-SOA-49",
         "FM-SOA-60",
@@ -2460,7 +2528,7 @@
     },
     {
       "date": "2026-09-25",
-      "dayIndex": 55,
+      "dayIndex": 56,
       "weekday": "Friday",
       "week": 9,
       "phase": "loans",
@@ -2473,7 +2541,8 @@
         "fm_loans"
       ],
       "topicPrefs": [
-        "loans"
+        "loans",
+        "annuities"
       ],
       "questionTarget": 22,
       "readPct": 20,
@@ -2483,13 +2552,13 @@
       "fmLight": false,
       "chapterId": "fm_ch6",
       "assignedQuestionIds": [
-        "FM-SOA-5",
         "FM-SOA-6",
         "FM-SOA-12",
         "FM-SOA-13",
         "FM-SOA-21",
         "FM-SOA-23",
         "FM-SOA-33",
+        "FM-SOA-38",
         "FM-SOA-48",
         "FM-SOA-49",
         "FM-SOA-60",
@@ -2509,7 +2578,7 @@
     },
     {
       "date": "2026-09-26",
-      "dayIndex": 56,
+      "dayIndex": 57,
       "weekday": "Saturday",
       "week": 9,
       "phase": "loans",
@@ -2522,7 +2591,8 @@
         "fm_loans"
       ],
       "topicPrefs": [
-        "loans"
+        "loans",
+        "annuities"
       ],
       "questionTarget": 15,
       "readPct": 10,
@@ -2532,13 +2602,13 @@
       "fmLight": false,
       "chapterId": "fm_ch6",
       "assignedQuestionIds": [
-        "FM-SOA-5",
         "FM-SOA-6",
         "FM-SOA-12",
         "FM-SOA-13",
         "FM-SOA-21",
         "FM-SOA-23",
         "FM-SOA-33",
+        "FM-SOA-38",
         "FM-SOA-48",
         "FM-SOA-49",
         "FM-SOA-60",
@@ -2551,7 +2621,7 @@
     },
     {
       "date": "2026-09-27",
-      "dayIndex": 57,
+      "dayIndex": 58,
       "weekday": "Sunday",
       "week": 9,
       "phase": "loans",
@@ -2564,7 +2634,8 @@
         "fm_loans"
       ],
       "topicPrefs": [
-        "loans"
+        "loans",
+        "annuities"
       ],
       "questionTarget": 12,
       "readPct": 35,
@@ -2574,13 +2645,13 @@
       "fmLight": false,
       "chapterId": "fm_ch6",
       "assignedQuestionIds": [
-        "FM-SOA-5",
         "FM-SOA-6",
         "FM-SOA-12",
         "FM-SOA-13",
         "FM-SOA-21",
         "FM-SOA-23",
         "FM-SOA-33",
+        "FM-SOA-38",
         "FM-SOA-48",
         "FM-SOA-49",
         "FM-SOA-60",
@@ -2590,7 +2661,7 @@
     },
     {
       "date": "2026-09-28",
-      "dayIndex": 58,
+      "dayIndex": 59,
       "weekday": "Monday",
       "week": 10,
       "phase": "loans",
@@ -2603,7 +2674,8 @@
         "fm_sinking"
       ],
       "topicPrefs": [
-        "loans"
+        "loans",
+        "annuities"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -2613,13 +2685,13 @@
       "fmLight": false,
       "chapterId": "fm_ch7",
       "assignedQuestionIds": [
-        "FM-SOA-5",
         "FM-SOA-6",
         "FM-SOA-12",
         "FM-SOA-13",
         "FM-SOA-21",
         "FM-SOA-23",
         "FM-SOA-33",
+        "FM-SOA-38",
         "FM-SOA-48",
         "FM-SOA-49",
         "FM-SOA-60",
@@ -2635,7 +2707,7 @@
     },
     {
       "date": "2026-09-29",
-      "dayIndex": 59,
+      "dayIndex": 60,
       "weekday": "Tuesday",
       "week": 10,
       "phase": "loans",
@@ -2648,7 +2720,8 @@
         "fm_sinking"
       ],
       "topicPrefs": [
-        "loans"
+        "loans",
+        "annuities"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -2658,13 +2731,13 @@
       "fmLight": false,
       "chapterId": "fm_ch7",
       "assignedQuestionIds": [
-        "FM-SOA-5",
         "FM-SOA-6",
         "FM-SOA-12",
         "FM-SOA-13",
         "FM-SOA-21",
         "FM-SOA-23",
         "FM-SOA-33",
+        "FM-SOA-38",
         "FM-SOA-48",
         "FM-SOA-49",
         "FM-SOA-60",
@@ -2680,7 +2753,7 @@
     },
     {
       "date": "2026-09-30",
-      "dayIndex": 60,
+      "dayIndex": 61,
       "weekday": "Wednesday",
       "week": 10,
       "phase": "loans",
@@ -2693,7 +2766,8 @@
         "fm_sinking"
       ],
       "topicPrefs": [
-        "loans"
+        "loans",
+        "annuities"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -2703,13 +2777,13 @@
       "fmLight": false,
       "chapterId": "fm_ch7",
       "assignedQuestionIds": [
-        "FM-SOA-5",
         "FM-SOA-6",
         "FM-SOA-12",
         "FM-SOA-13",
         "FM-SOA-21",
         "FM-SOA-23",
         "FM-SOA-33",
+        "FM-SOA-38",
         "FM-SOA-48",
         "FM-SOA-49",
         "FM-SOA-60",
@@ -2725,7 +2799,7 @@
     },
     {
       "date": "2026-10-01",
-      "dayIndex": 61,
+      "dayIndex": 62,
       "weekday": "Thursday",
       "week": 10,
       "phase": "loans",
@@ -2738,7 +2812,8 @@
         "fm_sinking"
       ],
       "topicPrefs": [
-        "loans"
+        "loans",
+        "annuities"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -2748,13 +2823,13 @@
       "fmLight": false,
       "chapterId": "fm_ch7",
       "assignedQuestionIds": [
-        "FM-SOA-5",
         "FM-SOA-6",
         "FM-SOA-12",
         "FM-SOA-13",
         "FM-SOA-21",
         "FM-SOA-23",
         "FM-SOA-33",
+        "FM-SOA-38",
         "FM-SOA-48",
         "FM-SOA-49",
         "FM-SOA-60",
@@ -2770,7 +2845,7 @@
     },
     {
       "date": "2026-10-02",
-      "dayIndex": 62,
+      "dayIndex": 63,
       "weekday": "Friday",
       "week": 10,
       "phase": "loans",
@@ -2783,7 +2858,8 @@
         "fm_sinking"
       ],
       "topicPrefs": [
-        "loans"
+        "loans",
+        "annuities"
       ],
       "questionTarget": 22,
       "readPct": 20,
@@ -2793,13 +2869,13 @@
       "fmLight": false,
       "chapterId": "fm_ch7",
       "assignedQuestionIds": [
-        "FM-SOA-5",
         "FM-SOA-6",
         "FM-SOA-12",
         "FM-SOA-13",
         "FM-SOA-21",
         "FM-SOA-23",
         "FM-SOA-33",
+        "FM-SOA-38",
         "FM-SOA-48",
         "FM-SOA-49",
         "FM-SOA-60",
@@ -2819,7 +2895,7 @@
     },
     {
       "date": "2026-10-03",
-      "dayIndex": 63,
+      "dayIndex": 64,
       "weekday": "Saturday",
       "week": 10,
       "phase": "loans",
@@ -2832,7 +2908,8 @@
         "fm_sinking"
       ],
       "topicPrefs": [
-        "loans"
+        "loans",
+        "annuities"
       ],
       "questionTarget": 15,
       "readPct": 10,
@@ -2842,13 +2919,13 @@
       "fmLight": false,
       "chapterId": "fm_ch7",
       "assignedQuestionIds": [
-        "FM-SOA-5",
         "FM-SOA-6",
         "FM-SOA-12",
         "FM-SOA-13",
         "FM-SOA-21",
         "FM-SOA-23",
         "FM-SOA-33",
+        "FM-SOA-38",
         "FM-SOA-48",
         "FM-SOA-49",
         "FM-SOA-60",
@@ -2861,7 +2938,7 @@
     },
     {
       "date": "2026-10-04",
-      "dayIndex": 64,
+      "dayIndex": 65,
       "weekday": "Sunday",
       "week": 10,
       "phase": "loans",
@@ -2874,7 +2951,8 @@
         "fm_sinking"
       ],
       "topicPrefs": [
-        "loans"
+        "loans",
+        "annuities"
       ],
       "questionTarget": 12,
       "readPct": 35,
@@ -2884,13 +2962,13 @@
       "fmLight": false,
       "chapterId": "fm_ch7",
       "assignedQuestionIds": [
-        "FM-SOA-5",
         "FM-SOA-6",
         "FM-SOA-12",
         "FM-SOA-13",
         "FM-SOA-21",
         "FM-SOA-23",
         "FM-SOA-33",
+        "FM-SOA-38",
         "FM-SOA-48",
         "FM-SOA-49",
         "FM-SOA-60",
@@ -2900,11 +2978,11 @@
     },
     {
       "date": "2026-10-05",
-      "dayIndex": 65,
+      "dayIndex": 66,
       "weekday": "Monday",
       "week": 11,
       "phase": "bonds",
-      "title": "Bond price",
+      "title": "Bond price & book value",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -2913,7 +2991,8 @@
         "fm_bonds"
       ],
       "topicPrefs": [
-        "bonds"
+        "bonds",
+        "annuities"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -2945,11 +3024,11 @@
     },
     {
       "date": "2026-10-06",
-      "dayIndex": 66,
+      "dayIndex": 67,
       "weekday": "Tuesday",
       "week": 11,
       "phase": "bonds",
-      "title": "Bond price",
+      "title": "Bond price & book value",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -2958,7 +3037,8 @@
         "fm_bonds"
       ],
       "topicPrefs": [
-        "bonds"
+        "bonds",
+        "annuities"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -2990,11 +3070,11 @@
     },
     {
       "date": "2026-10-07",
-      "dayIndex": 67,
+      "dayIndex": 68,
       "weekday": "Wednesday",
       "week": 11,
       "phase": "bonds",
-      "title": "Bond price",
+      "title": "Bond price & book value",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -3003,7 +3083,8 @@
         "fm_bonds"
       ],
       "topicPrefs": [
-        "bonds"
+        "bonds",
+        "annuities"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -3035,11 +3116,11 @@
     },
     {
       "date": "2026-10-08",
-      "dayIndex": 68,
+      "dayIndex": 69,
       "weekday": "Thursday",
       "week": 11,
       "phase": "bonds",
-      "title": "Bond price",
+      "title": "Bond price & book value",
       "mode": "learn",
       "activity": "learn_practice",
       "isWeekend": false,
@@ -3048,7 +3129,8 @@
         "fm_bonds"
       ],
       "topicPrefs": [
-        "bonds"
+        "bonds",
+        "annuities"
       ],
       "questionTarget": 18,
       "readPct": 45,
@@ -3080,11 +3162,11 @@
     },
     {
       "date": "2026-10-09",
-      "dayIndex": 69,
+      "dayIndex": 70,
       "weekday": "Friday",
       "week": 11,
       "phase": "bonds",
-      "title": "Practice — Bond price",
+      "title": "Practice — Bond price & book value",
       "mode": "practice",
       "activity": "practice",
       "isWeekend": false,
@@ -3093,7 +3175,8 @@
         "fm_bonds"
       ],
       "topicPrefs": [
-        "bonds"
+        "bonds",
+        "annuities"
       ],
       "questionTarget": 22,
       "readPct": 20,
@@ -3129,7 +3212,7 @@
     },
     {
       "date": "2026-10-10",
-      "dayIndex": 70,
+      "dayIndex": 71,
       "weekday": "Saturday",
       "week": 11,
       "phase": "bonds",
@@ -3142,7 +3225,8 @@
         "fm_bonds"
       ],
       "topicPrefs": [
-        "bonds"
+        "bonds",
+        "annuities"
       ],
       "questionTarget": 15,
       "readPct": 10,
@@ -3171,7 +3255,7 @@
     },
     {
       "date": "2026-10-11",
-      "dayIndex": 71,
+      "dayIndex": 72,
       "weekday": "Sunday",
       "week": 11,
       "phase": "bonds",
@@ -3184,7 +3268,8 @@
         "fm_bonds"
       ],
       "topicPrefs": [
-        "bonds"
+        "bonds",
+        "annuities"
       ],
       "questionTarget": 12,
       "readPct": 35,
@@ -3210,7 +3295,7 @@
     },
     {
       "date": "2026-10-12",
-      "dayIndex": 72,
+      "dayIndex": 73,
       "weekday": "Monday",
       "week": 12,
       "phase": "bonds",
@@ -3256,7 +3341,7 @@
     },
     {
       "date": "2026-10-13",
-      "dayIndex": 73,
+      "dayIndex": 74,
       "weekday": "Tuesday",
       "week": 12,
       "phase": "bonds",
@@ -3302,7 +3387,7 @@
     },
     {
       "date": "2026-10-14",
-      "dayIndex": 74,
+      "dayIndex": 75,
       "weekday": "Wednesday",
       "week": 12,
       "phase": "bonds",
@@ -3348,7 +3433,7 @@
     },
     {
       "date": "2026-10-15",
-      "dayIndex": 75,
+      "dayIndex": 76,
       "weekday": "Thursday",
       "week": 12,
       "phase": "bonds",
@@ -3394,7 +3479,7 @@
     },
     {
       "date": "2026-10-16",
-      "dayIndex": 76,
+      "dayIndex": 77,
       "weekday": "Friday",
       "week": 12,
       "phase": "bonds",
@@ -3444,7 +3529,7 @@
     },
     {
       "date": "2026-10-17",
-      "dayIndex": 77,
+      "dayIndex": 78,
       "weekday": "Saturday",
       "week": 12,
       "phase": "bonds",
@@ -3487,7 +3572,7 @@
     },
     {
       "date": "2026-10-18",
-      "dayIndex": 78,
+      "dayIndex": 79,
       "weekday": "Sunday",
       "week": 12,
       "phase": "bonds",
@@ -3527,7 +3612,7 @@
     },
     {
       "date": "2026-10-19",
-      "dayIndex": 79,
+      "dayIndex": 80,
       "weekday": "Monday",
       "week": 13,
       "phase": "wrap",
@@ -3575,7 +3660,7 @@
     },
     {
       "date": "2026-10-20",
-      "dayIndex": 80,
+      "dayIndex": 81,
       "weekday": "Tuesday",
       "week": 13,
       "phase": "wrap",
@@ -3623,7 +3708,7 @@
     },
     {
       "date": "2026-10-21",
-      "dayIndex": 81,
+      "dayIndex": 82,
       "weekday": "Wednesday",
       "week": 13,
       "phase": "wrap",
@@ -3671,7 +3756,7 @@
     },
     {
       "date": "2026-10-22",
-      "dayIndex": 82,
+      "dayIndex": 83,
       "weekday": "Thursday",
       "week": 13,
       "phase": "wrap",
@@ -3719,7 +3804,7 @@
     },
     {
       "date": "2026-10-23",
-      "dayIndex": 83,
+      "dayIndex": 84,
       "weekday": "Friday",
       "week": 13,
       "phase": "wrap",
@@ -3767,7 +3852,7 @@
     },
     {
       "date": "2026-10-24",
-      "dayIndex": 84,
+      "dayIndex": 85,
       "weekday": "Saturday",
       "week": 13,
       "phase": "wrap",
@@ -3825,7 +3910,7 @@
     },
     {
       "date": "2026-10-25",
-      "dayIndex": 85,
+      "dayIndex": 86,
       "weekday": "Sunday",
       "week": 13,
       "phase": "wrap",
@@ -3873,7 +3958,7 @@
     },
     {
       "date": "2026-10-26",
-      "dayIndex": 86,
+      "dayIndex": 87,
       "weekday": "Monday",
       "week": 14,
       "phase": "wrap",
@@ -3921,7 +4006,7 @@
     },
     {
       "date": "2026-10-27",
-      "dayIndex": 87,
+      "dayIndex": 88,
       "weekday": "Tuesday",
       "week": 14,
       "phase": "wrap",
@@ -3969,7 +4054,7 @@
     },
     {
       "date": "2026-10-28",
-      "dayIndex": 88,
+      "dayIndex": 89,
       "weekday": "Wednesday",
       "week": 14,
       "phase": "wrap",
@@ -4017,7 +4102,7 @@
     },
     {
       "date": "2026-10-29",
-      "dayIndex": 89,
+      "dayIndex": 90,
       "weekday": "Thursday",
       "week": 14,
       "phase": "wrap",
@@ -4065,7 +4150,7 @@
     },
     {
       "date": "2026-10-30",
-      "dayIndex": 90,
+      "dayIndex": 91,
       "weekday": "Friday",
       "week": 14,
       "phase": "wrap",
@@ -4113,7 +4198,7 @@
     },
     {
       "date": "2026-10-31",
-      "dayIndex": 91,
+      "dayIndex": 92,
       "weekday": "Saturday",
       "week": 14,
       "phase": "wrap",
@@ -4171,7 +4256,7 @@
     },
     {
       "date": "2026-11-01",
-      "dayIndex": 92,
+      "dayIndex": 93,
       "weekday": "Sunday",
       "week": 14,
       "phase": "wrap",
@@ -4220,8 +4305,8 @@
   ],
   "pathStats": {
     "units": 5,
-    "chapters": 13,
-    "levels": 45,
-    "testsAndMocks": 12
+    "chapters": 15,
+    "levels": 51,
+    "testsAndMocks": 14
   }
 }

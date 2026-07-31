@@ -22,15 +22,21 @@
   "timeline": {
     "weeks": 14,
     "learnWeeks": 12,
-    "startDate": "2026-08-01",
-    "endDate": "2026-11-07",
-    "dailyHoursWeekday": 2
+    "startDate": "2026-07-31",
+    "endDate": "2026-11-06",
+    "dailyHoursWeekday": 2,
+    "targetExamWindow": "Adjust to your FM sitting",
+    "notes": [
+      "Duolingo-style: levels in order; chapter test ≥70% unlocks next chapter.",
+      "Last unit is wrap + full mocks only.",
+      "Content volume follows FM weights: Annuities & Portfolios/Bonds heavy."
+    ]
   },
   "stats": {
     "units": 5,
-    "chapters": 13,
-    "levels": 45,
-    "testsAndMocks": 12
+    "chapters": 15,
+    "levels": 51,
+    "testsAndMocks": 14
   },
   "levelOrder": [
     "fm_ch0_l1",
@@ -74,10 +80,16 @@
     "fm_ch10_l1",
     "fm_ch10_l2",
     "fm_ch10_test",
-    "fm_ch11_mock",
-    "fm_ch11_review",
+    "fm_ch11_l1",
+    "fm_ch11_l2",
+    "fm_ch11_test",
     "fm_ch12_mock",
-    "fm_ch12_review"
+    "fm_ch12_review",
+    "fm_ch13_l1",
+    "fm_ch13_l2",
+    "fm_ch13_test",
+    "fm_ch14_mock",
+    "fm_ch14_review"
   ],
   "units": [
     {
@@ -89,7 +101,7 @@
       "weight": 0.1,
       "weightRange": "5–15%",
       "color": "#0B3D3A",
-      "description": "Interest measures and moving money through time.",
+      "description": "Interest measures and moving single payments through time.",
       "chapterCount": 3,
       "chapters": [
         {
@@ -166,7 +178,7 @@
           "id": "fm_ch1",
           "number": 1,
           "order": 2,
-          "title": "i, v, d, δ",
+          "title": "i, v, d, δ & nominal rates",
           "lessonId": "fm_tvm_core",
           "topics": [
             "tvm"
@@ -194,7 +206,7 @@
               "xp": 25,
               "unitId": "fm_u1",
               "chapterId": "fm_ch1",
-              "chapterTitle": "i, v, d, δ",
+              "chapterTitle": "i, v, d, δ & nominal rates",
               "chapterNumber": 1,
               "cluster": "tvm",
               "assignedQuestionIds": []
@@ -217,7 +229,7 @@
               "xp": 30,
               "unitId": "fm_u1",
               "chapterId": "fm_ch1",
-              "chapterTitle": "i, v, d, δ",
+              "chapterTitle": "i, v, d, δ & nominal rates",
               "chapterNumber": 1,
               "cluster": "tvm",
               "assignedQuestionIds": [
@@ -251,7 +263,7 @@
               "xp": 35,
               "unitId": "fm_u1",
               "chapterId": "fm_ch1",
-              "chapterTitle": "i, v, d, δ",
+              "chapterTitle": "i, v, d, δ & nominal rates",
               "chapterNumber": 1,
               "cluster": "tvm",
               "assignedQuestionIds": [
@@ -289,7 +301,7 @@
               "xp": 60,
               "unitId": "fm_u1",
               "chapterId": "fm_ch1",
-              "chapterTitle": "i, v, d, δ",
+              "chapterTitle": "i, v, d, δ & nominal rates",
               "chapterNumber": 1,
               "cluster": "tvm",
               "assignedQuestionIds": [
@@ -474,10 +486,11 @@
           "id": "fm_ch3",
           "number": 3,
           "order": 4,
-          "title": "Level annuities",
+          "title": "Level annuities immediate & due",
           "lessonId": "fm_ann_level",
           "topics": [
-            "annuities"
+            "annuities",
+            "tvm"
           ],
           "lo": [],
           "icon": "book",
@@ -493,7 +506,8 @@
               "mode": "lesson",
               "lessonId": "fm_ann_level",
               "topics": [
-                "annuities"
+                "annuities",
+                "tvm"
               ],
               "questionTarget": 0,
               "readPct": 85,
@@ -502,7 +516,7 @@
               "xp": 25,
               "unitId": "fm_u2",
               "chapterId": "fm_ch3",
-              "chapterTitle": "Level annuities",
+              "chapterTitle": "Level annuities immediate & due",
               "chapterNumber": 3,
               "cluster": "annuities",
               "assignedQuestionIds": []
@@ -516,7 +530,8 @@
               "mode": "practice",
               "lessonId": "fm_ann_level",
               "topics": [
-                "annuities"
+                "annuities",
+                "tvm"
               ],
               "questionTarget": 10,
               "readPct": 10,
@@ -525,20 +540,20 @@
               "xp": 30,
               "unitId": "fm_u2",
               "chapterId": "fm_ch3",
-              "chapterTitle": "Level annuities",
+              "chapterTitle": "Level annuities immediate & due",
               "chapterNumber": 3,
               "cluster": "annuities",
               "assignedQuestionIds": [
                 "FM-SOA-39",
                 "FM-SOA-66",
+                "FM-SOA-67",
                 "FM-SOA-80",
-                "FM-SOA-81",
                 "FM-SOA-82",
                 "FM-SOA-84",
                 "FM-SOA-87",
-                "FM-SOA-96",
-                "FM-SOA-102",
-                "FM-SOA-105"
+                "FM-SOA-105",
+                "FM-SOA-106",
+                "FM-SOA-107"
               ]
             },
             {
@@ -550,7 +565,8 @@
               "mode": "practice",
               "lessonId": "fm_ann_level",
               "topics": [
-                "annuities"
+                "annuities",
+                "tvm"
               ],
               "questionTarget": 12,
               "readPct": 5,
@@ -559,22 +575,22 @@
               "xp": 35,
               "unitId": "fm_u2",
               "chapterId": "fm_ch3",
-              "chapterTitle": "Level annuities",
+              "chapterTitle": "Level annuities immediate & due",
               "chapterNumber": 3,
               "cluster": "annuities",
               "assignedQuestionIds": [
-                "FM-SOA-106",
-                "FM-SOA-107",
+                "FM-SOA-113",
                 "FM-SOA-115",
-                "FM-SOA-117",
+                "FM-SOA-116",
                 "FM-SOA-119",
                 "FM-SOA-120",
                 "FM-SOA-122",
-                "FM-SOA-123",
                 "FM-SOA-125",
-                "FM-SOA-127",
-                "FM-SOA-128",
-                "FM-SOA-135"
+                "FM-SOA-134",
+                "FM-SOA-144",
+                "FM-SOA-148",
+                "FM-SOA-149",
+                "FM-SOA-156"
               ]
             },
             {
@@ -586,7 +602,8 @@
               "mode": "chapter_test",
               "lessonId": "fm_ann_level",
               "topics": [
-                "annuities"
+                "annuities",
+                "tvm"
               ],
               "questionTarget": 12,
               "minutes": 24,
@@ -597,22 +614,22 @@
               "xp": 60,
               "unitId": "fm_u2",
               "chapterId": "fm_ch3",
-              "chapterTitle": "Level annuities",
+              "chapterTitle": "Level annuities immediate & due",
               "chapterNumber": 3,
               "cluster": "annuities",
               "assignedQuestionIds": [
                 "FM-SOA-6",
-                "FM-SOA-8",
-                "FM-SOA-11",
-                "FM-SOA-20",
+                "FM-SOA-23",
                 "FM-SOA-37",
                 "FM-SOA-38",
                 "FM-SOA-39",
+                "FM-SOA-44",
+                "FM-SOA-49",
                 "FM-SOA-56",
                 "FM-SOA-57",
                 "FM-SOA-66",
-                "FM-SOA-80",
-                "FM-SOA-81"
+                "FM-SOA-67",
+                "FM-SOA-80"
               ]
             }
           ]
@@ -624,7 +641,8 @@
           "title": "m-thly & continuous",
           "lessonId": "fm_ann_mthly",
           "topics": [
-            "annuities"
+            "annuities",
+            "tvm"
           ],
           "lo": [],
           "icon": "book",
@@ -640,7 +658,8 @@
               "mode": "lesson",
               "lessonId": "fm_ann_mthly",
               "topics": [
-                "annuities"
+                "annuities",
+                "tvm"
               ],
               "questionTarget": 0,
               "readPct": 85,
@@ -663,7 +682,8 @@
               "mode": "practice",
               "lessonId": "fm_ann_mthly",
               "topics": [
-                "annuities"
+                "annuities",
+                "tvm"
               ],
               "questionTarget": 10,
               "readPct": 10,
@@ -676,16 +696,16 @@
               "chapterNumber": 4,
               "cluster": "annuities",
               "assignedQuestionIds": [
-                "FM-SOA-144",
-                "FM-SOA-149",
-                "FM-SOA-156",
                 "FM-SOA-160",
-                "FM-SOA-162",
+                "FM-SOA-164",
+                "FM-SOA-168",
                 "FM-SOA-173",
-                "FM-SOA-174",
                 "FM-SOA-175",
-                "FM-SOA-176",
-                "FM-SOA-179"
+                "FM-SOA-182",
+                "FM-SOA-184",
+                "FM-SOA-190",
+                "FM-SOA-191",
+                "FM-SOA-192"
               ]
             },
             {
@@ -697,7 +717,8 @@
               "mode": "practice",
               "lessonId": "fm_ann_mthly",
               "topics": [
-                "annuities"
+                "annuities",
+                "tvm"
               ],
               "questionTarget": 12,
               "readPct": 5,
@@ -710,18 +731,18 @@
               "chapterNumber": 4,
               "cluster": "annuities",
               "assignedQuestionIds": [
-                "FM-SOA-184",
-                "FM-SOA-192",
-                "FM-SOA-193",
                 "FM-SOA-197",
+                "FM-SOA-211",
+                "FM-SOA-212",
                 "FM-SOA-217",
                 "FM-SOA-218",
                 "FM-SOA-221",
                 "FM-SOA-224",
-                "FM-SOA-236",
-                "FM-SOA-237",
-                "FM-SOA-238",
-                "FM-SOA-240"
+                "FM-SOA-231",
+                "FM-SOA-232",
+                "FM-SOA-240",
+                "FM-SOA-243",
+                "FM-SOA-246"
               ]
             },
             {
@@ -733,7 +754,8 @@
               "mode": "chapter_test",
               "lessonId": "fm_ann_mthly",
               "topics": [
-                "annuities"
+                "annuities",
+                "tvm"
               ],
               "questionTarget": 12,
               "minutes": 24,
@@ -749,17 +771,17 @@
               "cluster": "annuities",
               "assignedQuestionIds": [
                 "FM-SOA-6",
-                "FM-SOA-8",
-                "FM-SOA-11",
-                "FM-SOA-20",
+                "FM-SOA-23",
                 "FM-SOA-37",
                 "FM-SOA-38",
                 "FM-SOA-39",
+                "FM-SOA-44",
+                "FM-SOA-49",
                 "FM-SOA-56",
                 "FM-SOA-57",
                 "FM-SOA-66",
-                "FM-SOA-80",
-                "FM-SOA-81"
+                "FM-SOA-67",
+                "FM-SOA-80"
               ]
             }
           ]
@@ -823,16 +845,16 @@
               "chapterNumber": 5,
               "cluster": "annuities",
               "assignedQuestionIds": [
-                "FM-SOA-244",
-                "FM-SOA-245",
                 "FM-SOA-249",
+                "FM-SOA-250",
                 "FM-SOA-253",
-                "FM-SOA-254",
-                "FM-SOA-259",
                 "FM-SOA-262",
-                "FM-SOA-265",
                 "FM-SOA-272",
-                "FM-SOA-274"
+                "FM-SOA-274",
+                "FM-SOA-275",
+                "FM-SOA-282",
+                "FM-SOA-285",
+                "FM-SOA-288"
               ]
             },
             {
@@ -857,18 +879,18 @@
               "chapterNumber": 5,
               "cluster": "annuities",
               "assignedQuestionIds": [
-                "FM-SOA-275",
-                "FM-SOA-276",
-                "FM-SOA-278",
-                "FM-SOA-280",
-                "FM-SOA-285",
-                "FM-SOA-288",
+                "FM-SOA-289",
                 "FM-SOA-299",
-                "FM-SOA-302",
                 "FM-SOA-304",
                 "FM-SOA-305",
-                "FM-SOA-307",
-                "FM-SOA-308"
+                "FM-SOA-308",
+                "FM-SOA-309",
+                "FM-SOA-310",
+                "FM-SOA-313",
+                "FM-SOA-316",
+                "FM-SOA-322",
+                "FM-SOA-328",
+                "FM-SOA-334"
               ]
             },
             {
@@ -896,17 +918,17 @@
               "cluster": "annuities",
               "assignedQuestionIds": [
                 "FM-SOA-6",
-                "FM-SOA-8",
-                "FM-SOA-11",
-                "FM-SOA-20",
+                "FM-SOA-23",
                 "FM-SOA-37",
                 "FM-SOA-38",
                 "FM-SOA-39",
+                "FM-SOA-44",
+                "FM-SOA-49",
                 "FM-SOA-56",
                 "FM-SOA-57",
                 "FM-SOA-66",
-                "FM-SOA-80",
-                "FM-SOA-81"
+                "FM-SOA-67",
+                "FM-SOA-80"
               ]
             }
           ]
@@ -922,7 +944,7 @@
       "weight": 0.2,
       "weightRange": "15–25%",
       "color": "#7C3AED",
-      "description": "Amortization and sinking funds.",
+      "description": "Amortization schedules and sinking funds.",
       "chapterCount": 2,
       "chapters": [
         {
@@ -932,7 +954,8 @@
           "title": "Amortization",
           "lessonId": "fm_loans",
           "topics": [
-            "loans"
+            "loans",
+            "annuities"
           ],
           "lo": [],
           "icon": "book",
@@ -948,7 +971,8 @@
               "mode": "lesson",
               "lessonId": "fm_loans",
               "topics": [
-                "loans"
+                "loans",
+                "annuities"
               ],
               "questionTarget": 0,
               "readPct": 85,
@@ -971,7 +995,8 @@
               "mode": "practice",
               "lessonId": "fm_loans",
               "topics": [
-                "loans"
+                "loans",
+                "annuities"
               ],
               "questionTarget": 10,
               "readPct": 10,
@@ -985,7 +1010,6 @@
               "cluster": "loans",
               "assignedQuestionIds": [
                 "FM-SOA-64",
-                "FM-SOA-67",
                 "FM-SOA-69",
                 "FM-SOA-88",
                 "FM-SOA-89",
@@ -993,7 +1017,8 @@
                 "FM-SOA-92",
                 "FM-SOA-94",
                 "FM-SOA-126",
-                "FM-SOA-129"
+                "FM-SOA-127",
+                "FM-SOA-128"
               ]
             },
             {
@@ -1005,7 +1030,8 @@
               "mode": "practice",
               "lessonId": "fm_loans",
               "topics": [
-                "loans"
+                "loans",
+                "annuities"
               ],
               "questionTarget": 12,
               "readPct": 5,
@@ -1018,18 +1044,18 @@
               "chapterNumber": 6,
               "cluster": "loans",
               "assignedQuestionIds": [
+                "FM-SOA-129",
                 "FM-SOA-130",
                 "FM-SOA-131",
                 "FM-SOA-132",
                 "FM-SOA-133",
-                "FM-SOA-134",
                 "FM-SOA-161",
-                "FM-SOA-168",
+                "FM-SOA-162",
                 "FM-SOA-169",
+                "FM-SOA-176",
                 "FM-SOA-177",
                 "FM-SOA-183",
-                "FM-SOA-190",
-                "FM-SOA-191"
+                "FM-SOA-187"
               ]
             },
             {
@@ -1041,7 +1067,8 @@
               "mode": "chapter_test",
               "lessonId": "fm_loans",
               "topics": [
-                "loans"
+                "loans",
+                "annuities"
               ],
               "questionTarget": 12,
               "minutes": 24,
@@ -1056,13 +1083,13 @@
               "chapterNumber": 6,
               "cluster": "loans",
               "assignedQuestionIds": [
-                "FM-SOA-5",
                 "FM-SOA-6",
                 "FM-SOA-12",
                 "FM-SOA-13",
                 "FM-SOA-21",
                 "FM-SOA-23",
                 "FM-SOA-33",
+                "FM-SOA-38",
                 "FM-SOA-48",
                 "FM-SOA-49",
                 "FM-SOA-60",
@@ -1079,7 +1106,8 @@
           "title": "Sinking funds",
           "lessonId": "fm_sinking",
           "topics": [
-            "loans"
+            "loans",
+            "annuities"
           ],
           "lo": [],
           "icon": "book",
@@ -1095,7 +1123,8 @@
               "mode": "lesson",
               "lessonId": "fm_sinking",
               "topics": [
-                "loans"
+                "loans",
+                "annuities"
               ],
               "questionTarget": 0,
               "readPct": 85,
@@ -1118,7 +1147,8 @@
               "mode": "practice",
               "lessonId": "fm_sinking",
               "topics": [
-                "loans"
+                "loans",
+                "annuities"
               ],
               "questionTarget": 10,
               "readPct": 10,
@@ -1133,14 +1163,14 @@
               "assignedQuestionIds": [
                 "FM-SOA-203",
                 "FM-SOA-210",
-                "FM-SOA-212",
                 "FM-SOA-220",
                 "FM-SOA-230",
-                "FM-SOA-231",
-                "FM-SOA-232",
-                "FM-SOA-243",
-                "FM-SOA-246",
-                "FM-SOA-251"
+                "FM-SOA-255",
+                "FM-SOA-256",
+                "FM-SOA-265",
+                "FM-SOA-267",
+                "FM-SOA-287",
+                "FM-SOA-296"
               ]
             },
             {
@@ -1152,7 +1182,8 @@
               "mode": "practice",
               "lessonId": "fm_sinking",
               "topics": [
-                "loans"
+                "loans",
+                "annuities"
               ],
               "questionTarget": 12,
               "readPct": 5,
@@ -1165,18 +1196,18 @@
               "chapterNumber": 7,
               "cluster": "loans",
               "assignedQuestionIds": [
-                "FM-SOA-255",
-                "FM-SOA-256",
-                "FM-SOA-267",
-                "FM-SOA-279",
-                "FM-SOA-282",
-                "FM-SOA-287",
-                "FM-SOA-289",
-                "FM-SOA-296",
                 "FM-SOA-300",
                 "FM-SOA-311",
                 "FM-SOA-314",
-                "FM-SOA-323"
+                "FM-SOA-323",
+                "FM-SOA-329",
+                "FM-SOA-331",
+                "FM-SOA-337",
+                "FM-SOA-343",
+                "FM-SOA-351",
+                "FM-SOA-364",
+                "FM-SOA-365",
+                "FM-SOA-368"
               ]
             },
             {
@@ -1188,7 +1219,8 @@
               "mode": "chapter_test",
               "lessonId": "fm_sinking",
               "topics": [
-                "loans"
+                "loans",
+                "annuities"
               ],
               "questionTarget": 12,
               "minutes": 24,
@@ -1203,13 +1235,13 @@
               "chapterNumber": 7,
               "cluster": "loans",
               "assignedQuestionIds": [
-                "FM-SOA-5",
                 "FM-SOA-6",
                 "FM-SOA-12",
                 "FM-SOA-13",
                 "FM-SOA-21",
                 "FM-SOA-23",
                 "FM-SOA-33",
+                "FM-SOA-38",
                 "FM-SOA-48",
                 "FM-SOA-49",
                 "FM-SOA-60",
@@ -1230,17 +1262,18 @@
       "weight": 0.45,
       "weightRange": "Bonds 15–25% + Portfolios 20–30%",
       "color": "#B45309",
-      "description": "Bond pricing plus duration and immunization.",
+      "description": "Bond pricing, book value, duration, immunization.",
       "chapterCount": 2,
       "chapters": [
         {
           "id": "fm_ch8",
           "number": 8,
           "order": 9,
-          "title": "Bond price",
+          "title": "Bond price & book value",
           "lessonId": "fm_bonds",
           "topics": [
-            "bonds"
+            "bonds",
+            "annuities"
           ],
           "lo": [],
           "icon": "book",
@@ -1256,7 +1289,8 @@
               "mode": "lesson",
               "lessonId": "fm_bonds",
               "topics": [
-                "bonds"
+                "bonds",
+                "annuities"
               ],
               "questionTarget": 0,
               "readPct": 85,
@@ -1265,7 +1299,7 @@
               "xp": 25,
               "unitId": "fm_u4",
               "chapterId": "fm_ch8",
-              "chapterTitle": "Bond price",
+              "chapterTitle": "Bond price & book value",
               "chapterNumber": 8,
               "cluster": "bonds",
               "assignedQuestionIds": []
@@ -1279,7 +1313,8 @@
               "mode": "practice",
               "lessonId": "fm_bonds",
               "topics": [
-                "bonds"
+                "bonds",
+                "annuities"
               ],
               "questionTarget": 10,
               "readPct": 10,
@@ -1288,7 +1323,7 @@
               "xp": 30,
               "unitId": "fm_u4",
               "chapterId": "fm_ch8",
-              "chapterTitle": "Bond price",
+              "chapterTitle": "Bond price & book value",
               "chapterNumber": 8,
               "cluster": "bonds",
               "assignedQuestionIds": [
@@ -1313,7 +1348,8 @@
               "mode": "practice",
               "lessonId": "fm_bonds",
               "topics": [
-                "bonds"
+                "bonds",
+                "annuities"
               ],
               "questionTarget": 12,
               "readPct": 5,
@@ -1322,22 +1358,22 @@
               "xp": 35,
               "unitId": "fm_u4",
               "chapterId": "fm_ch8",
-              "chapterTitle": "Bond price",
+              "chapterTitle": "Bond price & book value",
               "chapterNumber": 8,
               "cluster": "bonds",
               "assignedQuestionIds": [
+                "FM-SOA-81",
                 "FM-SOA-91",
                 "FM-SOA-93",
                 "FM-SOA-95",
+                "FM-SOA-96",
                 "FM-SOA-97",
                 "FM-SOA-98",
                 "FM-SOA-100",
                 "FM-SOA-101",
                 "FM-SOA-108",
                 "FM-SOA-109",
-                "FM-SOA-110",
-                "FM-SOA-136",
-                "FM-SOA-137"
+                "FM-SOA-110"
               ]
             },
             {
@@ -1349,7 +1385,8 @@
               "mode": "chapter_test",
               "lessonId": "fm_bonds",
               "topics": [
-                "bonds"
+                "bonds",
+                "annuities"
               ],
               "questionTarget": 12,
               "minutes": 24,
@@ -1360,7 +1397,7 @@
               "xp": 60,
               "unitId": "fm_u4",
               "chapterId": "fm_ch8",
-              "chapterTitle": "Bond price",
+              "chapterTitle": "Bond price & book value",
               "chapterNumber": 8,
               "cluster": "bonds",
               "assignedQuestionIds": [
@@ -1443,6 +1480,7 @@
               "cluster": "bonds",
               "assignedQuestionIds": [
                 "FM-SOA-55",
+                "FM-SOA-102",
                 "FM-SOA-103",
                 "FM-SOA-104",
                 "FM-SOA-145",
@@ -1450,8 +1488,7 @@
                 "FM-SOA-147",
                 "FM-SOA-150",
                 "FM-SOA-152",
-                "FM-SOA-153",
-                "FM-SOA-154"
+                "FM-SOA-153"
               ]
             },
             {
@@ -1477,18 +1514,18 @@
               "chapterNumber": 9,
               "cluster": "bonds",
               "assignedQuestionIds": [
+                "FM-SOA-154",
                 "FM-SOA-155",
                 "FM-SOA-157",
                 "FM-SOA-165",
                 "FM-SOA-181",
                 "FM-SOA-185",
                 "FM-SOA-188",
+                "FM-SOA-193",
                 "FM-SOA-194",
                 "FM-SOA-195",
                 "FM-SOA-199",
-                "FM-SOA-205",
-                "FM-SOA-219",
-                "FM-SOA-223"
+                "FM-SOA-205"
               ]
             },
             {
@@ -1537,27 +1574,24 @@
     {
       "id": "fm_u5",
       "number": 5,
-      "title": "Wrap-up & Mocks",
+      "title": "Wrap-up & Mock Exams",
       "shortTitle": "Wrap",
       "cluster": "wrap",
-      "weight": 0,
+      "weight": 0.0,
       "weightRange": "last 2 weeks",
       "color": "#334155",
-      "description": "Mixed review and full mocks.",
-      "chapterCount": 3,
+      "description": "No new theory. Mixed drills and full mocks.",
+      "chapterCount": 5,
       "chapters": [
         {
           "id": "fm_ch10",
           "number": 10,
           "order": 11,
-          "title": "Mixed review",
+          "title": "Mixed review — TVM & annuities",
           "lessonId": "fm_final",
           "topics": [
             "tvm",
-            "annuities",
-            "loans",
-            "bonds",
-            "portfolios"
+            "annuities"
           ],
           "lo": [],
           "icon": "book",
@@ -1569,15 +1603,12 @@
               "index": 1,
               "type": "lesson",
               "title": "Formula refresh",
-              "subtitle": "Mixed review",
+              "subtitle": "Mixed review — TVM & annuities",
               "mode": "lesson",
               "lessonId": "fm_final",
               "topics": [
                 "tvm",
-                "annuities",
-                "loans",
-                "bonds",
-                "portfolios"
+                "annuities"
               ],
               "questionTarget": 0,
               "readPct": 50,
@@ -1586,7 +1617,7 @@
               "xp": 15,
               "unitId": "fm_u5",
               "chapterId": "fm_ch10",
-              "chapterTitle": "Mixed review",
+              "chapterTitle": "Mixed review — TVM & annuities",
               "chapterNumber": 10,
               "cluster": "wrap",
               "assignedQuestionIds": []
@@ -1601,10 +1632,7 @@
               "lessonId": "fm_final",
               "topics": [
                 "tvm",
-                "annuities",
-                "loans",
-                "bonds",
-                "portfolios"
+                "annuities"
               ],
               "questionTarget": 15,
               "readPct": 10,
@@ -1613,7 +1641,7 @@
               "xp": 30,
               "unitId": "fm_u5",
               "chapterId": "fm_ch10",
-              "chapterTitle": "Mixed review",
+              "chapterTitle": "Mixed review — TVM & annuities",
               "chapterNumber": 10,
               "cluster": "wrap",
               "assignedQuestionIds": [
@@ -1644,10 +1672,7 @@
               "lessonId": "fm_final",
               "topics": [
                 "tvm",
-                "annuities",
-                "loans",
-                "bonds",
-                "portfolios"
+                "annuities"
               ],
               "questionTarget": 12,
               "minutes": 24,
@@ -1658,7 +1683,7 @@
               "xp": 50,
               "unitId": "fm_u5",
               "chapterId": "fm_ch10",
-              "chapterTitle": "Mixed review",
+              "chapterTitle": "Mixed review — TVM & annuities",
               "chapterNumber": 10,
               "cluster": "wrap",
               "assignedQuestionIds": [
@@ -1682,122 +1707,122 @@
           "id": "fm_ch11",
           "number": 11,
           "order": 12,
-          "title": "Full mock 1",
+          "title": "Mixed review — loans & bonds",
           "lessonId": "fm_final",
           "topics": [
-            "tvm",
-            "annuities",
             "loans",
             "bonds",
             "portfolios"
           ],
           "lo": [],
           "icon": "book",
-          "levelCount": 2,
-          "hasChapterTest": false,
+          "levelCount": 3,
+          "hasChapterTest": true,
           "levels": [
             {
-              "id": "fm_ch11_mock",
+              "id": "fm_ch11_l1",
               "index": 1,
-              "type": "full_mock",
-              "title": "Full mock exam",
-              "subtitle": "Exam mode",
-              "mode": "full_mock",
+              "type": "lesson",
+              "title": "Formula refresh",
+              "subtitle": "Mixed review — loans & bonds",
+              "mode": "lesson",
               "lessonId": "fm_final",
               "topics": [
-                "tvm",
-                "annuities",
                 "loans",
                 "bonds",
                 "portfolios"
               ],
-              "questionTarget": 30,
-              "minutes": 180,
-              "passPct": 60,
-              "readPct": 0,
-              "practicePct": 10,
-              "mockPct": 90,
-              "xp": 100,
-              "useExamMode": true,
+              "questionTarget": 0,
+              "readPct": 50,
+              "practicePct": 40,
+              "mockPct": 10,
+              "xp": 15,
               "unitId": "fm_u5",
               "chapterId": "fm_ch11",
-              "chapterTitle": "Full mock 1",
+              "chapterTitle": "Mixed review — loans & bonds",
               "chapterNumber": 11,
               "cluster": "wrap",
-              "assignedQuestionIds": [
-                "FM-SOA-1",
-                "FM-SOA-2",
-                "FM-SOA-3",
-                "FM-SOA-4",
-                "FM-SOA-5",
-                "FM-SOA-6",
-                "FM-SOA-7",
-                "FM-SOA-8",
-                "FM-SOA-9",
-                "FM-SOA-10",
-                "FM-SOA-11",
-                "FM-SOA-12",
-                "FM-SOA-13",
-                "FM-SOA-14",
-                "FM-SOA-15",
-                "FM-SOA-16",
-                "FM-SOA-17",
-                "FM-SOA-18",
-                "FM-SOA-19",
-                "FM-SOA-20",
-                "FM-SOA-21",
-                "FM-SOA-22",
-                "FM-SOA-23",
-                "FM-SOA-24",
-                "FM-SOA-26",
-                "FM-SOA-27",
-                "FM-SOA-29",
-                "FM-SOA-30",
-                "FM-SOA-31",
-                "FM-SOA-32"
-              ]
+              "assignedQuestionIds": []
             },
             {
-              "id": "fm_ch11_review",
+              "id": "fm_ch11_l2",
               "index": 2,
               "type": "practice",
-              "title": "Mock review drill",
-              "subtitle": "Wrong pool + weak topics",
+              "title": "Mixed drill",
+              "subtitle": "15 questions",
               "mode": "practice",
               "lessonId": "fm_final",
               "topics": [
-                "tvm",
-                "annuities",
                 "loans",
                 "bonds",
                 "portfolios"
               ],
               "questionTarget": 15,
-              "readPct": 20,
-              "practicePct": 70,
+              "readPct": 10,
+              "practicePct": 80,
               "mockPct": 10,
               "xp": 30,
               "unitId": "fm_u5",
               "chapterId": "fm_ch11",
-              "chapterTitle": "Full mock 1",
+              "chapterTitle": "Mixed review — loans & bonds",
               "chapterNumber": 11,
               "cluster": "wrap",
               "assignedQuestionIds": [
-                "FM-SOA-1",
-                "FM-SOA-2",
-                "FM-SOA-3",
-                "FM-SOA-4",
-                "FM-SOA-5",
                 "FM-SOA-6",
-                "FM-SOA-7",
-                "FM-SOA-8",
-                "FM-SOA-9",
-                "FM-SOA-10",
-                "FM-SOA-11",
                 "FM-SOA-12",
                 "FM-SOA-13",
-                "FM-SOA-14",
-                "FM-SOA-15"
+                "FM-SOA-21",
+                "FM-SOA-23",
+                "FM-SOA-33",
+                "FM-SOA-38",
+                "FM-SOA-48",
+                "FM-SOA-49",
+                "FM-SOA-60",
+                "FM-SOA-64",
+                "FM-SOA-67",
+                "FM-SOA-69",
+                "FM-SOA-82",
+                "FM-SOA-87"
+              ]
+            },
+            {
+              "id": "fm_ch11_test",
+              "index": 3,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "12Q · pass ≥70%",
+              "mode": "chapter_test",
+              "lessonId": "fm_final",
+              "topics": [
+                "loans",
+                "bonds",
+                "portfolios"
+              ],
+              "questionTarget": 12,
+              "minutes": 24,
+              "passPct": 70,
+              "readPct": 5,
+              "practicePct": 25,
+              "mockPct": 70,
+              "xp": 50,
+              "unitId": "fm_u5",
+              "chapterId": "fm_ch11",
+              "chapterTitle": "Mixed review — loans & bonds",
+              "chapterNumber": 11,
+              "cluster": "wrap",
+              "assignedQuestionIds": [
+                "FM-SOA-6",
+                "FM-SOA-12",
+                "FM-SOA-13",
+                "FM-SOA-21",
+                "FM-SOA-23",
+                "FM-SOA-33",
+                "FM-SOA-38",
+                "FM-SOA-48",
+                "FM-SOA-49",
+                "FM-SOA-60",
+                "FM-SOA-64",
+                "FM-SOA-67"
               ]
             }
           ]
@@ -1806,7 +1831,7 @@
           "id": "fm_ch12",
           "number": 12,
           "order": 13,
-          "title": "Full mock 2",
+          "title": "Full mock 1",
           "lessonId": "fm_final",
           "topics": [
             "tvm",
@@ -1845,7 +1870,7 @@
               "useExamMode": true,
               "unitId": "fm_u5",
               "chapterId": "fm_ch12",
-              "chapterTitle": "Full mock 2",
+              "chapterTitle": "Full mock 1",
               "chapterNumber": 12,
               "cluster": "wrap",
               "assignedQuestionIds": [
@@ -1903,8 +1928,260 @@
               "xp": 30,
               "unitId": "fm_u5",
               "chapterId": "fm_ch12",
-              "chapterTitle": "Full mock 2",
+              "chapterTitle": "Full mock 1",
               "chapterNumber": 12,
+              "cluster": "wrap",
+              "assignedQuestionIds": [
+                "FM-SOA-1",
+                "FM-SOA-2",
+                "FM-SOA-3",
+                "FM-SOA-4",
+                "FM-SOA-5",
+                "FM-SOA-6",
+                "FM-SOA-7",
+                "FM-SOA-8",
+                "FM-SOA-9",
+                "FM-SOA-10",
+                "FM-SOA-11",
+                "FM-SOA-12",
+                "FM-SOA-13",
+                "FM-SOA-14",
+                "FM-SOA-15"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "fm_ch13",
+          "number": 13,
+          "order": 14,
+          "title": "Weakness clinic",
+          "lessonId": "fm_final",
+          "topics": [
+            "annuities",
+            "loans",
+            "bonds",
+            "portfolios"
+          ],
+          "lo": [],
+          "icon": "book",
+          "levelCount": 3,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "fm_ch13_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Formula refresh",
+              "subtitle": "Weakness clinic",
+              "mode": "lesson",
+              "lessonId": "fm_final",
+              "topics": [
+                "annuities",
+                "loans",
+                "bonds",
+                "portfolios"
+              ],
+              "questionTarget": 0,
+              "readPct": 50,
+              "practicePct": 40,
+              "mockPct": 10,
+              "xp": 15,
+              "unitId": "fm_u5",
+              "chapterId": "fm_ch13",
+              "chapterTitle": "Weakness clinic",
+              "chapterNumber": 13,
+              "cluster": "wrap",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "fm_ch13_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Mixed drill",
+              "subtitle": "15 questions",
+              "mode": "practice",
+              "lessonId": "fm_final",
+              "topics": [
+                "annuities",
+                "loans",
+                "bonds",
+                "portfolios"
+              ],
+              "questionTarget": 15,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "fm_u5",
+              "chapterId": "fm_ch13",
+              "chapterTitle": "Weakness clinic",
+              "chapterNumber": 13,
+              "cluster": "wrap",
+              "assignedQuestionIds": [
+                "FM-SOA-6",
+                "FM-SOA-23",
+                "FM-SOA-37",
+                "FM-SOA-38",
+                "FM-SOA-39",
+                "FM-SOA-44",
+                "FM-SOA-49",
+                "FM-SOA-56",
+                "FM-SOA-57",
+                "FM-SOA-66",
+                "FM-SOA-67",
+                "FM-SOA-80",
+                "FM-SOA-82",
+                "FM-SOA-84",
+                "FM-SOA-87"
+              ]
+            },
+            {
+              "id": "fm_ch13_test",
+              "index": 3,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "12Q · pass ≥70%",
+              "mode": "chapter_test",
+              "lessonId": "fm_final",
+              "topics": [
+                "annuities",
+                "loans",
+                "bonds",
+                "portfolios"
+              ],
+              "questionTarget": 12,
+              "minutes": 24,
+              "passPct": 70,
+              "readPct": 5,
+              "practicePct": 25,
+              "mockPct": 70,
+              "xp": 50,
+              "unitId": "fm_u5",
+              "chapterId": "fm_ch13",
+              "chapterTitle": "Weakness clinic",
+              "chapterNumber": 13,
+              "cluster": "wrap",
+              "assignedQuestionIds": [
+                "FM-SOA-6",
+                "FM-SOA-23",
+                "FM-SOA-37",
+                "FM-SOA-38",
+                "FM-SOA-39",
+                "FM-SOA-44",
+                "FM-SOA-49",
+                "FM-SOA-56",
+                "FM-SOA-57",
+                "FM-SOA-66",
+                "FM-SOA-67",
+                "FM-SOA-80"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "fm_ch14",
+          "number": 14,
+          "order": 15,
+          "title": "Full mock 2 + final",
+          "lessonId": "fm_final",
+          "topics": [
+            "tvm",
+            "annuities",
+            "loans",
+            "bonds",
+            "portfolios"
+          ],
+          "lo": [],
+          "icon": "book",
+          "levelCount": 2,
+          "hasChapterTest": false,
+          "levels": [
+            {
+              "id": "fm_ch14_mock",
+              "index": 1,
+              "type": "full_mock",
+              "title": "Full mock exam",
+              "subtitle": "Exam mode",
+              "mode": "full_mock",
+              "lessonId": "fm_final",
+              "topics": [
+                "tvm",
+                "annuities",
+                "loans",
+                "bonds",
+                "portfolios"
+              ],
+              "questionTarget": 30,
+              "minutes": 180,
+              "passPct": 60,
+              "readPct": 0,
+              "practicePct": 10,
+              "mockPct": 90,
+              "xp": 100,
+              "useExamMode": true,
+              "unitId": "fm_u5",
+              "chapterId": "fm_ch14",
+              "chapterTitle": "Full mock 2 + final",
+              "chapterNumber": 14,
+              "cluster": "wrap",
+              "assignedQuestionIds": [
+                "FM-SOA-1",
+                "FM-SOA-2",
+                "FM-SOA-3",
+                "FM-SOA-4",
+                "FM-SOA-5",
+                "FM-SOA-6",
+                "FM-SOA-7",
+                "FM-SOA-8",
+                "FM-SOA-9",
+                "FM-SOA-10",
+                "FM-SOA-11",
+                "FM-SOA-12",
+                "FM-SOA-13",
+                "FM-SOA-14",
+                "FM-SOA-15",
+                "FM-SOA-16",
+                "FM-SOA-17",
+                "FM-SOA-18",
+                "FM-SOA-19",
+                "FM-SOA-20",
+                "FM-SOA-21",
+                "FM-SOA-22",
+                "FM-SOA-23",
+                "FM-SOA-24",
+                "FM-SOA-26",
+                "FM-SOA-27",
+                "FM-SOA-29",
+                "FM-SOA-30",
+                "FM-SOA-31",
+                "FM-SOA-32"
+              ]
+            },
+            {
+              "id": "fm_ch14_review",
+              "index": 2,
+              "type": "practice",
+              "title": "Mock review drill",
+              "subtitle": "Wrong pool + weak topics",
+              "mode": "practice",
+              "lessonId": "fm_final",
+              "topics": [
+                "tvm",
+                "annuities",
+                "loans",
+                "bonds",
+                "portfolios"
+              ],
+              "questionTarget": 15,
+              "readPct": 20,
+              "practicePct": 70,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "fm_u5",
+              "chapterId": "fm_ch14",
+              "chapterTitle": "Full mock 2 + final",
+              "chapterNumber": 14,
               "cluster": "wrap",
               "assignedQuestionIds": [
                 "FM-SOA-1",

@@ -203,6 +203,9 @@
     learn = null;
     saveState({ immediate: true });
     const nq = questions.length;
+    // Header course mark (P / FM / …)
+    const mark = document.querySelector(".app-mark");
+    if (mark) mark.textContent = (courseId || "P").slice(0, 2);
     toast(`Switched to ${courseMeta(courseId)?.shortName || courseId} · ${nq} questions · path ${activePath ? "ready" : "—"}`);
     showView("home");
     renderAll();
@@ -2325,7 +2328,7 @@
     root.innerHTML = `
       <div class="card">
         <h1 class="text-xl font-semibold tracking-tight">Courses</h1>
-        <p class="mt-1 text-sm text-mute">We build courses <strong>one at a time</strong>. Only <strong>Exam P</strong> is fully study-ready right now. FM is next; others stay locked until finished properly.</p>
+        <p class="mt-1 text-sm text-mute">Built <strong>one course at a time</strong>. Ready now: <strong>Exam P</strong> and <strong>Exam FM</strong>. FAM is next; others stay queued.</p>
         <p class="mt-2 text-xs text-mute">Mix: <strong>40% reading</strong> · <strong>50% practice</strong> · <strong>10% mock</strong> · multi-level days OK.</p>
       </div>
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
@@ -2357,7 +2360,7 @@
                 ${prog && ready ? `<div class="pt-1">XP ${prog.xp || 0} · streak ${prog.streak || 0} · wrong ${Object.keys(prog.wrongPool || {}).length}${pathDone != null ? ` · path ${pathDone}%` : ""}</div>` : ""}
               </div>
               <button type="button" class="btn-${ready ? "primary" : "secondary"} w-full mt-4" data-course="${c.id}" ${ready ? "" : "disabled"}>
-                ${active && ready ? "Continue Exam P" : ready ? "Study this course" : next ? "After P" : "Not built yet"}
+                ${active && ready ? `Continue ${escapeHtml(c.shortName)}` : ready ? "Study this course" : next ? "Up next" : "Not built yet"}
               </button>
             </article>`;
           })
@@ -2368,7 +2371,7 @@
         const id = btn.dataset.course;
         const meta = courseMeta(id);
         if (meta?.status !== "ready") {
-          toast(meta?.status === "next" ? "FM is next — finish Exam P path first" : "Not built yet — one course at a time");
+          toast(meta?.status === "next" ? "Next in queue — not study-ready yet" : "Not built yet — one course at a time");
           return;
         }
         btn.disabled = true;
@@ -2654,6 +2657,8 @@
       };
     }
     applyCourseQuestionFilter(state.activeCourseId || "P");
+    const mark = document.querySelector(".app-mark");
+    if (mark) mark.textContent = (state.activeCourseId || "P").slice(0, 2);
 
     if (window.SOACloud) {
       await SOACloud.init();
@@ -2738,8 +2743,8 @@
     if ("serviceWorker" in navigator) {
       try {
         const keys = await caches.keys();
-        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v13").map((k) => caches.delete(k)));
-        await navigator.serviceWorker.register("./sw.js?v=13");
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v14").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=14");
       } catch (e) {
         console.warn(e);
       }

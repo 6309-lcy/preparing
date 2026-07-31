@@ -1,16 +1,16 @@
 {
-  "version": 4,
+  "version": 5,
   "updated": "2026-07-31",
   "activeDefault": "P",
   "buildPolicy": "one_course_at_a_time",
   "courses": [
     {
       "id": "P",
-      "name": "Exam P — Probability",
+      "name": "Exam P \u2014 Probability",
       "shortName": "Exam P",
       "status": "ready",
       "durationWeeks": 14,
-      "examFormat": "30 MCQ · 3 hours · CBT",
+      "examFormat": "30 MCQ \u00b7 3 hours \u00b7 CBT",
       "weights": {
         "general": 0.27,
         "univariate": 0.47,
@@ -25,15 +25,15 @@
       "planPath": "data/courses/p/plan.json",
       "pathPath": "data/courses/p/path.json",
       "structure": "duo_path",
-      "syllabusNote": "SOA 2026: General 23–30%, Univariate 44–50%, Multivariate 23–30%"
+      "syllabusNote": "SOA 2026: General 23\u201330%, Univariate 44\u201350%, Multivariate 23\u201330%"
     },
     {
       "id": "FM",
-      "name": "Exam FM — Financial Mathematics",
+      "name": "Exam FM \u2014 Financial Mathematics",
       "shortName": "Exam FM",
-      "status": "next",
+      "status": "ready",
       "durationWeeks": 14,
-      "examFormat": "30 MCQ · 2.5 hours · CBT",
+      "examFormat": "30 MCQ \u00b7 2.5 hours \u00b7 CBT",
       "weights": {
         "tvm": 0.1,
         "annuities": 0.25,
@@ -46,17 +46,17 @@
         "practice": 0.5,
         "mock": 0.1
       },
-      "description": "Next up after P. Draft path + 455 SOA samples exist — not polished/released yet.",
+      "description": "COMPLETE track: Duolingo path, full lessons, 455 SOA FM samples, chapter tests, 14-week plan.",
       "planPath": "data/courses/fm/plan.json",
       "pathPath": "data/courses/fm/path.json",
       "structure": "duo_path",
-      "syllabusNote": "Build one-by-one: unlock after Exam P is solid for you"
+      "syllabusNote": "SOA FM: TVM ~10%, Annuities ~25%, Loans ~20%, Bonds ~20%, Portfolios/ALM ~25%"
     },
     {
       "id": "FAM",
-      "name": "Exam FAM — Fundamentals of Actuarial Mathematics",
+      "name": "Exam FAM \u2014 Fundamentals of Actuarial Mathematics",
       "shortName": "Exam FAM",
-      "status": "scaffold",
+      "status": "next",
       "durationWeeks": 16,
       "examFormat": "CBT multiple choice",
       "weights": {
@@ -68,15 +68,15 @@
         "practice": 0.5,
         "mock": 0.1
       },
-      "description": "Queued after FM. Draft files may exist; not study-ready yet.",
+      "description": "Next up after FM. Not study-ready yet.",
       "planPath": null,
       "pathPath": null,
       "structure": "duo_path",
-      "syllabusNote": "One-by-one queue"
+      "syllabusNote": "One-by-one queue \u2014 after FM"
     },
     {
       "id": "SRM",
-      "name": "Exam SRM — Statistics for Risk Modeling",
+      "name": "Exam SRM \u2014 Statistics for Risk Modeling",
       "shortName": "Exam SRM",
       "status": "scaffold",
       "durationWeeks": 14,
@@ -101,7 +101,7 @@
     },
     {
       "id": "PA",
-      "name": "Exam PA — Predictive Analytics",
+      "name": "Exam PA \u2014 Predictive Analytics",
       "shortName": "Exam PA",
       "status": "scaffold",
       "durationWeeks": 14,

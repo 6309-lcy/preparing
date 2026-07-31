@@ -903,8 +903,8 @@
   },
   "fm_tvm": {
     "id": "fm_tvm",
-    "title": "Light FM: Time Value of Money",
-    "minutes": 30,
+    "title": "TVM quick review (legacy module)",
+    "minutes": 25,
     "lo": [
       "FM1"
     ],
@@ -912,37 +912,29 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Core TVM language",
-        "body": "Accumulation: future value of 1 after time t is a(t).\nCompound annual effective rate i: a(t)=(1+i)^t\nDiscount factor v=1/(1+i)\nDiscount rate d=i/(1+i), also d=1−v\nForce of interest δ=ln(1+i) when constant\n\nEquation of value: value all cash flows at one comparison date."
+        "title": "Quick sheet",
+        "body": "v=1/(1+i), d=i/(1+i), δ=ln(1+i), (1+i)=(1+i^{(m)}/m)^m."
       },
       {
         "id": "s2",
-        "type": "example",
-        "title": "Worked: effective rate conversion",
-        "setup": "Nominal 12% convertible monthly. Find annual effective i.",
-        "solution": "i=(1+0.12/12)^{12}−1=(1.01)^{12}−1.",
-        "why": "Nominal rates are labels for m-thly compounding; convert to effective before mixing with annual cash flows."
-      },
-      {
-        "id": "s3",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "v = 1/(1+i) is the:",
+        "title": "v",
+        "prompt": "v equals:",
         "choices": {
-          "A": "Force of interest",
-          "B": "Discount factor for one year",
-          "C": "Nominal rate",
-          "D": "Coupon rate"
+          "A": "1+i",
+          "B": "1/(1+i)",
+          "C": "i/(1+i)",
+          "D": "ln(1+i)"
         },
         "answer": "B",
-        "explain": "v discounts a payment one year for annual effective i."
+        "explain": "Discount factor."
       }
     ]
   },
   "fm_ann": {
     "id": "fm_ann",
-    "title": "Light FM: Level annuities",
-    "minutes": 30,
+    "title": "Annuities quick review (legacy module)",
+    "minutes": 25,
     "lo": [
       "FM2"
     ],
@@ -950,30 +942,22 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Annuity-immediate vs due",
-        "body": "Level payments of 1 per period for n periods:\n• Annuity-immediate a∠n| : payments at end of each period; PV at start\n• Annuity-due ä∠n| : payments at beginning of each period\n\nä∠n| = (1+i) a∠n| = 1+a∠n−1|\nAccumulated values s∠n| and s̈∠n| are values at the end of the term."
+        "title": "Quick sheet",
+        "body": "a-angle-n=(1−v^n)/i ; ä-angle-n=(1−v^n)/d ; s-angle-n=((1+i)^n−1)/i."
       },
       {
         "id": "s2",
-        "type": "example",
-        "title": "Worked: PV of annuity-immediate",
-        "setup": "i=5% effective annual. PV of 1 per year for 10 years, first payment in one year.",
-        "solution": "a∠10| = (1−v^{10})/i with v=1/1.05.",
-        "why": "Geometric series of discounted payments collapses to the standard a-angle formula — memorize structure, not only calculator keys."
-      },
-      {
-        "id": "s3",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "Annuity-due payments occur:",
+        "title": "Perpetuity immediate",
+        "prompt": "PV of 1 per year forever (immediate) is:",
         "choices": {
-          "A": "At the end of each period",
-          "B": "At the beginning of each period",
-          "C": "Only at time 0",
-          "D": "Continuously only"
+          "A": "i",
+          "B": "1/i",
+          "C": "d",
+          "D": "1/d"
         },
         "answer": "B",
-        "explain": "Due = beginning; immediate = end."
+        "explain": "Perpetuity-immediate 1/i."
       }
     ]
   },
@@ -1009,8 +993,8 @@
   },
   "fm_setup": {
     "id": "fm_setup",
-    "title": "Exam FM orientation & calculator habits",
-    "minutes": 25,
+    "title": "Exam FM orientation & calculator discipline",
+    "minutes": 30,
     "lo": [
       "FM"
     ],
@@ -1019,34 +1003,42 @@
         "id": "s1",
         "type": "concept",
         "title": "What FM tests",
-        "body": "Exam FM (Financial Mathematics) is a 2.5-hour, 30-question CBT.\n\nSyllabus weights (approx midpoints):\n• Time value of money ~10%\n• Annuities ~25%\n• Loans ~20%\n• Bonds ~20%\n• General cash flows / portfolios / duration ~25%\n\nYou need speed with i, v, d, δ, annuity symbols, amortization, bond pricing, and duration/immunization."
+        "body": "Exam FM is a 2.5-hour, 30-question CBT on financial mathematics.\n\nApproximate syllabus weights (use midpoints for planning):\n• Time value of money ~10% (i, v, d, δ, nominal rates)\n• Annuities ~25% (level, due/immediate, m-thly, continuous, varying)\n• Loans ~20% (amortization, sinking funds)\n• Bonds ~20% (price, book value, callable/redemption)\n• General cash flows / portfolios / duration & immunization ~25%\n\nSpeed with a financial calculator (BA II Plus / TI-30X) is part of the skill."
       },
       {
         "id": "s2",
         "type": "concept",
-        "title": "Study rhythm",
-        "body": "Same Duolingo path as Exam P: Learn → Practice → Drill → Chapter test.\nLast two weeks: wrap + full mocks only. Financial calculator fluency is non-negotiable."
+        "title": "How this course is structured",
+        "body": "Duolingo-style path:\nLevel 1 Learn → Level 2 Practice → Level 3 Drill → Chapter test (≥70%).\nLast two weeks: wrap + full mocks only.\nDo multiple levels per day if you want — soft goal is not a cap."
       },
       {
         "id": "s3",
+        "type": "example",
+        "title": "Worked: exam mindset",
+        "setup": "A stem mixes nominal i^(2) with an annuity-due. What is the first move?",
+        "solution": "Convert everything to one consistent rate period (or use the matching symbol formula). Never mix end-of-year a-angle-n at effective i with half-year coupons without converting.",
+        "why": "Most FM errors are period mismatch, not hard algebra."
+      },
+      {
+        "id": "s4",
         "type": "check",
         "title": "Weight check",
-        "prompt": "Which block is usually the largest combined share on FM?",
+        "prompt": "Which block is usually the largest single topic group?",
         "choices": {
-          "A": "Only TVM formulas",
-          "B": "Annuities + loans + bonds together",
-          "C": "Only swaps",
-          "D": "Only continuous force of interest"
+          "A": "Only force of interest theory",
+          "B": "Annuities (level + variants)",
+          "C": "Only interest rate swaps",
+          "D": "Only continuous annuities"
         },
         "answer": "B",
-        "explain": "Most exam mass sits in annuities, loans, and bonds — not pure theory of i."
+        "explain": "Annuities are typically the biggest pure block; portfolios/duration are also large."
       }
     ]
   },
   "fm_tvm_core": {
     "id": "fm_tvm_core",
-    "title": "Interest measures: i, v, d, δ",
-    "minutes": 40,
+    "title": "Interest measures: i, v, d, δ, nominal rates",
+    "minutes": 50,
     "lo": [
       "FM1"
     ],
@@ -1054,37 +1046,51 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Core symbols",
-        "body": "Effective annual rate i: growth factor (1+i) per year.\nDiscount factor v = 1/(1+i).\nDiscount rate d = i/(1+i) = 1−v.\nForce of interest δ = ln(1+i) when constant; a(t)=e^{δt}.\nNominal rates i^{(m)}, d^{(m)} convert via (1+i)=(1+i^{(m)}/m)^m."
+        "title": "Core identities",
+        "body": "Effective annual rate i: money multiplies by (1+i) per year.\nDiscount factor v = 1/(1+i).\nDiscount rate d = i/(1+i) = 1 − v.\nAlso i = d/(1−d).\nConstant force of interest: δ = ln(1+i), accumulation a(t)=e^{δt}, v^t = e^{−δt}.\n\nNominal rates: i^{(m)} is payable m-thly; (1+i)=(1+i^{(m)}/m)^m.\nSimilarly (1−d)=(1−d^{(m)}/m)^m."
       },
       {
         "id": "s2",
-        "type": "example",
-        "title": "Force from effective",
-        "setup": "i = 0.05 effective annual. Find δ.",
-        "solution": "δ = ln(1.05) ≈ 0.04879.",
-        "why": "Force is the continuous intensity that matches the same annual growth."
+        "type": "concept",
+        "title": "Equivalent rates checklist",
+        "body": "Given any one of i, v, d, δ, i^{(m)}, d^{(m)}, you should convert to any other in under 30 seconds.\nWrite the chain: i ↔ v ↔ d ↔ δ and i ↔ i^{(m)}.\nOn calculator: store i, compute v=1/(1+i), d=i/(1+i), δ=ln(1+i)."
       },
       {
         "id": "s3",
+        "type": "example",
+        "title": "Worked: force from effective",
+        "setup": "i = 0.06 effective annual. Find δ and d.",
+        "solution": "δ = ln(1.06) ≈ 0.05827.\nd = 0.06/1.06 ≈ 0.05660.\nCheck: v=1/1.06, d=1−v.",
+        "why": "Always sanity-check: 0 < d < i < δ is false actually — for positive rates, d < i and δ is between them in a specific way; just verify identities."
+      },
+      {
+        "id": "s4",
+        "type": "example",
+        "title": "Worked: nominal to effective",
+        "setup": "i^{(12)} = 0.12. Find effective annual i.",
+        "solution": "1+i = (1+0.12/12)^{12} = (1.01)^{12} ⇒ i ≈ 0.1268.",
+        "why": "Nominal 12% is not 12% effective — convert before multi-year problems."
+      },
+      {
+        "id": "s5",
         "type": "check",
         "title": "Identity",
-        "prompt": "Which identity is always true?",
+        "prompt": "Which is always true (positive i)?",
         "choices": {
           "A": "d = i(1+i)",
           "B": "v = 1−d",
           "C": "δ = i/(1+i)",
-          "D": "i = d/(1−d) is false"
+          "D": "i^{(m)} = m·i always"
         },
         "answer": "B",
-        "explain": "v=1/(1+i) and d=i/(1+i) ⇒ v=1−d. Also i=d/(1−d)."
+        "explain": "v=1/(1+i) and d=i/(1+i) ⇒ v=1−d."
       }
     ]
   },
   "fm_accum": {
     "id": "fm_accum",
     "title": "Accumulation & present value of single payments",
-    "minutes": 35,
+    "minutes": 45,
     "lo": [
       "FM1"
     ],
@@ -1092,22 +1098,30 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Moving money in time",
-        "body": "Future value: FV = PV · (1+i)^n  (or e^{δn}).\nPresent value: PV = FV · v^n.\nBe careful with payment timing (beginning vs end of period) and nominal conversion periods."
+        "title": "Moving one payment",
+        "body": "Future value: FV = PV · (1+i)^n   or   PV · e^{δn}.\nPresent value: PV = FV · v^n.\nn can be fractional if compounding is continuous or if you use consistent period rate.\nWith nominal i^{(m)}, work in m-ths: period rate j=i^{(m)}/m, periods = m·t."
       },
       {
         "id": "s2",
         "type": "example",
-        "title": "Semiannual nominal",
-        "setup": "100 grows for 7.25 years at 4% convertible semiannually. Find accumulated value.",
-        "solution": "i^{(2)}=0.04 ⇒ j=0.02 per half-year. Periods = 7.25×2 = 14.5.\nAV = 100(1.02)^{14.5}.",
-        "why": "Convert nominal → period rate first; never apply 4% as an effective annual by accident."
+        "title": "Worked: two accounts meet",
+        "setup": "Classic: one account at nominal convertible m-thly, another at force δ; equal values after t years — solve for unknown rate.",
+        "solution": "Set AV1=AV2 ⇒ equate (1+j)^{mt} with e^{δt} (or the other accumulation function). Take logs / roots carefully.",
+        "why": "This is pure TVM algebra — define accumulation functions first."
       },
       {
         "id": "s3",
+        "type": "example",
+        "title": "Worked: fractional year",
+        "setup": "100 grows for 7.25 years at 4% convertible semiannually.",
+        "solution": "j=0.02 per half-year; k=14.5 periods; AV=100(1.02)^{14.5}.",
+        "why": "Count compounding periods, not calendar years with the wrong rate."
+      },
+      {
+        "id": "s4",
         "type": "check",
         "title": "PV factor",
-        "prompt": "At effective i, the PV of 1 due in n years is:",
+        "prompt": "At effective i, PV of 1 due in n years is:",
         "choices": {
           "A": "(1+i)^n",
           "B": "v^n",
@@ -1115,14 +1129,14 @@
           "D": "δ^n"
         },
         "answer": "B",
-        "explain": "Discount with v^n = (1+i)^{-n}."
+        "explain": "Discount with v^n."
       }
     ]
   },
   "fm_ann_level": {
     "id": "fm_ann_level",
     "title": "Level annuities-immediate & due",
-    "minutes": 45,
+    "minutes": 55,
     "lo": [
       "FM2"
     ],
@@ -1130,21 +1144,35 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Standard symbols",
-        "body": "Annuity-immediate ä with n payments of 1 at end of each year:\na-angle-n = (1−v^n)/i.\nAnnuity-due (payments at beginning):\nä-angle-n = (1−v^n)/d = (1+i) a-angle-n.\nPerpetuity-immediate: 1/i; due: 1/d."
+        "title": "Standard annual symbols",
+        "body": "Annuity-immediate (payments of 1 at end of each year for n years):\n  a-angle-n = (1 − v^n) / i\nAnnuity-due (payments at beginning of each year):\n  ä-angle-n = (1 − v^n) / d = (1+i) a-angle-n\nAccumulation of annuity-immediate: s-angle-n = (1+i)^n a-angle-n = ((1+i)^n − 1)/i\nDue accumulation: s̈-angle-n = (1+i) s-angle-n\nPerpetuity-immediate: 1/i ; due: 1/d."
       },
       {
         "id": "s2",
-        "type": "example",
-        "title": "PV of payments",
-        "setup": "Level 500 at end of each year for 10 years, i=6%. PV?",
-        "solution": "PV = 500 · a-angle-10 at 6% = 500(1−1.06^{-10})/0.06.",
-        "why": "Factor out the payment level; use the correct immediate vs due form."
+        "type": "concept",
+        "title": "Payment level X",
+        "body": "If payments are X (not 1), multiply the annuity factor by X.\nPV = X · a-angle-n  (immediate) or X · ä-angle-n (due).\nFirst identify timing: end vs beginning of periods."
       },
       {
         "id": "s3",
+        "type": "example",
+        "title": "Worked: level payment PV",
+        "setup": "500 at end of each year for 10 years, i=6%. PV?",
+        "solution": "PV = 500 · a-angle-10 @ 6% = 500 (1 − 1.06^{−10}) / 0.06.",
+        "why": "Factor out payment size; use immediate form for end-of-year."
+      },
+      {
+        "id": "s4",
+        "type": "example",
+        "title": "Worked: due vs immediate",
+        "setup": "Same payments as above but at the beginning of each year.",
+        "solution": "PV = 500 · ä-angle-10 = 500 (1+i) a-angle-10.",
+        "why": "Due is one period earlier ⇒ multiply immediate PV by (1+i)."
+      },
+      {
+        "id": "s5",
         "type": "check",
-        "title": "Due vs immediate",
+        "title": "Due identity",
         "prompt": "ä-angle-n equals:",
         "choices": {
           "A": "a-angle-n / (1+i)",
@@ -1153,14 +1181,14 @@
           "D": "i · a-angle-n"
         },
         "answer": "B",
-        "explain": "Due payments are each one period earlier ⇒ multiply immediate PV by (1+i)."
+        "explain": "Standard relationship."
       }
     ]
   },
   "fm_ann_mthly": {
     "id": "fm_ann_mthly",
     "title": "m-thly & continuous annuities",
-    "minutes": 40,
+    "minutes": 50,
     "lo": [
       "FM2"
     ],
@@ -1169,10 +1197,24 @@
         "id": "s1",
         "type": "concept",
         "title": "Payable m-thly",
-        "body": "a-angle-n^{(m)} uses period rate i^{(m)}/m or standard formula\na-angle-n^{(m)} = (1−v^n)/i^{(m)}.\nContinuous: ā-angle-n = (1−v^n)/δ.\nRemember: higher payment frequency raises PV for the same annual rate of payment."
+        "body": "Level payments totaling 1 per year, paid m times per year (1/m each):\n  a-angle-n^{(m)} = (1 − v^n) / i^{(m)}\nDue form uses d^{(m)} in the denominator.\nContinuous: ā-angle-n = (1 − v^n) / δ\nMore frequent payments (same annual total) raise PV slightly vs annual immediate."
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "Calculator approach",
+        "body": "Alternatively convert to period rate j and do an mn-payment annuity of 1/m each period.\nBe consistent: either use m-thly symbols or expand to period form — not both mixed."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Worked: monthly payments",
+        "setup": "Pay 1000 per year monthly for 20 years, i=5% effective. PV?",
+        "solution": "First find i^{(12)} from (1+i)=(1+i^{(12)}/12)^{12}, then\nPV = 1000 · a-angle-20^{(12)} = 1000 (1−v^{20}) / i^{(12)}.",
+        "why": "Annual total 1000, paid monthly ⇒ m-thly annuity factor."
+      },
+      {
+        "id": "s4",
         "type": "check",
         "title": "Continuous denom",
         "prompt": "Continuous annuity PV of rate 1 for n years uses denominator:",
@@ -1189,8 +1231,8 @@
   },
   "fm_ann_vary": {
     "id": "fm_ann_vary",
-    "title": "Increasing / decreasing annuities",
-    "minutes": 40,
+    "title": "Increasing, decreasing, and geometric annuities",
+    "minutes": 50,
     "lo": [
       "FM2"
     ],
@@ -1199,16 +1241,30 @@
         "id": "s1",
         "type": "concept",
         "title": "Arithmetic patterns",
-        "body": "Payments 1,2,...,n (immediate) have PV (Ia)-angle-n = (ä-angle-n − n v^n)/i.\nDecreasing n,n−1,...,1: (Da)-angle-n = (n − a-angle-n)/i.\nGeometric growth: payments grow at rate g; use adjusted rate j with 1+j=(1+i)/(1+g)."
+        "body": "Payments 1,2,...,n at year ends (immediate):\n  (Ia)-angle-n = (ä-angle-n − n v^n) / i\nDecreasing n,...,1:\n  (Da)-angle-n = (n − a-angle-n) / i\nThere are due and continuous analogues — match the payment timing in the stem."
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "Geometric growth",
+        "body": "Payments grow by factor (1+g) each period.\nUse adjusted rate j with 1+j = (1+i)/(1+g), then PV = first payment × a-angle-n at rate j\n(with care at the first payment timing).\nIf g=i, special formulas (n v for certain perpetuity/level cases)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Worked: increasing annuity",
+        "setup": "Payments 1,2,...,10 at year-end, interest i. PV?",
+        "solution": "PV = (Ia)-angle-10 = (ä-angle-10 − 10 v^{10}) / i.",
+        "why": "Don't sum 10 separate PVs unless n is tiny — use the closed form."
+      },
+      {
+        "id": "s4",
         "type": "check",
         "title": "Geometric idea",
-        "prompt": "If payments grow at g and interest is i, the PV annuity formula uses an adjusted rate from:",
+        "prompt": "Payments grow at g, interest i. Adjusted rate uses:",
         "choices": {
           "A": "i−g only always",
-          "B": "(1+i)/(1+g)−1",
+          "B": "(1+i)/(1+g) − 1",
           "C": "i+g",
           "D": "δ−g always"
         },
@@ -1219,7 +1275,59 @@
   },
   "fm_loans": {
     "id": "fm_loans",
-    "title": "Loans & amortization",
+    "title": "Loans & amortization schedules",
+    "minutes": 55,
+    "lo": [
+      "FM3"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Level payment loan",
+        "body": "Loan principal L repaid by n level payments X:\n  L = X · a-angle-n  ⇒  X = L / a-angle-n\nOutstanding balance after k payments (prospective):\n  OB_k = X · a-angle-(n−k)\nRetrospective:\n  OB_k = L(1+i)^k − X · s-angle-k\nInterest portion of payment k: I_k = i · OB_{k−1}\nPrincipal portion: P_k = X − I_k"
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Drop payments & refinancing",
+        "body": "If a payment is missed or extra principal is paid, recompute OB then re-amortize remaining term or new payment.\nProspective method is usually cleanest after a change."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Worked: find level payment",
+        "setup": "Loan 10,000 for 5 years, i=6% annual, level end-of-year payments.",
+        "solution": "X = 10000 / a-angle-5 @ 6%.",
+        "why": "Always start from L = X a-angle-n unless the stem says otherwise."
+      },
+      {
+        "id": "s4",
+        "type": "example",
+        "title": "Worked: interest in a payment",
+        "setup": "After finding X and OB_2, interest in 3rd payment is i·OB_2.",
+        "solution": "I_3 = i · OB_2; principal = X − I_3.",
+        "why": "Interest is always rate times prior balance."
+      },
+      {
+        "id": "s5",
+        "type": "check",
+        "title": "Prospective OB",
+        "prompt": "After k level payments on an n-payment loan, OB equals X times:",
+        "choices": {
+          "A": "a-angle-n",
+          "B": "a-angle-(n−k)",
+          "C": "s-angle-k",
+          "D": "v^k"
+        },
+        "answer": "B",
+        "explain": "Remaining annuity of n−k payments."
+      }
+    ]
+  },
+  "fm_sinking": {
+    "id": "fm_sinking",
+    "title": "Sinking fund loans",
     "minutes": 45,
     "lo": [
       "FM3"
@@ -1228,49 +1336,19 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Prospective & retrospective",
-        "body": "Loan of L repaid by level payments X for n periods: L = X · a-angle-n.\nOutstanding balance after k payments (prospective):\nOB_k = X · a-angle-(n−k).\nRetrospective: OB_k = L(1+i)^k − X · s-angle-k.\nInterest in payment k: i · OB_{k−1}; principal = X − interest."
+        "title": "Interest + sink",
+        "body": "Borrower pays interest each period on the full principal L at loan rate i,\nplus deposits into a sinking fund that accumulates to L at maturity at SF rate j.\nLevel SF deposit D = L / s-angle-n @ j.\nTotal periodic outlay = L·i + D  (if interest paid currently on full L).\nIf j ≠ i, only the SF uses j; interest leg uses i."
       },
       {
         "id": "s2",
         "type": "example",
-        "title": "Level loan payment",
-        "setup": "Loan 10,000, n=5, i=6% annual. Level end-of-year payment?",
-        "solution": "X = 10000 / a-angle-5 at 6%.",
-        "why": "Always start from L = X a-angle-n unless stated otherwise."
+        "title": "Worked: total payment",
+        "setup": "L=1000, n=10, loan interest 8%, SF earns 6%. Annual total payment?",
+        "solution": "Interest leg = 1000·0.08=80.\nD = 1000 / s-angle-10 @ 6%.\nTotal = 80 + D.",
+        "why": "Two rates ⇒ two calculations."
       },
       {
         "id": "s3",
-        "type": "check",
-        "title": "Prospective OB",
-        "prompt": "After k level payments on an n-payment loan, OB equals payment times:",
-        "choices": {
-          "A": "a-angle-n",
-          "B": "a-angle-(n−k)",
-          "C": "s-angle-k",
-          "D": "v^k"
-        },
-        "answer": "B",
-        "explain": "Prospective method: remaining annuity of n−k payments."
-      }
-    ]
-  },
-  "fm_sinking": {
-    "id": "fm_sinking",
-    "title": "Sinking funds",
-    "minutes": 35,
-    "lo": [
-      "FM3"
-    ],
-    "sections": [
-      {
-        "id": "s1",
-        "type": "concept",
-        "title": "Interest + sinking deposit",
-        "body": "Borrower pays interest each period on full principal plus deposits into a sinking fund that accumulates to principal at maturity.\nTotal payment = L·i + L / s-angle-n  (if SF earns same i).\nIf SF rate differs, use that rate in s-angle-n only."
-      },
-      {
-        "id": "s2",
         "type": "check",
         "title": "SF deposit",
         "prompt": "To accumulate L in n periods at rate j in a sinking fund, level deposit is:",
@@ -1281,14 +1359,14 @@
           "D": "L·v^n"
         },
         "answer": "B",
-        "explain": "Future-value annuity s-angle-n accumulates deposits to L."
+        "explain": "Future-value annuity accumulates deposits to L."
       }
     ]
   },
   "fm_bonds": {
     "id": "fm_bonds",
-    "title": "Bond price, premium, discount",
-    "minutes": 45,
+    "title": "Bond price, premium, discount, book value",
+    "minutes": 55,
     "lo": [
       "FM4"
     ],
@@ -1297,18 +1375,32 @@
         "id": "s1",
         "type": "concept",
         "title": "Price formula",
-        "body": "Bond with face F, redemption C, coupon rate r (coupon Fr per year, or Fr/m m-thly), yield rate i:\nPrice P = Fr · a-angle-n + C v^n  (adjust for m-thly).\nIf P>C: premium; P<C: discount.\nBook value follows amortization of premium/discount."
+        "body": "Bond: face F, redemption C, n coupon periods, coupon rate r per period on F (coupon Fr),\nyield rate i per coupon period:\n  P = Fr · a-angle-n + C v^n\nIf coupons m-thly and yields nominal, convert to matching period rates first.\nP > C ⇒ premium; P < C ⇒ discount; P = C ⇒ par (when coupon rate equals yield, C=F typically)."
       },
       {
         "id": "s2",
-        "type": "example",
-        "title": "Par bond",
-        "setup": "If coupon rate equals yield and C=F, price is par.",
-        "solution": "P = F — coupons exactly compensate required yield.",
-        "why": "Par is the special case r=i (with matching payment frequency)."
+        "type": "concept",
+        "title": "Book value amortization",
+        "body": "Book value just after a coupon follows the prospective formula with remaining coupons,\nor recursive: BV_k = BV_{k−1}(1+i) − coupon.\nPremium/discount write-down is |coupon − i·BV|."
       },
       {
         "id": "s3",
+        "type": "example",
+        "title": "Worked: basic price",
+        "setup": "Face 1000, 10 years, 5% annual coupons, yield 6%, redeem at par.",
+        "solution": "P = 50 a-angle-10 @ 6% + 1000 v^{10} @ 6%.",
+        "why": "Coupon = 0.05·1000=50; redemption C=1000."
+      },
+      {
+        "id": "s4",
+        "type": "example",
+        "title": "Worked: premium vs discount",
+        "setup": "Same bond if yield is 4% instead of 6%.",
+        "solution": "Lower yield ⇒ higher price ⇒ premium bond (P>1000).",
+        "why": "Price and yield move inversely."
+      },
+      {
+        "id": "s5",
         "type": "check",
         "title": "Premium",
         "prompt": "A bond sells at a premium when:",
@@ -1326,7 +1418,7 @@
   "fm_duration": {
     "id": "fm_duration",
     "title": "Duration, convexity, immunization",
-    "minutes": 45,
+    "minutes": 55,
     "lo": [
       "FM5"
     ],
@@ -1334,11 +1426,25 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Macaulay & modified",
-        "body": "Macaulay duration MacD = weighted average payment time using PV weights.\nModified duration ModD = MacD / (1+i)  (for effective i per period).\nRelative price change ≈ −ModD · Δi.\nRedington immunization: PV assets = PV liabilities, ModD match, convexity assets ≥ liabilities."
+        "title": "Macaulay & modified duration",
+        "body": "Macaulay duration MacD = weighted average payment time using PV weights of each cash flow.\nFor a level-yield i per period: ModD = MacD / (1+i).\nRelative price change: ΔP/P ≈ −ModD · Δi  (first order).\nConvexity adds a positive second-order term — prices rise more / fall less than duration alone predicts."
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "Redington immunization",
+        "body": "To immunize a liability:\n1) PV(assets) = PV(liabilities)\n2) MacD or ModD match (same derivative w.r.t. i)\n3) Convexity of assets ≥ convexity of liabilities\nAssumes small parallel yield shifts and cash flows fixed."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Worked: duration intuition",
+        "setup": "Zero-coupon bond maturing in n years has MacD = n.",
+        "solution": "All weight sits at time n ⇒ MacD=n. Coupon bonds have MacD < maturity.",
+        "why": "More coupons earlier ⇒ shorter duration."
+      },
+      {
+        "id": "s4",
         "type": "check",
         "title": "Price sensitivity",
         "prompt": "If yields rise slightly, bond prices:",
@@ -1355,8 +1461,8 @@
   },
   "fm_final": {
     "id": "fm_final",
-    "title": "FM wrap-up checklist",
-    "minutes": 30,
+    "title": "FM wrap-up & mock strategy",
+    "minutes": 35,
     "lo": [
       "FM"
     ],
@@ -1364,19 +1470,25 @@
       {
         "id": "s1",
         "type": "concept",
-        "title": "Formula gate",
-        "body": "Before mocks, recite cold:\n• v,d,δ conversions\n• a, ä, s, s̈, (Ia), (Da)\n• Loan OB prospective/retrospective\n• Bond price + book value\n• MacD / ModD / Redington conditions"
+        "title": "Cold formula gate",
+        "body": "Before mocks, rewrite from memory:\n• i,v,d,δ and nominal conversions\n• a, ä, s, s̈, a^{(m)}, ā, (Ia), (Da)\n• Loan OB prospective/retrospective + I_k, P_k\n• Bond price + book value recursion\n• MacD, ModD, Redington conditions"
       },
       {
         "id": "s2",
+        "type": "concept",
+        "title": "Mock loop",
+        "body": "Full 30Q / 2.5h → tag misses (period mismatch / formula / calculator) → micro-drill → re-mock.\nNo new theory in the final two weeks."
+      },
+      {
+        "id": "s3",
         "type": "check",
-        "title": "Ready?",
-        "prompt": "Last two weeks of the path should emphasize:",
+        "title": "Final weeks",
+        "prompt": "Best use of the last two weeks:",
         "choices": {
-          "A": "Brand new theory only",
-          "B": "Mixed timed sets + full mocks",
-          "C": "Only reading Finan once",
-          "D": "Skipping bonds"
+          "A": "Brand-new exotic derivatives only",
+          "B": "Timed mixed sets + full mocks + wrong pool",
+          "C": "Only passive videos",
+          "D": "Skip bonds"
         },
         "answer": "B",
         "explain": "Wrap unit is mock-heavy by design."
