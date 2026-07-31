@@ -1247,6 +1247,24 @@
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
   }
+
+  /** Textbook bodies: escape HTML, keep KaTeX $...$ / $$...$$, light paragraphing */
+  function formatLessonHtml(text) {
+    const raw = String(text || "");
+    const esc = escapeHtml(raw);
+    return esc
+      .split(/\n\n+/)
+      .map((block) => {
+        const t = block.trim();
+        if (!t) return "";
+        // display-math-only block
+        if (/^\$\$[\s\S]+\$\$$/.test(t.replace(/\n/g, " ").trim()) || (t.startsWith("$$") && t.endsWith("$$"))) {
+          return `<div class="lesson-math">${t}</div>`;
+        }
+        return `<p class="lesson-p">${t.replace(/\n/g, "<br/>")}</p>`;
+      })
+      .join("");
+  }
   function downloadJSON(filename, obj) {
     const blob = new Blob([JSON.stringify(obj, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
@@ -1758,20 +1776,20 @@
       .join("");
 
     let body = "";
-    if (section.type === "concept") {
-      body = `<span class="tag tag-concept">Concept</span>
-        <h3 class="text-base font-semibold tracking-tight">${escapeHtml(section.title)}</h3>
-        <div class="body mt-3">${escapeHtml(section.body)}</div>
+    if (section.type === "concept" || section.type === "textbook") {
+      body = `<span class="tag tag-concept">${section.type === "textbook" ? "Reading" : "Concept"}</span>
+        <h3 class="text-base font-semibold tracking-tight font-display">${escapeHtml(section.title)}</h3>
+        <div class="lesson-body mt-3">${formatLessonHtml(section.body)}</div>
         <div class="row mt-5">
           <button class="btn-primary grow" id="btnMarkNext">Continue</button>
           <button class="btn-grok grow" id="btnGrokSec">Ask Grok</button>
         </div>`;
     } else if (section.type === "example") {
       body = `<span class="tag tag-example">Worked example</span>
-        <h3 class="text-base font-semibold tracking-tight">${escapeHtml(section.title)}</h3>
-        <div class="body mt-3"><strong>Setup</strong>\n${escapeHtml(section.setup)}</div>
-        <div class="solution-box"><strong>Solution</strong>\n${escapeHtml(section.solution)}</div>
-        <div class="why-box"><strong>Why this matters</strong> — ${escapeHtml(section.why)}</div>
+        <h3 class="text-base font-semibold tracking-tight font-display">${escapeHtml(section.title)}</h3>
+        <div class="lesson-body mt-3"><div class="text-xs font-semibold uppercase tracking-wide text-mute mb-1">Setup</div>${formatLessonHtml(section.setup)}</div>
+        <div class="solution-box"><strong>Solution</strong><div class="lesson-body mt-2">${formatLessonHtml(section.solution)}</div></div>
+        <div class="why-box"><strong>Why this matters</strong> — <span class="lesson-inline">${formatLessonHtml(section.why)}</span></div>
         <div class="row mt-5">
           <button class="btn-primary grow" id="btnMarkNext">Continue</button>
           <button class="btn-grok grow" id="btnGrokSec">Ask Grok</button>
@@ -1790,8 +1808,8 @@
         })
         .join("");
       body = `<span class="tag tag-check">Concept check</span>
-        <h3 class="text-base font-semibold tracking-tight">${escapeHtml(section.title)}</h3>
-        <div class="body mt-3">${escapeHtml(section.prompt)}</div>
+        <h3 class="text-base font-semibold tracking-tight font-display">${escapeHtml(section.title)}</h3>
+        <div class="lesson-body mt-3">${formatLessonHtml(section.prompt)}</div>
         <div class="mt-3">${choices}</div>
         <div class="feedback ${learn.checkRevealed ? "show " + (learn.selectedCheck === section.answer ? "ok" : "bad") : ""}">
           ${learn.checkRevealed

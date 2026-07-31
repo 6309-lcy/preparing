@@ -1,524 +1,469 @@
 {
   "setup": {
     "id": "setup",
-    "title": "How Exam P works & how to study",
-    "minutes": 25,
+    "title": "How probability models work on Exam P",
+    "minutes": 35,
     "lo": [
       "all"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "What Exam P actually tests",
-        "body": "Exam P is a 3-hour, 30-question multiple-choice CBT. Weights are roughly:\n\n• General Probability 23–30%\n• Univariate random variables 44–50% (biggest)\n• Multivariate 23–30%\n\nYou are not tested on measure theory, coding, or advanced finance. You are tested on whether you can set up a probability model quickly and compute cleanly under time pressure."
+        "id": "t1",
+        "type": "textbook",
+        "title": "What you are really computing",
+        "body": "Exam P is not “memorize a list of named distributions.” Almost every item is:\n\n1. Define a sample space or a random variable $X$ that matches the story.\n2. Write the event of interest as a set involving $X$ (or several variables).\n3. Compute a probability or expectation using the correct tool (counting, axioms, PMF/PDF, conditioning, joint, transform).\n\nA random variable is a function from outcomes to real numbers. Once $X$ is defined, “the insurer pays…” becomes something like $Y=(X-d)_+$ and you compute $E[Y]$ — not a vague English sentence."
       },
       {
-        "id": "s2",
-        "type": "concept",
-        "title": "How this app forces good study",
-        "body": "Each day has two gates:\n\n1) Learn session — concept, worked examples, and why the method works\n2) Quiz — about 20 exam-style MC questions\n\nYou cannot start the quiz until the learn session is finished (sections + concept checks). Wrong quiz answers go to a Wrong Pool and come back later."
+        "id": "t2",
+        "type": "textbook",
+        "title": "Probability as a set function",
+        "body": "A probability measure $P$ on events satisfies:\n\n$$P(A)\\ge 0,\\quad P(S)=1,\\quad A\\cap B=\\emptyset \\Rightarrow P(A\\cup B)=P(A)+P(B).$$\n\nFrom these:\n\n$$P(A^c)=1-P(A),\\qquad P(A\\cup B)=P(A)+P(B)-P(A\\cap B).$$\n\nWhen outcomes are equally likely, the classical model is $P(A)=\\#A/\\#S$. Use it only when the symmetry is justified."
       },
       {
-        "id": "s3",
+        "id": "e1",
         "type": "example",
-        "title": "Example of the right exam mindset",
-        "setup": "A problem mentions “ordinary deductible of 100” and asks for the insurer’s expected payment.",
-        "solution": "Do not jump into calculus blindly. First define X = loss, then payment Y = max(X−100, 0) or (X−100)+. Then compute E[Y] with the correct distribution of X.",
-        "why": "Exam P rewards clean definitions. Most errors are wrong random variable, not hard math."
+        "title": "Define the RV first",
+        "setup": "A policy has ordinary deductible $100$. Loss is $X$. What should you compute for expected insurer payment?",
+        "solution": "Define $Y=(X-100)_+=\\max(X-100,0)$. The exam wants $E[Y]$, often via\n$$E[Y]=E[X]-E[X\\wedge 100]$$\nor by integrating the survival function of $X$ above $100$.",
+        "why": "Wrong RV $\\Rightarrow$ wrong integral. Setup errors dominate arithmetic errors."
       },
       {
-        "id": "s4",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "Which topic cluster carries the largest syllabus weight on Exam P?",
+        "title": "Core object",
+        "prompt": "On Exam P, after reading a word problem, the best first move is usually:",
         "choices": {
-          "A": "General probability only",
-          "B": "Univariate random variables",
-          "C": "Multivariate only",
-          "D": "Financial mathematics"
+          "A": "Guess a normal approximation immediately",
+          "B": "Define the random variable / event precisely",
+          "C": "Ignore deductibles",
+          "D": "Only count sample size"
         },
         "answer": "B",
-        "explain": "Univariate RVs are 44–50% of the exam — plan most practice there."
+        "explain": "Everything else is mechanical once $X$ and the event are correct."
       }
     ]
   },
   "general_sets": {
     "id": "general_sets",
     "title": "Sets, events, and Venn probability",
-    "minutes": 40,
+    "minutes": 50,
     "lo": [
       "P1a"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
+        "id": "t1",
+        "type": "textbook",
         "title": "Sample space and events",
-        "body": "A random experiment has a sample space S (all possible outcomes).\n\nAn event A is a subset of S. Probability is a function P(·) on events with axioms:\n\n1) P(A) ≥ 0\n2) P(S) = 1\n3) If A and B are disjoint (A∩B=∅), then P(A∪B)=P(A)+P(B)\n\nFrom these you get P(Aᶜ)=1−P(A) and inclusion-exclusion."
+        "body": "A random experiment has a sample space $S$ (all possible outcomes). An event $A$ is a subset of $S$.\n\nSet operations:\n\n- Union $A\\cup B$: $A$ or $B$ or both\n- Intersection $A\\cap B$: both\n- Complement $A^c$: not $A$\n- Difference $A\\setminus B=A\\cap B^c$\n\nEvents $A$ and $B$ are mutually exclusive (disjoint) if $A\\cap B=\\emptyset$."
       },
       {
-        "id": "s2",
-        "type": "concept",
-        "title": "Unions, intersections, complements",
-        "body": "A∪B: A or B or both\nA∩B: both\nAᶜ: not A\n\nInclusion-exclusion (2 sets):\nP(A∪B)=P(A)+P(B)−P(A∩B)\n\nFor 3 sets, expand carefully with all pairwise intersections and the triple intersection."
+        "id": "t2",
+        "type": "textbook",
+        "title": "Inclusion–exclusion",
+        "body": "For two events:\n$$P(A\\cup B)=P(A)+P(B)-P(A\\cap B).$$\n\nFor three events:\n$$\\begin{aligned}\nP(A\\cup B\\cup C)\n&=P(A)+P(B)+P(C)\\\\\n&\\quad -P(A\\cap B)-P(A\\cap C)-P(B\\cap C)\\\\\n&\\quad +P(A\\cap B\\cap C).\n\\end{aligned}$$\n\n“None of the three” is $1-P(A\\cup B\\cup C)$. “Exactly one” expands into three disjoint pieces."
       },
       {
-        "id": "s3",
+        "id": "e1",
         "type": "example",
-        "title": "Worked: none of three sports",
-        "setup": "P(G)=0.28, P(B)=0.29, P(S)=0.19, P(G∩B)=0.14, P(B∩S)=0.12, P(G∩S)=0.10, P(G∩B∩S)=0.08. Find % who watched none.",
-        "solution": "P(G∪B∪S)=0.28+0.29+0.19 −0.14−0.12−0.10 +0.08 = 0.48.\nP(none)=1−0.48=0.52 → 52%.",
-        "why": "We convert “none” into the complement of the union. Complements are almost always easier than listing every outside region."
+        "title": "Worked: none of three",
+        "setup": "$P(G)=0.28$, $P(B)=0.29$, $P(S)=0.19$, pairwise intersections $0.14,0.12,0.10$, triple $0.08$. Find $P(\\text{none})$.",
+        "solution": "$$P(G\\cup B\\cup S)=0.28+0.29+0.19-0.14-0.12-0.10+0.08=0.48.$$\n$$P(\\text{none})=1-0.48=0.52.$$",
+        "why": "Complements turn “none” into one subtraction after a careful union."
       },
       {
-        "id": "s4",
-        "type": "example",
-        "title": "Worked: both lab and referral",
-        "setup": "P(neither lab nor referral)=0.35, P(referral)=0.30, P(lab)=0.40. Find P(both).",
-        "solution": "P(L∪R)=1−0.35=0.65.\nP(L∩R)=P(L)+P(R)−P(L∪R)=0.40+0.30−0.65=0.05.",
-        "why": "Inclusion-exclusion rearranges to isolate the intersection when the union is known via a complement statement."
-      },
-      {
-        "id": "s5",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "If A and B are disjoint, which is always true?",
+        "title": "Disjoint additivity",
+        "prompt": "If $A\\cap B=\\emptyset$, then $P(A\\cup B)$ equals:",
         "choices": {
-          "A": "P(A∪B)=P(A)P(B)",
-          "B": "P(A∪B)=P(A)+P(B)",
-          "C": "P(A|B)=P(A)",
-          "D": "P(A∩B)=P(A)"
+          "A": "$P(A)P(B)$",
+          "B": "$P(A)+P(B)$",
+          "C": "$P(A)-P(B)$",
+          "D": "$1-P(A\\cap B)$"
         },
         "answer": "B",
-        "explain": "Disjoint ⇒ intersection empty ⇒ probabilities add. Independence is the product rule, which is different."
+        "explain": "Axiom of countable/finite additivity for disjoint events."
       }
     ]
   },
   "general_count": {
     "id": "general_count",
-    "title": "Counting: permutations & combinations",
+    "title": "Counting: permutations and combinations",
     "minutes": 55,
     "lo": [
       "P1b"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "When order matters",
-        "body": "Fundamental counting: if stage 1 has n1 options, stage 2 has n2, … total = n1·n2·…\n\nPermutations (order matters):\nP(n,k)=n!/(n−k)!\n\nCombinations (order does not matter):\nC(n,k)=n!/(k!(n−k)!)\n\nClassic rule: if the problem says “committee”, “hand of cards”, “choose a set”, use C. If it says “rank”, “assign distinct roles”, “password order”, use P."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Product rule",
+        "body": "If a procedure has stages with $n_1,n_2,\\ldots$ options (and choices don’t interfere), the total number of outcomes is\n$$n_1\\cdot n_2\\cdot n_3\\cdots$$\n\nWith replacement, denominators stay fixed. Without replacement, they shrink."
       },
       {
-        "id": "s2",
+        "id": "t2",
+        "type": "textbook",
+        "title": "Permutations vs combinations",
+        "body": "Order matters (rankings, passwords, assigning distinct roles):\n$$P(n,k)=\\frac{n!}{(n-k)!}=n(n-1)\\cdots(n-k+1).$$\n\nOrder does not matter (committees, hands of cards, subsets):\n$$C(n,k)=\\binom{n}{k}=\\frac{n!}{k!(n-k)!}.$$\n\nMultinomial coefficient for splitting $n$ distinct objects into labeled groups of sizes $n_1,\\ldots,n_r$ with $\\sum n_i=n$:\n$$\\frac{n!}{n_1!\\cdots n_r!}.$$"
+      },
+      {
+        "id": "e1",
         "type": "example",
-        "title": "Worked: urn / same color balls",
-        "setup": "Urn1: 4 red, 6 blue. Urn2: 16 red, x blue. One ball from each. P(same color)=0.44. Find x.",
-        "solution": "P(same)=Pboth red + Pboth blue.\n(4/10)(16/(16+x)) + (6/10)(x/(16+x))=0.44.\nSolve → x=4.",
-        "why": "We multiply across independent draws, then add mutually exclusive color cases. Counting denominators is just sizes of urns."
+        "title": "Worked: roles vs committee",
+        "setup": "From 10 people: (a) choose a 3-person committee; (b) choose president, secretary, treasurer (distinct).",
+        "solution": "(a) $\\binom{10}{3}=120$.\n\n(b) $P(10,3)=10\\cdot 9\\cdot 8=720$.",
+        "why": "Same people; order/roles change the count by a factor of $3!=6$."
       },
       {
-        "id": "s3",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "Number of 5-card hands from 52 cards uses:",
+        "title": "Which tool?",
+        "prompt": "A 4-character password from 10 distinct symbols, no repeats. Use:",
         "choices": {
-          "A": "52^5",
-          "B": "P(52,5)",
-          "C": "C(52,5)",
-          "D": "5!"
-        },
-        "answer": "C",
-        "explain": "A hand is an unordered set of cards → combinations."
-      },
-      {
-        "id": "s4",
-        "type": "concept",
-        "title": "With/without replacement & identical objects",
-        "body": "Without replacement: denominators shrink (hypergeometric-style counting).\nWith replacement / independent trials: denominators stay fixed.\n\nMultinomial coefficient for splitting n distinct into groups of sizes n1,...,nk:\n n!/(n1! ... nk!).\n\nIf objects are identical within type, count distinct sequences carefully — do not overcount."
-      },
-      {
-        "id": "s5",
-        "type": "example",
-        "title": "Worked: committee with roles vs without",
-        "setup": "10 people. (a) Choose 3 for a committee. (b) Choose president, secretary, treasurer (distinct).",
-        "solution": "(a) C(10,3)=120.\n(b) P(10,3)=10·9·8=720.",
-        "why": "Same people, different whether order/roles matter. Misreading this is the #1 counting trap."
-      },
-      {
-        "id": "s6",
-        "type": "check",
-        "title": "Order check",
-        "prompt": "Passwords of length 4 from 10 distinct chars, no repeat — use:",
-        "choices": {
-          "A": "C(10,4)",
-          "B": "P(10,4)",
-          "C": "10^4 only if no-repeat",
-          "D": "4!"
+          "A": "$\\binom{10}{4}$",
+          "B": "$P(10,4)$",
+          "C": "$10^4$ with no-repeat rule already",
+          "D": "$4!$"
         },
         "answer": "B",
-        "explain": "Order matters and no repeats ⇒ permutation P(10,4)."
+        "explain": "Order matters and no repeats $\\Rightarrow$ permutation."
       }
     ]
   },
   "general_axioms": {
     "id": "general_axioms",
-    "title": "Probability axioms & classical probability",
+    "title": "Probability axioms and identities",
     "minutes": 50,
     "lo": [
-      "P1a",
-      "P1e"
+      "P1a"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Building probabilities from axioms",
-        "body": "Useful identities:\n• P(Aᶜ)=1−P(A)\n• If A⊂B then P(A)≤P(B)\n• P(A∪B)=P(A)+P(B)−P(A∩B)\n• P(A∪B∪C) expanded form for 3 sets\n\nClassical model (equally likely outcomes):\nP(A)=# favorable / # possible\nOnly use this when outcomes truly are equally likely."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Derived identities",
+        "body": "From the axioms:\n$$P(A^c)=1-P(A),\\qquad A\\subset B\\Rightarrow P(A)\\le P(B),$$\n$$P(A)=P(A\\cap B)+P(A\\cap B^c).$$\n\nBoole’s inequality: $P(\\cup_i A_i)\\le \\sum_i P(A_i)$.\n\nIf $\\{B_i\\}$ partition $S$, then for any $A$:\n$$P(A)=\\sum_i P(A\\cap B_i).$$"
       },
       {
-        "id": "s2",
+        "id": "t2",
+        "type": "textbook",
+        "title": "Exactly one of two events",
+        "body": "The event “exactly one of $A,B$” is the symmetric difference:\n$$(A\\cap B^c)\\cup (A^c\\cap B).$$\n\nIts probability is\n$$P(A)+P(B)-2P(A\\cap B).$$"
+      },
+      {
+        "id": "e1",
         "type": "example",
-        "title": "Worked: complement shortcut",
-        "setup": "P(A∪B)=0.7 and P(A∪Bᶜ)=0.9. Find P(A).",
-        "solution": "Note B and Bᶜ partition. A = (A∩B)∪(A∩Bᶜ).\nAlso P(A∪B)+P(A∪Bᶜ)=P(A)+1 ⇒ 0.7+0.9=P(A)+1 ⇒ P(A)=0.6.",
-        "why": "Adding those two unions double-counts A and covers the whole space once for B∪Bᶜ. Algebra isolates P(A) without drawing a complicated Venn by hand."
+        "title": "Worked: isolate $P(A)$",
+        "setup": "$P(A\\cup B)=0.7$ and $P(A\\cup B^c)=0.9$. Find $P(A)$.",
+        "solution": "Adding: $P(A\\cup B)+P(A\\cup B^c)=P(A)+1$, because $B$ and $B^c$ partition.\nSo $0.7+0.9=P(A)+1\\Rightarrow P(A)=0.6$.",
+        "why": "Partition tricks avoid drawing a messy Venn by hand."
       },
       {
-        "id": "s3",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "P(Aᶜ) equals:",
+        "title": "At least one",
+        "prompt": "$P(\\text{at least one of }A,B)$ is best rewritten as:",
         "choices": {
-          "A": "P(A)",
-          "B": "1−P(A)",
-          "C": "1/P(A)",
-          "D": "P(A)−1"
+          "A": "$P(A)P(B)$",
+          "B": "$1-P(A^c\\cap B^c)$",
+          "C": "$P(A)-P(B)$",
+          "D": "$P(A\\cap B)$ only"
         },
         "answer": "B",
-        "explain": "Axiom consequence: A and Aᶜ partition S."
-      },
-      {
-        "id": "s4",
-        "type": "concept",
-        "title": "Boole / Bonferroni and partitions",
-        "body": "If A1,...,An are a partition of S (disjoint, union S), then P(B)=Σ P(B∩Ai).\n\nBoole's inequality: P(∪Ai) ≤ Σ P(Ai).\nLower bound sometimes: P(∪Ai) ≥ max P(Ai).\n\nExam habit: rewrite messy 'at least one' as complement of 'none', and rewrite 'exactly one' as mutually exclusive pieces."
-      },
-      {
-        "id": "s5",
-        "type": "example",
-        "title": "Worked: exactly one of two events",
-        "setup": "P(A)=0.5, P(B)=0.4, P(A∩B)=0.2. Find P(exactly one of A,B).",
-        "solution": "Exactly one = (A∩Bᶜ) ∪ (Aᶜ∩B) = P(A)+P(B)−2P(A∩B)=0.5+0.4−0.4=0.5.",
-        "why": "Inclusion-exclusion for the symmetric difference. Draw a Venn if the algebra feels slippery."
-      },
-      {
-        "id": "s6",
-        "type": "check",
-        "title": "Complement habit",
-        "prompt": "P(at least one of A,B) is best rewritten as:",
-        "choices": {
-          "A": "P(A)P(B)",
-          "B": "1 − P(Aᶜ∩Bᶜ)",
-          "C": "P(A)−P(B)",
-          "D": "P(A∩B) only"
-        },
-        "answer": "B",
-        "explain": "At least one is the complement of none (neither)."
+        "explain": "At least one $=$ complement of neither."
       }
     ]
   },
   "general_cond": {
     "id": "general_cond",
     "title": "Conditional probability",
-    "minutes": 45,
+    "minutes": 55,
     "lo": [
       "P1f"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Definition and multiplication rule",
-        "body": "Conditional probability:\nP(A|B)=P(A∩B)/P(B)   (when P(B)>0)\n\nMultiplication rule (rearranged):\nP(A∩B)=P(B)·P(A|B)=P(A)·P(B|A)\n\nTree diagrams are the exam-friendly way to organize multi-stage experiments."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Definition",
+        "body": "If $P(B)>0$,\n$$P(A\\mid B)=\\frac{P(A\\cap B)}{P(B)}.$$\n\nIntuition: restrict the sample space to $B$ and renormalize.\n\nMultiplication rule:\n$$P(A\\cap B)=P(B)\\,P(A\\mid B)=P(A)\\,P(B\\mid A).$$\n\nFor a chain:\n$$P(A_1\\cap A_2\\cap A_3)=P(A_1)\\,P(A_2\\mid A_1)\\,P(A_3\\mid A_1\\cap A_2).$$"
       },
       {
-        "id": "s2",
+        "id": "t2",
+        "type": "textbook",
+        "title": "Tree diagrams",
+        "body": "Multi-stage experiments (draw without replacement, disease then test, machine type then defect) are organized with probability trees:\n\n- Branch probabilities are conditional on the path so far.\n- A leaf probability is the product along the path.\n- An event’s probability sums the leaves in that event."
+      },
+      {
+        "id": "e1",
         "type": "example",
-        "title": "Worked: heart disease given parents",
-        "setup": "937 men; 210 heart deaths; 312 had a parent with heart disease, and 102 of those 312 died of heart disease. Find P(heart death | no parent heart disease).",
-        "solution": "No-parent group size: 937−312=625.\nHeart deaths in that group: 210−102=108.\nConditional prob: 108/625=0.1728 ≈ 0.173.",
-        "why": "“Given that” means restrict the denominator to the conditioning set. Count carefully inside that restricted world only."
+        "title": "Worked: restrict the denominator",
+        "setup": "937 men; 210 heart deaths; 312 had a parent with heart disease, of whom 102 died of heart disease. Find $P(\\text{heart death}\\mid \\text{no parent heart disease})$.",
+        "solution": "No-parent group: $937-312=625$.\n\nHeart deaths there: $210-102=108$.\n\n$$P=\\frac{108}{625}=0.1728.$$",
+        "why": "“Given that” means: only count inside the conditioning set."
       },
       {
-        "id": "s3",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "P(A∩B) always equals:",
+        "title": "Multiplication",
+        "prompt": "$P(A\\cap B)$ always equals:",
         "choices": {
-          "A": "P(A)+P(B)",
-          "B": "P(A)·P(B)",
-          "C": "P(A)·P(B|A)",
-          "D": "P(A|B)/P(B)"
+          "A": "$P(A)+P(B)$",
+          "B": "$P(A)\\,P(B\\mid A)$ when defined",
+          "C": "$P(A\\mid B)$ only",
+          "D": "$1-P(A\\cup B)$"
         },
-        "answer": "C",
-        "explain": "Multiplication rule. Product P(A)P(B) only if independent."
+        "answer": "B",
+        "explain": "Definition rearranged (when $P(A)>0$)."
       }
     ]
   },
   "general_bayes": {
     "id": "general_bayes",
-    "title": "Total probability & Bayes",
-    "minutes": 50,
+    "title": "Total probability and Bayes’ theorem",
+    "minutes": 55,
     "lo": [
       "P1g"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
+        "id": "t1",
+        "type": "textbook",
         "title": "Law of total probability",
-        "body": "If B1,…,Bk partition S (disjoint, cover all), then\nP(A)=Σ P(A|Bi)P(Bi)\n\nThink: break the world into risk classes / machine types / disease states, then average."
+        "body": "If $\\{B_i\\}_{i=1}^n$ partition $S$ with $P(B_i)>0$, then for any event $A$:\n$$P(A)=\\sum_{i=1}^n P(A\\mid B_i)\\,P(B_i).$$\n\nThis is the engine behind “mixture” and “risk class” problems."
       },
       {
-        "id": "s2",
-        "type": "concept",
+        "id": "t2",
+        "type": "textbook",
         "title": "Bayes’ theorem",
-        "body": "P(Bi|A)=P(A|Bi)P(Bi) / Σ P(A|Bj)P(Bj)\n\nIn words:\nposterior ∝ likelihood × prior\n\nExam language: “given a positive test”, “given a claim occurred”, “given the ball is red” — reverse the conditioning."
+        "body": "Posterior probability of a class given data:\n$$P(B_j\\mid A)=\\frac{P(A\\mid B_j)\\,P(B_j)}{\\sum_i P(A\\mid B_i)\\,P(B_i)}=\\frac{P(A\\mid B_j)\\,P(B_j)}{P(A)}.$$\n\nLanguage:\n\n- Prior: $P(B_j)$\n- Likelihood: $P(A\\mid B_j)$\n- Posterior: $P(B_j\\mid A)$\n\nScreening tests: false positive/negative rates are likelihoods; disease prevalence is the prior."
       },
       {
-        "id": "s3",
+        "id": "e1",
         "type": "example",
-        "title": "Worked: Bayes template",
-        "setup": "2% of policies are high-risk. High-risk claim rate 30%, low-risk 5%. A random policy has a claim. P(high-risk | claim)?",
-        "solution": "P(C)=0.30·0.02+0.05·0.98=0.055.\nP(H|C)=0.30·0.02 / 0.055 ≈ 0.109.",
-        "why": "Claims are more common from low-risk simply because there are many more of them. Bayes reweights priors by likelihoods; intuition without the formula often fails."
+        "title": "Worked: screening",
+        "setup": "Disease prevalence $1\\%$. Test sensitivity $P(+|D)=0.99$, false positive $P(+|D^c)=0.02$. Find $P(D\\mid +)$.",
+        "solution": "$$P(+)=0.99\\cdot 0.01+0.02\\cdot 0.99=0.0099+0.0198=0.0297.$$\n$$P(D\\mid +)=\\frac{0.0099}{0.0297}\\approx 0.333.$$",
+        "why": "Even a “good” test can have modest PPV when the disease is rare."
       },
       {
-        "id": "s4",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "Bayes is mainly used to:",
+        "title": "Bayes structure",
+        "prompt": "Bayes updates:",
         "choices": {
-          "A": "Add disjoint probabilities",
-          "B": "Reverse the direction of conditioning",
-          "C": "Compute combinations",
-          "D": "Find variances of sums"
+          "A": "Likelihoods into priors only",
+          "B": "Priors into posteriors using likelihoods and $P(A)$",
+          "C": "Only unconditional probabilities",
+          "D": "Variance into means"
         },
         "answer": "B",
-        "explain": "We start with P(data|class) and want P(class|data)."
+        "explain": "Posterior $\\propto$ likelihood $\\times$ prior, normalized by $P(A)$."
       }
     ]
   },
   "general_indep": {
     "id": "general_indep",
-    "title": "Independence vs mutually exclusive",
-    "minutes": 35,
+    "title": "Independence",
+    "minutes": 45,
     "lo": [
-      "P1c",
-      "P1d"
+      "P1c"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Two different ideas people confuse",
-        "body": "Mutually exclusive (disjoint): A∩B=∅ ⇒ P(A∩B)=0. They cannot happen together.\n\nIndependent: P(A∩B)=P(A)P(B), or equivalently P(A|B)=P(A).\nKnowing B happened does not change A.\n\nIf A and B both have positive probability, they cannot be both independent and mutually exclusive (except trivial cases)."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Definition",
+        "body": "Events $A,B$ are independent if\n$$P(A\\cap B)=P(A)\\,P(B).$$\n\nEquivalent (when defined): $P(A\\mid B)=P(A)$ and $P(B\\mid A)=P(B)$.\n\nMutually exclusive with $P(A),P(B)>0$ implies dependence (except degenerate cases): if $A\\cap B=\\emptyset$ then $P(A\\cap B)=0\\neq P(A)P(B)$.\n\nPairwise independence does not imply mutual independence of three events; mutual independence needs all pairs and the triple product equalities."
       },
       {
-        "id": "s2",
-        "type": "example",
-        "title": "Worked: independent coverages",
-        "setup": "P(collision)=2 P(disability), independent, P(both)=0.15. Find P(neither).",
-        "solution": "Let P(D)=p, P(C)=2p. Then 2p·p=0.15 ⇒ 2p²=0.15 ⇒ p²=0.075 ⇒ p=√0.075.\nP(C∪D)=2p+p−0.15=3p−0.15.\nP(neither)=1−(3p−0.15). Numerically ≈ 0.33.",
-        "why": "Independence supplies the product for the intersection, which lets us solve for the unknown probabilities."
+        "id": "t2",
+        "type": "textbook",
+        "title": "Independent trials",
+        "body": "If trials are independent with success probability $p$, the number of successes in $n$ trials is binomial (next chapter). Independence lets you multiply path probabilities on a tree without “updating the urn.”"
       },
       {
-        "id": "s3",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "If A and B are independent with P(A),P(B)>0, then A and B:",
+        "title": "Exclusive vs independent",
+        "prompt": "If $A$ and $B$ are mutually exclusive and $P(A),P(B)>0$, then they are:",
         "choices": {
-          "A": "Must be disjoint",
-          "B": "Cannot be disjoint",
-          "C": "Must be equal",
-          "D": "Must each have probability 1/2"
+          "A": "Independent",
+          "B": "Dependent",
+          "C": "Always the whole space",
+          "D": "Complements always"
         },
         "answer": "B",
-        "explain": "Independence implies P(A∩B)=P(A)P(B)>0, so not disjoint."
+        "explain": "Intersection probability $0$ cannot equal a positive product."
       }
     ]
   },
   "uni_discrete_def": {
     "id": "uni_discrete_def",
-    "title": "Discrete RVs: PMF, CDF, E, Var",
-    "minutes": 50,
+    "title": "Discrete RVs: PMF, CDF, expectation, variance",
+    "minutes": 60,
     "lo": [
-      "P2a",
-      "P2c",
-      "P2d"
+      "P2"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "What a discrete random variable is",
-        "body": "A random variable X maps outcomes to numbers.\n\nDiscrete: X takes countable values x1,x2,…\n\nPMF: p(x)=P(X=x), with p(x)≥0 and Σ p(x)=1.\n\nCDF: F(x)=P(X≤x)=Σ_{t≤x} p(t).\n\nAlways state the support (possible values) before computing."
+        "id": "t1",
+        "type": "textbook",
+        "title": "PMF and CDF",
+        "body": "A discrete random variable takes countable values $x$ with probability mass function\n$$p_X(x)=P(X=x),\\qquad \\sum_x p_X(x)=1,\\quad p_X(x)\\ge 0.$$\n\nThe CDF is\n$$F_X(x)=P(X\\le x)=\\sum_{t\\le x} p_X(t).$$\n\nThen $P(a<X\\le b)=F(b)-F(a)$ (careful with open/closed endpoints on lattices)."
       },
       {
-        "id": "s2",
-        "type": "concept",
+        "id": "t2",
+        "type": "textbook",
         "title": "Expectation and variance",
-        "body": "E[X]=Σ x p(x)\nE[g(X)]=Σ g(x) p(x)   (law of the unconscious statistician)\nVar(X)=E[X²]−(E[X])² = E[(X−μ)²]\nSD=√Var\nCV=SD/|mean| when mean≠0\n\nLinearity always works: E[aX+b]=aE[X]+b\nVar(aX+b)=a²Var(X)"
+        "body": "$$E[X]=\\sum_x x\\,p_X(x),\\qquad E[g(X)]=\\sum_x g(x)\\,p_X(x).$$\n\nLinearity always holds (no independence needed):\n$$E[aX+bY]=aE[X]+bE[Y].$$\n\nVariance:\n$$\\mathrm{Var}(X)=E[(X-E[X])^2]=E[X^2]-(E[X])^2,$$\n$$\\mathrm{Var}(aX+b)=a^2\\mathrm{Var}(X).$$\n\nStandard deviation $\\mathrm{SD}(X)=\\sqrt{\\mathrm{Var}(X)}$."
       },
       {
-        "id": "s3",
+        "id": "e1",
         "type": "example",
-        "title": "Worked: E and Var from a PMF table",
-        "setup": "P(X=0)=0.5, P(X=1)=0.3, P(X=2)=0.2. Find E[X] and Var(X).",
-        "solution": "E[X]=0(0.5)+1(0.3)+2(0.2)=0.7\nE[X²]=0+1(0.3)+4(0.2)=1.1\nVar=1.1−0.7²=1.1−0.49=0.61",
-        "why": "Variance needs the second moment. Computing E[X²] then subtracting μ² is faster and less error-prone than expanding (x−μ)² for every point."
+        "title": "Worked: from a PMF table",
+        "setup": "$P(X=0)=0.2$, $P(X=1)=0.5$, $P(X=2)=0.3$. Find $E[X]$ and $\\mathrm{Var}(X)$.",
+        "solution": "$$E[X]=0\\cdot0.2+1\\cdot0.5+2\\cdot0.3=1.1.$$\n$$E[X^2]=0+1\\cdot0.5+4\\cdot0.3=1.7.$$\n$$\\mathrm{Var}(X)=1.7-1.1^2=1.7-1.21=0.49.$$",
+        "why": "Always compute $E[X^2]$ for variance; do not square $E[X]$ and stop."
       },
       {
-        "id": "s4",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "Var(X) equals:",
+        "title": "Linearity",
+        "prompt": "Linearity of expectation requires:",
         "choices": {
-          "A": "E[X²]",
-          "B": "(E[X])²",
-          "C": "E[X²]−(E[X])²",
-          "D": "E[X]−E[X²]"
+          "A": "Independence always",
+          "B": "Nothing about independence — it always holds (when expectations exist)",
+          "C": "Identical distributions only",
+          "D": "Normality"
         },
-        "answer": "C",
-        "explain": "Standard computational formula for variance."
+        "answer": "B",
+        "explain": "Linearity is general; independence is for products/variances of sums."
       }
     ]
   },
   "uni_binom_pois": {
     "id": "uni_binom_pois",
     "title": "Binomial and Poisson",
-    "minutes": 50,
+    "minutes": 55,
     "lo": [
       "P2"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
+        "id": "t1",
+        "type": "textbook",
         "title": "Binomial",
-        "body": "X~Binomial(n,p): number of successes in n independent Bernoulli(p) trials.\n\nP(X=k)=C(n,k) p^k (1−p)^{n−k}, k=0,…,n\nE[X]=np, Var(X)=np(1−p)\n\nUse when: fixed n, two outcomes, constant p, independence."
+        "body": "$X\\sim \\mathrm{Binomial}(n,p)$: number of successes in $n$ independent Bernoulli($p$) trials.\n$$P(X=k)=\\binom{n}{k} p^k (1-p)^{n-k},\\quad k=0,1,\\ldots,n.$$\n$$E[X]=np,\\qquad \\mathrm{Var}(X)=np(1-p).$$"
       },
       {
-        "id": "s2",
-        "type": "concept",
+        "id": "t2",
+        "type": "textbook",
         "title": "Poisson",
-        "body": "X~Poisson(λ): counts of rare events in a continuum of exposure.\n\nP(X=k)=e^{−λ} λ^k / k!, k=0,1,2,…\nE[X]=Var(X)=λ\n\nIf independent Xi~Poisson(λi), sum is Poisson(Σλi).\nBinomial(n,p) with n large, p small, np=λ is approximately Poisson(λ)."
+        "body": "$X\\sim \\mathrm{Poisson}(\\lambda)$:\n$$P(X=k)=e^{-\\lambda}\\frac{\\lambda^k}{k!},\\quad k=0,1,2,\\ldots$$\n$$E[X]=\\mathrm{Var}(X)=\\lambda.$$\n\nPoisson limit: if $n$ large, $p$ small, $np\\to\\lambda$, then $\\mathrm{Binomial}(n,p)\\approx\\mathrm{Poisson}(\\lambda)$.\n\nSum of independent Poissons is Poisson with summed rates."
       },
       {
-        "id": "s3",
+        "id": "e1",
         "type": "example",
-        "title": "Worked: choose the model",
-        "setup": "An insurer has 1000 independent policies, each has 1% claim chance. Approximate P(exactly 8 claims).",
-        "solution": "Exact: Binomial(1000,0.01). Approx: Poisson(λ=10).\nP(X=8)≈ e^{−10} 10^8 / 8!.",
-        "why": "n large, p small, np moderate → Poisson approximation reduces calculation while matching the exam’s modeling intent."
+        "title": "Worked: Poisson probability",
+        "setup": "Claims $\\sim\\mathrm{Poisson}(3)$. $P(X=0)$ and $P(X\\ge 1)$.",
+        "solution": "$$P(X=0)=e^{-3},\\qquad P(X\\ge 1)=1-e^{-3}.$$",
+        "why": "Use the complement for “at least one.”"
       },
       {
-        "id": "s4",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "For X~Poisson(λ), which is true?",
+        "title": "Means",
+        "prompt": "If $X\\sim\\mathrm{Binomial}(10,0.3)$, then $E[X]=$",
         "choices": {
-          "A": "E[X]=λ and Var(X)=λ²",
-          "B": "E[X]=Var(X)=λ",
-          "C": "E[X]=λ² and Var(X)=λ",
-          "D": "E[X]=0"
+          "A": "3",
+          "B": "2.1",
+          "C": "7",
+          "D": "0.3"
         },
-        "answer": "B",
-        "explain": "Equal mean and variance is the Poisson signature."
+        "answer": "A",
+        "explain": "$np=10\\cdot0.3=3$."
       }
     ]
   },
   "uni_other_disc": {
     "id": "uni_other_disc",
-    "title": "Geometric, Negative Binomial, Hypergeometric",
-    "minutes": 45,
+    "title": "Geometric, negative binomial, hypergeometric",
+    "minutes": 50,
     "lo": [
       "P2"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Read the definition of X carefully",
-        "body": "Geometric: usually “trials until first success” OR “failures before first success”. Formulas change — match the book/exam wording.\n\nNegative binomial: trials until r successes (or failures before r successes).\n\nHypergeometric: draws without replacement from a finite population with K successes in N items; X=#successes in n draws.\n\nUse hypergeometric when dependence from finite sampling matters; binomial when with replacement / large population."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Geometric and NB",
+        "body": "Geometric (trials until first success), support $k=1,2,\\ldots$:\n$$P(X=k)=(1-p)^{k-1}p,\\quad E[X]=\\frac{1}{p},\\quad \\mathrm{Var}(X)=\\frac{1-p}{p^2}.$$\n\n(Some texts count failures before first success — check the support!)\n\nNegative binomial: trials until $r$ successes (or failures before $r$ successes). Means/variances scale with $r$ under the independent-trial model."
       },
       {
-        "id": "s2",
-        "type": "example",
-        "title": "Worked: hypergeometric vs binomial",
-        "setup": "Urn has 5 defective in 20. Draw 4 without replacement. P(exactly 1 defective)?",
-        "solution": "Hypergeometric: C(5,1)C(15,3)/C(20,4).",
-        "why": "Without replacement changes the probabilities each draw, so independent Bernoulli trials (binomial) would be wrong."
+        "id": "t2",
+        "type": "textbook",
+        "title": "Hypergeometric",
+        "body": "Population $N$ with $K$ “success” items; draw $n$ without replacement. $X=$ number of successes in the draw:\n$$P(X=k)=\\frac{\\binom{K}{k}\\binom{N-K}{n-k}}{\\binom{N}{n}}.$$\n$$E[X]=n\\cdot\\frac{K}{N}.$$\n\nUnlike binomial, draws are dependent; variance has a finite-population correction factor $(N-n)/(N-1)$."
       },
       {
-        "id": "s3",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "Sampling without replacement from a finite dichotomous population is modeled by:",
+        "title": "With vs without replacement",
+        "prompt": "Hypergeometric is the without-replacement analogue of:",
         "choices": {
-          "A": "Poisson",
-          "B": "Geometric",
-          "C": "Hypergeometric",
-          "D": "Normal"
+          "A": "Normal",
+          "B": "Binomial",
+          "C": "Exponential",
+          "D": "Uniform continuous"
         },
-        "answer": "C",
-        "explain": "Hypergeometric is the without-replacement count model."
+        "answer": "B",
+        "explain": "Fixed number of draws, binary type, dependence from finite population."
       }
     ]
   },
   "uni_cont": {
     "id": "uni_cont",
-    "title": "Continuous RVs: PDF, CDF, Uniform",
-    "minutes": 50,
+    "title": "Continuous RVs, PDF/CDF, Uniform",
+    "minutes": 60,
     "lo": [
-      "P2a",
-      "P2c"
+      "P2"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
+        "id": "t1",
+        "type": "textbook",
         "title": "PDF and CDF",
-        "body": "Continuous X has PDF f with f(x)≥0 and ∫ f=1.\n\nP(a≤X≤b)=∫_a^b f(x)dx\n(note P(X=exact point)=0)\n\nCDF F(x)=P(X≤x)=∫_{−∞}^x f\nThen f=F′ when F is differentiable.\n\nPercentile π_p: F(π_p)=p."
+        "body": "A continuous RV has CDF $F$ absolutely continuous with density $f=F'$ (where it exists):\n$$P(a\\le X\\le b)=\\int_a^b f(x)\\,dx,\\qquad \\int_{-\\infty}^{\\infty} f=1,\\ f\\ge 0.$$\n\nNote $P(X=x)=0$ for each single $x$. Survival $S(x)=1-F(x)=P(X>x)$.\n\nFor nonnegative $X$,\n$$E[X]=\\int_0^{\\infty} S(x)\\,dx$$\n(when the expectation exists)."
       },
       {
-        "id": "s2",
-        "type": "concept",
-        "title": "Uniform(a,b)",
-        "body": "f(x)=1/(b−a) on [a,b]\nE[X]=(a+b)/2\nVar(X)=(b−a)²/12\n\nProbabilities are lengths of intervals over (b−a)."
+        "id": "t2",
+        "type": "textbook",
+        "title": "Expectation and variance",
+        "body": "$$E[g(X)]=\\int g(x)f(x)\\,dx,\\qquad E[X]=\\int x f(x)\\,dx,$$\n$$\\mathrm{Var}(X)=E[X^2]-(E[X])^2.$$\n\nUniform $X\\sim U(a,b)$:\n$$f(x)=\\frac{1}{b-a}\\ \\text{on }(a,b),\\quad E[X]=\\frac{a+b}{2},\\quad \\mathrm{Var}(X)=\\frac{(b-a)^2}{12}.$$"
       },
       {
-        "id": "s3",
+        "id": "e1",
         "type": "example",
-        "title": "Worked: from PDF to probability",
-        "setup": "f(x)=2x on (0,1). Find P(X>0.5) and E[X].",
-        "solution": "P(X>0.5)=∫_{0.5}^1 2x dx = [x²]_{0.5}^1=1−0.25=0.75\nE[X]=∫_0^1 x·2x dx=∫_0^1 2x²=2/3",
-        "why": "Continuous probabilities are areas under f. Expectation weights x by the density."
+        "title": "Worked: uniform probability",
+        "setup": "$X\\sim U(0,10)$. Find $P(3<X<7)$ and $E[X]$.",
+        "solution": "$$P=\\frac{7-3}{10}=0.4,\\qquad E[X]=5.$$",
+        "why": "Length of interval over length of support."
       },
       {
-        "id": "s4",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "For a continuous RV, P(X=3) is:",
+        "title": "Point masses",
+        "prompt": "For a continuous PDF model, $P(X=3)$ is:",
         "choices": {
-          "A": "f(3)",
-          "B": "F(3)",
-          "C": "0",
-          "D": "1"
+          "A": "$f(3)$",
+          "B": "$0$",
+          "C": "$F(3)$",
+          "D": "$1$"
         },
-        "answer": "C",
-        "explain": "Points have probability zero under a continuous distribution; use intervals."
+        "answer": "B",
+        "explain": "Continuous distributions put zero mass at points."
       }
     ]
   },
@@ -527,56 +472,34 @@
     "title": "Normal distribution",
     "minutes": 55,
     "lo": [
-      "P2"
+      "P2e"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Standardization",
-        "body": "If X~N(μ,σ²), then Z=(X−μ)/σ ~ N(0,1).\n\nP(X≤x)=P(Z≤(x−μ)/σ)=Φ((x−μ)/σ)\n\nUse the exam normal table for Φ. For upper tails use symmetry: P(Z>z)=1−Φ(z), and Φ(−z)=1−Φ(z)."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Density and standardization",
+        "body": "$X\\sim N(\\mu,\\sigma^2)$ has density\n$$f(x)=\\frac{1}{\\sigma\\sqrt{2\\pi}}\\exp\\Bigl(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\Bigr).$$\n\nStandard normal $Z\\sim N(0,1)$ has CDF $\\Phi$. Standardization:\n$$Z=\\frac{X-\\mu}{\\sigma}\\sim N(0,1),$$\n$$P(X\\le x)=\\Phi\\Bigl(\\frac{x-\\mu}{\\sigma}\\Bigr).$$\n\nSymmetry: $\\Phi(-z)=1-\\Phi(z)$."
       },
       {
-        "id": "s2",
+        "id": "t2",
+        "type": "textbook",
+        "title": "Linear transforms and sums",
+        "body": "If $X\\sim N(\\mu,\\sigma^2)$ then $aX+b\\sim N(a\\mu+b,a^2\\sigma^2)$.\n\nIndependent normals: sum is normal with mean/variance summed. (Joint normality matters for general linear combinations — Exam P usually states independence.)"
+      },
+      {
+        "id": "e1",
         "type": "example",
-        "title": "Worked: standardize then table",
-        "setup": "X~N(100, 15²). P(X>130)?",
-        "solution": "Z=(130−100)/15=2 → P(Z>2)=1−Φ(2)≈1−0.9772=0.0228.",
-        "why": "Every normal probability reduces to one standard normal probability. Memorize the standardize step so you never integrate the normal PDF by hand."
+        "title": "Worked: standardize",
+        "setup": "$X\\sim N(100,15^2)$. $P(X>130)$.",
+        "solution": "$$Z=\\frac{130-100}{15}=2,\\quad P(Z>2)=1-\\Phi(2)\\approx 0.0228.$$",
+        "why": "Never integrate the normal PDF by hand on the exam — standardize + table/calculator."
       },
       {
-        "id": "s3",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "If X~N(μ,σ²), then (X−μ)/σ is:",
-        "choices": {
-          "A": "N(μ,σ²)",
-          "B": "N(0,1)",
-          "C": "Poisson(μ)",
-          "D": "Uniform(0,1)"
-        },
-        "answer": "B",
-        "explain": "Standardization maps any normal to standard normal."
-      },
-      {
-        "id": "s4",
-        "type": "concept",
-        "title": "Linear transforms & sums of independents",
-        "body": "If X~N(μ,σ²) then aX+b ~ N(aμ+b, a²σ²).\n\nIf X,Y independent normals, then X+Y is normal with mean sum and variance sum.\n\nExam P rarely needs the full bivariate normal density; it does need standardize + table + variance of linear combos."
-      },
-      {
-        "id": "s5",
-        "type": "example",
-        "title": "Worked: between two values",
-        "setup": "X~N(50, 10²). Find P(40 < X < 65).",
-        "solution": "Z1=(40−50)/10=−1, Z2=(65−50)/10=1.5.\nP=Φ(1.5)−Φ(−1)=Φ(1.5)−(1−Φ(1)).\n≈0.9332 − (1−0.8413)=0.7745.",
-        "why": "Always convert both endpoints to Z, then subtract CDFs. Sketch the bell if inequalities confuse you."
-      },
-      {
-        "id": "s6",
-        "type": "check",
-        "title": "Linear transform",
-        "prompt": "If X~N(2, 3²) then 4X+1 has variance:",
+        "title": "Variance scaling",
+        "prompt": "If $X\\sim N(2,3^2)$, then $\\mathrm{Var}(4X+1)=$",
         "choices": {
           "A": "12",
           "B": "36",
@@ -584,43 +507,43 @@
           "D": "13"
         },
         "answer": "C",
-        "explain": "Var(4X+1)=16·Var(X)=16·9=144."
+        "explain": "$16\\cdot 9=144$."
       }
     ]
   },
   "uni_exp_gamma": {
     "id": "uni_exp_gamma",
     "title": "Exponential, Gamma, Beta",
-    "minutes": 50,
+    "minutes": 55,
     "lo": [
       "P2"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Exponential & memoryless",
-        "body": "Watch parameterization:\n• rate λ: f(x)=λe^{−λx}, E=1/λ, Var=1/λ²\n• mean θ: f(x)=(1/θ)e^{−x/θ}, E=θ, Var=θ²\n\nMemoryless: P(X>s+t|X>s)=P(X>t)\nSurvival: P(X>x)=e^{−x/θ} (mean form)\n\nMin of independent Exp is Exp with summed rates."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Exponential",
+        "body": "One common parameterization: mean $\\theta$, rate $\\lambda=1/\\theta$:\n$$f(x)=\\frac{1}{\\theta}e^{-x/\\theta},\\ x>0,\\qquad F(x)=1-e^{-x/\\theta},$$\n$$E[X]=\\theta,\\quad \\mathrm{Var}(X)=\\theta^2.$$\n\nMemoryless: $P(X>s+t\\mid X>s)=P(X>t)$. Consequently\n$$E[(X-d)_+]=E[X]\\,P(X>d)=\\theta e^{-d/\\theta}.$$"
       },
       {
-        "id": "s2",
-        "type": "concept",
+        "id": "t2",
+        "type": "textbook",
         "title": "Gamma and Beta (exam level)",
-        "body": "Gamma: flexible positive continuous family; exponential is Gamma with shape 1. Sums of i.i.d. Exp relate to Gamma/Erlang.\n\nBeta: continuous on (0,1), useful for random proportions/probabilities.\n\nYou rarely need heavy MGF theory on current Exam P — focus on recognizing PDF, support, mean/variance when given, and computing integrals that are standard."
+        "body": "Gamma (shape $\\alpha$, scale $\\theta$) generalizes exponential ($\\alpha=1$). Mean $\\alpha\\theta$, variance $\\alpha\\theta^2$.\n\nBeta is supported on $(0,1)$ and is useful for random proportions; density involves $x^{a-1}(1-x)^{b-1}$.\n\nOn Exam P you mostly need recognition, means/variances from tables, and exponential memoryless tricks."
       },
       {
-        "id": "s3",
+        "id": "e1",
         "type": "example",
-        "title": "Worked: memoryless",
-        "setup": "Waiting time ~ Exp(mean 10). Already waited 5. P(total wait > 12)?",
-        "solution": "P(X>12|X>5)=P(X>7)=e^{−7/10}.",
-        "why": "Memoryless says the past wait does not help; remaining time is still Exp(mean 10). Convert “total >12 given already 5” into “remaining >7”."
+        "title": "Worked: memoryless payment",
+        "setup": "$X\\sim\\mathrm{Exp}(\\text{mean }1000)$, ordinary deductible $200$. $E[\\text{payment per loss}]$?",
+        "solution": "$$E[(X-200)_+]=1000\\cdot e^{-200/1000}=1000 e^{-0.2}.$$",
+        "why": "Memoryless turns excess loss into survival times mean."
       },
       {
-        "id": "s4",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "Which family is memoryless (continuous)?",
+        "title": "Memoryless",
+        "prompt": "Which continuous family is memoryless?",
         "choices": {
           "A": "Normal",
           "B": "Uniform",
@@ -628,119 +551,95 @@
           "D": "Beta"
         },
         "answer": "C",
-        "explain": "Continuous memoryless ⇔ exponential."
+        "explain": "The continuous memoryless law is exponential."
       }
     ]
   },
   "uni_insurance": {
     "id": "uni_insurance",
-    "title": "Insurance payments: deductible, limit, coinsurance",
-    "minutes": 55,
+    "title": "Insurance payment variables",
+    "minutes": 60,
     "lo": [
-      "P2e",
-      "P2f"
+      "P2c"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Loss vs payment",
-        "body": "X = ground-up loss (what happened).\nY = payment by insurer (what is paid) after modifications.\n\nOrdinary deductible d:\nY = 0 if X≤d, else X−d   i.e. Y=(X−d)+\n\nPolicy limit u (maximum paid on ground-up with no deductible):\nY=min(X,u)\n\nCoinsurance α (insurer pays fraction α of the loss after other mods):\nmultiply payment by α.\n\nInflation: often replace X by (1+r)X before applying deductible/limit — read the order in the problem carefully."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Ordinary deductible and limit",
+        "body": "Ground-up loss $X\\ge 0$.\n\nOrdinary deductible $d$: insurer payment per loss\n$$Y=(X-d)_+=\\max(X-d,0).$$\n\nPolicy limit $u$ on ground-up loss (no deductible): payment $X\\wedge u=\\min(X,u)$.\n\nCommon identity:\n$$E[(X-d)_+]=E[X]-E[X\\wedge d].$$\n\nWith both deductible $d$ and maximum covered loss $u>d$, payment is often\n$$\\min\\bigl((X-d)_+,\\ u-d\\bigr)= (X\\wedge u)-(X\\wedge d).$$"
       },
       {
-        "id": "s2",
-        "type": "concept",
-        "title": "Per loss vs per payment",
-        "body": "Per loss: includes zeros when no payment is made.\nPer payment: conditional on payment being positive (given X>d).\n\nE[payment per payment] = E[Y | Y>0]\nwhich is larger than E[Y] when zeros exist.\n\nExam stems are picky about this wording."
+        "id": "t2",
+        "type": "textbook",
+        "title": "Coinsurance and per-payment vs per-loss",
+        "body": "Coinsurance $\\alpha\\in(0,1)$: insurer pays fraction $\\alpha$ of the loss (or of the excess), depending on wording.\n\nPer-loss quantities average over all losses including those below deductible (payment $0$).\n\nPer-payment quantities condition on $X>d$ (a payment occurs). Read the stem carefully: “per payment” vs “per loss.”"
       },
       {
-        "id": "s3",
+        "id": "e1",
         "type": "example",
-        "title": "Worked: deductible expected payment",
-        "setup": "X~Exp(mean 1000), ordinary deductible 200. Find E[payment per loss].",
-        "solution": "For exponential mean θ, E[(X−d)+]=θ e^{−d/θ}.\nHere θ=1000,d=200 → 1000 e^{−0.2}.",
-        "why": "Memoryless/exponential tail formulas turn insurance modifications into quick closed forms. For other distributions, integrate survival: E[(X−d)+]=∫_d^∞ S(x)dx (when X≥0)."
+        "title": "Worked: limited loss expectation",
+        "setup": "Express $E[\\min(X,1000)]$ using the survival function for continuous nonnegative $X$.",
+        "solution": "$$E[X\\wedge 1000]=\\int_0^{1000} S(x)\\,dx.$$",
+        "why": "Limited expected value integrates survival only up to the cap."
       },
       {
-        "id": "s4",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "With ordinary deductible d, insurer payment per loss is:",
+        "title": "Ordinary deductible",
+        "prompt": "With ordinary deductible $d$ only, payment per loss is:",
         "choices": {
-          "A": "X",
-          "B": "min(X,d)",
-          "C": "(X−d)+",
-          "D": "X+d"
+          "A": "$\\min(X,d)$",
+          "B": "$\\max(X-d,0)$",
+          "C": "$X+d$",
+          "D": "$X/d$"
         },
-        "answer": "C",
-        "explain": "Pays nothing below d, and the excess above d otherwise."
+        "answer": "B",
+        "explain": "Excess over $d$."
       }
     ]
   },
   "multi_joint": {
     "id": "multi_joint",
-    "title": "Joint, marginal, conditional (discrete focus)",
+    "title": "Joint, marginal, and conditional distributions",
     "minutes": 60,
     "lo": [
-      "P3a",
-      "P3b"
+      "P3"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Joint PMF",
-        "body": "For discrete (X,Y):\n p(x,y)=P(X=x,Y=y)\nΣΣ p(x,y)=1\n\nMarginal of X: pX(x)=Σ_y p(x,y)\nConditional: p(y|x)=p(x,y)/pX(x)\n\nIndependent iff p(x,y)=pX(x)pY(y) for all x,y."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Discrete joints",
+        "body": "Joint PMF $p(x,y)=P(X=x,Y=y)$, $\\sum_x\\sum_y p(x,y)=1$.\n\nMarginal of $X$:\n$$p_X(x)=\\sum_y p(x,y).$$\n\nConditional:\n$$p(y\\mid x)=\\frac{p(x,y)}{p_X(x)}\\quad (p_X(x)>0).$$\n\nIndependence: $p(x,y)=p_X(x)p_Y(y)$ for all $x,y$."
       },
       {
-        "id": "s2",
+        "id": "t2",
+        "type": "textbook",
+        "title": "Continuous joints",
+        "body": "Joint PDF $f(x,y)\\ge 0$ with $\\iint f=1$.\n\n$$f_X(x)=\\int f(x,y)\\,dy,\\qquad f(y\\mid x)=\\frac{f(x,y)}{f_X(x)}.$$\n\nIndependence: $f(x,y)=f_X(x)f_Y(y)$ on a rectangle support. Non-rectangular support (e.g. $0<x<y<1$) often forces dependence even if the formula “looks separable.”"
+      },
+      {
+        "id": "e1",
         "type": "example",
         "title": "Worked: marginal from a table",
-        "setup": "Joint: P(0,0)=0.1,P(0,1)=0.2,P(1,0)=0.3,P(1,1)=0.4. Find P(X=1) and P(Y=0|X=1).",
-        "solution": "P(X=1)=0.3+0.4=0.7\nP(Y=0|X=1)=0.3/0.7=3/7",
-        "why": "Marginals collapse the joint by summing the other variable. Conditionals renormalize a slice of the joint table."
+        "setup": "$P(0,0)=0.1$, $P(0,1)=0.2$, $P(1,0)=0.3$, $P(1,1)=0.4$. Find $P(X=1)$ and $P(Y=0\\mid X=1)$.",
+        "solution": "$$P(X=1)=0.3+0.4=0.7,\\qquad P(Y=0\\mid X=1)=\\frac{0.3}{0.7}=\\frac{3}{7}.$$",
+        "why": "Marginals sum out the other variable; conditionals renormalize a slice."
       },
       {
-        "id": "s3",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "Independence of discrete X,Y means:",
+        "title": "Independence",
+        "prompt": "Discrete $X,Y$ independent means:",
         "choices": {
-          "A": "p(x,y)=pX(x)+pY(y)",
-          "B": "p(x,y)=pX(x)pY(y) for all x,y",
-          "C": "Cov=1",
-          "D": "X=Y"
+          "A": "$p(x,y)=p_X(x)+p_Y(y)$",
+          "B": "$p(x,y)=p_X(x)p_Y(y)$ for all $x,y$",
+          "C": "$\\mathrm{Cov}=1$",
+          "D": "$X=Y$"
         },
         "answer": "B",
-        "explain": "Factorization of the joint PMF is the definition."
-      },
-      {
-        "id": "s4",
-        "type": "concept",
-        "title": "Continuous joint densities",
-        "body": "Joint PDF f(x,y) ≥ 0 with ∬ f=1.\nMarginal fX(x)=∫ f(x,y) dy.\nConditional f(y|x)=f(x,y)/fX(x).\nIndependent iff f(x,y)=fX(x)fY(y) on a rectangle support (careful with non-rectangle supports — dependence can hide in the region)."
-      },
-      {
-        "id": "s5",
-        "type": "example",
-        "title": "Worked: independence via factorization",
-        "setup": "f(x,y)=2 on 0<x<y<1 (and 0 else). Are X,Y independent?",
-        "solution": "Support is a triangle, not a product rectangle ⇒ not independent.\n(You can also check f ≠ fX fY.)",
-        "why": "Support shape alone can kill independence even if the formula 'looks separable' on the triangle."
-      },
-      {
-        "id": "s6",
-        "type": "check",
-        "title": "Marginal continuous",
-        "prompt": "Continuous marginal fX(x) is obtained by:",
-        "choices": {
-          "A": "Multiplying f by x",
-          "B": "Integrating joint f over y",
-          "C": "Differentiating joint f",
-          "D": "Setting y=0 only"
-        },
-        "answer": "B",
-        "explain": "Integrate out the other variable."
+        "explain": "Factorization of the joint PMF."
       }
     ]
   },
@@ -749,215 +648,216 @@
     "title": "Covariance, correlation, linear combinations",
     "minutes": 55,
     "lo": [
-      "P3e",
-      "P3g",
-      "P3h"
+      "P3"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Cov and Corr",
-        "body": "Cov(X,Y)=E[XY]−E[X]E[Y]\nCorr(X,Y)=Cov(X,Y)/(SD(X)SD(Y)) ∈ [−1,1]\n\nVar(aX+bY)=a²VarX+b²VarY+2ab Cov(X,Y)\nIf independent, Cov=0 (converse not always true in general, but exam often uses independence ⇒ Cov 0)."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Covariance and correlation",
+        "body": "$$\\mathrm{Cov}(X,Y)=E[XY]-E[X]E[Y],$$\n$$\\mathrm{Corr}(X,Y)=\\frac{\\mathrm{Cov}(X,Y)}{\\mathrm{SD}(X)\\mathrm{SD}(Y)}\\in[-1,1].$$\n\nProperties: bilinear, $\\mathrm{Cov}(X,X)=\\mathrm{Var}(X)$, $\\mathrm{Cov}(X,c)=0$.\n\nIndependence $\\Rightarrow$ $\\mathrm{Cov}=0$ (uncorrelated). The converse is not always true in general."
       },
       {
-        "id": "s2",
+        "id": "t2",
+        "type": "textbook",
+        "title": "Variance of linear combinations",
+        "body": "$$\\mathrm{Var}(aX+bY)=a^2\\mathrm{Var}X+b^2\\mathrm{Var}Y+2ab\\,\\mathrm{Cov}(X,Y).$$\n\nIf uncorrelated (or independent), the cross term vanishes:\n$$\\mathrm{Var}(X+Y)=\\mathrm{Var}X+\\mathrm{Var}Y.$$"
+      },
+      {
+        "id": "e1",
         "type": "example",
-        "title": "Worked: variance of a sum",
-        "setup": "Independent X,Y with VarX=4, VarY=9. Find SD(X−2Y).",
-        "solution": "Var(X−2Y)=4+4·9=4+36=40 → SD=√40=2√10.",
-        "why": "Independence drops the covariance term. Coefficients square when they leave the variance."
+        "title": "Worked: SD of a combo",
+        "setup": "Independent $X,Y$ with $\\mathrm{Var}X=4$, $\\mathrm{Var}Y=9$. Find $\\mathrm{SD}(X-2Y)$.",
+        "solution": "$$\\mathrm{Var}(X-2Y)=4+4\\cdot 9=40,\\quad \\mathrm{SD}=\\sqrt{40}=2\\sqrt{10}.$$",
+        "why": "Coefficients square; independence drops covariance."
       },
       {
-        "id": "s3",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "If X,Y independent, Var(X+Y) equals:",
+        "title": "Expansion",
+        "prompt": "$\\mathrm{Var}(2X-3Y)$ expands to:",
         "choices": {
-          "A": "VarX+VarY",
-          "B": "VarX·VarY",
-          "C": "VarX−VarY",
-          "D": "(VarX+VarY)²"
+          "A": "$4\\mathrm{Var}X+9\\mathrm{Var}Y-12\\mathrm{Cov}$",
+          "B": "$4\\mathrm{Var}X+9\\mathrm{Var}Y+12\\mathrm{Cov}$",
+          "C": "$2\\mathrm{Var}X-3\\mathrm{Var}Y$",
+          "D": "$\\mathrm{Var}X+\\mathrm{Var}Y$"
         },
         "answer": "A",
-        "explain": "Independence ⇒ covariance 0 ⇒ variances add."
-      },
-      {
-        "id": "s4",
-        "type": "concept",
-        "title": "E[XY] and bilinearity",
-        "body": "E[aX+bY]=aE[X]+bE[Y] always.\nCov is bilinear and symmetric; Cov(X,X)=Var(X).\nCov(X,c)=0 for constant c.\n\nFor uncorrelated variables Cov=0, Var(X+Y)=VarX+VarY.\nIndependence ⇒ uncorrelated; uncorrelated ⇏ independent in general."
-      },
-      {
-        "id": "s5",
-        "type": "example",
-        "title": "Worked: correlation from cov",
-        "setup": "VarX=4, VarY=9, Cov(X,Y)=3. Find Corr(X,Y).",
-        "solution": "Corr=3/(2·3)=3/6=0.5.",
-        "why": "Divide by product of SDs, not variances."
-      },
-      {
-        "id": "s6",
-        "type": "check",
-        "title": "Var of linear combo",
-        "prompt": "Var(2X−3Y) expands to:",
-        "choices": {
-          "A": "4VarX+9VarY−12Cov",
-          "B": "4VarX+9VarY+12Cov",
-          "C": "2VarX−3VarY",
-          "D": "VarX+VarY"
-        },
-        "answer": "A",
-        "explain": "a=2,b=−3 ⇒ a²VarX+b²VarY+2ab Cov=4VarX+9VarY−12Cov."
+        "explain": "$a=2$, $b=-3$ $\\Rightarrow$ $2ab=-12$."
       }
     ]
   },
   "multi_order_clt": {
     "id": "multi_order_clt",
-    "title": "Order statistics & Central Limit Theorem",
-    "minutes": 50,
+    "title": "Order statistics and the CLT",
+    "minutes": 55,
     "lo": [
-      "P3f",
-      "P3i"
+      "P3f"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Order statistics (i.i.d.)",
-        "body": "For i.i.d. continuous X1..Xn with CDF F:\nMax Mn=X(n): P(Mn≤x)=[F(x)]^n\nMin m=X(1): P(m>x)=[1−F(x)]^n , so P(m≤x)=1−[1−F(x)]^n\n\nThese show up with “largest claim”, “first arrival”, “weakest component”."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Order statistics",
+        "body": "Given i.i.d. sample $X_1,\\ldots,X_n$, the order statistics are\n$$X_{(1)}\\le X_{(2)}\\le\\cdots\\le X_{(n)}.$$\n\nFor continuous i.i.d. with CDF $F$ and PDF $f$, the minimum and maximum have\n$$P(X_{(n)}\\le x)=[F(x)]^n,\\qquad P(X_{(1)}>x)=[1-F(x)]^n.$$\n\nDensities follow by differentiating those CDFs."
       },
       {
-        "id": "s2",
-        "type": "concept",
-        "title": "CLT",
-        "body": "For i.i.d. X_i with mean μ and variance σ² (finite),\nS_n=X1+…+Xn ,  X̄=S_n/n\n\nS_n ≈ Normal(nμ, nσ²)\nX̄ ≈ Normal(μ, σ²/n)\n\nStandardize:\nP(X̄ ≤ a) ≈ Φ( (a−μ)/(σ/√n) )"
+        "id": "t2",
+        "type": "textbook",
+        "title": "Central Limit Theorem",
+        "body": "If $X_i$ i.i.d. with mean $\\mu$ and variance $\\sigma^2\\in(0,\\infty)$, then for large $n$,\n$$\\bar X_n=\\frac{1}{n}\\sum_{i=1}^n X_i \\approx N\\Bigl(\\mu,\\frac{\\sigma^2}{n}\\Bigr),$$\nequivalently\n$$\\frac{\\sqrt{n}(\\bar X_n-\\mu)}{\\sigma}\\approx N(0,1).$$\n\nUse continuity corrections carefully if approximating discrete sums (binomial) by normals."
       },
       {
-        "id": "s3",
+        "id": "e1",
         "type": "example",
-        "title": "Worked: CLT for a mean",
-        "setup": "Claims have mean 200, SD 40. n=100 independent. Approx P(X̄>208).",
-        "solution": "X̄≈N(200, 40²/100=16) → SD=4\nZ=(208−200)/4=2 → ≈1−Φ(2).",
-        "why": "CLT turns a sum/mean of many i.i.d. variables into a normal probability, which we already know how to standardize."
+        "title": "Worked: CLT setup",
+        "setup": "i.i.d. with $E[X_i]=2$, $\\mathrm{Var}=4$, $n=100$. Approximate $P(\\bar X>2.2)$.",
+        "solution": "$$\\bar X\\approx N(2,4/100)=N(2,0.04),\\quad Z=\\frac{2.2-2}{0.2}=1,$$\n$$P\\approx 1-\\Phi(1).$$",
+        "why": "Standardize with $\\mathrm{SD}(\\bar X)=\\sigma/\\sqrt{n}$."
       },
       {
-        "id": "s4",
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "As n grows, Var(X̄) for i.i.d. finite-variance Xi:",
+        "title": "CLT scale",
+        "prompt": "$\\mathrm{Var}(\\bar X_n)$ equals:",
         "choices": {
-          "A": "Stays σ²",
-          "B": "Becomes nσ²",
-          "C": "Becomes σ²/n",
-          "D": "Becomes 0 only if μ=0"
+          "A": "$\\sigma^2$",
+          "B": "$\\sigma^2/n$",
+          "C": "$n\\sigma^2$",
+          "D": "$\\sigma/\\sqrt{n}$"
         },
-        "answer": "C",
-        "explain": "Averaging reduces variance by factor n."
+        "answer": "B",
+        "explain": "Variance shrinks like $1/n$."
       }
     ]
   },
   "final": {
     "id": "final",
-    "title": "Final-week method (no new theory)",
-    "minutes": 30,
+    "title": "Final-week method (formulas, not new theory)",
+    "minutes": 35,
     "lo": [
       "review"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "How to review this week",
-        "body": "No new Finan chapters. Loop:\n1) Timed questions\n2) Tag every miss by LO\n3) Micro-drill only those LOs\n4) Sleep\n\nUse Wrong Pool + formula sheet. If stuck >2 minutes on a concept, Ask Grok, then re-try a similar problem immediately."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Formula gate to rewrite from memory",
+        "body": "General: $P(A\\mid B)$, total probability, Bayes.\n\nDiscrete/continuous: $E[X]$, $\\mathrm{Var}(X)=E[X^2]-(E[X])^2$.\n\nNamed: binomial/Poisson/normal/exponential means and variances; $Z=(X-\\mu)/\\sigma$.\n\nInsurance: $Y=(X-d)_+$, $E[X\\wedge u]$, coinsurance.\n\nMultivariate: marginals, $f(y\\mid x)$, $\\mathrm{Var}(aX+bY)$, CLT for $\\bar X$."
       },
       {
-        "id": "s2",
+        "id": "t2",
+        "type": "textbook",
+        "title": "Diagnosis loop",
+        "body": "After each mock: tag misses as setup / formula / arithmetic / misread. Micro-drill the top tag for 20 questions, then re-test mixed. No new Finan chapters in the last two weeks."
+      },
+      {
+        "id": "c1",
         "type": "check",
-        "title": "Concept check",
-        "prompt": "In the final week, the best use of time is:",
+        "title": "Last week",
+        "prompt": "Best use of final week time:",
         "choices": {
-          "A": "Read brand-new advanced chapters",
+          "A": "Only brand-new exotic theory",
           "B": "Timed practice + diagnose misses",
-          "C": "Only watch videos passively",
-          "D": "Ignore insurance problems"
+          "C": "Passive videos only",
+          "D": "Ignore insurance"
         },
         "answer": "B",
-        "explain": "Mocks and diagnosis raise scores; new theory does not stabilize under time pressure."
-      },
-      {
-        "id": "s3",
-        "type": "concept",
-        "title": "High-yield LO triage",
-        "body": "Spend final-week time proportional to syllabus weight:\n• Univariate (incl. insurance payments) — largest\n• General conditionals/Bayes — frequent traps\n• Multivariate joint/cov/CLT — fewer items but easy points if drilled\n\nKeep a one-page formula sheet you can rewrite from memory in 10 minutes."
-      },
-      {
-        "id": "s4",
-        "type": "example",
-        "title": "Worked: 3-hour mock diagnosis loop",
-        "setup": "You score 18/30 on a mock. How to spend the next day?",
-        "solution": "Tag each miss: setup error / formula / arithmetic / misread.\nIf ≥5 misses share a tag (e.g. deductible), do a 20-question micro-set only on that tag, then re-test 10 mixed.",
-        "why": "Random re-reading is comfort; tagged micro-drills change the score."
+        "explain": "Mocks and diagnosis raise scores under time pressure."
       }
     ]
   },
   "fm_tvm": {
     "id": "fm_tvm",
-    "title": "TVM quick review (legacy module)",
-    "minutes": 25,
+    "title": "TVM core (quick path module)",
+    "minutes": 55,
     "lo": [
       "FM1"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Quick sheet",
-        "body": "v=1/(1+i), d=i/(1+i), δ=ln(1+i), (1+i)=(1+i^{(m)}/m)^m."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Effective rate and discount",
+        "body": "Effective annual interest rate $i$: an investment of $1$ grows to $1+i$ in one year.\n\nDiscount factor and discount rate:\n$$v=\\frac{1}{1+i},\\qquad d=\\frac{i}{1+i}=1-v,\\qquad i=\\frac{d}{1-d}.$$\n\nSimple interpretation: $d$ is the discount on a one-year loan of face $1$ repaid at year-end (interest paid up front)."
       },
       {
-        "id": "s2",
+        "id": "t2",
+        "type": "textbook",
+        "title": "Force of interest",
+        "body": "Constant force $\\delta$ means continuous compounding:\n$$a(t)=e^{\\delta t},\\qquad v^t=e^{-\\delta t},\\qquad \\delta=\\ln(1+i).$$\n\nIn general, the force is $\\delta_t=a'(t)/a(t)$. Exam FM mostly uses constant $\\delta$."
+      },
+      {
+        "id": "t3",
+        "type": "textbook",
+        "title": "Nominal rates",
+        "body": "Nominal rate $i^{(m)}$ convertible $m$-thly means period rate $i^{(m)}/m$ with $m$ compoundings per year:\n$$1+i=\\Bigl(1+\\frac{i^{(m)}}{m}\\Bigr)^m,\\qquad i^{(m)}=m\\bigl[(1+i)^{1/m}-1\\bigr].$$\n\nSimilarly for $d^{(m)}$:\n$$1-d=\\Bigl(1-\\frac{d^{(m)}}{m}\\Bigr)^m.$$"
+      },
+      {
+        "id": "e1",
+        "type": "example",
+        "title": "Worked: conversions",
+        "setup": "$i=0.06$. Find $v$, $d$, and $\\delta$.",
+        "solution": "$$v=\\frac{1}{1.06},\\quad d=\\frac{0.06}{1.06},\\quad \\delta=\\ln(1.06).$$",
+        "why": "Store $i$ once; compute the chain $i\\to v\\to d\\to\\delta$."
+      },
+      {
+        "id": "c1",
         "type": "check",
-        "title": "v",
-        "prompt": "v equals:",
+        "title": "Identity",
+        "prompt": "Which is always true?",
         "choices": {
-          "A": "1+i",
-          "B": "1/(1+i)",
-          "C": "i/(1+i)",
-          "D": "ln(1+i)"
+          "A": "$d=i(1+i)$",
+          "B": "$v=1-d$",
+          "C": "$\\delta=i/(1+i)$",
+          "D": "$i^{(m)}=mi$ always"
         },
         "answer": "B",
-        "explain": "Discount factor."
+        "explain": "$v=1/(1+i)$ and $d=i/(1+i)$ imply $v=1-d$."
       }
     ]
   },
   "fm_ann": {
     "id": "fm_ann",
-    "title": "Annuities quick review (legacy module)",
-    "minutes": 25,
+    "title": "Level annuities (quick path module)",
+    "minutes": 60,
     "lo": [
       "FM2"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Quick sheet",
-        "body": "a-angle-n=(1−v^n)/i ; ä-angle-n=(1−v^n)/d ; s-angle-n=((1+i)^n−1)/i."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Annuity-immediate",
+        "body": "Payments of $1$ at the end of each year for $n$ years. Present value:\n$$a_{\\overline{n}|}=\\sum_{k=1}^n v^k=v\\frac{1-v^n}{1-v}=\\frac{1-v^n}{i}.$$\n\nAccumulated value at time $n$:\n$$s_{\\overline{n}|}=\\sum_{k=0}^{n-1}(1+i)^k=\\frac{(1+i)^n-1}{i}=(1+i)^n a_{\\overline{n}|}.$$"
       },
       {
-        "id": "s2",
+        "id": "t2",
+        "type": "textbook",
+        "title": "Annuity-due",
+        "body": "Payments of $1$ at the beginning of each year for $n$ years:\n$$\\ddot a_{\\overline{n}|}=\\sum_{k=0}^{n-1} v^k=\\frac{1-v^n}{d}=(1+i)a_{\\overline{n}|}.$$\n\nPerpetuity-immediate: $a_{\\overline{\\infty}|}=1/i$. Perpetuity-due: $1/d$.\n\nIf each payment is $X$ instead of $1$, multiply the annuity factor by $X$."
+      },
+      {
+        "id": "e1",
+        "type": "example",
+        "title": "Worked: level payments",
+        "setup": "End-of-year payments of $500$ for $10$ years, $i=6\\%$. PV?",
+        "solution": "$$\\mathrm{PV}=500\\cdot a_{\\overline{10}|}=500\\cdot\\frac{1-1.06^{-10}}{0.06}.$$",
+        "why": "Factor payment size; use immediate form for end-of-year."
+      },
+      {
+        "id": "c1",
         "type": "check",
-        "title": "Perpetuity immediate",
-        "prompt": "PV of 1 per year forever (immediate) is:",
+        "title": "Due vs immediate",
+        "prompt": "$\\ddot a_{\\overline{n}|}$ equals:",
         "choices": {
-          "A": "i",
-          "B": "1/i",
-          "C": "d",
-          "D": "1/d"
+          "A": "$a_{\\overline{n}|}/(1+i)$",
+          "B": "$(1+i)a_{\\overline{n}|}$",
+          "C": "$a_{\\overline{n}|}-1$",
+          "D": "$i\\cdot a_{\\overline{n}|}$"
         },
         "answer": "B",
-        "explain": "Perpetuity-immediate 1/i."
+        "explain": "Due payments are each one period earlier."
       }
     ]
   },
@@ -993,335 +893,285 @@
   },
   "fm_setup": {
     "id": "fm_setup",
-    "title": "Exam FM orientation & calculator discipline",
-    "minutes": 30,
+    "title": "Financial mathematics: the objects of study",
+    "minutes": 35,
     "lo": [
       "FM"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "What FM tests",
-        "body": "Exam FM is a 2.5-hour, 30-question CBT on financial mathematics.\n\nApproximate syllabus weights (use midpoints for planning):\n• Time value of money ~10% (i, v, d, δ, nominal rates)\n• Annuities ~25% (level, due/immediate, m-thly, continuous, varying)\n• Loans ~20% (amortization, sinking funds)\n• Bonds ~20% (price, book value, callable/redemption)\n• General cash flows / portfolios / duration & immunization ~25%\n\nSpeed with a financial calculator (BA II Plus / TI-30X) is part of the skill."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Cash flows and time value",
+        "body": "Financial mathematics prices sequences of payments. A dollar at time $t$ is not a dollar at time $0$.\n\nThe accumulation function $a(t)$ converts time-$0$ money to time $t$. The discount function $v(t)=1/a(t)$ converts time-$t$ money to time $0$.\n\nUnder compound interest at effective rate $i$ per year,\n$$a(t)=(1+i)^t,\\qquad v(t)=v^t=\\Bigl(\\frac{1}{1+i}\\Bigr)^t.$$"
       },
       {
-        "id": "s2",
-        "type": "concept",
-        "title": "How this course is structured",
-        "body": "Duolingo-style path:\nLevel 1 Learn → Level 2 Practice → Level 3 Drill → Chapter test (≥70%).\nLast two weeks: wrap + full mocks only.\nDo multiple levels per day if you want — soft goal is not a cap."
+        "id": "t2",
+        "type": "textbook",
+        "title": "What the symbols summarize",
+        "body": "Annuity symbols compress geometric series of discounted payments. Loan and bond formulas are present values of contractual cash flows at a yield rate. Duration measures sensitivity of that present value to the yield."
       },
       {
-        "id": "s3",
-        "type": "example",
-        "title": "Worked: exam mindset",
-        "setup": "A stem mixes nominal i^(2) with an annuity-due. What is the first move?",
-        "solution": "Convert everything to one consistent rate period (or use the matching symbol formula). Never mix end-of-year a-angle-n at effective i with half-year coupons without converting.",
-        "why": "Most FM errors are period mismatch, not hard algebra."
-      },
-      {
-        "id": "s4",
+        "id": "c1",
         "type": "check",
-        "title": "Weight check",
-        "prompt": "Which block is usually the largest single topic group?",
+        "title": "Core task",
+        "prompt": "Most FM problems ultimately compute:",
         "choices": {
-          "A": "Only force of interest theory",
-          "B": "Annuities (level + variants)",
-          "C": "Only interest rate swaps",
-          "D": "Only continuous annuities"
+          "A": "A present or accumulated value of cash flows at a given rate",
+          "B": "Only a probability density",
+          "C": "Only a life table $l_x$",
+          "D": "A GLM deviance"
         },
-        "answer": "B",
-        "explain": "Annuities are typically the biggest pure block; portfolios/duration are also large."
+        "answer": "A",
+        "explain": "FM is cash-flow valuation under interest theory."
       }
     ]
   },
   "fm_tvm_core": {
     "id": "fm_tvm_core",
-    "title": "Interest measures: i, v, d, δ, nominal rates",
+    "title": "Interest measures: $i$, $v$, $d$, $\\delta$, nominal rates",
+    "minutes": 55,
+    "lo": [
+      "FM1"
+    ],
+    "sections": [
+      {
+        "id": "t1",
+        "type": "textbook",
+        "title": "Effective rate and discount",
+        "body": "Effective annual interest rate $i$: an investment of $1$ grows to $1+i$ in one year.\n\nDiscount factor and discount rate:\n$$v=\\frac{1}{1+i},\\qquad d=\\frac{i}{1+i}=1-v,\\qquad i=\\frac{d}{1-d}.$$\n\nSimple interpretation: $d$ is the discount on a one-year loan of face $1$ repaid at year-end (interest paid up front)."
+      },
+      {
+        "id": "t2",
+        "type": "textbook",
+        "title": "Force of interest",
+        "body": "Constant force $\\delta$ means continuous compounding:\n$$a(t)=e^{\\delta t},\\qquad v^t=e^{-\\delta t},\\qquad \\delta=\\ln(1+i).$$\n\nIn general, the force is $\\delta_t=a'(t)/a(t)$. Exam FM mostly uses constant $\\delta$."
+      },
+      {
+        "id": "t3",
+        "type": "textbook",
+        "title": "Nominal rates",
+        "body": "Nominal rate $i^{(m)}$ convertible $m$-thly means period rate $i^{(m)}/m$ with $m$ compoundings per year:\n$$1+i=\\Bigl(1+\\frac{i^{(m)}}{m}\\Bigr)^m,\\qquad i^{(m)}=m\\bigl[(1+i)^{1/m}-1\\bigr].$$\n\nSimilarly for $d^{(m)}$:\n$$1-d=\\Bigl(1-\\frac{d^{(m)}}{m}\\Bigr)^m.$$"
+      },
+      {
+        "id": "e1",
+        "type": "example",
+        "title": "Worked: conversions",
+        "setup": "$i=0.06$. Find $v$, $d$, and $\\delta$.",
+        "solution": "$$v=\\frac{1}{1.06},\\quad d=\\frac{0.06}{1.06},\\quad \\delta=\\ln(1.06).$$",
+        "why": "Store $i$ once; compute the chain $i\\to v\\to d\\to\\delta$."
+      },
+      {
+        "id": "c1",
+        "type": "check",
+        "title": "Identity",
+        "prompt": "Which is always true?",
+        "choices": {
+          "A": "$d=i(1+i)$",
+          "B": "$v=1-d$",
+          "C": "$\\delta=i/(1+i)$",
+          "D": "$i^{(m)}=mi$ always"
+        },
+        "answer": "B",
+        "explain": "$v=1/(1+i)$ and $d=i/(1+i)$ imply $v=1-d$."
+      }
+    ]
+  },
+  "fm_accum": {
+    "id": "fm_accum",
+    "title": "Accumulation and present value of single payments",
     "minutes": 50,
     "lo": [
       "FM1"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Core identities",
-        "body": "Effective annual rate i: money multiplies by (1+i) per year.\nDiscount factor v = 1/(1+i).\nDiscount rate d = i/(1+i) = 1 − v.\nAlso i = d/(1−d).\nConstant force of interest: δ = ln(1+i), accumulation a(t)=e^{δt}, v^t = e^{−δt}.\n\nNominal rates: i^{(m)} is payable m-thly; (1+i)=(1+i^{(m)}/m)^m.\nSimilarly (1−d)=(1−d^{(m)}/m)^m."
-      },
-      {
-        "id": "s2",
-        "type": "concept",
-        "title": "Equivalent rates checklist",
-        "body": "Given any one of i, v, d, δ, i^{(m)}, d^{(m)}, you should convert to any other in under 30 seconds.\nWrite the chain: i ↔ v ↔ d ↔ δ and i ↔ i^{(m)}.\nOn calculator: store i, compute v=1/(1+i), d=i/(1+i), δ=ln(1+i)."
-      },
-      {
-        "id": "s3",
-        "type": "example",
-        "title": "Worked: force from effective",
-        "setup": "i = 0.06 effective annual. Find δ and d.",
-        "solution": "δ = ln(1.06) ≈ 0.05827.\nd = 0.06/1.06 ≈ 0.05660.\nCheck: v=1/1.06, d=1−v.",
-        "why": "Always sanity-check: 0 < d < i < δ is false actually — for positive rates, d < i and δ is between them in a specific way; just verify identities."
-      },
-      {
-        "id": "s4",
-        "type": "example",
-        "title": "Worked: nominal to effective",
-        "setup": "i^{(12)} = 0.12. Find effective annual i.",
-        "solution": "1+i = (1+0.12/12)^{12} = (1.01)^{12} ⇒ i ≈ 0.1268.",
-        "why": "Nominal 12% is not 12% effective — convert before multi-year problems."
-      },
-      {
-        "id": "s5",
-        "type": "check",
-        "title": "Identity",
-        "prompt": "Which is always true (positive i)?",
-        "choices": {
-          "A": "d = i(1+i)",
-          "B": "v = 1−d",
-          "C": "δ = i/(1+i)",
-          "D": "i^{(m)} = m·i always"
-        },
-        "answer": "B",
-        "explain": "v=1/(1+i) and d=i/(1+i) ⇒ v=1−d."
-      }
-    ]
-  },
-  "fm_accum": {
-    "id": "fm_accum",
-    "title": "Accumulation & present value of single payments",
-    "minutes": 45,
-    "lo": [
-      "FM1"
-    ],
-    "sections": [
-      {
-        "id": "s1",
-        "type": "concept",
+        "id": "t1",
+        "type": "textbook",
         "title": "Moving one payment",
-        "body": "Future value: FV = PV · (1+i)^n   or   PV · e^{δn}.\nPresent value: PV = FV · v^n.\nn can be fractional if compounding is continuous or if you use consistent period rate.\nWith nominal i^{(m)}, work in m-ths: period rate j=i^{(m)}/m, periods = m·t."
+        "body": "Present value at $0$ of $C$ due at time $t$:\n$$\\mathrm{PV}=C\\,v^t=C(1+i)^{-t}.$$\n\nAccumulated value at $T$ of $C$ invested at time $0$:\n$$\\mathrm{AV}=C(1+i)^T.$$\n\nWith nominal $i^{(m)}$, work in periods: rate $j=i^{(m)}/m$, number of periods $mt$."
       },
       {
-        "id": "s2",
+        "id": "e1",
         "type": "example",
-        "title": "Worked: two accounts meet",
-        "setup": "Classic: one account at nominal convertible m-thly, another at force δ; equal values after t years — solve for unknown rate.",
-        "solution": "Set AV1=AV2 ⇒ equate (1+j)^{mt} with e^{δt} (or the other accumulation function). Take logs / roots carefully.",
-        "why": "This is pure TVM algebra — define accumulation functions first."
+        "title": "Worked: fractional periods",
+        "setup": "$100$ grows for $7.25$ years at $4\\%$ convertible semiannually. Accumulated value?",
+        "solution": "$j=0.02$ per half-year, $k=14.5$ periods:\n$$\\mathrm{AV}=100(1.02)^{14.5}.$$",
+        "why": "Count compounding periods, not years with the wrong rate."
       },
       {
-        "id": "s3",
-        "type": "example",
-        "title": "Worked: fractional year",
-        "setup": "100 grows for 7.25 years at 4% convertible semiannually.",
-        "solution": "j=0.02 per half-year; k=14.5 periods; AV=100(1.02)^{14.5}.",
-        "why": "Count compounding periods, not calendar years with the wrong rate."
-      },
-      {
-        "id": "s4",
+        "id": "c1",
         "type": "check",
         "title": "PV factor",
-        "prompt": "At effective i, PV of 1 due in n years is:",
+        "prompt": "At effective $i$, PV of $1$ due in $n$ years is:",
         "choices": {
-          "A": "(1+i)^n",
-          "B": "v^n",
-          "C": "d^n",
-          "D": "δ^n"
+          "A": "$(1+i)^n$",
+          "B": "$v^n$",
+          "C": "$d^n$",
+          "D": "$\\delta^n$"
         },
         "answer": "B",
-        "explain": "Discount with v^n."
+        "explain": "Discount with $v^n$."
       }
     ]
   },
   "fm_ann_level": {
     "id": "fm_ann_level",
-    "title": "Level annuities-immediate & due",
+    "title": "Level annuities-immediate and due",
+    "minutes": 60,
+    "lo": [
+      "FM2"
+    ],
+    "sections": [
+      {
+        "id": "t1",
+        "type": "textbook",
+        "title": "Annuity-immediate",
+        "body": "Payments of $1$ at the end of each year for $n$ years. Present value:\n$$a_{\\overline{n}|}=\\sum_{k=1}^n v^k=v\\frac{1-v^n}{1-v}=\\frac{1-v^n}{i}.$$\n\nAccumulated value at time $n$:\n$$s_{\\overline{n}|}=\\sum_{k=0}^{n-1}(1+i)^k=\\frac{(1+i)^n-1}{i}=(1+i)^n a_{\\overline{n}|}.$$"
+      },
+      {
+        "id": "t2",
+        "type": "textbook",
+        "title": "Annuity-due",
+        "body": "Payments of $1$ at the beginning of each year for $n$ years:\n$$\\ddot a_{\\overline{n}|}=\\sum_{k=0}^{n-1} v^k=\\frac{1-v^n}{d}=(1+i)a_{\\overline{n}|}.$$\n\nPerpetuity-immediate: $a_{\\overline{\\infty}|}=1/i$. Perpetuity-due: $1/d$.\n\nIf each payment is $X$ instead of $1$, multiply the annuity factor by $X$."
+      },
+      {
+        "id": "e1",
+        "type": "example",
+        "title": "Worked: level payments",
+        "setup": "End-of-year payments of $500$ for $10$ years, $i=6\\%$. PV?",
+        "solution": "$$\\mathrm{PV}=500\\cdot a_{\\overline{10}|}=500\\cdot\\frac{1-1.06^{-10}}{0.06}.$$",
+        "why": "Factor payment size; use immediate form for end-of-year."
+      },
+      {
+        "id": "c1",
+        "type": "check",
+        "title": "Due vs immediate",
+        "prompt": "$\\ddot a_{\\overline{n}|}$ equals:",
+        "choices": {
+          "A": "$a_{\\overline{n}|}/(1+i)$",
+          "B": "$(1+i)a_{\\overline{n}|}$",
+          "C": "$a_{\\overline{n}|}-1$",
+          "D": "$i\\cdot a_{\\overline{n}|}$"
+        },
+        "answer": "B",
+        "explain": "Due payments are each one period earlier."
+      }
+    ]
+  },
+  "fm_ann_mthly": {
+    "id": "fm_ann_mthly",
+    "title": "m-thly and continuous annuities",
     "minutes": 55,
     "lo": [
       "FM2"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Standard annual symbols",
-        "body": "Annuity-immediate (payments of 1 at end of each year for n years):\n  a-angle-n = (1 − v^n) / i\nAnnuity-due (payments at beginning of each year):\n  ä-angle-n = (1 − v^n) / d = (1+i) a-angle-n\nAccumulation of annuity-immediate: s-angle-n = (1+i)^n a-angle-n = ((1+i)^n − 1)/i\nDue accumulation: s̈-angle-n = (1+i) s-angle-n\nPerpetuity-immediate: 1/i ; due: 1/d."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Payable $m$-thly",
+        "body": "Level payments totaling $1$ per year, paid $m$ times yearly ($1/m$ each payment), for $n$ years. Present value:\n$$a_{\\overline{n}|}^{(m)}=\\frac{1-v^n}{i^{(m)}}.$$\n\nThe due form uses $d^{(m)}$ in the denominator.\n\nContinuous payment at rate $1$ per year:\n$$\\bar a_{\\overline{n}|}=\\frac{1-v^n}{\\delta}=\\int_0^n v^t\\,dt.$$"
       },
       {
-        "id": "s2",
-        "type": "concept",
-        "title": "Payment level X",
-        "body": "If payments are X (not 1), multiply the annuity factor by X.\nPV = X · a-angle-n  (immediate) or X · ä-angle-n (due).\nFirst identify timing: end vs beginning of periods."
+        "id": "t2",
+        "type": "textbook",
+        "title": "Period approach",
+        "body": "Equivalently: period rate $j=i^{(m)}/m$, $mn$ payments of $1/m$:\n$$a_{\\overline{n}|}^{(m)}=\\frac{1}{m}\\cdot a_{\\overline{mn}|}^{(j)},$$\nwhere the inner annuity uses rate $j$ per period. Stay consistent — do not mix symbols from different periodizations."
       },
       {
-        "id": "s3",
-        "type": "example",
-        "title": "Worked: level payment PV",
-        "setup": "500 at end of each year for 10 years, i=6%. PV?",
-        "solution": "PV = 500 · a-angle-10 @ 6% = 500 (1 − 1.06^{−10}) / 0.06.",
-        "why": "Factor out payment size; use immediate form for end-of-year."
-      },
-      {
-        "id": "s4",
-        "type": "example",
-        "title": "Worked: due vs immediate",
-        "setup": "Same payments as above but at the beginning of each year.",
-        "solution": "PV = 500 · ä-angle-10 = 500 (1+i) a-angle-10.",
-        "why": "Due is one period earlier ⇒ multiply immediate PV by (1+i)."
-      },
-      {
-        "id": "s5",
+        "id": "c1",
         "type": "check",
-        "title": "Due identity",
-        "prompt": "ä-angle-n equals:",
+        "title": "Continuous denominator",
+        "prompt": "$\\bar a_{\\overline{n}|}$ uses denominator:",
         "choices": {
-          "A": "a-angle-n / (1+i)",
-          "B": "(1+i) a-angle-n",
-          "C": "a-angle-n − 1",
-          "D": "i · a-angle-n"
-        },
-        "answer": "B",
-        "explain": "Standard relationship."
-      }
-    ]
-  },
-  "fm_ann_mthly": {
-    "id": "fm_ann_mthly",
-    "title": "m-thly & continuous annuities",
-    "minutes": 50,
-    "lo": [
-      "FM2"
-    ],
-    "sections": [
-      {
-        "id": "s1",
-        "type": "concept",
-        "title": "Payable m-thly",
-        "body": "Level payments totaling 1 per year, paid m times per year (1/m each):\n  a-angle-n^{(m)} = (1 − v^n) / i^{(m)}\nDue form uses d^{(m)} in the denominator.\nContinuous: ā-angle-n = (1 − v^n) / δ\nMore frequent payments (same annual total) raise PV slightly vs annual immediate."
-      },
-      {
-        "id": "s2",
-        "type": "concept",
-        "title": "Calculator approach",
-        "body": "Alternatively convert to period rate j and do an mn-payment annuity of 1/m each period.\nBe consistent: either use m-thly symbols or expand to period form — not both mixed."
-      },
-      {
-        "id": "s3",
-        "type": "example",
-        "title": "Worked: monthly payments",
-        "setup": "Pay 1000 per year monthly for 20 years, i=5% effective. PV?",
-        "solution": "First find i^{(12)} from (1+i)=(1+i^{(12)}/12)^{12}, then\nPV = 1000 · a-angle-20^{(12)} = 1000 (1−v^{20}) / i^{(12)}.",
-        "why": "Annual total 1000, paid monthly ⇒ m-thly annuity factor."
-      },
-      {
-        "id": "s4",
-        "type": "check",
-        "title": "Continuous denom",
-        "prompt": "Continuous annuity PV of rate 1 for n years uses denominator:",
-        "choices": {
-          "A": "i",
-          "B": "d",
-          "C": "δ",
-          "D": "v"
+          "A": "$i$",
+          "B": "$d$",
+          "C": "$\\delta$",
+          "D": "$v$"
         },
         "answer": "C",
-        "explain": "ā-angle-n = (1−v^n)/δ."
+        "explain": "Continuous annuity: $(1-v^n)/\\delta$."
       }
     ]
   },
   "fm_ann_vary": {
     "id": "fm_ann_vary",
     "title": "Increasing, decreasing, and geometric annuities",
-    "minutes": 50,
+    "minutes": 55,
     "lo": [
       "FM2"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Arithmetic patterns",
-        "body": "Payments 1,2,...,n at year ends (immediate):\n  (Ia)-angle-n = (ä-angle-n − n v^n) / i\nDecreasing n,...,1:\n  (Da)-angle-n = (n − a-angle-n) / i\nThere are due and continuous analogues — match the payment timing in the stem."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Arithmetic progression payments",
+        "body": "Payments $1,2,\\ldots,n$ at year-ends (immediate increasing annuity):\n$$(Ia)_{\\overline{n}|}=\\sum_{k=1}^n k v^k=\\frac{\\ddot a_{\\overline{n}|}-n v^n}{i}.$$\n\nDecreasing $n,n-1,\\ldots,1$:\n$$(Da)_{\\overline{n}|}=\\frac{n-a_{\\overline{n}|}}{i}.$$\n\nThere are due and continuous analogues — match payment timing to the stem."
       },
       {
-        "id": "s2",
-        "type": "concept",
+        "id": "t2",
+        "type": "textbook",
         "title": "Geometric growth",
-        "body": "Payments grow by factor (1+g) each period.\nUse adjusted rate j with 1+j = (1+i)/(1+g), then PV = first payment × a-angle-n at rate j\n(with care at the first payment timing).\nIf g=i, special formulas (n v for certain perpetuity/level cases)."
+        "body": "Payments grow by factor $(1+g)$ each period. Define $j$ by\n$$1+j=\\frac{1+i}{1+g}.$$\n\nThen the PV is the first payment times an annuity-immediate at rate $j$ (with careful handling of the first payment’s timing). If $g=i$, special simplified forms appear."
       },
       {
-        "id": "s3",
-        "type": "example",
-        "title": "Worked: increasing annuity",
-        "setup": "Payments 1,2,...,10 at year-end, interest i. PV?",
-        "solution": "PV = (Ia)-angle-10 = (ä-angle-10 − 10 v^{10}) / i.",
-        "why": "Don't sum 10 separate PVs unless n is tiny — use the closed form."
-      },
-      {
-        "id": "s4",
+        "id": "c1",
         "type": "check",
-        "title": "Geometric idea",
-        "prompt": "Payments grow at g, interest i. Adjusted rate uses:",
+        "title": "Geometric rate",
+        "prompt": "Payments grow at $g$, interest $i$. Adjusted rate uses:",
         "choices": {
-          "A": "i−g only always",
-          "B": "(1+i)/(1+g) − 1",
-          "C": "i+g",
-          "D": "δ−g always"
+          "A": "$i-g$ only always",
+          "B": "$(1+i)/(1+g)-1$",
+          "C": "$i+g$",
+          "D": "$\\delta-g$ always"
         },
         "answer": "B",
-        "explain": "Standard substitution 1+j=(1+i)/(1+g)."
+        "explain": "Standard substitution $1+j=(1+i)/(1+g)$."
       }
     ]
   },
   "fm_loans": {
     "id": "fm_loans",
-    "title": "Loans & amortization schedules",
-    "minutes": 55,
+    "title": "Loans and amortization",
+    "minutes": 60,
     "lo": [
       "FM3"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
+        "id": "t1",
+        "type": "textbook",
         "title": "Level payment loan",
-        "body": "Loan principal L repaid by n level payments X:\n  L = X · a-angle-n  ⇒  X = L / a-angle-n\nOutstanding balance after k payments (prospective):\n  OB_k = X · a-angle-(n−k)\nRetrospective:\n  OB_k = L(1+i)^k − X · s-angle-k\nInterest portion of payment k: I_k = i · OB_{k−1}\nPrincipal portion: P_k = X − I_k"
+        "body": "Loan principal $L$ repaid by $n$ level end-of-period payments $X$ at effective rate $i$ per period:\n$$L=X\\,a_{\\overline{n}|}\\qquad\\Rightarrow\\qquad X=\\frac{L}{a_{\\overline{n}|}}.$$\n\nOutstanding balance after $k$ payments:\n\nProspective (remaining payments):\n$$\\mathrm{OB}_k=X\\,a_{\\overline{n-k}|}.$$\n\nRetrospective (what has happened so far):\n$$\\mathrm{OB}_k=L(1+i)^k-X\\,s_{\\overline{k}|}.$$"
       },
       {
-        "id": "s2",
-        "type": "concept",
-        "title": "Drop payments & refinancing",
-        "body": "If a payment is missed or extra principal is paid, recompute OB then re-amortize remaining term or new payment.\nProspective method is usually cleanest after a change."
+        "id": "t2",
+        "type": "textbook",
+        "title": "Interest and principal split",
+        "body": "Just before payment $k$, balance is $\\mathrm{OB}_{k-1}$. Then\n$$I_k=i\\cdot \\mathrm{OB}_{k-1},\\qquad PR_k=X-I_k,$$\nand $\\mathrm{OB}_k=\\mathrm{OB}_{k-1}-PR_k$."
       },
       {
-        "id": "s3",
+        "id": "e1",
         "type": "example",
-        "title": "Worked: find level payment",
-        "setup": "Loan 10,000 for 5 years, i=6% annual, level end-of-year payments.",
-        "solution": "X = 10000 / a-angle-5 @ 6%.",
-        "why": "Always start from L = X a-angle-n unless the stem says otherwise."
+        "title": "Worked: find $X$",
+        "setup": "Loan $10{,}000$, $n=5$, $i=6\\%$ annual, level end-of-year payments. Find $X$.",
+        "solution": "$$X=\\frac{10000}{a_{\\overline{5}|@6\\%}}.$$",
+        "why": "Always start from $L=Xa_{\\overline{n}|}$ unless the stem says otherwise."
       },
       {
-        "id": "s4",
-        "type": "example",
-        "title": "Worked: interest in a payment",
-        "setup": "After finding X and OB_2, interest in 3rd payment is i·OB_2.",
-        "solution": "I_3 = i · OB_2; principal = X − I_3.",
-        "why": "Interest is always rate times prior balance."
-      },
-      {
-        "id": "s5",
+        "id": "c1",
         "type": "check",
         "title": "Prospective OB",
-        "prompt": "After k level payments on an n-payment loan, OB equals X times:",
+        "prompt": "After $k$ level payments on an $n$-payment loan, $\\mathrm{OB}$ equals $X$ times:",
         "choices": {
-          "A": "a-angle-n",
-          "B": "a-angle-(n−k)",
-          "C": "s-angle-k",
-          "D": "v^k"
+          "A": "$a_{\\overline{n}|}$",
+          "B": "$a_{\\overline{n-k}|}$",
+          "C": "$s_{\\overline{k}|}$",
+          "D": "$v^k$"
         },
         "answer": "B",
-        "explain": "Remaining annuity of n−k payments."
+        "explain": "Remaining annuity of $n-k$ payments."
       }
     ]
   },
@@ -1334,84 +1184,68 @@
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Interest + sink",
-        "body": "Borrower pays interest each period on the full principal L at loan rate i,\nplus deposits into a sinking fund that accumulates to L at maturity at SF rate j.\nLevel SF deposit D = L / s-angle-n @ j.\nTotal periodic outlay = L·i + D  (if interest paid currently on full L).\nIf j ≠ i, only the SF uses j; interest leg uses i."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Structure",
+        "body": "Borrower pays interest each period on the full principal $L$ at loan rate $i$, and separately deposits into a sinking fund earning rate $j$ that accumulates to $L$ at maturity.\n\nLevel sinking-fund deposit:\n$$D=\\frac{L}{s_{\\overline{n}|@j}}.$$\n\nTotal periodic outlay $= Li + D$ (when interest is paid currently on full $L$). If $j\\neq i$, only the SF uses $j$."
       },
       {
-        "id": "s2",
-        "type": "example",
-        "title": "Worked: total payment",
-        "setup": "L=1000, n=10, loan interest 8%, SF earns 6%. Annual total payment?",
-        "solution": "Interest leg = 1000·0.08=80.\nD = 1000 / s-angle-10 @ 6%.\nTotal = 80 + D.",
-        "why": "Two rates ⇒ two calculations."
-      },
-      {
-        "id": "s3",
+        "id": "c1",
         "type": "check",
         "title": "SF deposit",
-        "prompt": "To accumulate L in n periods at rate j in a sinking fund, level deposit is:",
+        "prompt": "To accumulate $L$ in $n$ periods at rate $j$ in a sinking fund, level deposit is:",
         "choices": {
-          "A": "L / a-angle-n",
-          "B": "L / s-angle-n at j",
-          "C": "L·j",
-          "D": "L·v^n"
+          "A": "$L/a_{\\overline{n}|}$",
+          "B": "$L/s_{\\overline{n}|}$ at $j$",
+          "C": "$L\\cdot j$",
+          "D": "$L v^n$"
         },
         "answer": "B",
-        "explain": "Future-value annuity accumulates deposits to L."
+        "explain": "Future-value annuity accumulates deposits to $L$."
       }
     ]
   },
   "fm_bonds": {
     "id": "fm_bonds",
-    "title": "Bond price, premium, discount, book value",
-    "minutes": 55,
+    "title": "Bond price, premium, and book value",
+    "minutes": 60,
     "lo": [
       "FM4"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
+        "id": "t1",
+        "type": "textbook",
         "title": "Price formula",
-        "body": "Bond: face F, redemption C, n coupon periods, coupon rate r per period on F (coupon Fr),\nyield rate i per coupon period:\n  P = Fr · a-angle-n + C v^n\nIf coupons m-thly and yields nominal, convert to matching period rates first.\nP > C ⇒ premium; P < C ⇒ discount; P = C ⇒ par (when coupon rate equals yield, C=F typically)."
+        "body": "Per coupon period: face $F$, redemption amount $C$, coupon rate $r$ on face (coupon $Fr$ each period), $n$ coupons remaining, yield rate $i$ per coupon period:\n$$P = Fr\\cdot a_{\\overline{n}|} + C v^n.$$\n\nIf $P>C$: premium bond. If $P<C$: discount. If coupon rate equals yield and $C=F$: par ($P=F$)."
       },
       {
-        "id": "s2",
-        "type": "concept",
-        "title": "Book value amortization",
-        "body": "Book value just after a coupon follows the prospective formula with remaining coupons,\nor recursive: BV_k = BV_{k−1}(1+i) − coupon.\nPremium/discount write-down is |coupon − i·BV|."
+        "id": "t2",
+        "type": "textbook",
+        "title": "Book value",
+        "body": "Book value just after a coupon can be written prospectively with remaining coupons, or recursively\n$$\\mathrm{BV}_k=\\mathrm{BV}_{k-1}(1+i)-\\text{coupon}.$$\n\nThe premium/discount amortizes so book value tends to $C$ at redemption."
       },
       {
-        "id": "s3",
+        "id": "e1",
         "type": "example",
         "title": "Worked: basic price",
-        "setup": "Face 1000, 10 years, 5% annual coupons, yield 6%, redeem at par.",
-        "solution": "P = 50 a-angle-10 @ 6% + 1000 v^{10} @ 6%.",
-        "why": "Coupon = 0.05·1000=50; redemption C=1000."
+        "setup": "Face $1000$, $10$ annual coupons at $5\\%$, yield $6\\%$, redeem at par. Price?",
+        "solution": "Coupon $=50$:\n$$P=50\\,a_{\\overline{10}|@6\\%}+1000\\,v^{10}@6\\%.$$",
+        "why": "Split coupons (annuity) + redemption (single payment)."
       },
       {
-        "id": "s4",
-        "type": "example",
-        "title": "Worked: premium vs discount",
-        "setup": "Same bond if yield is 4% instead of 6%.",
-        "solution": "Lower yield ⇒ higher price ⇒ premium bond (P>1000).",
-        "why": "Price and yield move inversely."
-      },
-      {
-        "id": "s5",
+        "id": "c1",
         "type": "check",
         "title": "Premium",
         "prompt": "A bond sells at a premium when:",
         "choices": {
-          "A": "Price < redemption",
-          "B": "Price > redemption",
+          "A": "Price $<$ redemption",
+          "B": "Price $>$ redemption",
           "C": "Coupon rate is zero",
-          "D": "n=1 always"
+          "D": "$n=1$ always"
         },
         "answer": "B",
-        "explain": "Premium means market price above redemption amount."
+        "explain": "Premium means market price above redemption."
       }
     ]
   },
@@ -1424,74 +1258,60 @@
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Macaulay & modified duration",
-        "body": "Macaulay duration MacD = weighted average payment time using PV weights of each cash flow.\nFor a level-yield i per period: ModD = MacD / (1+i).\nRelative price change: ΔP/P ≈ −ModD · Δi  (first order).\nConvexity adds a positive second-order term — prices rise more / fall less than duration alone predicts."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Macaulay and modified duration",
+        "body": "For cash flows $c_t$ at times $t$ and price $P=\\sum c_t v^t$ at effective period rate $i$:\n\nMacaulay duration (time-weighted average of payment times):\n$$\\mathrm{MacD}=\\frac{\\sum t\\,c_t v^t}{P}.$$\n\nModified duration:\n$$\\mathrm{ModD}=\\frac{\\mathrm{MacD}}{1+i}=-\\frac{1}{P}\\frac{dP}{di}.$$\n\nRelative price change for a small yield shift:\n$$\\frac{\\Delta P}{P}\\approx -\\mathrm{ModD}\\cdot\\Delta i.$$"
       },
       {
-        "id": "s2",
-        "type": "concept",
+        "id": "t2",
+        "type": "textbook",
         "title": "Redington immunization",
-        "body": "To immunize a liability:\n1) PV(assets) = PV(liabilities)\n2) MacD or ModD match (same derivative w.r.t. i)\n3) Convexity of assets ≥ convexity of liabilities\nAssumes small parallel yield shifts and cash flows fixed."
+        "body": "To immunize liabilities with assets under small parallel yield shifts:\n\n1. $\\mathrm{PV}(A)=\\mathrm{PV}(L)$\n2. $\\mathrm{MacD}(A)=\\mathrm{MacD}(L)$ (or match modified durations)\n3. Convexity of assets $\\ge$ convexity of liabilities\n\nZero-coupon maturing at $n$ has $\\mathrm{MacD}=n$. Coupon bonds have $\\mathrm{MacD}<$ maturity."
       },
       {
-        "id": "s3",
-        "type": "example",
-        "title": "Worked: duration intuition",
-        "setup": "Zero-coupon bond maturing in n years has MacD = n.",
-        "solution": "All weight sits at time n ⇒ MacD=n. Coupon bonds have MacD < maturity.",
-        "why": "More coupons earlier ⇒ shorter duration."
-      },
-      {
-        "id": "s4",
+        "id": "c1",
         "type": "check",
         "title": "Price sensitivity",
         "prompt": "If yields rise slightly, bond prices:",
         "choices": {
-          "A": "Rise by about ModD·Δi",
-          "B": "Fall by about ModD·Δi",
+          "A": "Rise by about $\\mathrm{ModD}\\cdot\\Delta i$",
+          "B": "Fall by about $\\mathrm{ModD}\\cdot\\Delta i$",
           "C": "Do not change",
           "D": "Double"
         },
         "answer": "B",
-        "explain": "dP/P ≈ −ModD·Δi."
+        "explain": "$dP/P\\approx -\\mathrm{ModD}\\cdot\\Delta i$."
       }
     ]
   },
   "fm_final": {
     "id": "fm_final",
-    "title": "FM wrap-up & mock strategy",
+    "title": "FM wrap-up: formulas to own cold",
     "minutes": 35,
     "lo": [
       "FM"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Cold formula gate",
-        "body": "Before mocks, rewrite from memory:\n• i,v,d,δ and nominal conversions\n• a, ä, s, s̈, a^{(m)}, ā, (Ia), (Da)\n• Loan OB prospective/retrospective + I_k, P_k\n• Bond price + book value recursion\n• MacD, ModD, Redington conditions"
+        "id": "t1",
+        "type": "textbook",
+        "title": "Checklist",
+        "body": "Rewrite without notes:\n\n- $v,d,\\delta,i^{(m)}$ conversions\n- $a_{\\overline{n}|}$, $\\ddot a_{\\overline{n}|}$, $s_{\\overline{n}|}$, $a^{(m)}$, $\\bar a$\n- $(Ia)$, $(Da)$, geometric $j$ with $1+j=(1+i)/(1+g)$\n- Loan $X=L/a$, $\\mathrm{OB}$ prospective/retrospective, $I_k$\n- Bond $P=Fr a + Cv^n$, book value recursion\n- $\\mathrm{MacD}$, $\\mathrm{ModD}$, Redington conditions"
       },
       {
-        "id": "s2",
-        "type": "concept",
-        "title": "Mock loop",
-        "body": "Full 30Q / 2.5h → tag misses (period mismatch / formula / calculator) → micro-drill → re-mock.\nNo new theory in the final two weeks."
-      },
-      {
-        "id": "s3",
+        "id": "c1",
         "type": "check",
         "title": "Final weeks",
-        "prompt": "Best use of the last two weeks:",
+        "prompt": "Best use of last two weeks:",
         "choices": {
-          "A": "Brand-new exotic derivatives only",
+          "A": "Only new exotic derivatives",
           "B": "Timed mixed sets + full mocks + wrong pool",
-          "C": "Only passive videos",
+          "C": "Passive videos only",
           "D": "Skip bonds"
         },
         "answer": "B",
-        "explain": "Wrap unit is mock-heavy by design."
+        "explain": "Mock-heavy wrap is intentional."
       }
     ]
   },
@@ -1657,86 +1477,78 @@
   },
   "fam_lt_surv": {
     "id": "fam_lt_surv",
-    "title": "Survival models & life tables",
-    "minutes": 55,
+    "title": "Survival models: $T_x$, $_tp_x$, life tables",
+    "minutes": 60,
     "lo": [
       "FAM-LT"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Lifetime random variables",
-        "body": "T_x = future lifetime of (x).\nSurvival: _t p_x = P(T_x > t)\nDeath: _t q_x = 1 − _t p_x\nDeferred: _t|u q_x = _t p_x · _u q_{x+t}\nForce of mortality μ_{x+t}; relationships with survival function.\nCurate K_x = ⌊T_x⌋ for discrete models."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Future lifetime",
+        "body": "Let $(x)$ denote a life aged $x$. The future lifetime is the continuous random variable $T_x$.\n\nSurvival and mortality probabilities:\n$${}_t p_x = P(T_x > t),\\qquad {}_t q_x = P(T_x \\le t)=1-{}_t p_x.$$\n\nDeferred mortality (dies between $t$ and $t+u$):\n$${}_{t|u} q_x = {}_t p_x \\cdot {}_u q_{x+t}.$$\n\nForce of mortality $\\mu_{x+t}$ satisfies, under standard smoothness,\n$${}_t p_x = \\exp\\Bigl(-\\int_0^t \\mu_{x+s}\\,ds\\Bigr).$$"
       },
       {
-        "id": "s2",
-        "type": "concept",
+        "id": "t2",
+        "type": "textbook",
         "title": "Life table functions",
-        "body": "l_x, d_x = l_x − l_{x+1}, q_x = d_x/l_x, p_x = 1−q_x.\ne_x = curtate expectation of future lifetime (sum of p's).\nUnder UDD or constant force, convert between continuous and discrete probabilities."
+        "body": "A life table gives $l_x$ (survivors to age $x$ in a radix cohort). Then\n$$d_x=l_x-l_{x+1},\\qquad q_x=\\frac{d_x}{l_x},\\qquad p_x=1-q_x.$$\n\nMulti-year survival chains: ${}_2 p_x = p_x\\, p_{x+1}$.\n\nCurate future lifetime $K_x=\\lfloor T_x\\rfloor$ underpins discrete insurance models paying at year-end."
       },
       {
-        "id": "s3",
+        "id": "e1",
         "type": "example",
         "title": "Worked: two-year survival",
-        "setup": "p_x=0.99, p_{x+1}=0.98. Find _2 p_x.",
-        "solution": "_2 p_x = p_x p_{x+1} = 0.99·0.98 = 0.9702.",
-        "why": "Chain single-year survivals for multi-year."
+        "setup": "$p_x=0.99$, $p_{x+1}=0.98$. Find ${}_2 p_x$.",
+        "solution": "$${}_2 p_x = 0.99\\cdot 0.98 = 0.9702.$$",
+        "why": "Multiply successive one-year survivals."
       },
       {
-        "id": "s4",
+        "id": "c1",
         "type": "check",
         "title": "Notation",
-        "prompt": "_t p_x is the probability that (x):",
+        "prompt": "${}_t p_x$ is the probability that $(x)$:",
         "choices": {
-          "A": "Dies within t years",
-          "B": "Survives t years",
-          "C": "Is age t exactly",
-          "D": "Buys insurance"
+          "A": "Dies within $t$ years",
+          "B": "Survives at least $t$ years",
+          "C": "Is age $t$ at issue",
+          "D": "Pays premium $t$"
         },
         "answer": "B",
-        "explain": "p is survival; q is death."
+        "explain": "$p$ is survival; $q$ is death."
       }
     ]
   },
   "fam_lt_ins": {
     "id": "fam_lt_ins",
-    "title": "Life insurance benefits (APV)",
-    "minutes": 55,
+    "title": "Life insurance actuarial present values",
+    "minutes": 60,
     "lo": [
       "FAM-LT"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "Insurance EPV",
-        "body": "Whole life insurance pays 1 at end of year of death: A_x = Σ v^{k+1} · _k|q_x\nContinuous whole life Ā_x integrates v^t · _t p_x μ_{x+t} dt.\nTerm, pure endowment A_{x:n|}^1 , endowment insurance A_{x:n|}.\nIdentity (discrete whole life, level i): A_x = 1 − d ä_x."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Whole life insurance",
+        "body": "Discrete whole life insurance of $1$ on $(x)$, payable at the end of the year of death:\n$$A_x = \\sum_{k=0}^{\\infty} v^{k+1}\\,{}_{k|}q_x = \\sum_{k=0}^{\\infty} v^{k+1}\\,{}_k p_x\\, q_{x+k}.$$\n\nContinuous whole life:\n$$\\bar A_x = \\int_0^{\\infty} v^t\\,{}_t p_x\\,\\mu_{x+t}\\,dt.$$\n\nUnder constant effective rate $i$ with $d=i/(1+i)$,\n$$A_x = 1 - d\\,\\ddot a_x.$$"
       },
       {
-        "id": "s2",
-        "type": "concept",
-        "title": "Relations",
-        "body": "Pure endowment: A_{x:n|}^{1|} = v^n · _n p_x\nEndowment insurance = term insurance + pure endowment.\nHigher interest rate lowers insurance APVs (discount harder)."
+        "id": "t2",
+        "type": "textbook",
+        "title": "Term, pure endowment, endowment",
+        "body": "$n$-year pure endowment: pays $1$ at time $n$ if $(x)$ survives:\n$$A_{x:\\overline{n}|}^{\\,1} = v^n\\,{}_n p_x.$$\n\n$n$-year term insurance pays only if death within $n$ years. Endowment insurance $=$ term $+$ pure endowment."
       },
       {
-        "id": "s3",
-        "type": "example",
-        "title": "Worked: identity",
-        "setup": "Given ä_x and d, find A_x for whole life discrete.",
-        "solution": "A_x = 1 − d ä_x.",
-        "why": "Memorize this identity cold."
-      },
-      {
-        "id": "s4",
+        "id": "c1",
         "type": "check",
-        "title": "Insurance vs annuity",
-        "prompt": "A_x = 1 − d ä_x links:",
+        "title": "Identity",
+        "prompt": "$A_x = 1 - d\\,\\ddot a_x$ links:",
         "choices": {
-          "A": "Loan balance to coupon",
+          "A": "Loans to coupons",
           "B": "Whole life insurance to life annuity-due",
-          "C": "Bond price to duration",
-          "D": "Poisson to gamma"
+          "C": "Poisson to gamma",
+          "D": "PCA to $k$-means"
         },
         "answer": "B",
         "explain": "Classic discrete whole-life identity."
@@ -1899,45 +1711,45 @@
   },
   "srm_glm": {
     "id": "srm_glm",
-    "title": "Generalized linear models",
-    "minutes": 55,
+    "title": "Generalized linear models: structure and interpretation",
+    "minutes": 60,
     "lo": [
       "SRM2"
     ],
     "sections": [
       {
-        "id": "s1",
-        "type": "concept",
-        "title": "GLM structure",
-        "body": "Three parts:\n1) Random: Y from exponential family (Normal, Poisson, Binomial, Gamma, …)\n2) Linear predictor: η = Xβ\n3) Link: g(μ)=η  so μ = g^{−1}(Xβ)\n\nCommon links: identity (normal), log (positive means, counts), logit (probabilities).\nOffset: known exposure on the linear predictor (e.g. log(exposure) for rates)."
+        "id": "t1",
+        "type": "textbook",
+        "title": "Three components",
+        "body": "A GLM specifies:\n\n1. **Random component:** $Y$ has a distribution in the exponential family with mean $\\mu=E[Y]$.\n2. **Linear predictor:** $\\eta = \\mathbf{x}^\\top\\boldsymbol{\\beta} = \\beta_0+\\beta_1 x_1+\\cdots$.\n3. **Link function:** $g(\\mu)=\\eta$, invertible, so $\\mu=g^{-1}(\\mathbf{x}^\\top\\boldsymbol{\\beta})$.\n\nExamples: normal + identity (classical linear model); Poisson + log; binomial + logit."
       },
       {
-        "id": "s2",
-        "type": "concept",
-        "title": "Interpretation",
-        "body": "Log link: e^{βj} multiplies the mean when Xj increases by 1 (multiplicative effect).\nLogit link: e^{βj} is an odds ratio for a unit increase in Xj.\nDeviance / residual diagnostics; overdispersion for Poisson (maybe NB instead)."
+        "id": "t2",
+        "type": "textbook",
+        "title": "Interpreting coefficients",
+        "body": "**Log link** ($\\log\\mu=\\eta$): a unit increase in $x_j$ multiplies $\\mu$ by $e^{\\beta_j}$:\n$$\\frac{\\mu(x_j+1)}{\\mu(x_j)}=e^{\\beta_j}.$$\n\n**Logit link** ($\\log\\frac{\\mu}{1-\\mu}=\\eta$): $e^{\\beta_j}$ is an odds ratio for a unit increase in $x_j$.\n\n**Offset:** known exposure $t$ often enters as $\\log t$ on the linear predictor for rates:\n$$\\log\\mu = \\log t + \\mathbf{x}^\\top\\boldsymbol{\\beta}.$$"
       },
       {
-        "id": "s3",
+        "id": "e1",
         "type": "example",
-        "title": "Worked: log link",
-        "setup": "Poisson GLM with log link, β_age=0.02. Effect of +1 year of age?",
-        "solution": "Mean multiplies by e^{0.02} ≈ 1.0202 (~2% increase), holding others fixed.",
-        "why": "Never treat log-link coefficients as additive on the mean scale."
+        "title": "Worked: log-link multiplier",
+        "setup": "Poisson GLM, log link, $\\beta_{\\mathrm{age}}=0.02$. Effect of +1 year of age?",
+        "solution": "Mean multiplies by $e^{0.02}\\approx 1.0202$ (about $+2\\%$), holding other covariates fixed.",
+        "why": "Never read log-link $\\beta$ as an additive change on the mean scale."
       },
       {
-        "id": "s4",
+        "id": "c1",
         "type": "check",
         "title": "Log link",
-        "prompt": "With log link, coefficient β=0.2 multiplies the mean by about:",
+        "prompt": "With log link, $\\beta=0.2$ multiplies the mean by:",
         "choices": {
-          "A": "0.2",
-          "B": "e^{0.2}",
-          "C": "log(0.2)",
-          "D": "1.2 exactly always without e"
+          "A": "$0.2$",
+          "B": "$e^{0.2}$",
+          "C": "$\\log 0.2$",
+          "D": "$1.2$ without $e$ always"
         },
         "answer": "B",
-        "explain": "μ ∝ e^{Xβ}; unit increase multiplies by e^β."
+        "explain": "$\\mu\\propto e^{\\mathbf{x}^\\top\\boldsymbol{\\beta}}$."
       }
     ]
   },

@@ -838,6 +838,38 @@ body {
 }
 .lesson-section .body { white-space: pre-wrap; line-height: 1.55; color: #1e293b; font-size: 0.95rem; }
 
+/* Textbook-style reading blocks */
+.lesson-body {
+  color: var(--ink);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+.lesson-body .lesson-p {
+  margin: 0 0 0.85rem;
+}
+.lesson-body .lesson-p:last-child { margin-bottom: 0; }
+.lesson-body .lesson-math {
+  margin: 0.85rem 0;
+  overflow-x: auto;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.55rem;
+  background: #f6f4ef;
+  border: 1px solid var(--line);
+  text-align: center;
+}
+.lesson-body .katex-display {
+  margin: 0.75rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.solution-box .lesson-body,
+.why-box .lesson-inline .lesson-p { margin-bottom: 0.4rem; }
+.why-box .lesson-inline p { display: inline; }
+.tag-textbook {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
 .export-box {
   width: 100%;
   min-height: 7rem;
