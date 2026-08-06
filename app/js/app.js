@@ -855,26 +855,75 @@
   function openGrok(prompt) {
     window.open(grokUrl(prompt), "_blank", "noopener,noreferrer");
   }
+
+  /** Active exam label for prompts */
+  function examLabel() {
+    return courseMeta(state.activeCourseId)?.shortName || state.activeCourseId || "Exam P";
+  }
+
+  /**
+   * BA II Plus keystroke coaching block.
+   * Learner is new to the calculator — always request explicit button presses.
+   */
+  function ba2PlusCoachBlock(context = "problem") {
+    return (
+      `\n\n---\nCALCULATOR COACHING (Texas Instruments BA II Plus) — I am NEW to this calculator.\n` +
+      `Whenever the ${context} uses numbers, interest, annuities, NPV, bonds, logs, powers, or statistics, ` +
+      `you MUST include a section titled **"BA II Plus keystrokes"** that teaches me which buttons to press.\n\n` +
+      `Format requirements for keystrokes:\n` +
+      `1. Assume factory-ish exam settings unless noted: END mode, 1 P/Y, 1 C/Y when appropriate; tell me if I must change 2nd P/Y or BGN.\n` +
+      `2. Write a numbered step list with button names in [brackets], e.g. [2nd][CLR TVM], [N], [I/Y], [PV], [PMT], [FV], [CPT], [ENTER], [↑]/[↓], [2nd][QUIT].\n` +
+      `3. Show the exact sequence to enter each known value and what to compute (e.g. "press [CPT] then [PV]").\n` +
+      `4. If TVM worksheet is used, list the five TVM registers and which are inputs vs output.\n` +
+      `5. If cash-flow / NPV / IRR / bond / data / stat worksheets are better, say so and give the CF0, C01, F01… sequence.\n` +
+      `6. Include common mistakes on BA II Plus (BGN vs END, P/Y≠1, forgetting [2nd][CLR TVM], sign convention +/− for PV/PMT).\n` +
+      `7. If the problem is pure counting/probability with no calculator path, say "Mental/algebra only — no BA II Plus needed" briefly.\n` +
+      `8. After keystrokes, show the expected display result so I can verify I pressed correctly.\n`
+    );
+  }
+
   function explainPrompt(q, choice) {
     const choices = Object.entries(q.choices || {}).map(([k, v]) => `(${k}) ${v}`).join("\n");
     const note = q.images?.length
       ? `\nNOTE: Learner is viewing official SOA PDF crop of sample #${q.number}.\n`
       : "";
+    const exam = examLabel();
     return (
-      `I'm preparing for SOA Exam P. Tutor me on this MCQ.\n${note}` +
+      `I'm preparing for SOA ${exam}. Tutor me on this MCQ.\n` +
+      `I am learning the Texas Instruments BA II Plus calculator from scratch — treat keystrokes as part of the lesson.\n` +
+      note +
       `Question ${q.number} (${q.id}):\n${q.stem}\n\nChoices:\n${choices}\n\n` +
       (choice ? `I selected (${choice}).\n` : "") +
       (q.answer ? `Answer key: ${q.answer}.\n` : "") +
-      `Please: clean LaTeX statement, setup, full solution, traps, 2 similar questions with answers.`
+      `Please provide:\n` +
+      `1) Clean problem restatement (LaTeX ok)\n` +
+      `2) Setup / which formula or TVM story\n` +
+      `3) Full algebraic solution\n` +
+      `4) BA II Plus keystrokes (see requirements below) — button-by-button\n` +
+      `5) Common traps\n` +
+      `6) Two similar practice questions with answers\n` +
+      ba2PlusCoachBlock("solution")
     );
   }
   function teachGrokPrompt(lesson, section) {
+    const exam = examLabel();
+    const body = section.body || section.setup || section.prompt || "";
     return (
-      `SOA Exam P lesson "${lesson.title}". Section: ${section.title}\n` +
-      `${section.body || section.setup || ""}\n\nRe-explain slowly with one extra example and a common exam trap.`
+      `I'm preparing for SOA ${exam}.\n` +
+      `I am NEW to the Texas Instruments BA II Plus calculator — please teach button presses whenever numbers appear.\n\n` +
+      `Lesson: "${lesson.title}"\nSection: ${section.title}\n\n` +
+      `${body}\n\n` +
+      `Please:\n` +
+      `1) Re-explain the concept slowly with clean math (LaTeX ok)\n` +
+      `2) One extra fully worked numerical example\n` +
+      `3) For that example, give step-by-step BA II Plus keystrokes in [brackets] (N, I/Y, PV, PMT, FV, CPT, 2nd, CLR TVM, etc.)\n` +
+      `4) One common exam trap for this topic\n` +
+      `5) If pure theory with no calc, say so; still give a tiny numeric demo with keystrokes when possible\n` +
+      ba2PlusCoachBlock("example")
     );
   }
   function sundayRecapPrompt(items) {
+    const exam = examLabel();
     const body = items
       .slice(0, 15)
       .map((w, i) => {
@@ -883,9 +932,16 @@
       })
       .join("\n\n");
     return (
-      `You are my SOA Exam P coach. WRONG QUESTION POOL below.\n` +
-      `Produce: top 5 weaknesses, formula checklist, 12 similar MCQs with answers, 60-min revision plan.\n\n` +
-      `WRONG POOL:\n${body || "(empty)"}`
+      `You are my SOA ${exam} coach. I am NEW to the Texas Instruments BA II Plus calculator.\n` +
+      `WRONG QUESTION POOL below.\n` +
+      `Produce:\n` +
+      `1) Top 5 weaknesses\n` +
+      `2) Formula checklist\n` +
+      `3) For each weakness, one BA II Plus keystroke mini-drill (button sequence in [brackets])\n` +
+      `4) 12 similar MCQs with answers\n` +
+      `5) 60-min revision plan\n\n` +
+      `WRONG POOL:\n${body || "(empty)"}` +
+      ba2PlusCoachBlock("revision drills")
     );
   }
 
@@ -2807,8 +2863,8 @@
     if ("serviceWorker" in navigator) {
       try {
         const keys = await caches.keys();
-        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v18").map((k) => caches.delete(k)));
-        await navigator.serviceWorker.register("./sw.js?v=18");
+        await Promise.all(keys.filter((k) => k.startsWith("soa-grind") && k !== "soa-grind-v19").map((k) => caches.delete(k)));
+        await navigator.serviceWorker.register("./sw.js?v=19");
       } catch (e) {
         console.warn(e);
       }
