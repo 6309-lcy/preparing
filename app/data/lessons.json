@@ -2766,5 +2766,739 @@
         "explain": "No labeled response required."
       }
     ]
+  },
+  "ml_setup": {
+    "id": "ml_setup",
+    "title": "Machine Learning track orientation (MIT 6.036)",
+    "minutes": 25,
+    "lo": [
+      "2.1",
+      "2.2",
+      "3.1",
+      "3.2",
+      "4.1",
+      "4.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "What this track is",
+        "body": "This Machine Learning track is aligned to MIT OCW 6.036 (Introduction to Machine Learning) with compulsory reading from Harrington (2012), *Machine Learning in Action*.\n\nFocus: build statistical intuition, implementable algorithms, and judgment about when methods work — not only library calls.\n\nIntended learning outcomes woven through lessons:\n• 2.1 / 2.2 — probability models, estimation, Bayes/MAP\n• 3.1 / 3.2 — linear methods, regularization, multivariate geometry\n• 4.1 / 4.2 — unsupervised structure, classifiers, deep models"
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Syllabus map",
+        "body": "Eight content units + wrap:\n1. Overview & real-world ML\n2. Statistical learning (distributions, MLE, Bayes/MAP)\n3. Multivariate data + linear / lasso regression\n4. Clustering (k-means, GMM/EM)\n5. Dimensionality reduction (PCA, LDA, NMF, SVD, ICA)\n6. Discriminative classifiers (kNN, Bayes optimal, logistic, NB, LDA, SVM)\n7. Deep learning (MLP, backprop, CNN, BN/dropout, ResNet/DenseNet/FCN, AE/GAN/VAE)\n8. Recommender systems\n\nApplications called out in examples: document analysis, spam filtering, clustering, image segmentation, visualization, face detection/recognition."
+      },
+      {
+        "id": "s3",
+        "type": "concept",
+        "title": "Study rhythm",
+        "body": "Path: Learn → Practice → Practice → Chapter test (≥70%).\nPrimary reading: MIT 6.036 notes/lectures + Harrington chapters matching each unit.\nLast two weeks: mixed review and mocks (path levels still drive progression)."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Primary alignment",
+        "prompt": "This track’s primary course alignment is:",
+        "choices": {
+          "A": "Only Kaggle tutorials with no theory",
+          "B": "MIT OCW 6.036 (+ Harrington 2012)",
+          "C": "Only SOA Exam P syllabus",
+          "D": "Only ImageNet competition rules"
+        },
+        "answer": "B",
+        "explain": "Content and ILOs follow MIT 6.036 with Harrington as compulsory reading."
+      }
+    ]
+  },
+  "ml_overview": {
+    "id": "ml_overview",
+    "title": "Overview: what ML systems do in the real world",
+    "minutes": 40,
+    "lo": [
+      "2.1",
+      "4.1"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Learning problems",
+        "body": "Supervised learning: predict labels/targets from features (classification or regression).\nUnsupervised learning: discover structure without labels (clustering, density, factors).\nSemi-supervised / self-supervised / reinforcement: important extensions; 6.036 emphasizes core supervised + unsupervised first.\n\nA model is a family of functions $f_\\theta$ plus a loss and an optimization procedure. Generalization — performance on new data — is the goal."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Train / validation / test",
+        "body": "Split data to estimate generalization.\nTraining set: fit $\\theta$. Validation: model selection / hyperparameters. Test: final honest estimate.\nLeakage (using test information during training/selection) invalidates claims.\nBias–variance tradeoff: more flexible models can overfit; overly rigid models underfit."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Spam filter sketch",
+        "setup": "You build an email spam detector from bag-of-words features.",
+        "solution": "Frame as binary classification: $y\\in\\{\\text{spam},\\text{ham}\\}$. Choose features (tokens, sender signals), a model (naive Bayes or logistic), a loss, and evaluate precision/recall — not only accuracy on imbalanced mail.",
+        "why": "Real apps force problem framing before algorithm choice."
+      },
+      {
+        "id": "s4",
+        "type": "example",
+        "title": "Face detection vs recognition",
+        "setup": "Product needs “is there a face?” and “whose face?”",
+        "solution": "Detection is usually localization/classification of face vs background (often CNN detectors). Recognition/identification is a downstream embedding + comparison task. Segmentation may outline face regions for viz or makeup AR.",
+        "why": "Same domain, different ML problem statements."
+      },
+      {
+        "id": "s5",
+        "type": "check",
+        "title": "Generalization",
+        "prompt": "The main goal of a predictive ML system is usually:",
+        "choices": {
+          "A": "Memorize the training set perfectly",
+          "B": "Perform well on unseen data (generalize)",
+          "C": "Maximize parameter count only",
+          "D": "Avoid using a validation set forever"
+        },
+        "answer": "B",
+        "explain": "Train metrics alone can hide overfitting."
+      }
+    ]
+  },
+  "ml_mle": {
+    "id": "ml_mle",
+    "title": "Statistical learning: univariate models and MLE",
+    "minutes": 50,
+    "lo": [
+      "2.1",
+      "2.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Univariate building blocks",
+        "body": "Common continuous models: Normal, Exponential, Uniform, Beta, Gamma.\nCommon discrete: Bernoulli, Binomial, Poisson, Categorical/Multinomial.\nLikelihood $L(\\theta;x)=p(x\\mid\\theta)$ (or density). Log-likelihood is usually easier to optimize.\nIID assumption: $L(\\theta)=\\prod_i p(x_i\\mid\\theta)$."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Maximum likelihood estimation",
+        "body": "MLE: $\\hat\\theta_{\\mathrm{MLE}}=\\arg\\max_\\theta \\ell(\\theta)$ where $\\ell=\\log L$.\nFor $X_i\\sim\\mathcal N(\\mu,\\sigma^2)$ IID, $\\hat\\mu=\\bar x$, $\\hat\\sigma^2$ is the average squared deviation (MLE uses $1/n$).\nMLE is asymptotically efficient under regularity but can overfit in high dimensions — motivation for MAP/regularization."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Bernoulli MLE",
+        "setup": "Emails: 40 spam in 100. Model $X_i\\sim\\mathrm{Bern}(\\theta)$.",
+        "solution": "$\\ell(\\theta)=40\\log\\theta+60\\log(1-\\theta)$. Set derivative to 0 → $\\hat\\theta=0.4$.",
+        "why": "Closed-form MLE matches the sample mean for Bernoulli."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "MLE objective",
+        "prompt": "Maximum likelihood chooses parameters that:",
+        "choices": {
+          "A": "Minimize training classification accuracy only",
+          "B": "Maximize the probability (density) of the observed data under the model",
+          "C": "Always equal the Bayesian posterior mean",
+          "D": "Ignore the likelihood and use only a prior"
+        },
+        "answer": "B",
+        "explain": "MLE maximizes $p(\\mathrm{data}\\mid\\theta)$ (the likelihood)."
+      }
+    ]
+  },
+  "ml_bayes": {
+    "id": "ml_bayes",
+    "title": "Bayes, MAP, and decision rules",
+    "minutes": 50,
+    "lo": [
+      "2.2",
+      "4.1"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Bayes rule for parameters and classes",
+        "body": "Posterior: $p(\\theta\\mid x)\\propto p(x\\mid\\theta)p(\\theta)$.\nMAP: $\\hat\\theta_{\\mathrm{MAP}}=\\arg\\max_\\theta p(x\\mid\\theta)p(\\theta)$ — like regularized MLE.\nFor classification, Bayes classifier picks class with maximum posterior $p(y\\mid x)$, which minimizes 0–1 risk when costs are equal."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Priors and conjugacy (intuition)",
+        "body": "A Beta prior on Bernoulli $\\theta$ yields a Beta posterior — counts “add pseudo-counts.”\nStrong priors shrink extreme MLEs when data are scarce (classic in spam/document word rates).\nBayes optimal classifier uses true $p(y\\mid x)$; in practice we estimate it (generative or discriminative)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "MAP vs MLE with rare words",
+        "setup": "Word appears 0 times in 5 spam training emails. MLE rate = 0 → breaks naive Bayes products.",
+        "solution": "MAP / Laplace smoothing adds pseudo-counts so probability stays positive. Harrington’s naive Bayes spam examples rely on this.",
+        "why": "Smoothing is MAP with a Dirichlet/Beta-style prior."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "MAP",
+        "prompt": "MAP estimation maximizes:",
+        "choices": {
+          "A": "Only the prior",
+          "B": "Likelihood × prior (i.e. the posterior mode)",
+          "C": "Only the evidence $p(x)$",
+          "D": "Test-set accuracy by definition"
+        },
+        "answer": "B",
+        "explain": "MAP = mode of the posterior $\\propto$ likelihood × prior."
+      }
+    ]
+  },
+  "ml_linreg": {
+    "id": "ml_linreg",
+    "title": "Multivariate geometry and linear regression",
+    "minutes": 55,
+    "lo": [
+      "3.1",
+      "3.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Vectors, covariances, and design matrices",
+        "body": "Data matrix $X\\in\\mathbb R^{n\\times d}$; rows are examples.\nSample covariance captures second-order multivariate structure — foundation for PCA and LDA later.\nLinear regression: $y\\approx Xw$ (often with intercept column). Squared loss leads to normal equations $X^\\top X w=X^\\top y$ when $X^\\top X$ is invertible."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Geometry of least squares",
+        "body": "$\\hat y=X\\hat w$ is the projection of $y$ onto the column space of $X$.\nResiduals $y-\\hat y$ are orthogonal to columns of $X$.\nMulticollinearity: near-dependent features → unstable $w$. Motivation for ridge/lasso."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Document length feature",
+        "setup": "Predict reading time from word count + image count.",
+        "solution": "Fit ordinary least squares; interpret coefficients as minutes per word/image holding the other fixed — only if the linear model is appropriate and features are not too collinear.",
+        "why": "Regression is a workhorse for continuous targets in apps and as a baseline."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Normal equations",
+        "prompt": "For squared-error linear regression (full rank $X$), the optimal weights satisfy:",
+        "choices": {
+          "A": "$Xw=0$",
+          "B": "$X^\\top X w=X^\\top y$",
+          "C": "$w=X y$",
+          "D": "$w$ must be sparse always"
+        },
+        "answer": "B",
+        "explain": "Normal equations come from setting $\\nabla_w\\|y-Xw\\|^2=0$."
+      }
+    ]
+  },
+  "ml_lasso": {
+    "id": "ml_lasso",
+    "title": "Ridge, lasso, and feature selection",
+    "minutes": 45,
+    "lo": [
+      "3.1",
+      "3.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Regularized linear models",
+        "body": "Ridge: minimize $\\|y-Xw\\|^2+\\lambda\\|w\\|_2^2$ — shrinks weights, stable under multicollinearity.\nLasso: $\\|y-Xw\\|^2+\\lambda\\|w\\|_1$ — encourages sparsity (feature selection).\n$\\lambda$ chosen by validation / CV. Standardization of features matters for fair penalties."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Bias–variance via $\\lambda$",
+        "body": "Larger $\\lambda$ → more bias, less variance.\nElastic net mixes $\\ell_1$ and $\\ell_2$.\nIn high-$d$ document analysis, lasso/elastic net yield sparse interpretable predictors."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Spam word selection",
+        "setup": "Thousands of token features; only some predictive.",
+        "solution": "Lasso logistic/linear models zero out many tokens, keeping a compact spam vocabulary — easier to audit than a dense ridge solution.",
+        "why": "Sparsity is often a product requirement, not only a statistical trick."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Lasso effect",
+        "prompt": "Compared with ordinary least squares, lasso’s $\\ell_1$ penalty tends to:",
+        "choices": {
+          "A": "Force all weights to be equal",
+          "B": "Drive some weights exactly to zero (sparsity)",
+          "C": "Guarantee perfect classification",
+          "D": "Remove the need for a validation set"
+        },
+        "answer": "B",
+        "explain": "The $\\ell_1$ ball geometry promotes sparse solutions."
+      }
+    ]
+  },
+  "ml_cluster": {
+    "id": "ml_cluster",
+    "title": "Clustering: k-means and Gaussian mixtures (EM)",
+    "minutes": 55,
+    "lo": [
+      "4.1",
+      "4.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "K-means",
+        "body": "Objective: partition into $K$ clusters minimizing within-cluster sum of squares.\nAlternates: (1) assign points to nearest centroid, (2) update centroids to means.\nSensitive to scaling and initialization; $K$ chosen by domain, elbow, silhouette, or downstream need.\nApps: customer segments, image color quantization, document clustering."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "GMM and EM",
+        "body": "Gaussian mixture: $p(x)=\\sum_{k=1}^K \\pi_k \\mathcal N(x\\mid\\mu_k,\\Sigma_k)$.\nEM: E-step soft responsibilities; M-step update $\\pi,\\mu,\\Sigma$.\nK-means is like a hard-assignment, spherical, equal-weight special case.\nSegmentation: soft GMM labels can produce smoother regions than hard k-means."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Segmenting a photo",
+        "setup": "Cluster RGB pixels into $K=5$ colors.",
+        "solution": "K-means yields a palette; replacing each pixel by its centroid compresses the image. GMM can model elongated color clouds better when covariances are free.",
+        "why": "Classic unsupervised vision demo; related to face/skin-region grouping pipelines."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "EM role",
+        "prompt": "In fitting a GMM, the EM algorithm is used because:",
+        "choices": {
+          "A": "Cluster labels are latent (incomplete data)",
+          "B": "GMMs have no likelihood",
+          "C": "K-means cannot run on vectors",
+          "D": "EM always finds the global optimum"
+        },
+        "answer": "A",
+        "explain": "Latent assignments make direct MLE hard; EM optimizes a lower bound iteratively."
+      }
+    ]
+  },
+  "ml_pca": {
+    "id": "ml_pca",
+    "title": "PCA and SVD for dimensionality reduction",
+    "minutes": 50,
+    "lo": [
+      "3.2",
+      "4.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Principal components",
+        "body": "PCA finds orthonormal directions of maximum variance.\nFor centered data, eigenvectors of the covariance matrix (or left/right singular vectors via SVD of $X$).\nProjecting onto top $r$ PCs yields a low-dimensional representation minimizing reconstruction squared error among linear projections."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "SVD view",
+        "body": "$X=U\\Sigma V^\\top$. Columns of $V$ are principal axes (for centered $X$).\nTruncated SVD is the workhorse for large document-term matrices (LSA-style).\nViz: scatter of PC1 vs PC2; face recognition historically used eigenfaces (PCA on face images)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Eigenfaces sketch",
+        "setup": "Gallery of aligned face images as high-dimensional vectors.",
+        "solution": "PCA yields eigenfaces; project new faces into PC space for compression/recognition baselines. Modern systems use deep embeddings, but PCA teaches the geometry.",
+        "why": "Links dimensionality reduction to face recognition history."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "PCA criterion",
+        "prompt": "The first principal component maximizes:",
+        "choices": {
+          "A": "Within-class scatter only",
+          "B": "Variance of the projected data",
+          "C": "The number of clusters K",
+          "D": "The $\\ell_1$ penalty"
+        },
+        "answer": "B",
+        "explain": "PCA is variance-maximizing linear projection (equiv. min reconstruction error)."
+      }
+    ]
+  },
+  "ml_dimred": {
+    "id": "ml_dimred",
+    "title": "LDA, NMF, and ICA",
+    "minutes": 50,
+    "lo": [
+      "3.2",
+      "4.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "LDA for projection",
+        "body": "Linear Discriminant Analysis (as dim reduction) uses labels to maximize between-class / within-class scatter.\nDifferent goal from PCA (which ignores labels). For $C$ classes, at most $C-1$ useful discriminative directions."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "NMF and ICA",
+        "body": "NMF: approximate $X\\approx WH$ with nonnegativity — parts-based, interpretable factors (topics, spectral signatures).\nICA: recover statistically independent sources (e.g. blind source separation); uses higher-order statistics, not just variance.\nChoose method by inductive bias: variance (PCA), class separation (LDA), nonnegativity (NMF), independence (ICA)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Document topics with NMF",
+        "setup": "Term-document matrix of news articles.",
+        "solution": "NMF factors yield non-negative topic loadings and document mixtures — readable “bags of topic words” for document analysis dashboards.",
+        "why": "Nonnegativity matches additive topic intuition better than unrestricted SVD sometimes."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "LDA vs PCA",
+        "prompt": "A key difference: LDA (supervised projection) uses class labels to:",
+        "choices": {
+          "A": "Maximize variance ignoring labels",
+          "B": "Maximize class separation (between vs within scatter)",
+          "C": "Enforce independent sources like ICA",
+          "D": "Require non-negative factors like NMF"
+        },
+        "answer": "B",
+        "explain": "LDA is label-aware; PCA is unsupervised variance-driven."
+      }
+    ]
+  },
+  "ml_classifiers": {
+    "id": "ml_classifiers",
+    "title": "Classifiers: kNN, Bayes optimal, naive Bayes",
+    "minutes": 50,
+    "lo": [
+      "2.2",
+      "4.1"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Bayes optimal & kNN",
+        "body": "Bayes optimal classifier: $\\arg\\max_y p(y\\mid x)$ under true probabilities — lowest possible 0–1 risk.\nk-nearest neighbors: assign label by majority among $k$ nearest training points (distance metric + scaling matter).\nkNN is a nonparametric baseline for face embeddings or document TF-IDF spaces."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Naive Bayes",
+        "body": "Assume features independent given class: $p(x\\mid y)=\\prod_j p(x_j\\mid y)$.\nFast, strong spam/document baseline (Harrington ch. on classifying with probability theory).\nDespite the “naive” assumption, often works when class-conditional signal is strong."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Spam with bag-of-words NB",
+        "setup": "Binary features: word present/absent.",
+        "solution": "Estimate $p(w\\mid\\mathrm{spam})$, $p(w\\mid\\mathrm{ham})$ with smoothing; classify by comparing posterior odds. Classic Harrington walkthrough.",
+        "why": "Generative classifiers shine with discrete text counts."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Naive assumption",
+        "prompt": "Naive Bayes assumes that, given the class label, features are:",
+        "choices": {
+          "A": "Always normally distributed with shared covariance",
+          "B": "Conditionally independent",
+          "C": "Deterministic functions of each other",
+          "D": "Irrelevant"
+        },
+        "answer": "B",
+        "explain": "Conditional independence yields the product likelihood."
+      }
+    ]
+  },
+  "ml_svm": {
+    "id": "ml_svm",
+    "title": "Logistic regression, LDA classifier, and SVMs",
+    "minutes": 55,
+    "lo": [
+      "3.1",
+      "4.1"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Logistic regression & LDA",
+        "body": "Logistic regression models $p(y=1\\mid x)=\\sigma(w^\\top x)$ directly (discriminative).\nLDA classifier assumes class-conditional Gaussians with shared covariance → linear decision boundary; related to logistic forms under those assumptions.\nUse validation for thresholding when false positive/negative costs differ (spam vs missing a face)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Support vector machines",
+        "body": "Hard-margin SVM maximizes margin between linearly separable classes.\nSoft-margin allows slack; hinge loss + $\\ell_2$ penalty.\nKernels (RBF, polynomial) produce nonlinear boundaries via implicit feature maps.\nSVMs were historically strong on small/medium tabular and text tasks before deep nets dominated perception."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Margin intuition",
+        "setup": "Two face-embedding clusters nearly separable.",
+        "solution": "Max-margin hyperplane focuses on support vectors near the boundary — often better generalization than any separating plane.",
+        "why": "Margin is a geometric inductive bias."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Hinge vs logistic",
+        "prompt": "Standard soft-margin linear SVMs optimize a regularized:",
+        "choices": {
+          "A": "Hinge loss",
+          "B": "Only 0–1 loss directly via gradient",
+          "C": "Only k-means objective",
+          "D": "Reconstruction error like PCA"
+        },
+        "answer": "A",
+        "explain": "Hinge loss + regularization is the usual SVM objective."
+      }
+    ]
+  },
+  "ml_mlp": {
+    "id": "ml_mlp",
+    "title": "Deep learning: MLPs and backpropagation",
+    "minutes": 55,
+    "lo": [
+      "3.1",
+      "4.1"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Multilayer perceptrons",
+        "body": "MLP: affine layers interleaved with nonlinearities (ReLU, GELU, sigmoid, tanh).\nUniversal approximation (with enough width) but depth helps hierarchical features.\nLoss examples: cross-entropy for classification, squared error for regression."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Backpropagation",
+        "body": "Backprop = reverse-mode automatic differentiation through the computational graph.\nSGD / Adam update weights using mini-batch gradients.\nVanishing/exploding gradients motivate careful init, residual links, and normalization (later)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Tiny MLP for digits / faces",
+        "setup": "Flattened small face patches or digit images into an MLP.",
+        "solution": "Works, but ignores spatial structure — motivation for CNNs. Still useful pedagogical baseline and for tabular mixes.",
+        "why": "Inductive bias of architecture matters as much as depth."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Backprop purpose",
+        "prompt": "Backpropagation efficiently computes:",
+        "choices": {
+          "A": "Only the PCA eigenvectors",
+          "B": "Gradients of the loss w.r.t. all parameters",
+          "C": "The Bayes optimal decision boundary in closed form",
+          "D": "K-means assignments"
+        },
+        "answer": "B",
+        "explain": "Reverse-mode AD yields gradients for gradient-based training."
+      }
+    ]
+  },
+  "ml_cnn": {
+    "id": "ml_cnn",
+    "title": "CNNs, regularization, and modern architectures",
+    "minutes": 60,
+    "lo": [
+      "4.1",
+      "4.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Convolutional nets",
+        "body": "Convolutions + pooling exploit locality and translation equivariance — ideal for images (face detection, segmentation).\nFully convolutional nets (FCN) predict dense maps for segmentation.\nData augmentation (flips, crops) expands effective sample size."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Regularization: BN, dropout, residuals",
+        "body": "Dropout: randomly zero activations in train → ensemble-like effect.\nBatch normalization: normalize layer inputs; stabilizes training.\nResNet: residual skip connections ease optimization of deep nets.\nDenseNet: concatenate feature maps densely.\nTogether these made very deep vision models practical."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Face detection pipeline",
+        "setup": "Detect faces in photos for a camera app.",
+        "solution": "CNN detector (or cascade historically) proposes boxes; recognition net embeds crops; compare to gallery. Segmentation nets can mask the face region for effects.",
+        "why": "Detection, recognition, and segmentation are distinct heads/tasks."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "ResNet idea",
+        "prompt": "Residual connections primarily help by:",
+        "choices": {
+          "A": "Removing all nonlinearities",
+          "B": "Easing gradient flow / optimization in deep stacks",
+          "C": "Forcing sparse lasso solutions",
+          "D": "Replacing convolutions with kNN"
+        },
+        "answer": "B",
+        "explain": "Identity skips improve trainability of deep networks."
+      }
+    ]
+  },
+  "ml_gen": {
+    "id": "ml_gen",
+    "title": "Autoencoders, GANs, and VAEs",
+    "minutes": 50,
+    "lo": [
+      "4.1",
+      "4.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Autoencoders",
+        "body": "AE: encoder $z=e(x)$, decoder $\\hat x=d(z)$, trained to reconstruct $x$.\nBottleneck forces compressed representation — unsupervised features, denoising, anomaly cues.\nTied to PCA when encoder/decoder are linear with squared loss."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "GANs and VAEs",
+        "body": "GAN: generator vs discriminator adversarial game — sharp samples, tricky training.\nVAE: probabilistic encoder $q(z\\mid x)$, decoder $p(x\\mid z)$, ELBO objective — structured latent space.\nApps: generative viz, data augmentation, representation learning (use carefully regarding ethics/privacy for faces)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Latent face manifold",
+        "setup": "Train a VAE on aligned faces.",
+        "solution": "Interpolating in $z$ morphs faces smoothly; latent dimensions may align with attributes. AEs also support compression for viz dashboards.",
+        "why": "Generative models expose continuous structure beyond hard clusters."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "VAE training",
+        "prompt": "VAEs are typically trained by maximizing a(n):",
+        "choices": {
+          "A": "Only pure reconstruction with no KL term",
+          "B": "Evidence lower bound (ELBO) on log-likelihood",
+          "C": "Only SVM hinge loss",
+          "D": "Only k-means objective"
+        },
+        "answer": "B",
+        "explain": "ELBO balances reconstruction and latent prior matching."
+      }
+    ]
+  },
+  "ml_recsys": {
+    "id": "ml_recsys",
+    "title": "Recommender systems",
+    "minutes": 45,
+    "lo": [
+      "3.1",
+      "4.1"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Collaborative filtering",
+        "body": "User–item matrix completion: predict missing ratings/clicks.\nNeighborhood methods: similar users/items.\nMatrix factorization: $R\\approx UV^\\top$ — latent factors for users and items (SVD-style / ALS / SGD)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Content, ranking, and pitfalls",
+        "body": "Content-based: recommend via item features (TF-IDF of descriptions).\nHybrid models combine signals.\nMetrics: RMSE for ratings; precision@k, recall@k, NDCG for ranking.\nCold start, popularity bias, feedback loops — evaluation must mirror product UI."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Movie / article recommendations",
+        "setup": "Sparse ratings matrix of users × documents.",
+        "solution": "Factorize into latent topics/preferences; recommend top-N unseen items. Related to document analysis factor models (LSA/NMF).",
+        "why": "Recsys is matrix completion + ranking, not plain supervised accuracy."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "MF idea",
+        "prompt": "Matrix factorization recommenders approximate the rating matrix as:",
+        "choices": {
+          "A": "A single global constant only",
+          "B": "A product of user and item latent-factor matrices",
+          "C": "Only a decision tree on timestamps",
+          "D": "A k-means of pixels"
+        },
+        "answer": "B",
+        "explain": "Low-rank $UV^\\top$ is the standard collaborative-filtering factorization."
+      }
+    ]
+  },
+  "ml_final": {
+    "id": "ml_final",
+    "title": "ML wrap-up: integrate methods and exam-style judgment",
+    "minutes": 40,
+    "lo": [
+      "2.1",
+      "2.2",
+      "3.1",
+      "3.2",
+      "4.1",
+      "4.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Method selection cheat-sheet",
+        "body": "Regression / continuous target → linear, lasso, MLP.\nLabels + clear features → logistic, SVM, NB, kNN.\nNo labels + groups → k-means / GMM.\nCompress / viz → PCA/SVD; parts → NMF; sources → ICA; class-aware project → LDA.\nImages → CNN/ResNet; dense masks → FCN; generate → AE/VAE/GAN.\nPreferences → recommender factorization."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Judgment checks",
+        "body": "Did you prevent leakage? Scale features when needed? Tune on validation only?\nIs the metric aligned with costs (spam FP vs FN; face miss vs false alarm)?\nStart simple (baselines) before deep models — 6.036 ethos."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Choose a pipeline",
+        "setup": "Startup wants: cluster support tickets, visualize topics, and classify priority.",
+        "solution": "NMF/PCA for viz + topics; supervised logistic/MLP for priority using labels; monitor drift. Don’t start with a GAN.",
+        "why": "Match method complexity to data and decision needs."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "First baseline",
+        "prompt": "For a new text classification problem with modest data, a strong first baseline is often:",
+        "choices": {
+          "A": "A huge GAN with no classifier",
+          "B": "Bag-of-words + logistic or naive Bayes",
+          "C": "Only k-means with K=1",
+          "D": "Skipping validation forever"
+        },
+        "answer": "B",
+        "explain": "Simple text baselines calibrate how much deep models must beat."
+      }
+    ]
   }
 }
