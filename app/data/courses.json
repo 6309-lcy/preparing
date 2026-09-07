@@ -1,16 +1,16 @@
 {
-  "version": 7,
-  "updated": "2026-07-31",
+  "version": 9,
+  "updated": "2026-09-07",
   "activeDefault": "P",
   "buildPolicy": "one_course_at_a_time",
   "courses": [
     {
       "id": "P",
-      "name": "Exam P \u2014 Probability",
+      "name": "Exam P — Probability",
       "shortName": "Exam P",
       "status": "ready",
       "durationWeeks": 14,
-      "examFormat": "30 MCQ \u00b7 3 hours \u00b7 CBT",
+      "examFormat": "30 MCQ · 3 hours · CBT",
       "weights": {
         "general": 0.27,
         "univariate": 0.47,
@@ -25,15 +25,15 @@
       "planPath": "data/courses/p/plan.json",
       "pathPath": "data/courses/p/path.json",
       "structure": "duo_path",
-      "syllabusNote": "SOA 2026: General 23\u201330%, Univariate 44\u201350%, Multivariate 23\u201330%"
+      "syllabusNote": "SOA 2026: General 23–30%, Univariate 44–50%, Multivariate 23–30%"
     },
     {
       "id": "FM",
-      "name": "Exam FM \u2014 Financial Mathematics",
+      "name": "Exam FM — Financial Mathematics",
       "shortName": "Exam FM",
       "status": "ready",
       "durationWeeks": 14,
-      "examFormat": "30 MCQ \u00b7 2.5 hours \u00b7 CBT",
+      "examFormat": "30 MCQ · 2.5 hours · CBT",
       "weights": {
         "tvm": 0.1,
         "annuities": 0.25,
@@ -54,11 +54,11 @@
     },
     {
       "id": "FAM",
-      "name": "Exam FAM \u2014 Fundamentals of Actuarial Mathematics",
+      "name": "Exam FAM — Fundamentals of Actuarial Mathematics",
       "shortName": "Exam FAM",
       "status": "ready",
       "durationWeeks": 14,
-      "examFormat": "34 MCQ \u00b7 3.5 hours \u00b7 CBT",
+      "examFormat": "34 MCQ · 3.5 hours · CBT",
       "weights": {
         "short_term": 0.4,
         "long_term": 0.5,
@@ -77,11 +77,11 @@
     },
     {
       "id": "SRM",
-      "name": "Exam SRM \u2014 Statistics for Risk Modeling",
+      "name": "Exam SRM — Statistics for Risk Modeling",
       "shortName": "Exam SRM",
       "status": "ready",
       "durationWeeks": 14,
-      "examFormat": "35 MCQ \u00b7 3.5 hours \u00b7 CBT",
+      "examFormat": "35 MCQ · 3.5 hours · CBT",
       "weights": {
         "learning": 0.08,
         "linear_glm": 0.45,
@@ -94,15 +94,15 @@
         "practice": 0.5,
         "mock": 0.1
       },
-      "description": "COMPLETE track: learning, GLMs, time series, trees/ensembles, PCA/clustering \u2014 full path, lessons, drill bank, 14-week plan.",
+      "description": "COMPLETE track: learning, GLMs, time series, trees/ensembles, PCA/clustering — full path, lessons, drill bank, 14-week plan.",
       "planPath": "data/courses/srm/plan.json",
       "pathPath": "data/courses/srm/path.json",
       "structure": "duo_path",
-      "syllabusNote": "SOA SRM: Learning 5\u201310%, Linear/GLM 40\u201350%, Time series 10\u201315%, Trees 20\u201325%, PCA/clustering ~10\u201315%"
+      "syllabusNote": "SOA SRM: Learning 5–10%, Linear/GLM 40–50%, Time series 10–15%, Trees 20–25%, PCA/clustering ~10–15%"
     },
     {
       "id": "PA",
-      "name": "Exam PA \u2014 Predictive Analytics",
+      "name": "Exam PA — Predictive Analytics",
       "shortName": "Exam PA",
       "status": "next",
       "durationWeeks": 14,
@@ -122,7 +122,7 @@
       "planPath": null,
       "pathPath": null,
       "structure": "duo_path",
-      "syllabusNote": "One-by-one queue \u2014 after SRM"
+      "syllabusNote": "One-by-one queue — after SRM"
     },
     {
       "id": "ST",
@@ -171,6 +171,64 @@
       "pathPath": null,
       "structure": "duo_path",
       "syllabusNote": "One-by-one queue"
+    },
+    {
+      "id": "ML",
+      "name": "Machine Learning (MIT 6.036–aligned)",
+      "shortName": "ML",
+      "status": "ready",
+      "durationWeeks": 14,
+      "examFormat": "Course track · MIT 6.036–aligned",
+      "weights": {
+        "overview": 0.08,
+        "stats": 0.12,
+        "regression": 0.14,
+        "cluster": 0.1,
+        "dimred": 0.12,
+        "clf": 0.16,
+        "deep": 0.18,
+        "recsys": 0.06,
+        "wrap": 0.04
+      },
+      "mix": {
+        "reading": 0.4,
+        "practice": 0.5,
+        "mock": 0.1
+      },
+      "description": "MIT OCW 6.036–aligned track with Harrington (2012) reading: stats learning, regression, clustering, dim reduction, classifiers, deep learning, recommenders — duo path, lessons, 14-week plan. Practice bank pending (empty assignedQuestionIds).",
+      "planPath": "data/courses/ml/plan.json",
+      "pathPath": "data/courses/ml/path.json",
+      "structure": "duo_path",
+      "syllabusNote": "MIT 6.036 + Harrington (2012). ILOs 2.1, 2.2, 3.1, 3.2, 4.1, 4.2. Apps: docs, spam, clustering, segmentation, viz, faces."
+    },
+    {
+      "id": "ADA",
+      "name": "Algorithm Design & Analysis (CS4335)",
+      "shortName": "CS4335 / ADA",
+      "status": "ready",
+      "durationWeeks": 14,
+      "examFormat": "Course track · CS4335",
+      "weights": {
+        "paradigms": 0.12,
+        "analysis": 0.1,
+        "graphs": 0.16,
+        "strings": 0.08,
+        "complexity": 0.14,
+        "games": 0.1,
+        "catalog": 0.1,
+        "mech": 0.12,
+        "wrap": 0.08
+      },
+      "mix": {
+        "reading": 0.4,
+        "practice": 0.5,
+        "mock": 0.1
+      },
+      "description": "CS4335 track: design paradigms, analysis toolkit, graphs & strings, NP-completeness, algorithmic game theory & mechanism design — duo path, lessons, 14-week plan. Practice bank pending (empty assignedQuestionIds).",
+      "planPath": "data/courses/ada/plan.json",
+      "pathPath": "data/courses/ada/path.json",
+      "structure": "duo_path",
+      "syllabusNote": "CLRS (2009); Kleinberg & Tardos (2005); Nisan, Roughgarden, Tardos, Vazirani — AGT (2007). Units: paradigms → analysis → graphs → strings → NP → GT → games catalog → mechanisms → wrap."
     }
   ]
 }

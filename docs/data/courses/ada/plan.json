@@ -1,0 +1,2601 @@
+{
+  "courseId": "ADA",
+  "name": "Algorithm Design & Analysis (CS4335)",
+  "examCode": "ADA",
+  "startDate": "2026-09-07",
+  "endDate": "2026-12-13",
+  "weeks": 14,
+  "learnWeeks": 12,
+  "mix": {
+    "reading": 0.4,
+    "practice": 0.5,
+    "mock": 0.1
+  },
+  "weights": {
+    "paradigms": 0.12,
+    "analysis": 0.1,
+    "graphs": 0.16,
+    "strings": 0.08,
+    "complexity": 0.14,
+    "games": 0.1,
+    "catalog": 0.1,
+    "mech": 0.12,
+    "wrap": 0.08
+  },
+  "pathPath": "data/courses/ada/path.json",
+  "targetExamWindow": "Align to your CS4335 / self-paced window",
+  "dailyHoursWeekday": 2,
+  "notes": [
+    "Primary progression is Path.",
+    "Multi-level days OK.",
+    "Last 2 weeks: wrap + mocks.",
+    "40% reading / 50% practice / 10% mock.",
+    "Readings: CLRS (2009); Kleinberg & Tardos (2005); Nisan et al. AGT (2007).",
+    "assignedQuestionIds empty until ADA drill bank exists — practice uses questionTarget."
+  ],
+  "days": [
+    {
+      "date": "2026-09-07",
+      "dayIndex": 0,
+      "weekday": "Monday",
+      "week": 1,
+      "phase": "paradigms",
+      "title": "ADA map",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_setup",
+      "lessonIds": [
+        "ada_setup"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch0",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-08",
+      "dayIndex": 1,
+      "weekday": "Tuesday",
+      "week": 1,
+      "phase": "paradigms",
+      "title": "Practice — Design paradigms overview",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_paradigms",
+      "lessonIds": [
+        "ada_paradigms"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch1",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-09",
+      "dayIndex": 2,
+      "weekday": "Wednesday",
+      "week": 1,
+      "phase": "paradigms",
+      "title": "Practice — ADA map",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_setup",
+      "lessonIds": [
+        "ada_setup"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch0",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-10",
+      "dayIndex": 3,
+      "weekday": "Thursday",
+      "week": 1,
+      "phase": "paradigms",
+      "title": "Practice — Design paradigms overview",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_paradigms",
+      "lessonIds": [
+        "ada_paradigms"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch1",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-11",
+      "dayIndex": 4,
+      "weekday": "Friday",
+      "week": 1,
+      "phase": "paradigms",
+      "title": "Practice — ADA map",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_setup",
+      "lessonIds": [
+        "ada_setup"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch0",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-12",
+      "dayIndex": 5,
+      "weekday": "Saturday",
+      "week": 1,
+      "phase": "paradigms",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ada_paradigms",
+      "lessonIds": [
+        "ada_paradigms"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch1",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-13",
+      "dayIndex": 6,
+      "weekday": "Sunday",
+      "week": 1,
+      "phase": "paradigms",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ada_setup",
+      "lessonIds": [
+        "ada_setup"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch0",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-14",
+      "dayIndex": 7,
+      "weekday": "Monday",
+      "week": 2,
+      "phase": "paradigms",
+      "title": "Greedy & divide-and-conquer",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_greedy_dc",
+      "lessonIds": [
+        "ada_greedy_dc"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch2",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-15",
+      "dayIndex": 8,
+      "weekday": "Tuesday",
+      "week": 2,
+      "phase": "paradigms",
+      "title": "Practice — Greedy & divide-and-conquer",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_greedy_dc",
+      "lessonIds": [
+        "ada_greedy_dc"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch2",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-16",
+      "dayIndex": 9,
+      "weekday": "Wednesday",
+      "week": 2,
+      "phase": "paradigms",
+      "title": "Practice — Greedy & divide-and-conquer",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_greedy_dc",
+      "lessonIds": [
+        "ada_greedy_dc"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch2",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-17",
+      "dayIndex": 10,
+      "weekday": "Thursday",
+      "week": 2,
+      "phase": "paradigms",
+      "title": "Practice — Greedy & divide-and-conquer",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_greedy_dc",
+      "lessonIds": [
+        "ada_greedy_dc"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch2",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-18",
+      "dayIndex": 11,
+      "weekday": "Friday",
+      "week": 2,
+      "phase": "paradigms",
+      "title": "Checkpoint — Greedy & divide-and-conquer",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ada_greedy_dc",
+      "lessonIds": [
+        "ada_greedy_dc"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch2",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-19",
+      "dayIndex": 12,
+      "weekday": "Saturday",
+      "week": 2,
+      "phase": "paradigms",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ada_greedy_dc",
+      "lessonIds": [
+        "ada_greedy_dc"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch2",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-20",
+      "dayIndex": 13,
+      "weekday": "Sunday",
+      "week": 2,
+      "phase": "paradigms",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ada_greedy_dc",
+      "lessonIds": [
+        "ada_greedy_dc"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch2",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-21",
+      "dayIndex": 14,
+      "weekday": "Monday",
+      "week": 3,
+      "phase": "paradigms",
+      "title": "Dynamic programming",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_dp",
+      "lessonIds": [
+        "ada_dp"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch3",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-22",
+      "dayIndex": 15,
+      "weekday": "Tuesday",
+      "week": 3,
+      "phase": "paradigms",
+      "title": "Practice — Dynamic programming",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_dp",
+      "lessonIds": [
+        "ada_dp"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch3",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-23",
+      "dayIndex": 16,
+      "weekday": "Wednesday",
+      "week": 3,
+      "phase": "paradigms",
+      "title": "Practice — Dynamic programming",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_dp",
+      "lessonIds": [
+        "ada_dp"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch3",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-24",
+      "dayIndex": 17,
+      "weekday": "Thursday",
+      "week": 3,
+      "phase": "paradigms",
+      "title": "Practice — Dynamic programming",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_dp",
+      "lessonIds": [
+        "ada_dp"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch3",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-25",
+      "dayIndex": 18,
+      "weekday": "Friday",
+      "week": 3,
+      "phase": "paradigms",
+      "title": "Checkpoint — Dynamic programming",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ada_dp",
+      "lessonIds": [
+        "ada_dp"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch3",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-26",
+      "dayIndex": 19,
+      "weekday": "Saturday",
+      "week": 3,
+      "phase": "paradigms",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ada_dp",
+      "lessonIds": [
+        "ada_dp"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch3",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-27",
+      "dayIndex": 20,
+      "weekday": "Sunday",
+      "week": 3,
+      "phase": "paradigms",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ada_dp",
+      "lessonIds": [
+        "ada_dp"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch3",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-28",
+      "dayIndex": 21,
+      "weekday": "Monday",
+      "week": 4,
+      "phase": "analysis",
+      "title": "Analysis toolkit",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_analysis",
+      "lessonIds": [
+        "ada_analysis"
+      ],
+      "topicPrefs": [
+        "analysis"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch4",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-29",
+      "dayIndex": 22,
+      "weekday": "Tuesday",
+      "week": 4,
+      "phase": "analysis",
+      "title": "Practice — Analysis toolkit",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_analysis",
+      "lessonIds": [
+        "ada_analysis"
+      ],
+      "topicPrefs": [
+        "analysis"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch4",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-30",
+      "dayIndex": 23,
+      "weekday": "Wednesday",
+      "week": 4,
+      "phase": "analysis",
+      "title": "Practice — Analysis toolkit",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_analysis",
+      "lessonIds": [
+        "ada_analysis"
+      ],
+      "topicPrefs": [
+        "analysis"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch4",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-01",
+      "dayIndex": 24,
+      "weekday": "Thursday",
+      "week": 4,
+      "phase": "analysis",
+      "title": "Practice — Analysis toolkit",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_analysis",
+      "lessonIds": [
+        "ada_analysis"
+      ],
+      "topicPrefs": [
+        "analysis"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch4",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-02",
+      "dayIndex": 25,
+      "weekday": "Friday",
+      "week": 4,
+      "phase": "analysis",
+      "title": "Checkpoint — Analysis toolkit",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ada_analysis",
+      "lessonIds": [
+        "ada_analysis"
+      ],
+      "topicPrefs": [
+        "analysis"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch4",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-03",
+      "dayIndex": 26,
+      "weekday": "Saturday",
+      "week": 4,
+      "phase": "analysis",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ada_analysis",
+      "lessonIds": [
+        "ada_analysis"
+      ],
+      "topicPrefs": [
+        "analysis"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch4",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-04",
+      "dayIndex": 27,
+      "weekday": "Sunday",
+      "week": 4,
+      "phase": "analysis",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ada_analysis",
+      "lessonIds": [
+        "ada_analysis"
+      ],
+      "topicPrefs": [
+        "analysis"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch4",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-05",
+      "dayIndex": 28,
+      "weekday": "Monday",
+      "week": 5,
+      "phase": "analysis",
+      "title": "Correctness & complexity tools",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_correctness",
+      "lessonIds": [
+        "ada_correctness"
+      ],
+      "topicPrefs": [
+        "analysis"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch5",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-06",
+      "dayIndex": 29,
+      "weekday": "Tuesday",
+      "week": 5,
+      "phase": "analysis",
+      "title": "Practice — Correctness & complexity tools",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_correctness",
+      "lessonIds": [
+        "ada_correctness"
+      ],
+      "topicPrefs": [
+        "analysis"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch5",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-07",
+      "dayIndex": 30,
+      "weekday": "Wednesday",
+      "week": 5,
+      "phase": "analysis",
+      "title": "Practice — Correctness & complexity tools",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_correctness",
+      "lessonIds": [
+        "ada_correctness"
+      ],
+      "topicPrefs": [
+        "analysis"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch5",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-08",
+      "dayIndex": 31,
+      "weekday": "Thursday",
+      "week": 5,
+      "phase": "analysis",
+      "title": "Practice — Correctness & complexity tools",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_correctness",
+      "lessonIds": [
+        "ada_correctness"
+      ],
+      "topicPrefs": [
+        "analysis"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch5",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-09",
+      "dayIndex": 32,
+      "weekday": "Friday",
+      "week": 5,
+      "phase": "analysis",
+      "title": "Checkpoint — Correctness & complexity tools",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ada_correctness",
+      "lessonIds": [
+        "ada_correctness"
+      ],
+      "topicPrefs": [
+        "analysis"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch5",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-10",
+      "dayIndex": 33,
+      "weekday": "Saturday",
+      "week": 5,
+      "phase": "analysis",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ada_correctness",
+      "lessonIds": [
+        "ada_correctness"
+      ],
+      "topicPrefs": [
+        "analysis"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch5",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-11",
+      "dayIndex": 34,
+      "weekday": "Sunday",
+      "week": 5,
+      "phase": "analysis",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ada_correctness",
+      "lessonIds": [
+        "ada_correctness"
+      ],
+      "topicPrefs": [
+        "analysis"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch5",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-12",
+      "dayIndex": 35,
+      "weekday": "Monday",
+      "week": 6,
+      "phase": "graphs",
+      "title": "Graphs: representation & search",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_graphs_basics",
+      "lessonIds": [
+        "ada_graphs_basics"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch6",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-13",
+      "dayIndex": 36,
+      "weekday": "Tuesday",
+      "week": 6,
+      "phase": "graphs",
+      "title": "Practice — Graphs: representation & search",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_graphs_basics",
+      "lessonIds": [
+        "ada_graphs_basics"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch6",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-14",
+      "dayIndex": 37,
+      "weekday": "Wednesday",
+      "week": 6,
+      "phase": "graphs",
+      "title": "Practice — Graphs: representation & search",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_graphs_basics",
+      "lessonIds": [
+        "ada_graphs_basics"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch6",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-15",
+      "dayIndex": 38,
+      "weekday": "Thursday",
+      "week": 6,
+      "phase": "graphs",
+      "title": "Practice — Graphs: representation & search",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_graphs_basics",
+      "lessonIds": [
+        "ada_graphs_basics"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch6",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-16",
+      "dayIndex": 39,
+      "weekday": "Friday",
+      "week": 6,
+      "phase": "graphs",
+      "title": "Checkpoint — Graphs: representation & search",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ada_graphs_basics",
+      "lessonIds": [
+        "ada_graphs_basics"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch6",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-17",
+      "dayIndex": 40,
+      "weekday": "Saturday",
+      "week": 6,
+      "phase": "graphs",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ada_graphs_basics",
+      "lessonIds": [
+        "ada_graphs_basics"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch6",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-18",
+      "dayIndex": 41,
+      "weekday": "Sunday",
+      "week": 6,
+      "phase": "graphs",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ada_graphs_basics",
+      "lessonIds": [
+        "ada_graphs_basics"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch6",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-19",
+      "dayIndex": 42,
+      "weekday": "Monday",
+      "week": 7,
+      "phase": "graphs",
+      "title": "MSTs & shortest paths",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_mst_sp",
+      "lessonIds": [
+        "ada_mst_sp"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch7",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-20",
+      "dayIndex": 43,
+      "weekday": "Tuesday",
+      "week": 7,
+      "phase": "graphs",
+      "title": "Practice — MSTs & shortest paths",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_mst_sp",
+      "lessonIds": [
+        "ada_mst_sp"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch7",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-21",
+      "dayIndex": 44,
+      "weekday": "Wednesday",
+      "week": 7,
+      "phase": "graphs",
+      "title": "Practice — MSTs & shortest paths",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_mst_sp",
+      "lessonIds": [
+        "ada_mst_sp"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch7",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-22",
+      "dayIndex": 45,
+      "weekday": "Thursday",
+      "week": 7,
+      "phase": "graphs",
+      "title": "Practice — MSTs & shortest paths",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_mst_sp",
+      "lessonIds": [
+        "ada_mst_sp"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch7",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-23",
+      "dayIndex": 46,
+      "weekday": "Friday",
+      "week": 7,
+      "phase": "graphs",
+      "title": "Checkpoint — MSTs & shortest paths",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ada_mst_sp",
+      "lessonIds": [
+        "ada_mst_sp"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch7",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-24",
+      "dayIndex": 47,
+      "weekday": "Saturday",
+      "week": 7,
+      "phase": "graphs",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ada_mst_sp",
+      "lessonIds": [
+        "ada_mst_sp"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch7",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-25",
+      "dayIndex": 48,
+      "weekday": "Sunday",
+      "week": 7,
+      "phase": "graphs",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ada_mst_sp",
+      "lessonIds": [
+        "ada_mst_sp"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch7",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-26",
+      "dayIndex": 49,
+      "weekday": "Monday",
+      "week": 8,
+      "phase": "graphs",
+      "title": "Closure, MM & backtracking",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_closure_bt",
+      "lessonIds": [
+        "ada_closure_bt"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch8",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-27",
+      "dayIndex": 50,
+      "weekday": "Tuesday",
+      "week": 8,
+      "phase": "graphs",
+      "title": "Practice — String matching, LCS & DP",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_strings",
+      "lessonIds": [
+        "ada_strings"
+      ],
+      "topicPrefs": [
+        "strings"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch9",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-28",
+      "dayIndex": 51,
+      "weekday": "Wednesday",
+      "week": 8,
+      "phase": "graphs",
+      "title": "Practice — Closure, MM & backtracking",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_closure_bt",
+      "lessonIds": [
+        "ada_closure_bt"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch8",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-29",
+      "dayIndex": 52,
+      "weekday": "Thursday",
+      "week": 8,
+      "phase": "graphs",
+      "title": "Practice — String matching, LCS & DP",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_strings",
+      "lessonIds": [
+        "ada_strings"
+      ],
+      "topicPrefs": [
+        "strings"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch9",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-30",
+      "dayIndex": 53,
+      "weekday": "Friday",
+      "week": 8,
+      "phase": "graphs",
+      "title": "Checkpoint — Closure, MM & backtracking",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ada_closure_bt",
+      "lessonIds": [
+        "ada_closure_bt"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch8",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-31",
+      "dayIndex": 54,
+      "weekday": "Saturday",
+      "week": 8,
+      "phase": "graphs",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ada_strings",
+      "lessonIds": [
+        "ada_strings"
+      ],
+      "topicPrefs": [
+        "strings"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch9",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-01",
+      "dayIndex": 55,
+      "weekday": "Sunday",
+      "week": 8,
+      "phase": "graphs",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ada_closure_bt",
+      "lessonIds": [
+        "ada_closure_bt"
+      ],
+      "topicPrefs": [
+        "graphs"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch8",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-02",
+      "dayIndex": 56,
+      "weekday": "Monday",
+      "week": 9,
+      "phase": "complexity",
+      "title": "P vs NP & reductions",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_np",
+      "lessonIds": [
+        "ada_np"
+      ],
+      "topicPrefs": [
+        "complexity"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch10",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-03",
+      "dayIndex": 57,
+      "weekday": "Tuesday",
+      "week": 9,
+      "phase": "complexity",
+      "title": "Practice — P vs NP & reductions",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_np",
+      "lessonIds": [
+        "ada_np"
+      ],
+      "topicPrefs": [
+        "complexity"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch10",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-04",
+      "dayIndex": 58,
+      "weekday": "Wednesday",
+      "week": 9,
+      "phase": "complexity",
+      "title": "Practice — P vs NP & reductions",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_np",
+      "lessonIds": [
+        "ada_np"
+      ],
+      "topicPrefs": [
+        "complexity"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch10",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-05",
+      "dayIndex": 59,
+      "weekday": "Thursday",
+      "week": 9,
+      "phase": "complexity",
+      "title": "Practice — P vs NP & reductions",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_np",
+      "lessonIds": [
+        "ada_np"
+      ],
+      "topicPrefs": [
+        "complexity"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch10",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-06",
+      "dayIndex": 60,
+      "weekday": "Friday",
+      "week": 9,
+      "phase": "complexity",
+      "title": "Checkpoint — P vs NP & reductions",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ada_np",
+      "lessonIds": [
+        "ada_np"
+      ],
+      "topicPrefs": [
+        "complexity"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch10",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-07",
+      "dayIndex": 61,
+      "weekday": "Saturday",
+      "week": 9,
+      "phase": "complexity",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ada_np",
+      "lessonIds": [
+        "ada_np"
+      ],
+      "topicPrefs": [
+        "complexity"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch10",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-08",
+      "dayIndex": 62,
+      "weekday": "Sunday",
+      "week": 9,
+      "phase": "complexity",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ada_np",
+      "lessonIds": [
+        "ada_np"
+      ],
+      "topicPrefs": [
+        "complexity"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch10",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-09",
+      "dayIndex": 63,
+      "weekday": "Monday",
+      "week": 10,
+      "phase": "complexity",
+      "title": "Approximation algorithms",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_approx",
+      "lessonIds": [
+        "ada_approx"
+      ],
+      "topicPrefs": [
+        "complexity"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch11",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-10",
+      "dayIndex": 64,
+      "weekday": "Tuesday",
+      "week": 10,
+      "phase": "complexity",
+      "title": "Practice — Approximation algorithms",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_approx",
+      "lessonIds": [
+        "ada_approx"
+      ],
+      "topicPrefs": [
+        "complexity"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch11",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-11",
+      "dayIndex": 65,
+      "weekday": "Wednesday",
+      "week": 10,
+      "phase": "complexity",
+      "title": "Practice — Approximation algorithms",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_approx",
+      "lessonIds": [
+        "ada_approx"
+      ],
+      "topicPrefs": [
+        "complexity"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch11",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-12",
+      "dayIndex": 66,
+      "weekday": "Thursday",
+      "week": 10,
+      "phase": "complexity",
+      "title": "Practice — Approximation algorithms",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_approx",
+      "lessonIds": [
+        "ada_approx"
+      ],
+      "topicPrefs": [
+        "complexity"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch11",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-13",
+      "dayIndex": 67,
+      "weekday": "Friday",
+      "week": 10,
+      "phase": "complexity",
+      "title": "Checkpoint — Approximation algorithms",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ada_approx",
+      "lessonIds": [
+        "ada_approx"
+      ],
+      "topicPrefs": [
+        "complexity"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch11",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-14",
+      "dayIndex": 68,
+      "weekday": "Saturday",
+      "week": 10,
+      "phase": "complexity",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ada_approx",
+      "lessonIds": [
+        "ada_approx"
+      ],
+      "topicPrefs": [
+        "complexity"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch11",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-15",
+      "dayIndex": 69,
+      "weekday": "Sunday",
+      "week": 10,
+      "phase": "complexity",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ada_approx",
+      "lessonIds": [
+        "ada_approx"
+      ],
+      "topicPrefs": [
+        "complexity"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch11",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-16",
+      "dayIndex": 70,
+      "weekday": "Monday",
+      "week": 11,
+      "phase": "games",
+      "title": "Nash, PoA, PoS & PD",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_gt_overview",
+      "lessonIds": [
+        "ada_gt_overview"
+      ],
+      "topicPrefs": [
+        "games"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch12",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-17",
+      "dayIndex": 71,
+      "weekday": "Tuesday",
+      "week": 11,
+      "phase": "games",
+      "title": "Practice — Games catalog",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_games",
+      "lessonIds": [
+        "ada_games"
+      ],
+      "topicPrefs": [
+        "games"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch13",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-18",
+      "dayIndex": 72,
+      "weekday": "Wednesday",
+      "week": 11,
+      "phase": "games",
+      "title": "Practice — Nash, PoA, PoS & PD",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_gt_overview",
+      "lessonIds": [
+        "ada_gt_overview"
+      ],
+      "topicPrefs": [
+        "games"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch12",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-19",
+      "dayIndex": 73,
+      "weekday": "Thursday",
+      "week": 11,
+      "phase": "games",
+      "title": "Practice — Games catalog",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_games",
+      "lessonIds": [
+        "ada_games"
+      ],
+      "topicPrefs": [
+        "games"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch13",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-20",
+      "dayIndex": 74,
+      "weekday": "Friday",
+      "week": 11,
+      "phase": "games",
+      "title": "Checkpoint — Nash, PoA, PoS & PD",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ada_gt_overview",
+      "lessonIds": [
+        "ada_gt_overview"
+      ],
+      "topicPrefs": [
+        "games"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch12",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-21",
+      "dayIndex": 75,
+      "weekday": "Saturday",
+      "week": 11,
+      "phase": "games",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ada_games",
+      "lessonIds": [
+        "ada_games"
+      ],
+      "topicPrefs": [
+        "games"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch13",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-22",
+      "dayIndex": 76,
+      "weekday": "Sunday",
+      "week": 11,
+      "phase": "games",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ada_gt_overview",
+      "lessonIds": [
+        "ada_gt_overview"
+      ],
+      "topicPrefs": [
+        "games"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch12",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-23",
+      "dayIndex": 77,
+      "weekday": "Monday",
+      "week": 12,
+      "phase": "mech",
+      "title": "Mechanism design case studies",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_mech",
+      "lessonIds": [
+        "ada_mech"
+      ],
+      "topicPrefs": [
+        "mech"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch14",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-24",
+      "dayIndex": 78,
+      "weekday": "Tuesday",
+      "week": 12,
+      "phase": "mech",
+      "title": "Practice — Mechanism design case studies",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_mech",
+      "lessonIds": [
+        "ada_mech"
+      ],
+      "topicPrefs": [
+        "mech"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch14",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-25",
+      "dayIndex": 79,
+      "weekday": "Wednesday",
+      "week": 12,
+      "phase": "mech",
+      "title": "Practice — Mechanism design case studies",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_mech",
+      "lessonIds": [
+        "ada_mech"
+      ],
+      "topicPrefs": [
+        "mech"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch14",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-26",
+      "dayIndex": 80,
+      "weekday": "Thursday",
+      "week": 12,
+      "phase": "mech",
+      "title": "Practice — Mechanism design case studies",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_mech",
+      "lessonIds": [
+        "ada_mech"
+      ],
+      "topicPrefs": [
+        "mech"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch14",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-27",
+      "dayIndex": 81,
+      "weekday": "Friday",
+      "week": 12,
+      "phase": "mech",
+      "title": "Checkpoint — Mechanism design case studies",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ada_mech",
+      "lessonIds": [
+        "ada_mech"
+      ],
+      "topicPrefs": [
+        "mech"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch14",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-28",
+      "dayIndex": 82,
+      "weekday": "Saturday",
+      "week": 12,
+      "phase": "mech",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ada_mech",
+      "lessonIds": [
+        "ada_mech"
+      ],
+      "topicPrefs": [
+        "mech"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch14",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-29",
+      "dayIndex": 83,
+      "weekday": "Sunday",
+      "week": 12,
+      "phase": "mech",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ada_mech",
+      "lessonIds": [
+        "ada_mech"
+      ],
+      "topicPrefs": [
+        "mech"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch14",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-30",
+      "dayIndex": 84,
+      "weekday": "Monday",
+      "week": 13,
+      "phase": "wrap",
+      "title": "Wrap — Mixed review — paradigms & analysis",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_final",
+      "lessonIds": [
+        "ada_final"
+      ],
+      "topicPrefs": [
+        "paradigms",
+        "analysis"
+      ],
+      "questionTarget": 18,
+      "readPct": 30,
+      "practicePct": 50,
+      "mockPct": 20,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch15",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-01",
+      "dayIndex": 85,
+      "weekday": "Tuesday",
+      "week": 13,
+      "phase": "wrap",
+      "title": "Wrap drill — mixed",
+      "mode": "timed_set",
+      "activity": "practice_mock",
+      "isWeekend": false,
+      "lessonId": "ada_final",
+      "lessonIds": [
+        "ada_final"
+      ],
+      "topicPrefs": [
+        "graphs",
+        "strings",
+        "complexity"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 55,
+      "mockPct": 30,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch16",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-02",
+      "dayIndex": 86,
+      "weekday": "Wednesday",
+      "week": 13,
+      "phase": "wrap",
+      "title": "Wrap — Full mock 1",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_final",
+      "lessonIds": [
+        "ada_final"
+      ],
+      "topicPrefs": [
+        "games",
+        "mech"
+      ],
+      "questionTarget": 18,
+      "readPct": 30,
+      "practicePct": 50,
+      "mockPct": 20,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch17",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-03",
+      "dayIndex": 87,
+      "weekday": "Thursday",
+      "week": 13,
+      "phase": "wrap",
+      "title": "Wrap drill — mixed",
+      "mode": "timed_set",
+      "activity": "practice_mock",
+      "isWeekend": false,
+      "lessonId": "ada_final",
+      "lessonIds": [
+        "ada_final"
+      ],
+      "topicPrefs": [
+        "paradigms",
+        "analysis"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 55,
+      "mockPct": 30,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch15",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-04",
+      "dayIndex": 88,
+      "weekday": "Friday",
+      "week": 13,
+      "phase": "wrap",
+      "title": "Wrap — Mixed review — graphs, strings & NP",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_final",
+      "lessonIds": [
+        "ada_final"
+      ],
+      "topicPrefs": [
+        "graphs",
+        "strings",
+        "complexity"
+      ],
+      "questionTarget": 18,
+      "readPct": 30,
+      "practicePct": 50,
+      "mockPct": 20,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch16",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-05",
+      "dayIndex": 89,
+      "weekday": "Saturday",
+      "week": 13,
+      "phase": "wrap",
+      "title": "Full mock exam",
+      "mode": "full_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ada_final",
+      "lessonIds": [
+        "ada_final"
+      ],
+      "topicPrefs": [
+        "games",
+        "mech"
+      ],
+      "questionTarget": 30,
+      "readPct": 0,
+      "practicePct": 20,
+      "mockPct": 80,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch17",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-06",
+      "dayIndex": 90,
+      "weekday": "Sunday",
+      "week": 13,
+      "phase": "wrap",
+      "title": "Mock review",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ada_final",
+      "lessonIds": [
+        "ada_final"
+      ],
+      "topicPrefs": [
+        "paradigms",
+        "analysis"
+      ],
+      "questionTarget": 15,
+      "readPct": 25,
+      "practicePct": 50,
+      "mockPct": 25,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch15",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-07",
+      "dayIndex": 91,
+      "weekday": "Monday",
+      "week": 14,
+      "phase": "wrap",
+      "title": "Wrap — Weakness clinic",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_final",
+      "lessonIds": [
+        "ada_final"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 30,
+      "practicePct": 50,
+      "mockPct": 20,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch18",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-08",
+      "dayIndex": 92,
+      "weekday": "Tuesday",
+      "week": 14,
+      "phase": "wrap",
+      "title": "Wrap drill — mixed",
+      "mode": "timed_set",
+      "activity": "practice_mock",
+      "isWeekend": false,
+      "lessonId": "ada_final",
+      "lessonIds": [
+        "ada_final"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 55,
+      "mockPct": 30,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch19",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-09",
+      "dayIndex": 93,
+      "weekday": "Wednesday",
+      "week": 14,
+      "phase": "wrap",
+      "title": "Wrap — Weakness clinic",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_final",
+      "lessonIds": [
+        "ada_final"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 30,
+      "practicePct": 50,
+      "mockPct": 20,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch18",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-10",
+      "dayIndex": 94,
+      "weekday": "Thursday",
+      "week": 14,
+      "phase": "wrap",
+      "title": "Wrap drill — mixed",
+      "mode": "timed_set",
+      "activity": "practice_mock",
+      "isWeekend": false,
+      "lessonId": "ada_final",
+      "lessonIds": [
+        "ada_final"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 55,
+      "mockPct": 30,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch19",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-11",
+      "dayIndex": 95,
+      "weekday": "Friday",
+      "week": 14,
+      "phase": "wrap",
+      "title": "Wrap — Weakness clinic",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ada_final",
+      "lessonIds": [
+        "ada_final"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 18,
+      "readPct": 30,
+      "practicePct": 50,
+      "mockPct": 20,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ada_ch18",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-12",
+      "dayIndex": 96,
+      "weekday": "Saturday",
+      "week": 14,
+      "phase": "wrap",
+      "title": "Full mock exam",
+      "mode": "full_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ada_final",
+      "lessonIds": [
+        "ada_final"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 30,
+      "readPct": 0,
+      "practicePct": 20,
+      "mockPct": 80,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch19",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-13",
+      "dayIndex": 97,
+      "weekday": "Sunday",
+      "week": 14,
+      "phase": "wrap",
+      "title": "Mock review",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ada_final",
+      "lessonIds": [
+        "ada_final"
+      ],
+      "topicPrefs": [
+        "paradigms"
+      ],
+      "questionTarget": 15,
+      "readPct": 25,
+      "practicePct": 50,
+      "mockPct": 25,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ada_ch18",
+      "assignedQuestionIds": []
+    }
+  ],
+  "pathStats": {
+    "units": 9,
+    "chapters": 20,
+    "levels": 71,
+    "testsAndMocks": 19
+  }
+}
