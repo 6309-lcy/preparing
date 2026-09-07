@@ -1,0 +1,2337 @@
+{
+  "courseId": "ML",
+  "name": "Machine Learning (MIT 6.036–aligned)",
+  "structure": "duo_path",
+  "version": 1,
+  "updated": "2026-09-06",
+  "syllabus": {
+    "examFormat": "Course track · MIT 6.036–aligned · Harrington (2012)",
+    "weights": {
+      "overview": 0.08,
+      "stats": 0.12,
+      "regression": 0.14,
+      "cluster": 0.1,
+      "dimred": 0.12,
+      "clf": 0.16,
+      "deep": 0.18,
+      "recsys": 0.06,
+      "wrap": 0.04
+    },
+    "ilos": [
+      "2.1",
+      "2.2",
+      "3.1",
+      "3.2",
+      "4.1",
+      "4.2"
+    ],
+    "primaryFocus": "MIT OCW 6.036",
+    "compulsoryReading": "Harrington (2012) Machine Learning in Action"
+  },
+  "mix": {
+    "reading": 0.4,
+    "practice": 0.5,
+    "mock": 0.1
+  },
+  "timeline": {
+    "weeks": 14,
+    "learnWeeks": 12,
+    "startDate": "2026-09-07",
+    "endDate": "2026-12-13",
+    "dailyHoursWeekday": 2,
+    "notes": [
+      "Aligned to MIT OCW 6.036 with Harrington (2012) as compulsory reading.",
+      "Chapter tests ≥70% to unlock next chapter.",
+      "Practice levels use questionTarget; assignedQuestionIds empty until ML drill bank is authored.",
+      "Apps emphasized: document analysis, spam, clustering, segmentation, viz, face detection/recognition."
+    ]
+  },
+  "stats": {
+    "units": 9,
+    "chapters": 20,
+    "levels": 71,
+    "testsAndMocks": 19
+  },
+  "levelOrder": [
+    "ml_ch0_l1",
+    "ml_ch0_l2",
+    "ml_ch1_l1",
+    "ml_ch1_l2",
+    "ml_ch1_l3",
+    "ml_ch1_test",
+    "ml_ch2_l1",
+    "ml_ch2_l2",
+    "ml_ch2_l3",
+    "ml_ch2_test",
+    "ml_ch3_l1",
+    "ml_ch3_l2",
+    "ml_ch3_l3",
+    "ml_ch3_test",
+    "ml_ch4_l1",
+    "ml_ch4_l2",
+    "ml_ch4_l3",
+    "ml_ch4_test",
+    "ml_ch5_l1",
+    "ml_ch5_l2",
+    "ml_ch5_l3",
+    "ml_ch5_test",
+    "ml_ch6_l1",
+    "ml_ch6_l2",
+    "ml_ch6_l3",
+    "ml_ch6_test",
+    "ml_ch7_l1",
+    "ml_ch7_l2",
+    "ml_ch7_l3",
+    "ml_ch7_test",
+    "ml_ch8_l1",
+    "ml_ch8_l2",
+    "ml_ch8_l3",
+    "ml_ch8_test",
+    "ml_ch9_l1",
+    "ml_ch9_l2",
+    "ml_ch9_l3",
+    "ml_ch9_test",
+    "ml_ch10_l1",
+    "ml_ch10_l2",
+    "ml_ch10_l3",
+    "ml_ch10_test",
+    "ml_ch11_l1",
+    "ml_ch11_l2",
+    "ml_ch11_l3",
+    "ml_ch11_test",
+    "ml_ch12_l1",
+    "ml_ch12_l2",
+    "ml_ch12_l3",
+    "ml_ch12_test",
+    "ml_ch13_l1",
+    "ml_ch13_l2",
+    "ml_ch13_l3",
+    "ml_ch13_test",
+    "ml_ch14_l1",
+    "ml_ch14_l2",
+    "ml_ch14_l3",
+    "ml_ch14_test",
+    "ml_ch15_l1",
+    "ml_ch15_l2",
+    "ml_ch15_test",
+    "ml_ch16_l1",
+    "ml_ch16_l2",
+    "ml_ch16_test",
+    "ml_ch17_mock",
+    "ml_ch17_review",
+    "ml_ch18_l1",
+    "ml_ch18_l2",
+    "ml_ch18_test",
+    "ml_ch19_mock",
+    "ml_ch19_review"
+  ],
+  "units": [
+    {
+      "id": "ml_u0",
+      "number": 1,
+      "title": "Overview & real-world ML",
+      "shortTitle": "Overview",
+      "cluster": "overview",
+      "weight": 0.08,
+      "weightRange": "~8%",
+      "color": "#115E59",
+      "description": "Problem types, generalization, and application framing (spam, docs, faces, segmentation).",
+      "chapterCount": 2,
+      "chapters": [
+        {
+          "id": "ml_ch0",
+          "number": 0,
+          "order": 1,
+          "title": "ML map",
+          "lessonId": "ml_setup",
+          "topics": [
+            "overview"
+          ],
+          "lo": [
+            "2.1"
+          ],
+          "icon": "book",
+          "levelCount": 2,
+          "hasChapterTest": false,
+          "levels": [
+            {
+              "id": "ml_ch0_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "ML map",
+              "mode": "lesson",
+              "lessonId": "ml_setup",
+              "topics": [
+                "overview"
+              ],
+              "questionTarget": 0,
+              "readPct": 85,
+              "practicePct": 10,
+              "mockPct": 5,
+              "xp": 20,
+              "unitId": "ml_u0",
+              "chapterId": "ml_ch0",
+              "chapterTitle": "ML map",
+              "chapterNumber": 0,
+              "cluster": "intro",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch0_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Quick check",
+              "subtitle": "6 questions",
+              "mode": "practice",
+              "lessonId": "ml_setup",
+              "topics": [
+                "overview"
+              ],
+              "questionTarget": 6,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 25,
+              "unitId": "ml_u0",
+              "chapterId": "ml_ch0",
+              "chapterTitle": "ML map",
+              "chapterNumber": 0,
+              "cluster": "intro",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            }
+          ]
+        },
+        {
+          "id": "ml_ch1",
+          "number": 1,
+          "order": 2,
+          "title": "Overview & real-world ML",
+          "lessonId": "ml_overview",
+          "topics": [
+            "overview"
+          ],
+          "lo": [
+            "2.1",
+            "4.1"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch1_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Overview & apps",
+              "mode": "lesson",
+              "lessonId": "ml_overview",
+              "topics": [
+                "overview"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u0",
+              "chapterId": "ml_ch1",
+              "chapterTitle": "Overview & real-world ML",
+              "chapterNumber": 1,
+              "cluster": "overview",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch1_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ml_overview",
+              "topics": [
+                "overview"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ml_u0",
+              "chapterId": "ml_ch1",
+              "chapterTitle": "Overview & real-world ML",
+              "chapterNumber": 1,
+              "cluster": "overview",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch1_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_overview",
+              "topics": [
+                "overview"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ml_u0",
+              "chapterId": "ml_ch1",
+              "chapterTitle": "Overview & real-world ML",
+              "chapterNumber": 1,
+              "cluster": "overview",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch1_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ml_overview",
+              "topics": [
+                "overview"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ml_u0",
+              "chapterId": "ml_ch1",
+              "chapterTitle": "Overview & real-world ML",
+              "chapterNumber": 1,
+              "cluster": "overview",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ml_u1",
+      "number": 2,
+      "title": "Statistical learning",
+      "shortTitle": "Stats",
+      "cluster": "stats",
+      "weight": 0.12,
+      "weightRange": "~12%",
+      "color": "#0F766E",
+      "description": "Univariate distributions, MLE, Bayes/MAP decision rules.",
+      "chapterCount": 2,
+      "chapters": [
+        {
+          "id": "ml_ch2",
+          "number": 2,
+          "order": 3,
+          "title": "Univariate models & MLE",
+          "lessonId": "ml_mle",
+          "topics": [
+            "stats"
+          ],
+          "lo": [
+            "2.1",
+            "2.2"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch2_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "MLE",
+              "mode": "lesson",
+              "lessonId": "ml_mle",
+              "topics": [
+                "stats"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u1",
+              "chapterId": "ml_ch2",
+              "chapterTitle": "Univariate models & MLE",
+              "chapterNumber": 2,
+              "cluster": "stats",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch2_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ml_mle",
+              "topics": [
+                "stats"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ml_u1",
+              "chapterId": "ml_ch2",
+              "chapterTitle": "Univariate models & MLE",
+              "chapterNumber": 2,
+              "cluster": "stats",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch2_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_mle",
+              "topics": [
+                "stats"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ml_u1",
+              "chapterId": "ml_ch2",
+              "chapterTitle": "Univariate models & MLE",
+              "chapterNumber": 2,
+              "cluster": "stats",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch2_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ml_mle",
+              "topics": [
+                "stats"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ml_u1",
+              "chapterId": "ml_ch2",
+              "chapterTitle": "Univariate models & MLE",
+              "chapterNumber": 2,
+              "cluster": "stats",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ml_ch3",
+          "number": 3,
+          "order": 4,
+          "title": "Bayes & MAP",
+          "lessonId": "ml_bayes",
+          "topics": [
+            "stats"
+          ],
+          "lo": [
+            "2.2",
+            "4.1"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch3_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Bayes/MAP",
+              "mode": "lesson",
+              "lessonId": "ml_bayes",
+              "topics": [
+                "stats"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u1",
+              "chapterId": "ml_ch3",
+              "chapterTitle": "Bayes & MAP",
+              "chapterNumber": 3,
+              "cluster": "stats",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch3_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ml_bayes",
+              "topics": [
+                "stats"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ml_u1",
+              "chapterId": "ml_ch3",
+              "chapterTitle": "Bayes & MAP",
+              "chapterNumber": 3,
+              "cluster": "stats",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch3_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_bayes",
+              "topics": [
+                "stats"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ml_u1",
+              "chapterId": "ml_ch3",
+              "chapterTitle": "Bayes & MAP",
+              "chapterNumber": 3,
+              "cluster": "stats",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch3_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ml_bayes",
+              "topics": [
+                "stats"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ml_u1",
+              "chapterId": "ml_ch3",
+              "chapterTitle": "Bayes & MAP",
+              "chapterNumber": 3,
+              "cluster": "stats",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ml_u2",
+      "number": 3,
+      "title": "Multivariate & regression",
+      "shortTitle": "Regression",
+      "cluster": "regression",
+      "weight": 0.14,
+      "weightRange": "~14%",
+      "color": "#0369A1",
+      "description": "Design matrices, least squares geometry, ridge/lasso.",
+      "chapterCount": 2,
+      "chapters": [
+        {
+          "id": "ml_ch4",
+          "number": 4,
+          "order": 5,
+          "title": "Multivariate & linear regression",
+          "lessonId": "ml_linreg",
+          "topics": [
+            "regression"
+          ],
+          "lo": [
+            "3.1",
+            "3.2"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch4_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Linear regression",
+              "mode": "lesson",
+              "lessonId": "ml_linreg",
+              "topics": [
+                "regression"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u2",
+              "chapterId": "ml_ch4",
+              "chapterTitle": "Multivariate & linear regression",
+              "chapterNumber": 4,
+              "cluster": "regression",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch4_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ml_linreg",
+              "topics": [
+                "regression"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ml_u2",
+              "chapterId": "ml_ch4",
+              "chapterTitle": "Multivariate & linear regression",
+              "chapterNumber": 4,
+              "cluster": "regression",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch4_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_linreg",
+              "topics": [
+                "regression"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ml_u2",
+              "chapterId": "ml_ch4",
+              "chapterTitle": "Multivariate & linear regression",
+              "chapterNumber": 4,
+              "cluster": "regression",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch4_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ml_linreg",
+              "topics": [
+                "regression"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ml_u2",
+              "chapterId": "ml_ch4",
+              "chapterTitle": "Multivariate & linear regression",
+              "chapterNumber": 4,
+              "cluster": "regression",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ml_ch5",
+          "number": 5,
+          "order": 6,
+          "title": "Lasso & regularization",
+          "lessonId": "ml_lasso",
+          "topics": [
+            "regression"
+          ],
+          "lo": [
+            "3.1",
+            "3.2"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch5_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Ridge/lasso",
+              "mode": "lesson",
+              "lessonId": "ml_lasso",
+              "topics": [
+                "regression"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u2",
+              "chapterId": "ml_ch5",
+              "chapterTitle": "Lasso & regularization",
+              "chapterNumber": 5,
+              "cluster": "regression",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch5_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ml_lasso",
+              "topics": [
+                "regression"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ml_u2",
+              "chapterId": "ml_ch5",
+              "chapterTitle": "Lasso & regularization",
+              "chapterNumber": 5,
+              "cluster": "regression",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch5_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_lasso",
+              "topics": [
+                "regression"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ml_u2",
+              "chapterId": "ml_ch5",
+              "chapterTitle": "Lasso & regularization",
+              "chapterNumber": 5,
+              "cluster": "regression",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch5_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ml_lasso",
+              "topics": [
+                "regression"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ml_u2",
+              "chapterId": "ml_ch5",
+              "chapterTitle": "Lasso & regularization",
+              "chapterNumber": 5,
+              "cluster": "regression",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ml_u3",
+      "number": 4,
+      "title": "Clustering",
+      "shortTitle": "Cluster",
+      "cluster": "cluster",
+      "weight": 0.1,
+      "weightRange": "~10%",
+      "color": "#7C3AED",
+      "description": "K-means, Gaussian mixtures, EM; segmentation apps.",
+      "chapterCount": 1,
+      "chapters": [
+        {
+          "id": "ml_ch6",
+          "number": 6,
+          "order": 7,
+          "title": "K-means & GMM/EM",
+          "lessonId": "ml_cluster",
+          "topics": [
+            "cluster"
+          ],
+          "lo": [
+            "4.1",
+            "4.2"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch6_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Clustering",
+              "mode": "lesson",
+              "lessonId": "ml_cluster",
+              "topics": [
+                "cluster"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u3",
+              "chapterId": "ml_ch6",
+              "chapterTitle": "K-means & GMM/EM",
+              "chapterNumber": 6,
+              "cluster": "cluster",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch6_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ml_cluster",
+              "topics": [
+                "cluster"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ml_u3",
+              "chapterId": "ml_ch6",
+              "chapterTitle": "K-means & GMM/EM",
+              "chapterNumber": 6,
+              "cluster": "cluster",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch6_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_cluster",
+              "topics": [
+                "cluster"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ml_u3",
+              "chapterId": "ml_ch6",
+              "chapterTitle": "K-means & GMM/EM",
+              "chapterNumber": 6,
+              "cluster": "cluster",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch6_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ml_cluster",
+              "topics": [
+                "cluster"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ml_u3",
+              "chapterId": "ml_ch6",
+              "chapterTitle": "K-means & GMM/EM",
+              "chapterNumber": 6,
+              "cluster": "cluster",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ml_u4",
+      "number": 5,
+      "title": "Dimensionality reduction",
+      "shortTitle": "DimRed",
+      "cluster": "dimred",
+      "weight": 0.12,
+      "weightRange": "~12%",
+      "color": "#C026D3",
+      "description": "PCA, SVD, LDA, NMF, ICA; viz and eigenfaces.",
+      "chapterCount": 2,
+      "chapters": [
+        {
+          "id": "ml_ch7",
+          "number": 7,
+          "order": 8,
+          "title": "PCA & SVD",
+          "lessonId": "ml_pca",
+          "topics": [
+            "dimred"
+          ],
+          "lo": [
+            "3.2",
+            "4.2"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch7_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "PCA/SVD",
+              "mode": "lesson",
+              "lessonId": "ml_pca",
+              "topics": [
+                "dimred"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u4",
+              "chapterId": "ml_ch7",
+              "chapterTitle": "PCA & SVD",
+              "chapterNumber": 7,
+              "cluster": "dimred",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch7_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ml_pca",
+              "topics": [
+                "dimred"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ml_u4",
+              "chapterId": "ml_ch7",
+              "chapterTitle": "PCA & SVD",
+              "chapterNumber": 7,
+              "cluster": "dimred",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch7_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_pca",
+              "topics": [
+                "dimred"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ml_u4",
+              "chapterId": "ml_ch7",
+              "chapterTitle": "PCA & SVD",
+              "chapterNumber": 7,
+              "cluster": "dimred",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch7_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ml_pca",
+              "topics": [
+                "dimred"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ml_u4",
+              "chapterId": "ml_ch7",
+              "chapterTitle": "PCA & SVD",
+              "chapterNumber": 7,
+              "cluster": "dimred",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ml_ch8",
+          "number": 8,
+          "order": 9,
+          "title": "LDA, NMF & ICA",
+          "lessonId": "ml_dimred",
+          "topics": [
+            "dimred"
+          ],
+          "lo": [
+            "3.2",
+            "4.2"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch8_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "LDA/NMF/ICA",
+              "mode": "lesson",
+              "lessonId": "ml_dimred",
+              "topics": [
+                "dimred"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u4",
+              "chapterId": "ml_ch8",
+              "chapterTitle": "LDA, NMF & ICA",
+              "chapterNumber": 8,
+              "cluster": "dimred",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch8_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ml_dimred",
+              "topics": [
+                "dimred"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ml_u4",
+              "chapterId": "ml_ch8",
+              "chapterTitle": "LDA, NMF & ICA",
+              "chapterNumber": 8,
+              "cluster": "dimred",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch8_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_dimred",
+              "topics": [
+                "dimred"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ml_u4",
+              "chapterId": "ml_ch8",
+              "chapterTitle": "LDA, NMF & ICA",
+              "chapterNumber": 8,
+              "cluster": "dimred",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch8_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ml_dimred",
+              "topics": [
+                "dimred"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ml_u4",
+              "chapterId": "ml_ch8",
+              "chapterTitle": "LDA, NMF & ICA",
+              "chapterNumber": 8,
+              "cluster": "dimred",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ml_u5",
+      "number": 6,
+      "title": "Discriminative classifiers",
+      "shortTitle": "Classify",
+      "cluster": "clf",
+      "weight": 0.16,
+      "weightRange": "~16%",
+      "color": "#B45309",
+      "description": "kNN, Bayes optimal, naive Bayes, logistic, LDA, SVM.",
+      "chapterCount": 2,
+      "chapters": [
+        {
+          "id": "ml_ch9",
+          "number": 9,
+          "order": 10,
+          "title": "kNN, Bayes optimal & naive Bayes",
+          "lessonId": "ml_classifiers",
+          "topics": [
+            "clf"
+          ],
+          "lo": [
+            "2.2",
+            "4.1"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch9_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "kNN/NB",
+              "mode": "lesson",
+              "lessonId": "ml_classifiers",
+              "topics": [
+                "clf"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u5",
+              "chapterId": "ml_ch9",
+              "chapterTitle": "kNN, Bayes optimal & naive Bayes",
+              "chapterNumber": 9,
+              "cluster": "clf",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch9_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ml_classifiers",
+              "topics": [
+                "clf"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ml_u5",
+              "chapterId": "ml_ch9",
+              "chapterTitle": "kNN, Bayes optimal & naive Bayes",
+              "chapterNumber": 9,
+              "cluster": "clf",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch9_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_classifiers",
+              "topics": [
+                "clf"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ml_u5",
+              "chapterId": "ml_ch9",
+              "chapterTitle": "kNN, Bayes optimal & naive Bayes",
+              "chapterNumber": 9,
+              "cluster": "clf",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch9_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ml_classifiers",
+              "topics": [
+                "clf"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ml_u5",
+              "chapterId": "ml_ch9",
+              "chapterTitle": "kNN, Bayes optimal & naive Bayes",
+              "chapterNumber": 9,
+              "cluster": "clf",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ml_ch10",
+          "number": 10,
+          "order": 11,
+          "title": "Logistic, LDA & SVM",
+          "lessonId": "ml_svm",
+          "topics": [
+            "clf"
+          ],
+          "lo": [
+            "3.1",
+            "4.1"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch10_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Logistic/SVM",
+              "mode": "lesson",
+              "lessonId": "ml_svm",
+              "topics": [
+                "clf"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u5",
+              "chapterId": "ml_ch10",
+              "chapterTitle": "Logistic, LDA & SVM",
+              "chapterNumber": 10,
+              "cluster": "clf",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch10_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ml_svm",
+              "topics": [
+                "clf"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ml_u5",
+              "chapterId": "ml_ch10",
+              "chapterTitle": "Logistic, LDA & SVM",
+              "chapterNumber": 10,
+              "cluster": "clf",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch10_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_svm",
+              "topics": [
+                "clf"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ml_u5",
+              "chapterId": "ml_ch10",
+              "chapterTitle": "Logistic, LDA & SVM",
+              "chapterNumber": 10,
+              "cluster": "clf",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch10_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ml_svm",
+              "topics": [
+                "clf"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ml_u5",
+              "chapterId": "ml_ch10",
+              "chapterTitle": "Logistic, LDA & SVM",
+              "chapterNumber": 10,
+              "cluster": "clf",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ml_u6",
+      "number": 7,
+      "title": "Deep learning",
+      "shortTitle": "Deep",
+      "cluster": "deep",
+      "weight": 0.18,
+      "weightRange": "~18%",
+      "color": "#BE123C",
+      "description": "MLP, backprop, CNN, BN/dropout, ResNet/DenseNet/FCN, AE/GAN/VAE.",
+      "chapterCount": 3,
+      "chapters": [
+        {
+          "id": "ml_ch11",
+          "number": 11,
+          "order": 12,
+          "title": "MLP & backpropagation",
+          "lessonId": "ml_mlp",
+          "topics": [
+            "deep"
+          ],
+          "lo": [
+            "3.1",
+            "4.1"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch11_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "MLP/backprop",
+              "mode": "lesson",
+              "lessonId": "ml_mlp",
+              "topics": [
+                "deep"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u6",
+              "chapterId": "ml_ch11",
+              "chapterTitle": "MLP & backpropagation",
+              "chapterNumber": 11,
+              "cluster": "deep",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch11_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ml_mlp",
+              "topics": [
+                "deep"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ml_u6",
+              "chapterId": "ml_ch11",
+              "chapterTitle": "MLP & backpropagation",
+              "chapterNumber": 11,
+              "cluster": "deep",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch11_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_mlp",
+              "topics": [
+                "deep"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ml_u6",
+              "chapterId": "ml_ch11",
+              "chapterTitle": "MLP & backpropagation",
+              "chapterNumber": 11,
+              "cluster": "deep",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch11_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ml_mlp",
+              "topics": [
+                "deep"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ml_u6",
+              "chapterId": "ml_ch11",
+              "chapterTitle": "MLP & backpropagation",
+              "chapterNumber": 11,
+              "cluster": "deep",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ml_ch12",
+          "number": 12,
+          "order": 13,
+          "title": "CNNs & modern training",
+          "lessonId": "ml_cnn",
+          "topics": [
+            "deep"
+          ],
+          "lo": [
+            "4.1",
+            "4.2"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch12_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "CNN/ResNet",
+              "mode": "lesson",
+              "lessonId": "ml_cnn",
+              "topics": [
+                "deep"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u6",
+              "chapterId": "ml_ch12",
+              "chapterTitle": "CNNs & modern training",
+              "chapterNumber": 12,
+              "cluster": "deep",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch12_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ml_cnn",
+              "topics": [
+                "deep"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ml_u6",
+              "chapterId": "ml_ch12",
+              "chapterTitle": "CNNs & modern training",
+              "chapterNumber": 12,
+              "cluster": "deep",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch12_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_cnn",
+              "topics": [
+                "deep"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ml_u6",
+              "chapterId": "ml_ch12",
+              "chapterTitle": "CNNs & modern training",
+              "chapterNumber": 12,
+              "cluster": "deep",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch12_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ml_cnn",
+              "topics": [
+                "deep"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ml_u6",
+              "chapterId": "ml_ch12",
+              "chapterTitle": "CNNs & modern training",
+              "chapterNumber": 12,
+              "cluster": "deep",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ml_ch13",
+          "number": 13,
+          "order": 14,
+          "title": "AE, GAN & VAE",
+          "lessonId": "ml_gen",
+          "topics": [
+            "deep"
+          ],
+          "lo": [
+            "4.1",
+            "4.2"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch13_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Generative",
+              "mode": "lesson",
+              "lessonId": "ml_gen",
+              "topics": [
+                "deep"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u6",
+              "chapterId": "ml_ch13",
+              "chapterTitle": "AE, GAN & VAE",
+              "chapterNumber": 13,
+              "cluster": "deep",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch13_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ml_gen",
+              "topics": [
+                "deep"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ml_u6",
+              "chapterId": "ml_ch13",
+              "chapterTitle": "AE, GAN & VAE",
+              "chapterNumber": 13,
+              "cluster": "deep",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch13_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_gen",
+              "topics": [
+                "deep"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ml_u6",
+              "chapterId": "ml_ch13",
+              "chapterTitle": "AE, GAN & VAE",
+              "chapterNumber": 13,
+              "cluster": "deep",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch13_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ml_gen",
+              "topics": [
+                "deep"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ml_u6",
+              "chapterId": "ml_ch13",
+              "chapterTitle": "AE, GAN & VAE",
+              "chapterNumber": 13,
+              "cluster": "deep",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ml_u7",
+      "number": 8,
+      "title": "Recommender systems",
+      "shortTitle": "Recsys",
+      "cluster": "recsys",
+      "weight": 0.06,
+      "weightRange": "~6%",
+      "color": "#047857",
+      "description": "Collaborative filtering, matrix factorization, ranking metrics.",
+      "chapterCount": 1,
+      "chapters": [
+        {
+          "id": "ml_ch14",
+          "number": 14,
+          "order": 15,
+          "title": "Recommender systems",
+          "lessonId": "ml_recsys",
+          "topics": [
+            "recsys"
+          ],
+          "lo": [
+            "3.1",
+            "4.1"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch14_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Recsys",
+              "mode": "lesson",
+              "lessonId": "ml_recsys",
+              "topics": [
+                "recsys"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u7",
+              "chapterId": "ml_ch14",
+              "chapterTitle": "Recommender systems",
+              "chapterNumber": 14,
+              "cluster": "recsys",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch14_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ml_recsys",
+              "topics": [
+                "recsys"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ml_u7",
+              "chapterId": "ml_ch14",
+              "chapterTitle": "Recommender systems",
+              "chapterNumber": 14,
+              "cluster": "recsys",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch14_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_recsys",
+              "topics": [
+                "recsys"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ml_u7",
+              "chapterId": "ml_ch14",
+              "chapterTitle": "Recommender systems",
+              "chapterNumber": 14,
+              "cluster": "recsys",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch14_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ml_recsys",
+              "topics": [
+                "recsys"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ml_u7",
+              "chapterId": "ml_ch14",
+              "chapterTitle": "Recommender systems",
+              "chapterNumber": 14,
+              "cluster": "recsys",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ml_u8",
+      "number": 9,
+      "title": "Wrap-up & mocks",
+      "shortTitle": "Wrap",
+      "cluster": "wrap",
+      "weight": 0.04,
+      "weightRange": "—",
+      "color": "#334155",
+      "description": "Mixed review, full mocks, weakness clinic.",
+      "chapterCount": 5,
+      "chapters": [
+        {
+          "id": "ml_ch15",
+          "number": 15,
+          "order": 16,
+          "title": "Mixed review — stats & regression",
+          "lessonId": "ml_final",
+          "topics": [
+            "stats",
+            "regression"
+          ],
+          "lo": [
+            "2.1",
+            "3.1"
+          ],
+          "icon": "book",
+          "levelCount": 3,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch15_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Integration A",
+              "mode": "lesson",
+              "lessonId": "ml_final",
+              "topics": [
+                "stats",
+                "regression"
+              ],
+              "questionTarget": 0,
+              "readPct": 70,
+              "practicePct": 25,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u8",
+              "chapterId": "ml_ch15",
+              "chapterTitle": "Mixed review — stats & regression",
+              "chapterNumber": 15,
+              "cluster": "wrap",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch15_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Mixed practice",
+              "subtitle": "15 questions",
+              "mode": "practice",
+              "lessonId": "ml_final",
+              "topics": [
+                "stats",
+                "regression"
+              ],
+              "questionTarget": 15,
+              "readPct": 10,
+              "practicePct": 70,
+              "mockPct": 20,
+              "xp": 40,
+              "unitId": "ml_u8",
+              "chapterId": "ml_ch15",
+              "chapterTitle": "Mixed review — stats & regression",
+              "chapterNumber": 15,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch15_test",
+              "index": 3,
+              "type": "chapter_test",
+              "title": "Checkpoint test",
+              "subtitle": "≥70%",
+              "mode": "chapter_test",
+              "lessonId": "ml_final",
+              "topics": [
+                "stats",
+                "regression"
+              ],
+              "questionTarget": 15,
+              "readPct": 5,
+              "practicePct": 65,
+              "mockPct": 30,
+              "xp": 60,
+              "unitId": "ml_u8",
+              "chapterId": "ml_ch15",
+              "chapterTitle": "Mixed review — stats & regression",
+              "chapterNumber": 15,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ml_ch16",
+          "number": 16,
+          "order": 17,
+          "title": "Mixed review — unsupervised & classifiers",
+          "lessonId": "ml_final",
+          "topics": [
+            "cluster",
+            "dimred",
+            "clf"
+          ],
+          "lo": [
+            "4.1",
+            "4.2"
+          ],
+          "icon": "book",
+          "levelCount": 3,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch16_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Integration B",
+              "mode": "lesson",
+              "lessonId": "ml_final",
+              "topics": [
+                "cluster",
+                "dimred",
+                "clf"
+              ],
+              "questionTarget": 0,
+              "readPct": 70,
+              "practicePct": 25,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ml_u8",
+              "chapterId": "ml_ch16",
+              "chapterTitle": "Mixed review — unsupervised & classifiers",
+              "chapterNumber": 16,
+              "cluster": "wrap",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch16_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Mixed practice",
+              "subtitle": "15 questions",
+              "mode": "practice",
+              "lessonId": "ml_final",
+              "topics": [
+                "cluster",
+                "dimred",
+                "clf"
+              ],
+              "questionTarget": 15,
+              "readPct": 10,
+              "practicePct": 70,
+              "mockPct": 20,
+              "xp": 40,
+              "unitId": "ml_u8",
+              "chapterId": "ml_ch16",
+              "chapterTitle": "Mixed review — unsupervised & classifiers",
+              "chapterNumber": 16,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch16_test",
+              "index": 3,
+              "type": "chapter_test",
+              "title": "Checkpoint test",
+              "subtitle": "≥70%",
+              "mode": "chapter_test",
+              "lessonId": "ml_final",
+              "topics": [
+                "cluster",
+                "dimred",
+                "clf"
+              ],
+              "questionTarget": 15,
+              "readPct": 5,
+              "practicePct": 65,
+              "mockPct": 30,
+              "xp": 60,
+              "unitId": "ml_u8",
+              "chapterId": "ml_ch16",
+              "chapterTitle": "Mixed review — unsupervised & classifiers",
+              "chapterNumber": 16,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ml_ch17",
+          "number": 17,
+          "order": 18,
+          "title": "Full mock 1",
+          "lessonId": "ml_final",
+          "topics": [
+            "deep",
+            "recsys"
+          ],
+          "lo": [
+            "4.1"
+          ],
+          "icon": "exam",
+          "levelCount": 2,
+          "hasChapterTest": false,
+          "levels": [
+            {
+              "id": "ml_ch17_mock",
+              "index": 1,
+              "type": "full_mock",
+              "title": "Full mock 1",
+              "subtitle": "30 questions",
+              "mode": "full_mock",
+              "lessonId": "ml_final",
+              "topics": [
+                "deep",
+                "recsys"
+              ],
+              "questionTarget": 30,
+              "readPct": 0,
+              "practicePct": 20,
+              "mockPct": 80,
+              "xp": 100,
+              "unitId": "ml_u8",
+              "chapterId": "ml_ch17",
+              "chapterTitle": "Full mock 1",
+              "chapterNumber": 17,
+              "cluster": "wrap",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch17_review",
+              "index": 2,
+              "type": "practice",
+              "title": "Review misses",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_final",
+              "topics": [
+                "deep",
+                "recsys"
+              ],
+              "questionTarget": 12,
+              "readPct": 20,
+              "practicePct": 60,
+              "mockPct": 20,
+              "xp": 35,
+              "unitId": "ml_u8",
+              "chapterId": "ml_ch17",
+              "chapterTitle": "Full mock 1",
+              "chapterNumber": 17,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            }
+          ]
+        },
+        {
+          "id": "ml_ch18",
+          "number": 18,
+          "order": 19,
+          "title": "Weakness clinic",
+          "lessonId": "ml_final",
+          "topics": [
+            "overview"
+          ],
+          "lo": [
+            "2.1",
+            "4.1"
+          ],
+          "icon": "book",
+          "levelCount": 3,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ml_ch18_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Weak spots",
+              "mode": "lesson",
+              "lessonId": "ml_final",
+              "topics": [
+                "overview"
+              ],
+              "questionTarget": 0,
+              "readPct": 60,
+              "practicePct": 30,
+              "mockPct": 10,
+              "xp": 25,
+              "unitId": "ml_u8",
+              "chapterId": "ml_ch18",
+              "chapterTitle": "Weakness clinic",
+              "chapterNumber": 18,
+              "cluster": "wrap",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch18_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Targeted drill",
+              "subtitle": "15 questions",
+              "mode": "practice",
+              "lessonId": "ml_final",
+              "topics": [
+                "overview"
+              ],
+              "questionTarget": 15,
+              "readPct": 10,
+              "practicePct": 70,
+              "mockPct": 20,
+              "xp": 40,
+              "unitId": "ml_u8",
+              "chapterId": "ml_ch18",
+              "chapterTitle": "Weakness clinic",
+              "chapterNumber": 18,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ml_ch18_test",
+              "index": 3,
+              "type": "chapter_test",
+              "title": "Clinic test",
+              "subtitle": "≥70%",
+              "mode": "chapter_test",
+              "lessonId": "ml_final",
+              "topics": [
+                "overview"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 65,
+              "mockPct": 30,
+              "xp": 60,
+              "unitId": "ml_u8",
+              "chapterId": "ml_ch18",
+              "chapterTitle": "Weakness clinic",
+              "chapterNumber": 18,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ml_ch19",
+          "number": 19,
+          "order": 20,
+          "title": "Full mock 2 + final",
+          "lessonId": "ml_final",
+          "topics": [
+            "overview"
+          ],
+          "lo": [
+            "2.1",
+            "2.2",
+            "3.1",
+            "3.2",
+            "4.1",
+            "4.2"
+          ],
+          "icon": "exam",
+          "levelCount": 2,
+          "hasChapterTest": false,
+          "levels": [
+            {
+              "id": "ml_ch19_mock",
+              "index": 1,
+              "type": "full_mock",
+              "title": "Full mock 2",
+              "subtitle": "30 questions",
+              "mode": "full_mock",
+              "lessonId": "ml_final",
+              "topics": [
+                "overview"
+              ],
+              "questionTarget": 30,
+              "readPct": 0,
+              "practicePct": 20,
+              "mockPct": 80,
+              "xp": 100,
+              "unitId": "ml_u8",
+              "chapterId": "ml_ch19",
+              "chapterTitle": "Full mock 2 + final",
+              "chapterNumber": 19,
+              "cluster": "wrap",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ml_ch19_review",
+              "index": 2,
+              "type": "practice",
+              "title": "Final review",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ml_final",
+              "topics": [
+                "overview"
+              ],
+              "questionTarget": 12,
+              "readPct": 25,
+              "practicePct": 55,
+              "mockPct": 20,
+              "xp": 35,
+              "unitId": "ml_u8",
+              "chapterId": "ml_ch19",
+              "chapterTitle": "Full mock 2 + final",
+              "chapterNumber": 19,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

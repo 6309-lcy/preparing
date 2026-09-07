@@ -1,0 +1,2601 @@
+{
+  "courseId": "ML",
+  "name": "Machine Learning (MIT 6.036–aligned)",
+  "examCode": "ML",
+  "startDate": "2026-09-07",
+  "endDate": "2026-12-13",
+  "weeks": 14,
+  "learnWeeks": 12,
+  "mix": {
+    "reading": 0.4,
+    "practice": 0.5,
+    "mock": 0.1
+  },
+  "weights": {
+    "overview": 0.08,
+    "stats": 0.12,
+    "regression": 0.14,
+    "cluster": 0.1,
+    "dimred": 0.12,
+    "clf": 0.16,
+    "deep": 0.18,
+    "recsys": 0.06,
+    "wrap": 0.04
+  },
+  "pathPath": "data/courses/ml/path.json",
+  "targetExamWindow": "Align to your 6.036 / self-paced window",
+  "dailyHoursWeekday": 2,
+  "notes": [
+    "Primary progression is Path.",
+    "Multi-level days OK.",
+    "Last 2 weeks: wrap + mocks.",
+    "40% reading / 50% practice / 10% mock.",
+    "Compulsory reading: Harrington (2012); primary focus MIT OCW 6.036.",
+    "assignedQuestionIds empty until ML drill bank exists — practice uses questionTarget."
+  ],
+  "days": [
+    {
+      "date": "2026-09-07",
+      "dayIndex": 0,
+      "weekday": "Monday",
+      "week": 1,
+      "phase": "overview",
+      "title": "ML map",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_setup",
+      "lessonIds": [
+        "ml_setup"
+      ],
+      "topicPrefs": [
+        "overview"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch0",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-08",
+      "dayIndex": 1,
+      "weekday": "Tuesday",
+      "week": 1,
+      "phase": "overview",
+      "title": "Practice — Overview & real-world ML",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_overview",
+      "lessonIds": [
+        "ml_overview"
+      ],
+      "topicPrefs": [
+        "overview"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch1",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-09",
+      "dayIndex": 2,
+      "weekday": "Wednesday",
+      "week": 1,
+      "phase": "overview",
+      "title": "Practice — ML map",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_setup",
+      "lessonIds": [
+        "ml_setup"
+      ],
+      "topicPrefs": [
+        "overview"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch0",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-10",
+      "dayIndex": 3,
+      "weekday": "Thursday",
+      "week": 1,
+      "phase": "overview",
+      "title": "Practice — Overview & real-world ML",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_overview",
+      "lessonIds": [
+        "ml_overview"
+      ],
+      "topicPrefs": [
+        "overview"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch1",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-11",
+      "dayIndex": 4,
+      "weekday": "Friday",
+      "week": 1,
+      "phase": "overview",
+      "title": "Practice — ML map",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_setup",
+      "lessonIds": [
+        "ml_setup"
+      ],
+      "topicPrefs": [
+        "overview"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch0",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-12",
+      "dayIndex": 5,
+      "weekday": "Saturday",
+      "week": 1,
+      "phase": "overview",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ml_overview",
+      "lessonIds": [
+        "ml_overview"
+      ],
+      "topicPrefs": [
+        "overview"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch1",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-13",
+      "dayIndex": 6,
+      "weekday": "Sunday",
+      "week": 1,
+      "phase": "overview",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ml_setup",
+      "lessonIds": [
+        "ml_setup"
+      ],
+      "topicPrefs": [
+        "overview"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch0",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-14",
+      "dayIndex": 7,
+      "weekday": "Monday",
+      "week": 2,
+      "phase": "stats",
+      "title": "Univariate models & MLE",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_mle",
+      "lessonIds": [
+        "ml_mle"
+      ],
+      "topicPrefs": [
+        "stats"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch2",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-15",
+      "dayIndex": 8,
+      "weekday": "Tuesday",
+      "week": 2,
+      "phase": "stats",
+      "title": "Practice — Univariate models & MLE",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_mle",
+      "lessonIds": [
+        "ml_mle"
+      ],
+      "topicPrefs": [
+        "stats"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch2",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-16",
+      "dayIndex": 9,
+      "weekday": "Wednesday",
+      "week": 2,
+      "phase": "stats",
+      "title": "Practice — Univariate models & MLE",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_mle",
+      "lessonIds": [
+        "ml_mle"
+      ],
+      "topicPrefs": [
+        "stats"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch2",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-17",
+      "dayIndex": 10,
+      "weekday": "Thursday",
+      "week": 2,
+      "phase": "stats",
+      "title": "Practice — Univariate models & MLE",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_mle",
+      "lessonIds": [
+        "ml_mle"
+      ],
+      "topicPrefs": [
+        "stats"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch2",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-18",
+      "dayIndex": 11,
+      "weekday": "Friday",
+      "week": 2,
+      "phase": "stats",
+      "title": "Checkpoint — Univariate models & MLE",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ml_mle",
+      "lessonIds": [
+        "ml_mle"
+      ],
+      "topicPrefs": [
+        "stats"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch2",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-19",
+      "dayIndex": 12,
+      "weekday": "Saturday",
+      "week": 2,
+      "phase": "stats",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ml_mle",
+      "lessonIds": [
+        "ml_mle"
+      ],
+      "topicPrefs": [
+        "stats"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch2",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-20",
+      "dayIndex": 13,
+      "weekday": "Sunday",
+      "week": 2,
+      "phase": "stats",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ml_mle",
+      "lessonIds": [
+        "ml_mle"
+      ],
+      "topicPrefs": [
+        "stats"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch2",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-21",
+      "dayIndex": 14,
+      "weekday": "Monday",
+      "week": 3,
+      "phase": "stats",
+      "title": "Bayes & MAP",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_bayes",
+      "lessonIds": [
+        "ml_bayes"
+      ],
+      "topicPrefs": [
+        "stats"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch3",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-22",
+      "dayIndex": 15,
+      "weekday": "Tuesday",
+      "week": 3,
+      "phase": "stats",
+      "title": "Practice — Bayes & MAP",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_bayes",
+      "lessonIds": [
+        "ml_bayes"
+      ],
+      "topicPrefs": [
+        "stats"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch3",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-23",
+      "dayIndex": 16,
+      "weekday": "Wednesday",
+      "week": 3,
+      "phase": "stats",
+      "title": "Practice — Bayes & MAP",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_bayes",
+      "lessonIds": [
+        "ml_bayes"
+      ],
+      "topicPrefs": [
+        "stats"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch3",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-24",
+      "dayIndex": 17,
+      "weekday": "Thursday",
+      "week": 3,
+      "phase": "stats",
+      "title": "Practice — Bayes & MAP",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_bayes",
+      "lessonIds": [
+        "ml_bayes"
+      ],
+      "topicPrefs": [
+        "stats"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch3",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-25",
+      "dayIndex": 18,
+      "weekday": "Friday",
+      "week": 3,
+      "phase": "stats",
+      "title": "Checkpoint — Bayes & MAP",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ml_bayes",
+      "lessonIds": [
+        "ml_bayes"
+      ],
+      "topicPrefs": [
+        "stats"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch3",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-26",
+      "dayIndex": 19,
+      "weekday": "Saturday",
+      "week": 3,
+      "phase": "stats",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ml_bayes",
+      "lessonIds": [
+        "ml_bayes"
+      ],
+      "topicPrefs": [
+        "stats"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch3",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-27",
+      "dayIndex": 20,
+      "weekday": "Sunday",
+      "week": 3,
+      "phase": "stats",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ml_bayes",
+      "lessonIds": [
+        "ml_bayes"
+      ],
+      "topicPrefs": [
+        "stats"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch3",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-28",
+      "dayIndex": 21,
+      "weekday": "Monday",
+      "week": 4,
+      "phase": "regression",
+      "title": "Multivariate & linear regression",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_linreg",
+      "lessonIds": [
+        "ml_linreg"
+      ],
+      "topicPrefs": [
+        "regression"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch4",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-29",
+      "dayIndex": 22,
+      "weekday": "Tuesday",
+      "week": 4,
+      "phase": "regression",
+      "title": "Practice — Multivariate & linear regression",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_linreg",
+      "lessonIds": [
+        "ml_linreg"
+      ],
+      "topicPrefs": [
+        "regression"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch4",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-09-30",
+      "dayIndex": 23,
+      "weekday": "Wednesday",
+      "week": 4,
+      "phase": "regression",
+      "title": "Practice — Multivariate & linear regression",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_linreg",
+      "lessonIds": [
+        "ml_linreg"
+      ],
+      "topicPrefs": [
+        "regression"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch4",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-01",
+      "dayIndex": 24,
+      "weekday": "Thursday",
+      "week": 4,
+      "phase": "regression",
+      "title": "Practice — Multivariate & linear regression",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_linreg",
+      "lessonIds": [
+        "ml_linreg"
+      ],
+      "topicPrefs": [
+        "regression"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch4",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-02",
+      "dayIndex": 25,
+      "weekday": "Friday",
+      "week": 4,
+      "phase": "regression",
+      "title": "Checkpoint — Multivariate & linear regression",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ml_linreg",
+      "lessonIds": [
+        "ml_linreg"
+      ],
+      "topicPrefs": [
+        "regression"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch4",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-03",
+      "dayIndex": 26,
+      "weekday": "Saturday",
+      "week": 4,
+      "phase": "regression",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ml_linreg",
+      "lessonIds": [
+        "ml_linreg"
+      ],
+      "topicPrefs": [
+        "regression"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch4",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-04",
+      "dayIndex": 27,
+      "weekday": "Sunday",
+      "week": 4,
+      "phase": "regression",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ml_linreg",
+      "lessonIds": [
+        "ml_linreg"
+      ],
+      "topicPrefs": [
+        "regression"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch4",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-05",
+      "dayIndex": 28,
+      "weekday": "Monday",
+      "week": 5,
+      "phase": "regression",
+      "title": "Lasso & regularization",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_lasso",
+      "lessonIds": [
+        "ml_lasso"
+      ],
+      "topicPrefs": [
+        "regression"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch5",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-06",
+      "dayIndex": 29,
+      "weekday": "Tuesday",
+      "week": 5,
+      "phase": "regression",
+      "title": "Practice — Lasso & regularization",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_lasso",
+      "lessonIds": [
+        "ml_lasso"
+      ],
+      "topicPrefs": [
+        "regression"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch5",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-07",
+      "dayIndex": 30,
+      "weekday": "Wednesday",
+      "week": 5,
+      "phase": "regression",
+      "title": "Practice — Lasso & regularization",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_lasso",
+      "lessonIds": [
+        "ml_lasso"
+      ],
+      "topicPrefs": [
+        "regression"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch5",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-08",
+      "dayIndex": 31,
+      "weekday": "Thursday",
+      "week": 5,
+      "phase": "regression",
+      "title": "Practice — Lasso & regularization",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_lasso",
+      "lessonIds": [
+        "ml_lasso"
+      ],
+      "topicPrefs": [
+        "regression"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch5",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-09",
+      "dayIndex": 32,
+      "weekday": "Friday",
+      "week": 5,
+      "phase": "regression",
+      "title": "Checkpoint — Lasso & regularization",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ml_lasso",
+      "lessonIds": [
+        "ml_lasso"
+      ],
+      "topicPrefs": [
+        "regression"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch5",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-10",
+      "dayIndex": 33,
+      "weekday": "Saturday",
+      "week": 5,
+      "phase": "regression",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ml_lasso",
+      "lessonIds": [
+        "ml_lasso"
+      ],
+      "topicPrefs": [
+        "regression"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch5",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-11",
+      "dayIndex": 34,
+      "weekday": "Sunday",
+      "week": 5,
+      "phase": "regression",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ml_lasso",
+      "lessonIds": [
+        "ml_lasso"
+      ],
+      "topicPrefs": [
+        "regression"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch5",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-12",
+      "dayIndex": 35,
+      "weekday": "Monday",
+      "week": 6,
+      "phase": "cluster",
+      "title": "K-means & GMM/EM",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_cluster",
+      "lessonIds": [
+        "ml_cluster"
+      ],
+      "topicPrefs": [
+        "cluster"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch6",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-13",
+      "dayIndex": 36,
+      "weekday": "Tuesday",
+      "week": 6,
+      "phase": "cluster",
+      "title": "Practice — K-means & GMM/EM",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_cluster",
+      "lessonIds": [
+        "ml_cluster"
+      ],
+      "topicPrefs": [
+        "cluster"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch6",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-14",
+      "dayIndex": 37,
+      "weekday": "Wednesday",
+      "week": 6,
+      "phase": "cluster",
+      "title": "Practice — K-means & GMM/EM",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_cluster",
+      "lessonIds": [
+        "ml_cluster"
+      ],
+      "topicPrefs": [
+        "cluster"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch6",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-15",
+      "dayIndex": 38,
+      "weekday": "Thursday",
+      "week": 6,
+      "phase": "cluster",
+      "title": "Practice — K-means & GMM/EM",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_cluster",
+      "lessonIds": [
+        "ml_cluster"
+      ],
+      "topicPrefs": [
+        "cluster"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch6",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-16",
+      "dayIndex": 39,
+      "weekday": "Friday",
+      "week": 6,
+      "phase": "cluster",
+      "title": "Checkpoint — K-means & GMM/EM",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ml_cluster",
+      "lessonIds": [
+        "ml_cluster"
+      ],
+      "topicPrefs": [
+        "cluster"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch6",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-17",
+      "dayIndex": 40,
+      "weekday": "Saturday",
+      "week": 6,
+      "phase": "cluster",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ml_cluster",
+      "lessonIds": [
+        "ml_cluster"
+      ],
+      "topicPrefs": [
+        "cluster"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch6",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-18",
+      "dayIndex": 41,
+      "weekday": "Sunday",
+      "week": 6,
+      "phase": "cluster",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ml_cluster",
+      "lessonIds": [
+        "ml_cluster"
+      ],
+      "topicPrefs": [
+        "cluster"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch6",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-19",
+      "dayIndex": 42,
+      "weekday": "Monday",
+      "week": 7,
+      "phase": "dimred",
+      "title": "PCA & SVD",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_pca",
+      "lessonIds": [
+        "ml_pca"
+      ],
+      "topicPrefs": [
+        "dimred"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch7",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-20",
+      "dayIndex": 43,
+      "weekday": "Tuesday",
+      "week": 7,
+      "phase": "dimred",
+      "title": "Practice — PCA & SVD",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_pca",
+      "lessonIds": [
+        "ml_pca"
+      ],
+      "topicPrefs": [
+        "dimred"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch7",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-21",
+      "dayIndex": 44,
+      "weekday": "Wednesday",
+      "week": 7,
+      "phase": "dimred",
+      "title": "Practice — PCA & SVD",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_pca",
+      "lessonIds": [
+        "ml_pca"
+      ],
+      "topicPrefs": [
+        "dimred"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch7",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-22",
+      "dayIndex": 45,
+      "weekday": "Thursday",
+      "week": 7,
+      "phase": "dimred",
+      "title": "Practice — PCA & SVD",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_pca",
+      "lessonIds": [
+        "ml_pca"
+      ],
+      "topicPrefs": [
+        "dimred"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch7",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-23",
+      "dayIndex": 46,
+      "weekday": "Friday",
+      "week": 7,
+      "phase": "dimred",
+      "title": "Checkpoint — PCA & SVD",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ml_pca",
+      "lessonIds": [
+        "ml_pca"
+      ],
+      "topicPrefs": [
+        "dimred"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch7",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-24",
+      "dayIndex": 47,
+      "weekday": "Saturday",
+      "week": 7,
+      "phase": "dimred",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ml_pca",
+      "lessonIds": [
+        "ml_pca"
+      ],
+      "topicPrefs": [
+        "dimred"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch7",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-25",
+      "dayIndex": 48,
+      "weekday": "Sunday",
+      "week": 7,
+      "phase": "dimred",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ml_pca",
+      "lessonIds": [
+        "ml_pca"
+      ],
+      "topicPrefs": [
+        "dimred"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch7",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-26",
+      "dayIndex": 49,
+      "weekday": "Monday",
+      "week": 8,
+      "phase": "dimred",
+      "title": "LDA, NMF & ICA",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_dimred",
+      "lessonIds": [
+        "ml_dimred"
+      ],
+      "topicPrefs": [
+        "dimred"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch8",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-27",
+      "dayIndex": 50,
+      "weekday": "Tuesday",
+      "week": 8,
+      "phase": "dimred",
+      "title": "Practice — LDA, NMF & ICA",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_dimred",
+      "lessonIds": [
+        "ml_dimred"
+      ],
+      "topicPrefs": [
+        "dimred"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch8",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-28",
+      "dayIndex": 51,
+      "weekday": "Wednesday",
+      "week": 8,
+      "phase": "dimred",
+      "title": "Practice — LDA, NMF & ICA",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_dimred",
+      "lessonIds": [
+        "ml_dimred"
+      ],
+      "topicPrefs": [
+        "dimred"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch8",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-29",
+      "dayIndex": 52,
+      "weekday": "Thursday",
+      "week": 8,
+      "phase": "dimred",
+      "title": "Practice — LDA, NMF & ICA",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_dimred",
+      "lessonIds": [
+        "ml_dimred"
+      ],
+      "topicPrefs": [
+        "dimred"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch8",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-30",
+      "dayIndex": 53,
+      "weekday": "Friday",
+      "week": 8,
+      "phase": "dimred",
+      "title": "Checkpoint — LDA, NMF & ICA",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ml_dimred",
+      "lessonIds": [
+        "ml_dimred"
+      ],
+      "topicPrefs": [
+        "dimred"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch8",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-10-31",
+      "dayIndex": 54,
+      "weekday": "Saturday",
+      "week": 8,
+      "phase": "dimred",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ml_dimred",
+      "lessonIds": [
+        "ml_dimred"
+      ],
+      "topicPrefs": [
+        "dimred"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch8",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-01",
+      "dayIndex": 55,
+      "weekday": "Sunday",
+      "week": 8,
+      "phase": "dimred",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ml_dimred",
+      "lessonIds": [
+        "ml_dimred"
+      ],
+      "topicPrefs": [
+        "dimred"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch8",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-02",
+      "dayIndex": 56,
+      "weekday": "Monday",
+      "week": 9,
+      "phase": "clf",
+      "title": "kNN, Bayes optimal & naive Bayes",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_classifiers",
+      "lessonIds": [
+        "ml_classifiers"
+      ],
+      "topicPrefs": [
+        "clf"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch9",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-03",
+      "dayIndex": 57,
+      "weekday": "Tuesday",
+      "week": 9,
+      "phase": "clf",
+      "title": "Practice — kNN, Bayes optimal & naive Bayes",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_classifiers",
+      "lessonIds": [
+        "ml_classifiers"
+      ],
+      "topicPrefs": [
+        "clf"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch9",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-04",
+      "dayIndex": 58,
+      "weekday": "Wednesday",
+      "week": 9,
+      "phase": "clf",
+      "title": "Practice — kNN, Bayes optimal & naive Bayes",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_classifiers",
+      "lessonIds": [
+        "ml_classifiers"
+      ],
+      "topicPrefs": [
+        "clf"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch9",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-05",
+      "dayIndex": 59,
+      "weekday": "Thursday",
+      "week": 9,
+      "phase": "clf",
+      "title": "Practice — kNN, Bayes optimal & naive Bayes",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_classifiers",
+      "lessonIds": [
+        "ml_classifiers"
+      ],
+      "topicPrefs": [
+        "clf"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch9",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-06",
+      "dayIndex": 60,
+      "weekday": "Friday",
+      "week": 9,
+      "phase": "clf",
+      "title": "Checkpoint — kNN, Bayes optimal & naive Bayes",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ml_classifiers",
+      "lessonIds": [
+        "ml_classifiers"
+      ],
+      "topicPrefs": [
+        "clf"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch9",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-07",
+      "dayIndex": 61,
+      "weekday": "Saturday",
+      "week": 9,
+      "phase": "clf",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ml_classifiers",
+      "lessonIds": [
+        "ml_classifiers"
+      ],
+      "topicPrefs": [
+        "clf"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch9",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-08",
+      "dayIndex": 62,
+      "weekday": "Sunday",
+      "week": 9,
+      "phase": "clf",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ml_classifiers",
+      "lessonIds": [
+        "ml_classifiers"
+      ],
+      "topicPrefs": [
+        "clf"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch9",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-09",
+      "dayIndex": 63,
+      "weekday": "Monday",
+      "week": 10,
+      "phase": "clf",
+      "title": "Logistic, LDA & SVM",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_svm",
+      "lessonIds": [
+        "ml_svm"
+      ],
+      "topicPrefs": [
+        "clf"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch10",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-10",
+      "dayIndex": 64,
+      "weekday": "Tuesday",
+      "week": 10,
+      "phase": "clf",
+      "title": "Practice — Logistic, LDA & SVM",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_svm",
+      "lessonIds": [
+        "ml_svm"
+      ],
+      "topicPrefs": [
+        "clf"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch10",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-11",
+      "dayIndex": 65,
+      "weekday": "Wednesday",
+      "week": 10,
+      "phase": "clf",
+      "title": "Practice — Logistic, LDA & SVM",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_svm",
+      "lessonIds": [
+        "ml_svm"
+      ],
+      "topicPrefs": [
+        "clf"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch10",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-12",
+      "dayIndex": 66,
+      "weekday": "Thursday",
+      "week": 10,
+      "phase": "clf",
+      "title": "Practice — Logistic, LDA & SVM",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_svm",
+      "lessonIds": [
+        "ml_svm"
+      ],
+      "topicPrefs": [
+        "clf"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch10",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-13",
+      "dayIndex": 67,
+      "weekday": "Friday",
+      "week": 10,
+      "phase": "clf",
+      "title": "Checkpoint — Logistic, LDA & SVM",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ml_svm",
+      "lessonIds": [
+        "ml_svm"
+      ],
+      "topicPrefs": [
+        "clf"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch10",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-14",
+      "dayIndex": 68,
+      "weekday": "Saturday",
+      "week": 10,
+      "phase": "clf",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ml_svm",
+      "lessonIds": [
+        "ml_svm"
+      ],
+      "topicPrefs": [
+        "clf"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch10",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-15",
+      "dayIndex": 69,
+      "weekday": "Sunday",
+      "week": 10,
+      "phase": "clf",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ml_svm",
+      "lessonIds": [
+        "ml_svm"
+      ],
+      "topicPrefs": [
+        "clf"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch10",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-16",
+      "dayIndex": 70,
+      "weekday": "Monday",
+      "week": 11,
+      "phase": "deep",
+      "title": "MLP & backpropagation",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_mlp",
+      "lessonIds": [
+        "ml_mlp"
+      ],
+      "topicPrefs": [
+        "deep"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch11",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-17",
+      "dayIndex": 71,
+      "weekday": "Tuesday",
+      "week": 11,
+      "phase": "deep",
+      "title": "Practice — MLP & backpropagation",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_mlp",
+      "lessonIds": [
+        "ml_mlp"
+      ],
+      "topicPrefs": [
+        "deep"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch11",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-18",
+      "dayIndex": 72,
+      "weekday": "Wednesday",
+      "week": 11,
+      "phase": "deep",
+      "title": "Practice — MLP & backpropagation",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_mlp",
+      "lessonIds": [
+        "ml_mlp"
+      ],
+      "topicPrefs": [
+        "deep"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch11",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-19",
+      "dayIndex": 73,
+      "weekday": "Thursday",
+      "week": 11,
+      "phase": "deep",
+      "title": "Practice — MLP & backpropagation",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_mlp",
+      "lessonIds": [
+        "ml_mlp"
+      ],
+      "topicPrefs": [
+        "deep"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch11",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-20",
+      "dayIndex": 74,
+      "weekday": "Friday",
+      "week": 11,
+      "phase": "deep",
+      "title": "Checkpoint — MLP & backpropagation",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ml_mlp",
+      "lessonIds": [
+        "ml_mlp"
+      ],
+      "topicPrefs": [
+        "deep"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch11",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-21",
+      "dayIndex": 75,
+      "weekday": "Saturday",
+      "week": 11,
+      "phase": "deep",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ml_mlp",
+      "lessonIds": [
+        "ml_mlp"
+      ],
+      "topicPrefs": [
+        "deep"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch11",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-22",
+      "dayIndex": 76,
+      "weekday": "Sunday",
+      "week": 11,
+      "phase": "deep",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ml_mlp",
+      "lessonIds": [
+        "ml_mlp"
+      ],
+      "topicPrefs": [
+        "deep"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch11",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-23",
+      "dayIndex": 77,
+      "weekday": "Monday",
+      "week": 12,
+      "phase": "deep",
+      "title": "CNNs & modern training",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_cnn",
+      "lessonIds": [
+        "ml_cnn"
+      ],
+      "topicPrefs": [
+        "deep"
+      ],
+      "questionTarget": 18,
+      "readPct": 45,
+      "practicePct": 50,
+      "mockPct": 5,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch12",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-24",
+      "dayIndex": 78,
+      "weekday": "Tuesday",
+      "week": 12,
+      "phase": "deep",
+      "title": "Practice — AE, GAN & VAE",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_gen",
+      "lessonIds": [
+        "ml_gen"
+      ],
+      "topicPrefs": [
+        "deep"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch13",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-25",
+      "dayIndex": 79,
+      "weekday": "Wednesday",
+      "week": 12,
+      "phase": "deep",
+      "title": "Practice — Recommender systems",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_recsys",
+      "lessonIds": [
+        "ml_recsys"
+      ],
+      "topicPrefs": [
+        "recsys"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch14",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-26",
+      "dayIndex": 80,
+      "weekday": "Thursday",
+      "week": 12,
+      "phase": "deep",
+      "title": "Practice — CNNs & modern training",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_cnn",
+      "lessonIds": [
+        "ml_cnn"
+      ],
+      "topicPrefs": [
+        "deep"
+      ],
+      "questionTarget": 18,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch12",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-27",
+      "dayIndex": 81,
+      "weekday": "Friday",
+      "week": 12,
+      "phase": "deep",
+      "title": "Checkpoint — AE, GAN & VAE",
+      "mode": "practice",
+      "activity": "practice",
+      "isWeekend": false,
+      "lessonId": "ml_gen",
+      "lessonIds": [
+        "ml_gen"
+      ],
+      "topicPrefs": [
+        "deep"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 70,
+      "mockPct": 15,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch13",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-28",
+      "dayIndex": 82,
+      "weekday": "Saturday",
+      "week": 12,
+      "phase": "deep",
+      "title": "Weekend timed set",
+      "mode": "weekend_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ml_recsys",
+      "lessonIds": [
+        "ml_recsys"
+      ],
+      "topicPrefs": [
+        "recsys"
+      ],
+      "questionTarget": 15,
+      "readPct": 10,
+      "practicePct": 40,
+      "mockPct": 50,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch14",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-29",
+      "dayIndex": 83,
+      "weekday": "Sunday",
+      "week": 12,
+      "phase": "deep",
+      "title": "Recall + wrong pool",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ml_cnn",
+      "lessonIds": [
+        "ml_cnn"
+      ],
+      "topicPrefs": [
+        "deep"
+      ],
+      "questionTarget": 12,
+      "readPct": 35,
+      "practicePct": 55,
+      "mockPct": 10,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch12",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-11-30",
+      "dayIndex": 84,
+      "weekday": "Monday",
+      "week": 13,
+      "phase": "wrap",
+      "title": "Wrap — Mixed review — stats & regression",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_final",
+      "lessonIds": [
+        "ml_final"
+      ],
+      "topicPrefs": [
+        "stats",
+        "regression"
+      ],
+      "questionTarget": 18,
+      "readPct": 30,
+      "practicePct": 50,
+      "mockPct": 20,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch15",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-01",
+      "dayIndex": 85,
+      "weekday": "Tuesday",
+      "week": 13,
+      "phase": "wrap",
+      "title": "Wrap drill — mixed",
+      "mode": "timed_set",
+      "activity": "practice_mock",
+      "isWeekend": false,
+      "lessonId": "ml_final",
+      "lessonIds": [
+        "ml_final"
+      ],
+      "topicPrefs": [
+        "cluster",
+        "dimred",
+        "clf"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 55,
+      "mockPct": 30,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch16",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-02",
+      "dayIndex": 86,
+      "weekday": "Wednesday",
+      "week": 13,
+      "phase": "wrap",
+      "title": "Wrap — Full mock 1",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_final",
+      "lessonIds": [
+        "ml_final"
+      ],
+      "topicPrefs": [
+        "deep",
+        "recsys"
+      ],
+      "questionTarget": 18,
+      "readPct": 30,
+      "practicePct": 50,
+      "mockPct": 20,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch17",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-03",
+      "dayIndex": 87,
+      "weekday": "Thursday",
+      "week": 13,
+      "phase": "wrap",
+      "title": "Wrap drill — mixed",
+      "mode": "timed_set",
+      "activity": "practice_mock",
+      "isWeekend": false,
+      "lessonId": "ml_final",
+      "lessonIds": [
+        "ml_final"
+      ],
+      "topicPrefs": [
+        "stats",
+        "regression"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 55,
+      "mockPct": 30,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch15",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-04",
+      "dayIndex": 88,
+      "weekday": "Friday",
+      "week": 13,
+      "phase": "wrap",
+      "title": "Wrap — Mixed review — unsupervised & classifiers",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_final",
+      "lessonIds": [
+        "ml_final"
+      ],
+      "topicPrefs": [
+        "cluster",
+        "dimred",
+        "clf"
+      ],
+      "questionTarget": 18,
+      "readPct": 30,
+      "practicePct": 50,
+      "mockPct": 20,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch16",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-05",
+      "dayIndex": 89,
+      "weekday": "Saturday",
+      "week": 13,
+      "phase": "wrap",
+      "title": "Full mock exam",
+      "mode": "full_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ml_final",
+      "lessonIds": [
+        "ml_final"
+      ],
+      "topicPrefs": [
+        "deep",
+        "recsys"
+      ],
+      "questionTarget": 30,
+      "readPct": 0,
+      "practicePct": 20,
+      "mockPct": 80,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch17",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-06",
+      "dayIndex": 90,
+      "weekday": "Sunday",
+      "week": 13,
+      "phase": "wrap",
+      "title": "Mock review",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ml_final",
+      "lessonIds": [
+        "ml_final"
+      ],
+      "topicPrefs": [
+        "stats",
+        "regression"
+      ],
+      "questionTarget": 15,
+      "readPct": 25,
+      "practicePct": 50,
+      "mockPct": 25,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch15",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-07",
+      "dayIndex": 91,
+      "weekday": "Monday",
+      "week": 14,
+      "phase": "wrap",
+      "title": "Wrap — Weakness clinic",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_final",
+      "lessonIds": [
+        "ml_final"
+      ],
+      "topicPrefs": [
+        "overview"
+      ],
+      "questionTarget": 18,
+      "readPct": 30,
+      "practicePct": 50,
+      "mockPct": 20,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch18",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-08",
+      "dayIndex": 92,
+      "weekday": "Tuesday",
+      "week": 14,
+      "phase": "wrap",
+      "title": "Wrap drill — mixed",
+      "mode": "timed_set",
+      "activity": "practice_mock",
+      "isWeekend": false,
+      "lessonId": "ml_final",
+      "lessonIds": [
+        "ml_final"
+      ],
+      "topicPrefs": [
+        "overview"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 55,
+      "mockPct": 30,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch19",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-09",
+      "dayIndex": 93,
+      "weekday": "Wednesday",
+      "week": 14,
+      "phase": "wrap",
+      "title": "Wrap — Weakness clinic",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_final",
+      "lessonIds": [
+        "ml_final"
+      ],
+      "topicPrefs": [
+        "overview"
+      ],
+      "questionTarget": 18,
+      "readPct": 30,
+      "practicePct": 50,
+      "mockPct": 20,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch18",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-10",
+      "dayIndex": 94,
+      "weekday": "Thursday",
+      "week": 14,
+      "phase": "wrap",
+      "title": "Wrap drill — mixed",
+      "mode": "timed_set",
+      "activity": "practice_mock",
+      "isWeekend": false,
+      "lessonId": "ml_final",
+      "lessonIds": [
+        "ml_final"
+      ],
+      "topicPrefs": [
+        "overview"
+      ],
+      "questionTarget": 20,
+      "readPct": 15,
+      "practicePct": 55,
+      "mockPct": 30,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch19",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-11",
+      "dayIndex": 95,
+      "weekday": "Friday",
+      "week": 14,
+      "phase": "wrap",
+      "title": "Wrap — Weakness clinic",
+      "mode": "learn",
+      "activity": "learn_practice",
+      "isWeekend": false,
+      "lessonId": "ml_final",
+      "lessonIds": [
+        "ml_final"
+      ],
+      "topicPrefs": [
+        "overview"
+      ],
+      "questionTarget": 18,
+      "readPct": 30,
+      "practicePct": 50,
+      "mockPct": 20,
+      "requireLesson": true,
+      "fmLight": false,
+      "chapterId": "ml_ch18",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-12",
+      "dayIndex": 96,
+      "weekday": "Saturday",
+      "week": 14,
+      "phase": "wrap",
+      "title": "Full mock exam",
+      "mode": "full_mock",
+      "activity": "mock",
+      "isWeekend": true,
+      "lessonId": "ml_final",
+      "lessonIds": [
+        "ml_final"
+      ],
+      "topicPrefs": [
+        "overview"
+      ],
+      "questionTarget": 30,
+      "readPct": 0,
+      "practicePct": 20,
+      "mockPct": 80,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch19",
+      "assignedQuestionIds": []
+    },
+    {
+      "date": "2026-12-13",
+      "dayIndex": 97,
+      "weekday": "Sunday",
+      "week": 14,
+      "phase": "wrap",
+      "title": "Mock review",
+      "mode": "review",
+      "activity": "review",
+      "isWeekend": true,
+      "lessonId": "ml_final",
+      "lessonIds": [
+        "ml_final"
+      ],
+      "topicPrefs": [
+        "overview"
+      ],
+      "questionTarget": 15,
+      "readPct": 25,
+      "practicePct": 50,
+      "mockPct": 25,
+      "requireLesson": false,
+      "fmLight": false,
+      "chapterId": "ml_ch18",
+      "assignedQuestionIds": []
+    }
+  ],
+  "pathStats": {
+    "units": 9,
+    "chapters": 20,
+    "levels": 71,
+    "testsAndMocks": 19
+  }
+}

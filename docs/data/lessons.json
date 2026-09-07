@@ -2766,5 +2766,1456 @@
         "explain": "No labeled response required."
       }
     ]
+  },
+  "ml_setup": {
+    "id": "ml_setup",
+    "title": "Machine Learning track orientation (MIT 6.036)",
+    "minutes": 25,
+    "lo": [
+      "2.1",
+      "2.2",
+      "3.1",
+      "3.2",
+      "4.1",
+      "4.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "What this track is",
+        "body": "This Machine Learning track is aligned to MIT OCW 6.036 (Introduction to Machine Learning) with compulsory reading from Harrington (2012), *Machine Learning in Action*.\n\nFocus: build statistical intuition, implementable algorithms, and judgment about when methods work — not only library calls.\n\nIntended learning outcomes woven through lessons:\n• 2.1 / 2.2 — probability models, estimation, Bayes/MAP\n• 3.1 / 3.2 — linear methods, regularization, multivariate geometry\n• 4.1 / 4.2 — unsupervised structure, classifiers, deep models"
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Syllabus map",
+        "body": "Eight content units + wrap:\n1. Overview & real-world ML\n2. Statistical learning (distributions, MLE, Bayes/MAP)\n3. Multivariate data + linear / lasso regression\n4. Clustering (k-means, GMM/EM)\n5. Dimensionality reduction (PCA, LDA, NMF, SVD, ICA)\n6. Discriminative classifiers (kNN, Bayes optimal, logistic, NB, LDA, SVM)\n7. Deep learning (MLP, backprop, CNN, BN/dropout, ResNet/DenseNet/FCN, AE/GAN/VAE)\n8. Recommender systems\n\nApplications called out in examples: document analysis, spam filtering, clustering, image segmentation, visualization, face detection/recognition."
+      },
+      {
+        "id": "s3",
+        "type": "concept",
+        "title": "Study rhythm",
+        "body": "Path: Learn → Practice → Practice → Chapter test (≥70%).\nPrimary reading: MIT 6.036 notes/lectures + Harrington chapters matching each unit.\nLast two weeks: mixed review and mocks (path levels still drive progression)."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Primary alignment",
+        "prompt": "This track’s primary course alignment is:",
+        "choices": {
+          "A": "Only Kaggle tutorials with no theory",
+          "B": "MIT OCW 6.036 (+ Harrington 2012)",
+          "C": "Only SOA Exam P syllabus",
+          "D": "Only ImageNet competition rules"
+        },
+        "answer": "B",
+        "explain": "Content and ILOs follow MIT 6.036 with Harrington as compulsory reading."
+      }
+    ]
+  },
+  "ml_overview": {
+    "id": "ml_overview",
+    "title": "Overview: what ML systems do in the real world",
+    "minutes": 40,
+    "lo": [
+      "2.1",
+      "4.1"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Learning problems",
+        "body": "Supervised learning: predict labels/targets from features (classification or regression).\nUnsupervised learning: discover structure without labels (clustering, density, factors).\nSemi-supervised / self-supervised / reinforcement: important extensions; 6.036 emphasizes core supervised + unsupervised first.\n\nA model is a family of functions $f_\\theta$ plus a loss and an optimization procedure. Generalization — performance on new data — is the goal."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Train / validation / test",
+        "body": "Split data to estimate generalization.\nTraining set: fit $\\theta$. Validation: model selection / hyperparameters. Test: final honest estimate.\nLeakage (using test information during training/selection) invalidates claims.\nBias–variance tradeoff: more flexible models can overfit; overly rigid models underfit."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Spam filter sketch",
+        "setup": "You build an email spam detector from bag-of-words features.",
+        "solution": "Frame as binary classification: $y\\in\\{\\text{spam},\\text{ham}\\}$. Choose features (tokens, sender signals), a model (naive Bayes or logistic), a loss, and evaluate precision/recall — not only accuracy on imbalanced mail.",
+        "why": "Real apps force problem framing before algorithm choice."
+      },
+      {
+        "id": "s4",
+        "type": "example",
+        "title": "Face detection vs recognition",
+        "setup": "Product needs “is there a face?” and “whose face?”",
+        "solution": "Detection is usually localization/classification of face vs background (often CNN detectors). Recognition/identification is a downstream embedding + comparison task. Segmentation may outline face regions for viz or makeup AR.",
+        "why": "Same domain, different ML problem statements."
+      },
+      {
+        "id": "s5",
+        "type": "check",
+        "title": "Generalization",
+        "prompt": "The main goal of a predictive ML system is usually:",
+        "choices": {
+          "A": "Memorize the training set perfectly",
+          "B": "Perform well on unseen data (generalize)",
+          "C": "Maximize parameter count only",
+          "D": "Avoid using a validation set forever"
+        },
+        "answer": "B",
+        "explain": "Train metrics alone can hide overfitting."
+      }
+    ]
+  },
+  "ml_mle": {
+    "id": "ml_mle",
+    "title": "Statistical learning: univariate models and MLE",
+    "minutes": 50,
+    "lo": [
+      "2.1",
+      "2.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Univariate building blocks",
+        "body": "Common continuous models: Normal, Exponential, Uniform, Beta, Gamma.\nCommon discrete: Bernoulli, Binomial, Poisson, Categorical/Multinomial.\nLikelihood $L(\\theta;x)=p(x\\mid\\theta)$ (or density). Log-likelihood is usually easier to optimize.\nIID assumption: $L(\\theta)=\\prod_i p(x_i\\mid\\theta)$."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Maximum likelihood estimation",
+        "body": "MLE: $\\hat\\theta_{\\mathrm{MLE}}=\\arg\\max_\\theta \\ell(\\theta)$ where $\\ell=\\log L$.\nFor $X_i\\sim\\mathcal N(\\mu,\\sigma^2)$ IID, $\\hat\\mu=\\bar x$, $\\hat\\sigma^2$ is the average squared deviation (MLE uses $1/n$).\nMLE is asymptotically efficient under regularity but can overfit in high dimensions — motivation for MAP/regularization."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Bernoulli MLE",
+        "setup": "Emails: 40 spam in 100. Model $X_i\\sim\\mathrm{Bern}(\\theta)$.",
+        "solution": "$\\ell(\\theta)=40\\log\\theta+60\\log(1-\\theta)$. Set derivative to 0 → $\\hat\\theta=0.4$.",
+        "why": "Closed-form MLE matches the sample mean for Bernoulli."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "MLE objective",
+        "prompt": "Maximum likelihood chooses parameters that:",
+        "choices": {
+          "A": "Minimize training classification accuracy only",
+          "B": "Maximize the probability (density) of the observed data under the model",
+          "C": "Always equal the Bayesian posterior mean",
+          "D": "Ignore the likelihood and use only a prior"
+        },
+        "answer": "B",
+        "explain": "MLE maximizes $p(\\mathrm{data}\\mid\\theta)$ (the likelihood)."
+      }
+    ]
+  },
+  "ml_bayes": {
+    "id": "ml_bayes",
+    "title": "Bayes, MAP, and decision rules",
+    "minutes": 50,
+    "lo": [
+      "2.2",
+      "4.1"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Bayes rule for parameters and classes",
+        "body": "Posterior: $p(\\theta\\mid x)\\propto p(x\\mid\\theta)p(\\theta)$.\nMAP: $\\hat\\theta_{\\mathrm{MAP}}=\\arg\\max_\\theta p(x\\mid\\theta)p(\\theta)$ — like regularized MLE.\nFor classification, Bayes classifier picks class with maximum posterior $p(y\\mid x)$, which minimizes 0–1 risk when costs are equal."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Priors and conjugacy (intuition)",
+        "body": "A Beta prior on Bernoulli $\\theta$ yields a Beta posterior — counts “add pseudo-counts.”\nStrong priors shrink extreme MLEs when data are scarce (classic in spam/document word rates).\nBayes optimal classifier uses true $p(y\\mid x)$; in practice we estimate it (generative or discriminative)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "MAP vs MLE with rare words",
+        "setup": "Word appears 0 times in 5 spam training emails. MLE rate = 0 → breaks naive Bayes products.",
+        "solution": "MAP / Laplace smoothing adds pseudo-counts so probability stays positive. Harrington’s naive Bayes spam examples rely on this.",
+        "why": "Smoothing is MAP with a Dirichlet/Beta-style prior."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "MAP",
+        "prompt": "MAP estimation maximizes:",
+        "choices": {
+          "A": "Only the prior",
+          "B": "Likelihood × prior (i.e. the posterior mode)",
+          "C": "Only the evidence $p(x)$",
+          "D": "Test-set accuracy by definition"
+        },
+        "answer": "B",
+        "explain": "MAP = mode of the posterior $\\propto$ likelihood × prior."
+      }
+    ]
+  },
+  "ml_linreg": {
+    "id": "ml_linreg",
+    "title": "Multivariate geometry and linear regression",
+    "minutes": 55,
+    "lo": [
+      "3.1",
+      "3.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Vectors, covariances, and design matrices",
+        "body": "Data matrix $X\\in\\mathbb R^{n\\times d}$; rows are examples.\nSample covariance captures second-order multivariate structure — foundation for PCA and LDA later.\nLinear regression: $y\\approx Xw$ (often with intercept column). Squared loss leads to normal equations $X^\\top X w=X^\\top y$ when $X^\\top X$ is invertible."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Geometry of least squares",
+        "body": "$\\hat y=X\\hat w$ is the projection of $y$ onto the column space of $X$.\nResiduals $y-\\hat y$ are orthogonal to columns of $X$.\nMulticollinearity: near-dependent features → unstable $w$. Motivation for ridge/lasso."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Document length feature",
+        "setup": "Predict reading time from word count + image count.",
+        "solution": "Fit ordinary least squares; interpret coefficients as minutes per word/image holding the other fixed — only if the linear model is appropriate and features are not too collinear.",
+        "why": "Regression is a workhorse for continuous targets in apps and as a baseline."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Normal equations",
+        "prompt": "For squared-error linear regression (full rank $X$), the optimal weights satisfy:",
+        "choices": {
+          "A": "$Xw=0$",
+          "B": "$X^\\top X w=X^\\top y$",
+          "C": "$w=X y$",
+          "D": "$w$ must be sparse always"
+        },
+        "answer": "B",
+        "explain": "Normal equations come from setting $\\nabla_w\\|y-Xw\\|^2=0$."
+      }
+    ]
+  },
+  "ml_lasso": {
+    "id": "ml_lasso",
+    "title": "Ridge, lasso, and feature selection",
+    "minutes": 45,
+    "lo": [
+      "3.1",
+      "3.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Regularized linear models",
+        "body": "Ridge: minimize $\\|y-Xw\\|^2+\\lambda\\|w\\|_2^2$ — shrinks weights, stable under multicollinearity.\nLasso: $\\|y-Xw\\|^2+\\lambda\\|w\\|_1$ — encourages sparsity (feature selection).\n$\\lambda$ chosen by validation / CV. Standardization of features matters for fair penalties."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Bias–variance via $\\lambda$",
+        "body": "Larger $\\lambda$ → more bias, less variance.\nElastic net mixes $\\ell_1$ and $\\ell_2$.\nIn high-$d$ document analysis, lasso/elastic net yield sparse interpretable predictors."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Spam word selection",
+        "setup": "Thousands of token features; only some predictive.",
+        "solution": "Lasso logistic/linear models zero out many tokens, keeping a compact spam vocabulary — easier to audit than a dense ridge solution.",
+        "why": "Sparsity is often a product requirement, not only a statistical trick."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Lasso effect",
+        "prompt": "Compared with ordinary least squares, lasso’s $\\ell_1$ penalty tends to:",
+        "choices": {
+          "A": "Force all weights to be equal",
+          "B": "Drive some weights exactly to zero (sparsity)",
+          "C": "Guarantee perfect classification",
+          "D": "Remove the need for a validation set"
+        },
+        "answer": "B",
+        "explain": "The $\\ell_1$ ball geometry promotes sparse solutions."
+      }
+    ]
+  },
+  "ml_cluster": {
+    "id": "ml_cluster",
+    "title": "Clustering: k-means and Gaussian mixtures (EM)",
+    "minutes": 55,
+    "lo": [
+      "4.1",
+      "4.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "K-means",
+        "body": "Objective: partition into $K$ clusters minimizing within-cluster sum of squares.\nAlternates: (1) assign points to nearest centroid, (2) update centroids to means.\nSensitive to scaling and initialization; $K$ chosen by domain, elbow, silhouette, or downstream need.\nApps: customer segments, image color quantization, document clustering."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "GMM and EM",
+        "body": "Gaussian mixture: $p(x)=\\sum_{k=1}^K \\pi_k \\mathcal N(x\\mid\\mu_k,\\Sigma_k)$.\nEM: E-step soft responsibilities; M-step update $\\pi,\\mu,\\Sigma$.\nK-means is like a hard-assignment, spherical, equal-weight special case.\nSegmentation: soft GMM labels can produce smoother regions than hard k-means."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Segmenting a photo",
+        "setup": "Cluster RGB pixels into $K=5$ colors.",
+        "solution": "K-means yields a palette; replacing each pixel by its centroid compresses the image. GMM can model elongated color clouds better when covariances are free.",
+        "why": "Classic unsupervised vision demo; related to face/skin-region grouping pipelines."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "EM role",
+        "prompt": "In fitting a GMM, the EM algorithm is used because:",
+        "choices": {
+          "A": "Cluster labels are latent (incomplete data)",
+          "B": "GMMs have no likelihood",
+          "C": "K-means cannot run on vectors",
+          "D": "EM always finds the global optimum"
+        },
+        "answer": "A",
+        "explain": "Latent assignments make direct MLE hard; EM optimizes a lower bound iteratively."
+      }
+    ]
+  },
+  "ml_pca": {
+    "id": "ml_pca",
+    "title": "PCA and SVD for dimensionality reduction",
+    "minutes": 50,
+    "lo": [
+      "3.2",
+      "4.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Principal components",
+        "body": "PCA finds orthonormal directions of maximum variance.\nFor centered data, eigenvectors of the covariance matrix (or left/right singular vectors via SVD of $X$).\nProjecting onto top $r$ PCs yields a low-dimensional representation minimizing reconstruction squared error among linear projections."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "SVD view",
+        "body": "$X=U\\Sigma V^\\top$. Columns of $V$ are principal axes (for centered $X$).\nTruncated SVD is the workhorse for large document-term matrices (LSA-style).\nViz: scatter of PC1 vs PC2; face recognition historically used eigenfaces (PCA on face images)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Eigenfaces sketch",
+        "setup": "Gallery of aligned face images as high-dimensional vectors.",
+        "solution": "PCA yields eigenfaces; project new faces into PC space for compression/recognition baselines. Modern systems use deep embeddings, but PCA teaches the geometry.",
+        "why": "Links dimensionality reduction to face recognition history."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "PCA criterion",
+        "prompt": "The first principal component maximizes:",
+        "choices": {
+          "A": "Within-class scatter only",
+          "B": "Variance of the projected data",
+          "C": "The number of clusters K",
+          "D": "The $\\ell_1$ penalty"
+        },
+        "answer": "B",
+        "explain": "PCA is variance-maximizing linear projection (equiv. min reconstruction error)."
+      }
+    ]
+  },
+  "ml_dimred": {
+    "id": "ml_dimred",
+    "title": "LDA, NMF, and ICA",
+    "minutes": 50,
+    "lo": [
+      "3.2",
+      "4.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "LDA for projection",
+        "body": "Linear Discriminant Analysis (as dim reduction) uses labels to maximize between-class / within-class scatter.\nDifferent goal from PCA (which ignores labels). For $C$ classes, at most $C-1$ useful discriminative directions."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "NMF and ICA",
+        "body": "NMF: approximate $X\\approx WH$ with nonnegativity — parts-based, interpretable factors (topics, spectral signatures).\nICA: recover statistically independent sources (e.g. blind source separation); uses higher-order statistics, not just variance.\nChoose method by inductive bias: variance (PCA), class separation (LDA), nonnegativity (NMF), independence (ICA)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Document topics with NMF",
+        "setup": "Term-document matrix of news articles.",
+        "solution": "NMF factors yield non-negative topic loadings and document mixtures — readable “bags of topic words” for document analysis dashboards.",
+        "why": "Nonnegativity matches additive topic intuition better than unrestricted SVD sometimes."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "LDA vs PCA",
+        "prompt": "A key difference: LDA (supervised projection) uses class labels to:",
+        "choices": {
+          "A": "Maximize variance ignoring labels",
+          "B": "Maximize class separation (between vs within scatter)",
+          "C": "Enforce independent sources like ICA",
+          "D": "Require non-negative factors like NMF"
+        },
+        "answer": "B",
+        "explain": "LDA is label-aware; PCA is unsupervised variance-driven."
+      }
+    ]
+  },
+  "ml_classifiers": {
+    "id": "ml_classifiers",
+    "title": "Classifiers: kNN, Bayes optimal, naive Bayes",
+    "minutes": 50,
+    "lo": [
+      "2.2",
+      "4.1"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Bayes optimal & kNN",
+        "body": "Bayes optimal classifier: $\\arg\\max_y p(y\\mid x)$ under true probabilities — lowest possible 0–1 risk.\nk-nearest neighbors: assign label by majority among $k$ nearest training points (distance metric + scaling matter).\nkNN is a nonparametric baseline for face embeddings or document TF-IDF spaces."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Naive Bayes",
+        "body": "Assume features independent given class: $p(x\\mid y)=\\prod_j p(x_j\\mid y)$.\nFast, strong spam/document baseline (Harrington ch. on classifying with probability theory).\nDespite the “naive” assumption, often works when class-conditional signal is strong."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Spam with bag-of-words NB",
+        "setup": "Binary features: word present/absent.",
+        "solution": "Estimate $p(w\\mid\\mathrm{spam})$, $p(w\\mid\\mathrm{ham})$ with smoothing; classify by comparing posterior odds. Classic Harrington walkthrough.",
+        "why": "Generative classifiers shine with discrete text counts."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Naive assumption",
+        "prompt": "Naive Bayes assumes that, given the class label, features are:",
+        "choices": {
+          "A": "Always normally distributed with shared covariance",
+          "B": "Conditionally independent",
+          "C": "Deterministic functions of each other",
+          "D": "Irrelevant"
+        },
+        "answer": "B",
+        "explain": "Conditional independence yields the product likelihood."
+      }
+    ]
+  },
+  "ml_svm": {
+    "id": "ml_svm",
+    "title": "Logistic regression, LDA classifier, and SVMs",
+    "minutes": 55,
+    "lo": [
+      "3.1",
+      "4.1"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Logistic regression & LDA",
+        "body": "Logistic regression models $p(y=1\\mid x)=\\sigma(w^\\top x)$ directly (discriminative).\nLDA classifier assumes class-conditional Gaussians with shared covariance → linear decision boundary; related to logistic forms under those assumptions.\nUse validation for thresholding when false positive/negative costs differ (spam vs missing a face)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Support vector machines",
+        "body": "Hard-margin SVM maximizes margin between linearly separable classes.\nSoft-margin allows slack; hinge loss + $\\ell_2$ penalty.\nKernels (RBF, polynomial) produce nonlinear boundaries via implicit feature maps.\nSVMs were historically strong on small/medium tabular and text tasks before deep nets dominated perception."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Margin intuition",
+        "setup": "Two face-embedding clusters nearly separable.",
+        "solution": "Max-margin hyperplane focuses on support vectors near the boundary — often better generalization than any separating plane.",
+        "why": "Margin is a geometric inductive bias."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Hinge vs logistic",
+        "prompt": "Standard soft-margin linear SVMs optimize a regularized:",
+        "choices": {
+          "A": "Hinge loss",
+          "B": "Only 0–1 loss directly via gradient",
+          "C": "Only k-means objective",
+          "D": "Reconstruction error like PCA"
+        },
+        "answer": "A",
+        "explain": "Hinge loss + regularization is the usual SVM objective."
+      }
+    ]
+  },
+  "ml_mlp": {
+    "id": "ml_mlp",
+    "title": "Deep learning: MLPs and backpropagation",
+    "minutes": 55,
+    "lo": [
+      "3.1",
+      "4.1"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Multilayer perceptrons",
+        "body": "MLP: affine layers interleaved with nonlinearities (ReLU, GELU, sigmoid, tanh).\nUniversal approximation (with enough width) but depth helps hierarchical features.\nLoss examples: cross-entropy for classification, squared error for regression."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Backpropagation",
+        "body": "Backprop = reverse-mode automatic differentiation through the computational graph.\nSGD / Adam update weights using mini-batch gradients.\nVanishing/exploding gradients motivate careful init, residual links, and normalization (later)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Tiny MLP for digits / faces",
+        "setup": "Flattened small face patches or digit images into an MLP.",
+        "solution": "Works, but ignores spatial structure — motivation for CNNs. Still useful pedagogical baseline and for tabular mixes.",
+        "why": "Inductive bias of architecture matters as much as depth."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Backprop purpose",
+        "prompt": "Backpropagation efficiently computes:",
+        "choices": {
+          "A": "Only the PCA eigenvectors",
+          "B": "Gradients of the loss w.r.t. all parameters",
+          "C": "The Bayes optimal decision boundary in closed form",
+          "D": "K-means assignments"
+        },
+        "answer": "B",
+        "explain": "Reverse-mode AD yields gradients for gradient-based training."
+      }
+    ]
+  },
+  "ml_cnn": {
+    "id": "ml_cnn",
+    "title": "CNNs, regularization, and modern architectures",
+    "minutes": 60,
+    "lo": [
+      "4.1",
+      "4.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Convolutional nets",
+        "body": "Convolutions + pooling exploit locality and translation equivariance — ideal for images (face detection, segmentation).\nFully convolutional nets (FCN) predict dense maps for segmentation.\nData augmentation (flips, crops) expands effective sample size."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Regularization: BN, dropout, residuals",
+        "body": "Dropout: randomly zero activations in train → ensemble-like effect.\nBatch normalization: normalize layer inputs; stabilizes training.\nResNet: residual skip connections ease optimization of deep nets.\nDenseNet: concatenate feature maps densely.\nTogether these made very deep vision models practical."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Face detection pipeline",
+        "setup": "Detect faces in photos for a camera app.",
+        "solution": "CNN detector (or cascade historically) proposes boxes; recognition net embeds crops; compare to gallery. Segmentation nets can mask the face region for effects.",
+        "why": "Detection, recognition, and segmentation are distinct heads/tasks."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "ResNet idea",
+        "prompt": "Residual connections primarily help by:",
+        "choices": {
+          "A": "Removing all nonlinearities",
+          "B": "Easing gradient flow / optimization in deep stacks",
+          "C": "Forcing sparse lasso solutions",
+          "D": "Replacing convolutions with kNN"
+        },
+        "answer": "B",
+        "explain": "Identity skips improve trainability of deep networks."
+      }
+    ]
+  },
+  "ml_gen": {
+    "id": "ml_gen",
+    "title": "Autoencoders, GANs, and VAEs",
+    "minutes": 50,
+    "lo": [
+      "4.1",
+      "4.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Autoencoders",
+        "body": "AE: encoder $z=e(x)$, decoder $\\hat x=d(z)$, trained to reconstruct $x$.\nBottleneck forces compressed representation — unsupervised features, denoising, anomaly cues.\nTied to PCA when encoder/decoder are linear with squared loss."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "GANs and VAEs",
+        "body": "GAN: generator vs discriminator adversarial game — sharp samples, tricky training.\nVAE: probabilistic encoder $q(z\\mid x)$, decoder $p(x\\mid z)$, ELBO objective — structured latent space.\nApps: generative viz, data augmentation, representation learning (use carefully regarding ethics/privacy for faces)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Latent face manifold",
+        "setup": "Train a VAE on aligned faces.",
+        "solution": "Interpolating in $z$ morphs faces smoothly; latent dimensions may align with attributes. AEs also support compression for viz dashboards.",
+        "why": "Generative models expose continuous structure beyond hard clusters."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "VAE training",
+        "prompt": "VAEs are typically trained by maximizing a(n):",
+        "choices": {
+          "A": "Only pure reconstruction with no KL term",
+          "B": "Evidence lower bound (ELBO) on log-likelihood",
+          "C": "Only SVM hinge loss",
+          "D": "Only k-means objective"
+        },
+        "answer": "B",
+        "explain": "ELBO balances reconstruction and latent prior matching."
+      }
+    ]
+  },
+  "ml_recsys": {
+    "id": "ml_recsys",
+    "title": "Recommender systems",
+    "minutes": 45,
+    "lo": [
+      "3.1",
+      "4.1"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Collaborative filtering",
+        "body": "User–item matrix completion: predict missing ratings/clicks.\nNeighborhood methods: similar users/items.\nMatrix factorization: $R\\approx UV^\\top$ — latent factors for users and items (SVD-style / ALS / SGD)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Content, ranking, and pitfalls",
+        "body": "Content-based: recommend via item features (TF-IDF of descriptions).\nHybrid models combine signals.\nMetrics: RMSE for ratings; precision@k, recall@k, NDCG for ranking.\nCold start, popularity bias, feedback loops — evaluation must mirror product UI."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Movie / article recommendations",
+        "setup": "Sparse ratings matrix of users × documents.",
+        "solution": "Factorize into latent topics/preferences; recommend top-N unseen items. Related to document analysis factor models (LSA/NMF).",
+        "why": "Recsys is matrix completion + ranking, not plain supervised accuracy."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "MF idea",
+        "prompt": "Matrix factorization recommenders approximate the rating matrix as:",
+        "choices": {
+          "A": "A single global constant only",
+          "B": "A product of user and item latent-factor matrices",
+          "C": "Only a decision tree on timestamps",
+          "D": "A k-means of pixels"
+        },
+        "answer": "B",
+        "explain": "Low-rank $UV^\\top$ is the standard collaborative-filtering factorization."
+      }
+    ]
+  },
+  "ml_final": {
+    "id": "ml_final",
+    "title": "ML wrap-up: integrate methods and exam-style judgment",
+    "minutes": 40,
+    "lo": [
+      "2.1",
+      "2.2",
+      "3.1",
+      "3.2",
+      "4.1",
+      "4.2"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Method selection cheat-sheet",
+        "body": "Regression / continuous target → linear, lasso, MLP.\nLabels + clear features → logistic, SVM, NB, kNN.\nNo labels + groups → k-means / GMM.\nCompress / viz → PCA/SVD; parts → NMF; sources → ICA; class-aware project → LDA.\nImages → CNN/ResNet; dense masks → FCN; generate → AE/VAE/GAN.\nPreferences → recommender factorization."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Judgment checks",
+        "body": "Did you prevent leakage? Scale features when needed? Tune on validation only?\nIs the metric aligned with costs (spam FP vs FN; face miss vs false alarm)?\nStart simple (baselines) before deep models — 6.036 ethos."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Choose a pipeline",
+        "setup": "Startup wants: cluster support tickets, visualize topics, and classify priority.",
+        "solution": "NMF/PCA for viz + topics; supervised logistic/MLP for priority using labels; monitor drift. Don’t start with a GAN.",
+        "why": "Match method complexity to data and decision needs."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "First baseline",
+        "prompt": "For a new text classification problem with modest data, a strong first baseline is often:",
+        "choices": {
+          "A": "A huge GAN with no classifier",
+          "B": "Bag-of-words + logistic or naive Bayes",
+          "C": "Only k-means with K=1",
+          "D": "Skipping validation forever"
+        },
+        "answer": "B",
+        "explain": "Simple text baselines calibrate how much deep models must beat."
+      }
+    ]
+  },
+  "ada_setup": {
+    "id": "ada_setup",
+    "title": "ADA track orientation (CS4335)",
+    "minutes": 25,
+    "lo": [
+      "design",
+      "analysis",
+      "graphs",
+      "complexity",
+      "games"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "What this track is",
+        "body": "This Algorithm Design & Analysis track follows CityU-style **CS4335** themes: design paradigms, analysis toolkits, graphs & strings, NP-completeness, and algorithmic game theory / mechanism design.\n\nPrimary readings:\n• **CLRS** — Cormen, Leiserson, Rivest, Stein (2009), *Introduction to Algorithms*\n• **Kleinberg & Tardos** (2005), *Algorithm Design*\n• **Nisan, Roughgarden, Tardos, Vazirani** (2007), *Algorithmic Game Theory* (AGT)"
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Syllabus map",
+        "body": "Nine units:\n1. Overview — greedy, divide-and-conquer, dynamic programming\n2. Analysis toolkit — approximation, online, randomized, streaming, amortized, smoothed; correctness & complexity tools\n3. Graph algorithms — representation, search, topo, MST, shortest paths, transitive closure ↔ matrix mult, backtracking\n4. String algorithms — matching, LCS, DP\n5. NP-completeness — reductions, P vs NP, classics, approximation\n6. Game theory overview — Nash, PoA & PoS, Prisoner’s Dilemma\n7. Games catalog — zero-sum, extensive, repeated, stochastic, coalitional, Bayesian, hedonic\n8. Mechanism design — auctions, matching, facility location, scheduling\n9. Wrap-up / mixed mocks"
+      },
+      {
+        "id": "s3",
+        "type": "concept",
+        "title": "Study rhythm",
+        "body": "Path: Learn → Practice → Drill → Chapter test (≥70%).\nRead CLRS / KT for algorithms; AGT for game-theory units.\nLast two weeks: mixed review and mocks (path still drives progression)."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Course focus",
+        "prompt": "CS4335 in this track emphasizes:",
+        "choices": {
+          "A": "Only SQL query tuning",
+          "B": "Algorithm design paradigms, analysis, graphs/strings, NP, and algorithmic game theory",
+          "C": "Only SOA Exam P probability",
+          "D": "Only UI wireframing"
+        },
+        "answer": "B",
+        "explain": "The syllabus spans classical algorithms plus AGT / mechanism design."
+      }
+    ]
+  },
+  "ada_paradigms": {
+    "id": "ada_paradigms",
+    "title": "Overview: greedy, divide-and-conquer, and DP",
+    "minutes": 45,
+    "lo": [
+      "design"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Three workhorse paradigms",
+        "body": "**Greedy:** build a solution by irrevocable locally optimal choices; prove with exchange / matroid / stay-ahead arguments (KT Ch.4; CLRS Ch.16).\n\n**Divide-and-conquer:** split → recurse → combine (mergesort, closest pair, Strassen). Recurrences via Master Theorem / recursion trees (CLRS Ch.4).\n\n**Dynamic programming:** overlapping subproblems + optimal substructure; tabulate bottom-up or memoize (CLRS Ch.15; KT Ch.6)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "When to reach for which",
+        "body": "Greedy when a proof of optimality exists and local choice never needs undo.\nD&C when subproblems are independent and combine is cheap relative to size.\nDP when subproblems overlap — naive recursion would recompute exponentially."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Activity selection vs knapsack",
+        "setup": "Schedule non-overlapping talks for max count; vs fill a knapsack for max value.",
+        "solution": "Interval scheduling by earliest finish is greedy-optimal. 0/1 knapsack needs DP (or approx) — greedy by density can fail.",
+        "why": "Same “resource packing” vibe; different paradigm."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Overlapping subproblems",
+        "prompt": "Dynamic programming is most appropriate when:",
+        "choices": {
+          "A": "Subproblems are independent and never reuse results",
+          "B": "Optimal substructure holds and subproblems overlap heavily",
+          "C": "You refuse to write recurrences",
+          "D": "Only constant-time greedy proofs exist"
+        },
+        "answer": "B",
+        "explain": "DP exploits overlapping subproblems + optimal substructure."
+      }
+    ]
+  },
+  "ada_greedy_dc": {
+    "id": "ada_greedy_dc",
+    "title": "Greedy algorithms and divide-and-conquer",
+    "minutes": 50,
+    "lo": [
+      "design",
+      "analysis"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Greedy correctness patterns",
+        "body": "**Stay-ahead:** show your partial solution is always at least as good as any other.\n**Exchange:** transform any optimal solution into yours without loss.\nClassic: Huffman coding, Dijkstra’s (with nonneg. weights), Kruskal/Prim MST, interval scheduling / partitioning."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Divide-and-conquer toolkit",
+        "body": "Write $T(n)=aT(n/b)+f(n)$; apply Master Theorem cases.\nExamples: mergesort $T(n)=2T(n/2)+\\Theta(n)$; binary search $T(n)=T(n/2)+\\Theta(1)$.\nCareful with uneven splits and work outside the recurrence."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Closest pair of points",
+        "setup": "Find closest pair among $n$ points in the plane.",
+        "solution": "D&C: sort by $x$, recurse on halves, then check a strip of width $\\delta$ — $O(n\\log n)$ with careful strip scan (KT).",
+        "why": "Combine step is the algorithmic heart, not the split."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Exchange argument",
+        "prompt": "An exchange argument typically shows:",
+        "choices": {
+          "A": "That any optimal solution can be transformed into the greedy one without worsening cost",
+          "B": "That NP = P",
+          "C": "That Master Theorem always applies",
+          "D": "That hashing never collides"
+        },
+        "answer": "A",
+        "explain": "Exchange is a standard greedy-optimality proof pattern."
+      }
+    ]
+  },
+  "ada_dp": {
+    "id": "ada_dp",
+    "title": "Dynamic programming patterns",
+    "minutes": 55,
+    "lo": [
+      "design"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "DP recipe",
+        "body": "1. Define subproblems (indices / state).\n2. Write recurrence relating optimal values.\n3. Identify base cases.\n4. Compute in an order that respects dependencies (DAG of subproblems).\n5. Reconstruct solution via argmax/pointers if needed."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Canonical examples",
+        "body": "Weighted interval scheduling, knapsack, LCS / edit distance, matrix-chain ordering, shortest paths in DAGs, Floyd–Warshall as DP on $k$-restricted paths.\nState space size × transition cost ≈ runtime."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Rod cutting",
+        "setup": "Rod of length $n$; price $p_i$ for length $i$. Max revenue.",
+        "solution": "$r_n=\\max_{1\\le i\\le n}(p_i+r_{n-i})$ with $r_0=0$. Bottom-up $O(n^2)$ (CLRS).",
+        "why": "Textbook DP: clear state, simple transitions."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "DP vs recursion",
+        "prompt": "Memoized recursion and bottom-up DP both:",
+        "choices": {
+          "A": "Ignore overlapping subproblems",
+          "B": "Store answers to subproblems to avoid exponential recomputation",
+          "C": "Require greedy exchange proofs",
+          "D": "Only work on unsorted arrays"
+        },
+        "answer": "B",
+        "explain": "Both fill the same DP table; order differs."
+      }
+    ]
+  },
+  "ada_analysis": {
+    "id": "ada_analysis",
+    "title": "Analysis toolkit: approx, online, randomized, streaming, amortized, smoothed",
+    "minutes": 55,
+    "lo": [
+      "analysis"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Beyond worst-case exact algorithms",
+        "body": "**Approximation:** $\\alpha$-approx guarantees cost within $\\alpha$ of OPT (for NP-hard problems).\n**Online:** decisions irrevocable as input arrives; competitive ratio vs offline OPT.\n**Randomized:** expected time/quality; Las Vegas (always correct) vs Monte Carlo (error probability).\n**Streaming:** one or few passes, sublinear memory; sketching / sampling.\n**Amortized:** average cost over a sequence (aggregate, accounting, potential).\n**Smoothed analysis:** interpolate worst-case and average-case under noise (e.g. Spielman–Teng on simplex)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "How to read a guarantee",
+        "body": "State the model: adversarial input? random bits? arrival order?\nState the metric: ratio, regret, space, update time.\nLower bounds (adversary / information / communication) often match algorithms."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Paging competitive analysis",
+        "setup": "Cache of size $k$; sequence of page requests.",
+        "solution": "Any deterministic online algorithm is at best $k$-competitive; randomized marking algorithms improve to $O(\\log k)$ competitive (classic online result).",
+        "why": "Online ≠ offline; ratios quantify the gap."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Amortized cost",
+        "prompt": "Amortized analysis bounds:",
+        "choices": {
+          "A": "Only a single operation in isolation always",
+          "B": "Average cost per operation over a worst-case sequence",
+          "C": "Only NP-completeness reductions",
+          "D": "Only GPU FLOPs"
+        },
+        "answer": "B",
+        "explain": "Aggregate / accounting / potential methods bound sequence cost."
+      }
+    ]
+  },
+  "ada_correctness": {
+    "id": "ada_correctness",
+    "title": "Correctness, complexity, and math tools",
+    "minutes": 45,
+    "lo": [
+      "analysis",
+      "complexity"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Proving algorithms",
+        "body": "Invariants for loops; induction on input size for recursion; exchange/stay-ahead for greedy; optimal-substructure arguments for DP.\nPartial correctness + termination ⇒ total correctness."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Complexity vocabulary",
+        "body": "Big-O / Θ / Ω; polynomial vs exponential; reductions as “at least as hard.”\nUseful tools: sums & integrals, probability (linearity of expectation, Chernoff), graph theory basics, linear algebra for spectral / matrix algorithms."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Loop invariant sketch",
+        "setup": "Insertion sort: after $i$ iterations, $A[1..i]$ is sorted.",
+        "solution": "Initialization, maintenance, termination → $A[1..n]$ sorted. Runtime $\\Theta(n^2)$ worst case.",
+        "why": "Invariant discipline scales to harder algorithms."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Reduction direction",
+        "prompt": "To show problem $B$ is NP-hard given NP-hard $A$, you typically:",
+        "choices": {
+          "A": "Reduce $B$ to $A$ in poly time",
+          "B": "Reduce $A$ to $B$ in poly time",
+          "C": "Ignore poly-time reductions",
+          "D": "Only sort arrays"
+        },
+        "answer": "B",
+        "explain": "Hard $A \\le_p B$ means $B$ is at least as hard as $A$."
+      }
+    ]
+  },
+  "ada_graphs_basics": {
+    "id": "ada_graphs_basics",
+    "title": "Graphs: representation, search, topological sort",
+    "minutes": 50,
+    "lo": [
+      "graphs"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Representation",
+        "body": "Adjacency lists: $O(n+m)$ space, good for sparse graphs.\nAdjacency matrix: $O(n^2)$ space / edge queries $O(1)$; natural for dense graphs and algebraic methods."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "BFS, DFS, topo",
+        "body": "BFS: layers / shortest paths in unweighted graphs; queue.\nDFS: discovery/finish times; cycle detection; SCC (Kosaraju/Tarjan).\nTopological sort on DAGs via DFS finish order or Kahn’s algorithm (indegrees)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Course prerequisites",
+        "setup": "Courses with prerequisite edges $u\\to v$ ($u$ before $v$).",
+        "solution": "Build DAG; topological order gives a valid schedule; cycle ⇒ impossible.",
+        "why": "Topo sort is the scheduling primitive."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Unweighted shortest paths",
+        "prompt": "In an unweighted graph, BFS from $s$ yields:",
+        "choices": {
+          "A": "Arbitrary long paths only",
+          "B": "Shortest paths by number of edges",
+          "C": "Minimum spanning trees always",
+          "D": "Max-flow only"
+        },
+        "answer": "B",
+        "explain": "BFS layers correspond to hop distance."
+      }
+    ]
+  },
+  "ada_mst_sp": {
+    "id": "ada_mst_sp",
+    "title": "MSTs and shortest paths",
+    "minutes": 55,
+    "lo": [
+      "graphs",
+      "design"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Minimum spanning trees",
+        "body": "Kruskal: sort edges, union-find; Prim: grow tree via cut property.\nCut property / cycle property justify greedy MST (CLRS Ch.23; KT Ch.4)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Shortest paths",
+        "body": "Dijkstra: nonnegative weights, priority queue.\nBellman–Ford: handles negatives; detects negative cycles.\nDAG shortest paths: topo + one pass DP.\nAll-pairs: Floyd–Warshall $O(n^3)$; Johnson for sparse."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Why Dijkstra needs nonnegative weights",
+        "setup": "A negative edge after settling a node can invalidate distances.",
+        "solution": "Dijkstra’s invariant relies on nonnegative edges so settled distances never decrease. Use Bellman–Ford if negatives exist.",
+        "why": "Model assumptions matter as much as code."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "MST cut property",
+        "prompt": "The cut property says that for any cut, a lightest edge crossing the cut:",
+        "choices": {
+          "A": "Is never in any MST",
+          "B": "Is safe to include in some MST",
+          "C": "Creates a negative cycle",
+          "D": "Implies P=NP"
+        },
+        "answer": "B",
+        "explain": "Safe-edge / cut property underpins Kruskal and Prim."
+      }
+    ]
+  },
+  "ada_closure_bt": {
+    "id": "ada_closure_bt",
+    "title": "Transitive closure, matrix multiplication, backtracking & games",
+    "minutes": 50,
+    "lo": [
+      "graphs",
+      "design"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Transitive closure ↔ matrix products",
+        "body": "Reachability matrix is Boolean matrix “multiplication” (OR-AND) iterated / via $(\\!I\\lor A\\!)^{n}$.\nAlgebraic path problems relate to semiring matrix products; fast matrix multiplication ideas transfer (CLRS)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Backtracking and game trees",
+        "body": "Backtracking explores a state space with pruning (e.g. N-queens).\nAdversarial games: minimax / alpha–beta on game trees; connect to later extensive-form games in AGT."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Warshall vs recursive MM",
+        "setup": "Compute reachability for $n$ nodes.",
+        "solution": "Floyd–Warshall-style Boolean updates $O(n^3)$; repeatedly squaring the Boolean adjacency matrix also works — same asymptotic family as MM.",
+        "why": "Graph reachability is an algebraic computation."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Minimax",
+        "prompt": "Minimax on a zero-sum game tree computes:",
+        "choices": {
+          "A": "A random legal move only",
+          "B": "Optimal value assuming adversarial optimal play",
+          "C": "MST weight",
+          "D": "Only BFS layers"
+        },
+        "answer": "B",
+        "explain": "Minimax is the foundational perfect-information zero-sum solver."
+      }
+    ]
+  },
+  "ada_strings": {
+    "id": "ada_strings",
+    "title": "String algorithms: matching, LCS, DP",
+    "minutes": 50,
+    "lo": [
+      "strings",
+      "design"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "String matching",
+        "body": "Naive $O(nm)$; Knuth–Morris–Pratt automaton / failure function $O(n+m)$;\nRabin–Karp rolling hash (Monte Carlo / Las Vegas variants); Boyer–Moore heuristics.\nCLRS string-matching chapter."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "LCS and edit distance",
+        "body": "LCS: DP $L[i,j]$ from prefixes; $O(nm)$ time/space (space-optimizable).\nEdit distance (Levenshtein): similar DP with insert/delete/substitute costs.\nApplications: diff, bioinformatics, spellcheck."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "KMP intuition",
+        "setup": "Pattern $P$ mismatches at text position after partial match.",
+        "solution": "Failure function shifts $P$ using longest proper prefix that is also suffix — never re-examine discarded text characters.",
+        "why": "Automaton view unifies matching algorithms."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "LCS recurrence",
+        "prompt": "If $X_i=Y_j$, an LCS of prefixes typically:",
+        "choices": {
+          "A": "Ignores both characters always",
+          "B": "Extends an LCS of $X_{1..i-1},Y_{1..j-1}$ by that character",
+          "C": "Requires matrix inversion",
+          "D": "Is solved only by greedy left-to-right without DP"
+        },
+        "answer": "B",
+        "explain": "Matching characters extend the previous LCS subproblem."
+      }
+    ]
+  },
+  "ada_np": {
+    "id": "ada_np",
+    "title": "NP-completeness: P vs NP, reductions, classic problems",
+    "minutes": 55,
+    "lo": [
+      "complexity"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "P, NP, and NP-complete",
+        "body": "**P:** decidable in deterministic poly time.\n**NP:** yes-instances have poly-size certificates verifiable in poly time.\n**NP-complete:** in NP and NP-hard (every NP problem reduces to it).\nCook–Levin: SAT is NP-complete; then reduce SAT → others (CLRS Ch.34; KT Ch.8)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Reduction craft",
+        "body": "Poly-time (Karp) reduction $A\\le_p B$: transform instances of $A$ to $B$ so yes↔yes.\nDesign gadgets that encode constraints of $A$ inside $B$.\nClassic chain: SAT → 3-SAT → Vertex Cover / Clique / Independent Set / Hamiltonian Cycle / TSP decision / Subset Sum…"
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Independent set ↔ vertex cover",
+        "setup": "Graph $G=(V,E)$; integer $k$.",
+        "solution": "$S$ independent set iff $V\\setminus S$ is a vertex cover. So IS and VC are poly-time equivalent.",
+        "why": "Sibling problems via simple complement reductions."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Certificate",
+        "prompt": "Membership in NP requires that yes-instances have:",
+        "choices": {
+          "A": "Infinite oracles only",
+          "B": "Poly-size certificates checkable in poly time",
+          "C": "Only randomized streaming sketches",
+          "D": "Proven P=NP"
+        },
+        "answer": "B",
+        "explain": "NP = poly-time verifiable certificates."
+      }
+    ]
+  },
+  "ada_approx": {
+    "id": "ada_approx",
+    "title": "Approximation algorithms for hard problems",
+    "minutes": 50,
+    "lo": [
+      "complexity",
+      "analysis"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Approximation ratios",
+        "body": "For minimization, algo cost $\\le \\alpha\\cdot\\mathrm{OPT}$; for maximization, $\\ge \\mathrm{OPT}/\\alpha$ (conventions vary — state clearly).\nPTAS / FPTAS: $(1+\\varepsilon)$ approx with time poly in input (and $1/\\varepsilon$ for FPTAS)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Classic approximations",
+        "body": "Vertex cover: 2-approx via maximal matching.\nSet cover: $H_n$-approx greedy.\nTSP metric: 2-approx MST tour; Christofides $1.5$.\nKnapsack: FPTAS via scaled DP.\nInapprox results (e.g. general TSP) need gap-producing reductions."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Vertex cover 2-approx",
+        "setup": "Find a maximal matching $M$; take both endpoints of each edge in $M$.",
+        "solution": "Cover size $2|M|$; OPT $\\ge |M|$ because edges in $M$ are disjoint — ratio 2.",
+        "why": "Matching lower bound meets constructive cover."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "FPTAS",
+        "prompt": "An FPTAS typically provides:",
+        "choices": {
+          "A": "Exact NP-oracle in linear time always",
+          "B": "$(1+\\varepsilon)$-approximation with time polynomial in input size and $1/\\varepsilon$",
+          "C": "Only online competitive ratios",
+          "D": "No guarantees"
+        },
+        "answer": "B",
+        "explain": "FPTAS = fully polynomial-time approximation scheme."
+      }
+    ]
+  },
+  "ada_gt_overview": {
+    "id": "ada_gt_overview",
+    "title": "Game theory overview: Nash, PoA, PoS, Prisoner’s Dilemma",
+    "minutes": 50,
+    "lo": [
+      "games"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Games and Nash equilibrium",
+        "body": "Players, strategies, payoffs. Pure vs mixed strategies.\n**Nash equilibrium:** no player gains by unilateral deviation.\nNash (1950): finite games have mixed NE. Computation can be hard (PPAD)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "PoA and PoS",
+        "body": "**Price of Anarchy (PoA):** worst NE cost / OPT (centralized) — inefficiency of selfishness.\n**Price of Stability (PoS):** best NE cost / OPT — best self-enforcing outcome.\nPrisoner’s Dilemma: dominant-strategy equilibrium is Pareto-dominated by cooperation (AGT Ch.1 themes)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Routing PoA sketch",
+        "setup": "Pigou’s example: two routes, latency functions; selfish flow vs optimal flow.",
+        "solution": "Equilibrium congestion can be strictly worse than OPT — PoA $>1$ even in simple networks (Roughgarden).",
+        "why": "Algorithms meet incentives."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "PoA meaning",
+        "prompt": "Price of Anarchy compares:",
+        "choices": {
+          "A": "Only sorting lower bounds",
+          "B": "Worst equilibrium welfare (or cost) to the optimal centralized outcome",
+          "C": "Only MST weight to BFS layers",
+          "D": "GPU vs CPU clocks"
+        },
+        "answer": "B",
+        "explain": "PoA quantifies selfish inefficiency at the worst NE."
+      }
+    ]
+  },
+  "ada_games": {
+    "id": "ada_games",
+    "title": "Games catalog: zero-sum through hedonic",
+    "minutes": 55,
+    "lo": [
+      "games"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Strategic forms",
+        "body": "**Zero-sum:** payoffs sum to zero; von Neumann minimax; LP connection.\n**Extensive form:** game trees, information sets; subgame-perfect equilibrium.\n**Repeated games:** folk theorems — cooperation via future punishment.\n**Stochastic games:** state evolves with actions (Shapley)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Coalitional, Bayesian, hedonic",
+        "body": "**Coalitional / cooperative:** characteristic function $v(S)$; core, Shapley value.\n**Bayesian games:** types with beliefs; Bayes–Nash equilibrium (Harsanyi).\n**Hedonic games:** coalition formation based on membership preferences (no transferable utility focus)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Matching pennies",
+        "setup": "Zero-sum: row wants match, column wants mismatch.",
+        "solution": "No pure NE; unique mixed NE is 50–50. Value = 0.",
+        "why": "Mixed strategies are essential, not exotic."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Bayes–Nash",
+        "prompt": "In a Bayesian game, players optimize given:",
+        "choices": {
+          "A": "Only open cards with no beliefs",
+          "B": "Beliefs over others’ types (and strategies)",
+          "C": "Only DFS finish times",
+          "D": "Only Kruskal’s algorithm"
+        },
+        "answer": "B",
+        "explain": "Bayes–Nash = NE in the expanded type-contingent strategy space."
+      }
+    ]
+  },
+  "ada_mech": {
+    "id": "ada_mech",
+    "title": "Mechanism design: auctions, matching, facility location, scheduling",
+    "minutes": 55,
+    "lo": [
+      "games",
+      "design"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Mechanism design lens",
+        "body": "Choose rules/games so that strategic agents yield desirable outcomes.\nRevelation principle; incentive compatibility (IC); individual rationality (IR).\nVickrey / VCG: truthful under quasi-linear utilities (with caveats)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Case studies",
+        "body": "**Auctions:** 1st price vs 2nd price (Vickrey); revenue equivalence sketches; sponsored search.\n**Matching:** Gale–Shapley stable matching; strategy issues on one side.\n**Facility location:** locate facilities on a network/metric with agent preferences; strategyproof mechanisms.\n**Scheduling:** machine scheduling with selfish jobs; coordination mechanisms / PoA bounds."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Vickrey auction",
+        "setup": "Single item; sealed bids; charge second-highest bid.",
+        "solution": "Dominant strategy: bid true value. Winner pays opportunity cost of displacing the next bidder.",
+        "why": "Truthfulness via critical-payment characterization."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Stable matching",
+        "prompt": "Gale–Shapley deferred acceptance produces a matching that is:",
+        "choices": {
+          "A": "Always maximum-weight regardless of prefs",
+          "B": "Stable (no blocking pair) under reported preferences",
+          "C": "Only a DFS forest",
+          "D": "NP-complete to verify always"
+        },
+        "answer": "B",
+        "explain": "Stability is the classic matching design goal."
+      }
+    ]
+  },
+  "ada_final": {
+    "id": "ada_final",
+    "title": "ADA wrap-up: integrate algorithms and AGT",
+    "minutes": 40,
+    "lo": [
+      "design",
+      "analysis",
+      "graphs",
+      "complexity",
+      "games"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Integration map",
+        "body": "Design: greedy / D&C / DP / backtracking.\nAnalyze: exact complexity, amortized, randomized, approx, online, streaming, smoothed.\nGraphs & strings: search, MST, SP, closure/MM, matching/LCS.\nHardness: NP-completeness + approximation.\nAGT: Nash/PoA/PoS → game families → mechanisms (auctions, matching, facilities, scheduling)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Exam / project judgment",
+        "body": "Name the paradigm and proof pattern.\nState model assumptions (weights, online arrival, strategic agents).\nIf NP-hard: exact exponential, approx, FPT, or heuristic — pick consciously.\nIf agents are strategic: equilibrium concept + incentive story."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Pick a toolkit",
+        "setup": "Selfish users route on a network; designer can set tolls.",
+        "solution": "Model as nonatomic routing game; analyze PoA; consider marginal-cost tolls to induce OPT — mechanism + algorithms.",
+        "why": "CS4335 joins classical algorithms with incentives."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "First question on a new problem",
+        "prompt": "A strong first question is:",
+        "choices": {
+          "A": "Skip modeling and only tune constants forever",
+          "B": "What is the computational model, objective, and (if any) strategic setting?",
+          "C": "Assume P=NP without proof",
+          "D": "Only memorize code trivia"
+        },
+        "answer": "B",
+        "explain": "Model and objective drive paradigm choice."
+      }
+    ]
   }
 }

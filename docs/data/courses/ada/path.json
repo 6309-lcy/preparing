@@ -1,0 +1,2329 @@
+{
+  "courseId": "ADA",
+  "name": "Algorithm Design & Analysis (CS4335)",
+  "structure": "duo_path",
+  "version": 1,
+  "updated": "2026-09-07",
+  "syllabus": {
+    "examFormat": "Course track · CS4335 · CLRS / KT / AGT",
+    "weights": {
+      "paradigms": 0.12,
+      "analysis": 0.1,
+      "graphs": 0.16,
+      "strings": 0.08,
+      "complexity": 0.14,
+      "games": 0.1,
+      "catalog": 0.1,
+      "mech": 0.12,
+      "wrap": 0.08
+    },
+    "ilos": [
+      "design",
+      "analysis",
+      "graphs",
+      "strings",
+      "complexity",
+      "games"
+    ],
+    "primaryFocus": "CS4335 Algorithm Design & Analysis",
+    "compulsoryReading": "CLRS (2009); Kleinberg & Tardos (2005); Nisan et al. AGT (2007)"
+  },
+  "mix": {
+    "reading": 0.4,
+    "practice": 0.5,
+    "mock": 0.1
+  },
+  "timeline": {
+    "weeks": 14,
+    "learnWeeks": 12,
+    "startDate": "2026-09-07",
+    "endDate": "2026-12-13",
+    "dailyHoursWeekday": 2,
+    "notes": [
+      "Aligned to CS4335 themes with CLRS, Kleinberg–Tardos, and AGT readings.",
+      "Chapter tests ≥70% to unlock next chapter.",
+      "Practice levels use questionTarget; assignedQuestionIds empty until ADA drill bank is authored.",
+      "Units span design paradigms through mechanism design case studies."
+    ]
+  },
+  "stats": {
+    "units": 9,
+    "chapters": 20,
+    "levels": 71,
+    "testsAndMocks": 19
+  },
+  "levelOrder": [
+    "ada_ch0_l1",
+    "ada_ch0_l2",
+    "ada_ch1_l1",
+    "ada_ch1_l2",
+    "ada_ch1_l3",
+    "ada_ch1_test",
+    "ada_ch2_l1",
+    "ada_ch2_l2",
+    "ada_ch2_l3",
+    "ada_ch2_test",
+    "ada_ch3_l1",
+    "ada_ch3_l2",
+    "ada_ch3_l3",
+    "ada_ch3_test",
+    "ada_ch4_l1",
+    "ada_ch4_l2",
+    "ada_ch4_l3",
+    "ada_ch4_test",
+    "ada_ch5_l1",
+    "ada_ch5_l2",
+    "ada_ch5_l3",
+    "ada_ch5_test",
+    "ada_ch6_l1",
+    "ada_ch6_l2",
+    "ada_ch6_l3",
+    "ada_ch6_test",
+    "ada_ch7_l1",
+    "ada_ch7_l2",
+    "ada_ch7_l3",
+    "ada_ch7_test",
+    "ada_ch8_l1",
+    "ada_ch8_l2",
+    "ada_ch8_l3",
+    "ada_ch8_test",
+    "ada_ch9_l1",
+    "ada_ch9_l2",
+    "ada_ch9_l3",
+    "ada_ch9_test",
+    "ada_ch10_l1",
+    "ada_ch10_l2",
+    "ada_ch10_l3",
+    "ada_ch10_test",
+    "ada_ch11_l1",
+    "ada_ch11_l2",
+    "ada_ch11_l3",
+    "ada_ch11_test",
+    "ada_ch12_l1",
+    "ada_ch12_l2",
+    "ada_ch12_l3",
+    "ada_ch12_test",
+    "ada_ch13_l1",
+    "ada_ch13_l2",
+    "ada_ch13_l3",
+    "ada_ch13_test",
+    "ada_ch14_l1",
+    "ada_ch14_l2",
+    "ada_ch14_l3",
+    "ada_ch14_test",
+    "ada_ch15_l1",
+    "ada_ch15_l2",
+    "ada_ch15_test",
+    "ada_ch16_l1",
+    "ada_ch16_l2",
+    "ada_ch16_test",
+    "ada_ch17_mock",
+    "ada_ch17_review",
+    "ada_ch18_l1",
+    "ada_ch18_l2",
+    "ada_ch18_test",
+    "ada_ch19_mock",
+    "ada_ch19_review"
+  ],
+  "units": [
+    {
+      "id": "ada_u0",
+      "number": 1,
+      "title": "Overview of algorithm design",
+      "shortTitle": "Paradigms",
+      "cluster": "paradigms",
+      "weight": 0.12,
+      "weightRange": "~12%",
+      "color": "#115E59",
+      "description": "Greedy, divide-and-conquer, and dynamic programming — when and how.",
+      "chapterCount": 4,
+      "chapters": [
+        {
+          "id": "ada_ch0",
+          "number": 0,
+          "order": 1,
+          "title": "ADA map",
+          "lessonId": "ada_setup",
+          "topics": [
+            "paradigms"
+          ],
+          "lo": [
+            "design"
+          ],
+          "icon": "book",
+          "levelCount": 2,
+          "hasChapterTest": false,
+          "levels": [
+            {
+              "id": "ada_ch0_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "ADA map",
+              "mode": "lesson",
+              "lessonId": "ada_setup",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 0,
+              "readPct": 85,
+              "practicePct": 10,
+              "mockPct": 5,
+              "xp": 20,
+              "unitId": "ada_u0",
+              "chapterId": "ada_ch0",
+              "chapterTitle": "ADA map",
+              "chapterNumber": 0,
+              "cluster": "intro",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch0_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Quick check",
+              "subtitle": "6 questions",
+              "mode": "practice",
+              "lessonId": "ada_setup",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 6,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 25,
+              "unitId": "ada_u0",
+              "chapterId": "ada_ch0",
+              "chapterTitle": "ADA map",
+              "chapterNumber": 0,
+              "cluster": "intro",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            }
+          ]
+        },
+        {
+          "id": "ada_ch1",
+          "number": 1,
+          "order": 2,
+          "title": "Design paradigms overview",
+          "lessonId": "ada_paradigms",
+          "topics": [
+            "paradigms"
+          ],
+          "lo": [
+            "design"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch1_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Greedy / D&C / DP",
+              "mode": "lesson",
+              "lessonId": "ada_paradigms",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u0",
+              "chapterId": "ada_ch1",
+              "chapterTitle": "Design paradigms overview",
+              "chapterNumber": 1,
+              "cluster": "paradigms",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch1_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ada_paradigms",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ada_u0",
+              "chapterId": "ada_ch1",
+              "chapterTitle": "Design paradigms overview",
+              "chapterNumber": 1,
+              "cluster": "paradigms",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch1_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_paradigms",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ada_u0",
+              "chapterId": "ada_ch1",
+              "chapterTitle": "Design paradigms overview",
+              "chapterNumber": 1,
+              "cluster": "paradigms",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch1_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ada_paradigms",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ada_u0",
+              "chapterId": "ada_ch1",
+              "chapterTitle": "Design paradigms overview",
+              "chapterNumber": 1,
+              "cluster": "paradigms",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ada_ch2",
+          "number": 2,
+          "order": 3,
+          "title": "Greedy & divide-and-conquer",
+          "lessonId": "ada_greedy_dc",
+          "topics": [
+            "paradigms"
+          ],
+          "lo": [
+            "design",
+            "analysis"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch2_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Greedy & D&C",
+              "mode": "lesson",
+              "lessonId": "ada_greedy_dc",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u0",
+              "chapterId": "ada_ch2",
+              "chapterTitle": "Greedy & divide-and-conquer",
+              "chapterNumber": 2,
+              "cluster": "paradigms",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch2_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ada_greedy_dc",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ada_u0",
+              "chapterId": "ada_ch2",
+              "chapterTitle": "Greedy & divide-and-conquer",
+              "chapterNumber": 2,
+              "cluster": "paradigms",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch2_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_greedy_dc",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ada_u0",
+              "chapterId": "ada_ch2",
+              "chapterTitle": "Greedy & divide-and-conquer",
+              "chapterNumber": 2,
+              "cluster": "paradigms",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch2_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ada_greedy_dc",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ada_u0",
+              "chapterId": "ada_ch2",
+              "chapterTitle": "Greedy & divide-and-conquer",
+              "chapterNumber": 2,
+              "cluster": "paradigms",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ada_ch3",
+          "number": 3,
+          "order": 4,
+          "title": "Dynamic programming",
+          "lessonId": "ada_dp",
+          "topics": [
+            "paradigms"
+          ],
+          "lo": [
+            "design"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch3_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "DP patterns",
+              "mode": "lesson",
+              "lessonId": "ada_dp",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u0",
+              "chapterId": "ada_ch3",
+              "chapterTitle": "Dynamic programming",
+              "chapterNumber": 3,
+              "cluster": "paradigms",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch3_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ada_dp",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ada_u0",
+              "chapterId": "ada_ch3",
+              "chapterTitle": "Dynamic programming",
+              "chapterNumber": 3,
+              "cluster": "paradigms",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch3_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_dp",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ada_u0",
+              "chapterId": "ada_ch3",
+              "chapterTitle": "Dynamic programming",
+              "chapterNumber": 3,
+              "cluster": "paradigms",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch3_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ada_dp",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ada_u0",
+              "chapterId": "ada_ch3",
+              "chapterTitle": "Dynamic programming",
+              "chapterNumber": 3,
+              "cluster": "paradigms",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ada_u1",
+      "number": 2,
+      "title": "Algorithm analysis toolkit",
+      "shortTitle": "Analysis",
+      "cluster": "analysis",
+      "weight": 0.1,
+      "weightRange": "~10%",
+      "color": "#0F766E",
+      "description": "Approximation, online, randomized, streaming, amortized, smoothed; correctness & math tools.",
+      "chapterCount": 2,
+      "chapters": [
+        {
+          "id": "ada_ch4",
+          "number": 4,
+          "order": 5,
+          "title": "Analysis toolkit",
+          "lessonId": "ada_analysis",
+          "topics": [
+            "analysis"
+          ],
+          "lo": [
+            "analysis"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch4_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Approx/online/random/…",
+              "mode": "lesson",
+              "lessonId": "ada_analysis",
+              "topics": [
+                "analysis"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u1",
+              "chapterId": "ada_ch4",
+              "chapterTitle": "Analysis toolkit",
+              "chapterNumber": 4,
+              "cluster": "analysis",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch4_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ada_analysis",
+              "topics": [
+                "analysis"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ada_u1",
+              "chapterId": "ada_ch4",
+              "chapterTitle": "Analysis toolkit",
+              "chapterNumber": 4,
+              "cluster": "analysis",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch4_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_analysis",
+              "topics": [
+                "analysis"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ada_u1",
+              "chapterId": "ada_ch4",
+              "chapterTitle": "Analysis toolkit",
+              "chapterNumber": 4,
+              "cluster": "analysis",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch4_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ada_analysis",
+              "topics": [
+                "analysis"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ada_u1",
+              "chapterId": "ada_ch4",
+              "chapterTitle": "Analysis toolkit",
+              "chapterNumber": 4,
+              "cluster": "analysis",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ada_ch5",
+          "number": 5,
+          "order": 6,
+          "title": "Correctness & complexity tools",
+          "lessonId": "ada_correctness",
+          "topics": [
+            "analysis"
+          ],
+          "lo": [
+            "analysis",
+            "complexity"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch5_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Proofs & complexity",
+              "mode": "lesson",
+              "lessonId": "ada_correctness",
+              "topics": [
+                "analysis"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u1",
+              "chapterId": "ada_ch5",
+              "chapterTitle": "Correctness & complexity tools",
+              "chapterNumber": 5,
+              "cluster": "analysis",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch5_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ada_correctness",
+              "topics": [
+                "analysis"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ada_u1",
+              "chapterId": "ada_ch5",
+              "chapterTitle": "Correctness & complexity tools",
+              "chapterNumber": 5,
+              "cluster": "analysis",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch5_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_correctness",
+              "topics": [
+                "analysis"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ada_u1",
+              "chapterId": "ada_ch5",
+              "chapterTitle": "Correctness & complexity tools",
+              "chapterNumber": 5,
+              "cluster": "analysis",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch5_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ada_correctness",
+              "topics": [
+                "analysis"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ada_u1",
+              "chapterId": "ada_ch5",
+              "chapterTitle": "Correctness & complexity tools",
+              "chapterNumber": 5,
+              "cluster": "analysis",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ada_u2",
+      "number": 3,
+      "title": "Graph algorithms",
+      "shortTitle": "Graphs",
+      "cluster": "graphs",
+      "weight": 0.16,
+      "weightRange": "~16%",
+      "color": "#0369A1",
+      "description": "Representation, search, topo, MST, shortest paths, transitive closure ↔ MM, backtracking.",
+      "chapterCount": 3,
+      "chapters": [
+        {
+          "id": "ada_ch6",
+          "number": 6,
+          "order": 7,
+          "title": "Graphs: representation & search",
+          "lessonId": "ada_graphs_basics",
+          "topics": [
+            "graphs"
+          ],
+          "lo": [
+            "graphs"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch6_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "BFS/DFS/topo",
+              "mode": "lesson",
+              "lessonId": "ada_graphs_basics",
+              "topics": [
+                "graphs"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u2",
+              "chapterId": "ada_ch6",
+              "chapterTitle": "Graphs: representation & search",
+              "chapterNumber": 6,
+              "cluster": "graphs",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch6_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ada_graphs_basics",
+              "topics": [
+                "graphs"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ada_u2",
+              "chapterId": "ada_ch6",
+              "chapterTitle": "Graphs: representation & search",
+              "chapterNumber": 6,
+              "cluster": "graphs",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch6_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_graphs_basics",
+              "topics": [
+                "graphs"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ada_u2",
+              "chapterId": "ada_ch6",
+              "chapterTitle": "Graphs: representation & search",
+              "chapterNumber": 6,
+              "cluster": "graphs",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch6_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ada_graphs_basics",
+              "topics": [
+                "graphs"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ada_u2",
+              "chapterId": "ada_ch6",
+              "chapterTitle": "Graphs: representation & search",
+              "chapterNumber": 6,
+              "cluster": "graphs",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ada_ch7",
+          "number": 7,
+          "order": 8,
+          "title": "MSTs & shortest paths",
+          "lessonId": "ada_mst_sp",
+          "topics": [
+            "graphs"
+          ],
+          "lo": [
+            "graphs",
+            "design"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch7_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "MST & SP",
+              "mode": "lesson",
+              "lessonId": "ada_mst_sp",
+              "topics": [
+                "graphs"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u2",
+              "chapterId": "ada_ch7",
+              "chapterTitle": "MSTs & shortest paths",
+              "chapterNumber": 7,
+              "cluster": "graphs",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch7_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ada_mst_sp",
+              "topics": [
+                "graphs"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ada_u2",
+              "chapterId": "ada_ch7",
+              "chapterTitle": "MSTs & shortest paths",
+              "chapterNumber": 7,
+              "cluster": "graphs",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch7_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_mst_sp",
+              "topics": [
+                "graphs"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ada_u2",
+              "chapterId": "ada_ch7",
+              "chapterTitle": "MSTs & shortest paths",
+              "chapterNumber": 7,
+              "cluster": "graphs",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch7_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ada_mst_sp",
+              "topics": [
+                "graphs"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ada_u2",
+              "chapterId": "ada_ch7",
+              "chapterTitle": "MSTs & shortest paths",
+              "chapterNumber": 7,
+              "cluster": "graphs",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ada_ch8",
+          "number": 8,
+          "order": 9,
+          "title": "Closure, MM & backtracking",
+          "lessonId": "ada_closure_bt",
+          "topics": [
+            "graphs"
+          ],
+          "lo": [
+            "graphs",
+            "design"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch8_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Closure & games",
+              "mode": "lesson",
+              "lessonId": "ada_closure_bt",
+              "topics": [
+                "graphs"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u2",
+              "chapterId": "ada_ch8",
+              "chapterTitle": "Closure, MM & backtracking",
+              "chapterNumber": 8,
+              "cluster": "graphs",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch8_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ada_closure_bt",
+              "topics": [
+                "graphs"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ada_u2",
+              "chapterId": "ada_ch8",
+              "chapterTitle": "Closure, MM & backtracking",
+              "chapterNumber": 8,
+              "cluster": "graphs",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch8_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_closure_bt",
+              "topics": [
+                "graphs"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ada_u2",
+              "chapterId": "ada_ch8",
+              "chapterTitle": "Closure, MM & backtracking",
+              "chapterNumber": 8,
+              "cluster": "graphs",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch8_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ada_closure_bt",
+              "topics": [
+                "graphs"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ada_u2",
+              "chapterId": "ada_ch8",
+              "chapterTitle": "Closure, MM & backtracking",
+              "chapterNumber": 8,
+              "cluster": "graphs",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ada_u3",
+      "number": 4,
+      "title": "String algorithms",
+      "shortTitle": "Strings",
+      "cluster": "strings",
+      "weight": 0.08,
+      "weightRange": "~8%",
+      "color": "#7C3AED",
+      "description": "String matching, LCS, and related DP.",
+      "chapterCount": 1,
+      "chapters": [
+        {
+          "id": "ada_ch9",
+          "number": 9,
+          "order": 10,
+          "title": "String matching, LCS & DP",
+          "lessonId": "ada_strings",
+          "topics": [
+            "strings"
+          ],
+          "lo": [
+            "strings",
+            "design"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch9_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Strings",
+              "mode": "lesson",
+              "lessonId": "ada_strings",
+              "topics": [
+                "strings"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u3",
+              "chapterId": "ada_ch9",
+              "chapterTitle": "String matching, LCS & DP",
+              "chapterNumber": 9,
+              "cluster": "strings",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch9_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ada_strings",
+              "topics": [
+                "strings"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ada_u3",
+              "chapterId": "ada_ch9",
+              "chapterTitle": "String matching, LCS & DP",
+              "chapterNumber": 9,
+              "cluster": "strings",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch9_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_strings",
+              "topics": [
+                "strings"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ada_u3",
+              "chapterId": "ada_ch9",
+              "chapterTitle": "String matching, LCS & DP",
+              "chapterNumber": 9,
+              "cluster": "strings",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch9_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ada_strings",
+              "topics": [
+                "strings"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ada_u3",
+              "chapterId": "ada_ch9",
+              "chapterTitle": "String matching, LCS & DP",
+              "chapterNumber": 9,
+              "cluster": "strings",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ada_u4",
+      "number": 5,
+      "title": "NP-completeness",
+      "shortTitle": "NP",
+      "cluster": "complexity",
+      "weight": 0.14,
+      "weightRange": "~14%",
+      "color": "#B45309",
+      "description": "Reductions, P vs NP, classic NPC problems, approximation algorithms.",
+      "chapterCount": 2,
+      "chapters": [
+        {
+          "id": "ada_ch10",
+          "number": 10,
+          "order": 11,
+          "title": "P vs NP & reductions",
+          "lessonId": "ada_np",
+          "topics": [
+            "complexity"
+          ],
+          "lo": [
+            "complexity"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch10_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "NP-completeness",
+              "mode": "lesson",
+              "lessonId": "ada_np",
+              "topics": [
+                "complexity"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u4",
+              "chapterId": "ada_ch10",
+              "chapterTitle": "P vs NP & reductions",
+              "chapterNumber": 10,
+              "cluster": "complexity",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch10_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ada_np",
+              "topics": [
+                "complexity"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ada_u4",
+              "chapterId": "ada_ch10",
+              "chapterTitle": "P vs NP & reductions",
+              "chapterNumber": 10,
+              "cluster": "complexity",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch10_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_np",
+              "topics": [
+                "complexity"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ada_u4",
+              "chapterId": "ada_ch10",
+              "chapterTitle": "P vs NP & reductions",
+              "chapterNumber": 10,
+              "cluster": "complexity",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch10_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ada_np",
+              "topics": [
+                "complexity"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ada_u4",
+              "chapterId": "ada_ch10",
+              "chapterTitle": "P vs NP & reductions",
+              "chapterNumber": 10,
+              "cluster": "complexity",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ada_ch11",
+          "number": 11,
+          "order": 12,
+          "title": "Approximation algorithms",
+          "lessonId": "ada_approx",
+          "topics": [
+            "complexity"
+          ],
+          "lo": [
+            "complexity",
+            "analysis"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch11_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Approx algos",
+              "mode": "lesson",
+              "lessonId": "ada_approx",
+              "topics": [
+                "complexity"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u4",
+              "chapterId": "ada_ch11",
+              "chapterTitle": "Approximation algorithms",
+              "chapterNumber": 11,
+              "cluster": "complexity",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch11_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ada_approx",
+              "topics": [
+                "complexity"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ada_u4",
+              "chapterId": "ada_ch11",
+              "chapterTitle": "Approximation algorithms",
+              "chapterNumber": 11,
+              "cluster": "complexity",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch11_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_approx",
+              "topics": [
+                "complexity"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ada_u4",
+              "chapterId": "ada_ch11",
+              "chapterTitle": "Approximation algorithms",
+              "chapterNumber": 11,
+              "cluster": "complexity",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch11_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ada_approx",
+              "topics": [
+                "complexity"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ada_u4",
+              "chapterId": "ada_ch11",
+              "chapterTitle": "Approximation algorithms",
+              "chapterNumber": 11,
+              "cluster": "complexity",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ada_u5",
+      "number": 6,
+      "title": "Game theory overview",
+      "shortTitle": "GT",
+      "cluster": "games",
+      "weight": 0.1,
+      "weightRange": "~10%",
+      "color": "#BE123C",
+      "description": "Nash equilibrium, Price of Anarchy & Stability, Prisoner’s Dilemma.",
+      "chapterCount": 1,
+      "chapters": [
+        {
+          "id": "ada_ch12",
+          "number": 12,
+          "order": 13,
+          "title": "Nash, PoA, PoS & PD",
+          "lessonId": "ada_gt_overview",
+          "topics": [
+            "games"
+          ],
+          "lo": [
+            "games"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch12_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Game theory intro",
+              "mode": "lesson",
+              "lessonId": "ada_gt_overview",
+              "topics": [
+                "games"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u5",
+              "chapterId": "ada_ch12",
+              "chapterTitle": "Nash, PoA, PoS & PD",
+              "chapterNumber": 12,
+              "cluster": "games",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch12_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ada_gt_overview",
+              "topics": [
+                "games"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ada_u5",
+              "chapterId": "ada_ch12",
+              "chapterTitle": "Nash, PoA, PoS & PD",
+              "chapterNumber": 12,
+              "cluster": "games",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch12_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_gt_overview",
+              "topics": [
+                "games"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ada_u5",
+              "chapterId": "ada_ch12",
+              "chapterTitle": "Nash, PoA, PoS & PD",
+              "chapterNumber": 12,
+              "cluster": "games",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch12_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ada_gt_overview",
+              "topics": [
+                "games"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ada_u5",
+              "chapterId": "ada_ch12",
+              "chapterTitle": "Nash, PoA, PoS & PD",
+              "chapterNumber": 12,
+              "cluster": "games",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ada_u6",
+      "number": 7,
+      "title": "Games catalog",
+      "shortTitle": "Catalog",
+      "cluster": "catalog",
+      "weight": 0.1,
+      "weightRange": "~10%",
+      "color": "#C026D3",
+      "description": "Zero-sum, extensive, repeated, stochastic, coalitional, Bayesian, hedonic.",
+      "chapterCount": 1,
+      "chapters": [
+        {
+          "id": "ada_ch13",
+          "number": 13,
+          "order": 14,
+          "title": "Games catalog",
+          "lessonId": "ada_games",
+          "topics": [
+            "games"
+          ],
+          "lo": [
+            "games"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch13_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Game families",
+              "mode": "lesson",
+              "lessonId": "ada_games",
+              "topics": [
+                "games"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u6",
+              "chapterId": "ada_ch13",
+              "chapterTitle": "Games catalog",
+              "chapterNumber": 13,
+              "cluster": "catalog",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch13_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ada_games",
+              "topics": [
+                "games"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ada_u6",
+              "chapterId": "ada_ch13",
+              "chapterTitle": "Games catalog",
+              "chapterNumber": 13,
+              "cluster": "catalog",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch13_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_games",
+              "topics": [
+                "games"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ada_u6",
+              "chapterId": "ada_ch13",
+              "chapterTitle": "Games catalog",
+              "chapterNumber": 13,
+              "cluster": "catalog",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch13_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ada_games",
+              "topics": [
+                "games"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ada_u6",
+              "chapterId": "ada_ch13",
+              "chapterTitle": "Games catalog",
+              "chapterNumber": 13,
+              "cluster": "catalog",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ada_u7",
+      "number": 8,
+      "title": "Mechanism design",
+      "shortTitle": "Mechanisms",
+      "cluster": "mech",
+      "weight": 0.12,
+      "weightRange": "~12%",
+      "color": "#047857",
+      "description": "Auctions, matching, facility location, scheduling mechanisms.",
+      "chapterCount": 1,
+      "chapters": [
+        {
+          "id": "ada_ch14",
+          "number": 14,
+          "order": 15,
+          "title": "Mechanism design case studies",
+          "lessonId": "ada_mech",
+          "topics": [
+            "mech"
+          ],
+          "lo": [
+            "games",
+            "design"
+          ],
+          "icon": "book",
+          "levelCount": 4,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch14_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Auctions & matching",
+              "mode": "lesson",
+              "lessonId": "ada_mech",
+              "topics": [
+                "mech"
+              ],
+              "questionTarget": 0,
+              "readPct": 80,
+              "practicePct": 15,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u7",
+              "chapterId": "ada_ch14",
+              "chapterTitle": "Mechanism design case studies",
+              "chapterNumber": 14,
+              "cluster": "mech",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch14_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Practice",
+              "subtitle": "10 questions",
+              "mode": "practice",
+              "lessonId": "ada_mech",
+              "topics": [
+                "mech"
+              ],
+              "questionTarget": 10,
+              "readPct": 15,
+              "practicePct": 75,
+              "mockPct": 10,
+              "xp": 30,
+              "unitId": "ada_u7",
+              "chapterId": "ada_ch14",
+              "chapterTitle": "Mechanism design case studies",
+              "chapterNumber": 14,
+              "cluster": "mech",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch14_l3",
+              "index": 3,
+              "type": "practice",
+              "title": "Drill",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_mech",
+              "topics": [
+                "mech"
+              ],
+              "questionTarget": 12,
+              "readPct": 10,
+              "practicePct": 80,
+              "mockPct": 10,
+              "xp": 35,
+              "unitId": "ada_u7",
+              "chapterId": "ada_ch14",
+              "chapterTitle": "Mechanism design case studies",
+              "chapterNumber": 14,
+              "cluster": "mech",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch14_test",
+              "index": 4,
+              "type": "chapter_test",
+              "title": "Chapter test",
+              "subtitle": "≥70% to pass",
+              "mode": "chapter_test",
+              "lessonId": "ada_mech",
+              "topics": [
+                "mech"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 75,
+              "mockPct": 20,
+              "xp": 60,
+              "unitId": "ada_u7",
+              "chapterId": "ada_ch14",
+              "chapterTitle": "Mechanism design case studies",
+              "chapterNumber": 14,
+              "cluster": "mech",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ada_u8",
+      "number": 9,
+      "title": "Wrap-up & mocks",
+      "shortTitle": "Wrap",
+      "cluster": "wrap",
+      "weight": 0.08,
+      "weightRange": "—",
+      "color": "#334155",
+      "description": "Mixed review, full mocks, weakness clinic.",
+      "chapterCount": 5,
+      "chapters": [
+        {
+          "id": "ada_ch15",
+          "number": 15,
+          "order": 16,
+          "title": "Mixed review — paradigms & analysis",
+          "lessonId": "ada_final",
+          "topics": [
+            "paradigms",
+            "analysis"
+          ],
+          "lo": [
+            "design",
+            "analysis"
+          ],
+          "icon": "book",
+          "levelCount": 3,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch15_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Integration A",
+              "mode": "lesson",
+              "lessonId": "ada_final",
+              "topics": [
+                "paradigms",
+                "analysis"
+              ],
+              "questionTarget": 0,
+              "readPct": 70,
+              "practicePct": 25,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u8",
+              "chapterId": "ada_ch15",
+              "chapterTitle": "Mixed review — paradigms & analysis",
+              "chapterNumber": 15,
+              "cluster": "wrap",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch15_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Mixed practice",
+              "subtitle": "15 questions",
+              "mode": "practice",
+              "lessonId": "ada_final",
+              "topics": [
+                "paradigms",
+                "analysis"
+              ],
+              "questionTarget": 15,
+              "readPct": 10,
+              "practicePct": 70,
+              "mockPct": 20,
+              "xp": 40,
+              "unitId": "ada_u8",
+              "chapterId": "ada_ch15",
+              "chapterTitle": "Mixed review — paradigms & analysis",
+              "chapterNumber": 15,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch15_test",
+              "index": 3,
+              "type": "chapter_test",
+              "title": "Checkpoint test",
+              "subtitle": "≥70%",
+              "mode": "chapter_test",
+              "lessonId": "ada_final",
+              "topics": [
+                "paradigms",
+                "analysis"
+              ],
+              "questionTarget": 15,
+              "readPct": 5,
+              "practicePct": 65,
+              "mockPct": 30,
+              "xp": 60,
+              "unitId": "ada_u8",
+              "chapterId": "ada_ch15",
+              "chapterTitle": "Mixed review — paradigms & analysis",
+              "chapterNumber": 15,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ada_ch16",
+          "number": 16,
+          "order": 17,
+          "title": "Mixed review — graphs, strings & NP",
+          "lessonId": "ada_final",
+          "topics": [
+            "graphs",
+            "strings",
+            "complexity"
+          ],
+          "lo": [
+            "graphs",
+            "complexity"
+          ],
+          "icon": "book",
+          "levelCount": 3,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch16_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Integration B",
+              "mode": "lesson",
+              "lessonId": "ada_final",
+              "topics": [
+                "graphs",
+                "strings",
+                "complexity"
+              ],
+              "questionTarget": 0,
+              "readPct": 70,
+              "practicePct": 25,
+              "mockPct": 5,
+              "xp": 25,
+              "unitId": "ada_u8",
+              "chapterId": "ada_ch16",
+              "chapterTitle": "Mixed review — graphs, strings & NP",
+              "chapterNumber": 16,
+              "cluster": "wrap",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch16_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Mixed practice",
+              "subtitle": "15 questions",
+              "mode": "practice",
+              "lessonId": "ada_final",
+              "topics": [
+                "graphs",
+                "strings",
+                "complexity"
+              ],
+              "questionTarget": 15,
+              "readPct": 10,
+              "practicePct": 70,
+              "mockPct": 20,
+              "xp": 40,
+              "unitId": "ada_u8",
+              "chapterId": "ada_ch16",
+              "chapterTitle": "Mixed review — graphs, strings & NP",
+              "chapterNumber": 16,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch16_test",
+              "index": 3,
+              "type": "chapter_test",
+              "title": "Checkpoint test",
+              "subtitle": "≥70%",
+              "mode": "chapter_test",
+              "lessonId": "ada_final",
+              "topics": [
+                "graphs",
+                "strings",
+                "complexity"
+              ],
+              "questionTarget": 15,
+              "readPct": 5,
+              "practicePct": 65,
+              "mockPct": 30,
+              "xp": 60,
+              "unitId": "ada_u8",
+              "chapterId": "ada_ch16",
+              "chapterTitle": "Mixed review — graphs, strings & NP",
+              "chapterNumber": 16,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ada_ch17",
+          "number": 17,
+          "order": 18,
+          "title": "Full mock 1",
+          "lessonId": "ada_final",
+          "topics": [
+            "games",
+            "mech"
+          ],
+          "lo": [
+            "games"
+          ],
+          "icon": "exam",
+          "levelCount": 2,
+          "hasChapterTest": false,
+          "levels": [
+            {
+              "id": "ada_ch17_mock",
+              "index": 1,
+              "type": "full_mock",
+              "title": "Full mock 1",
+              "subtitle": "30 questions",
+              "mode": "full_mock",
+              "lessonId": "ada_final",
+              "topics": [
+                "games",
+                "mech"
+              ],
+              "questionTarget": 30,
+              "readPct": 0,
+              "practicePct": 20,
+              "mockPct": 80,
+              "xp": 100,
+              "unitId": "ada_u8",
+              "chapterId": "ada_ch17",
+              "chapterTitle": "Full mock 1",
+              "chapterNumber": 17,
+              "cluster": "wrap",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch17_review",
+              "index": 2,
+              "type": "practice",
+              "title": "Review misses",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_final",
+              "topics": [
+                "games",
+                "mech"
+              ],
+              "questionTarget": 12,
+              "readPct": 20,
+              "practicePct": 60,
+              "mockPct": 20,
+              "xp": 35,
+              "unitId": "ada_u8",
+              "chapterId": "ada_ch17",
+              "chapterTitle": "Full mock 1",
+              "chapterNumber": 17,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            }
+          ]
+        },
+        {
+          "id": "ada_ch18",
+          "number": 18,
+          "order": 19,
+          "title": "Weakness clinic",
+          "lessonId": "ada_final",
+          "topics": [
+            "paradigms"
+          ],
+          "lo": [
+            "design",
+            "analysis"
+          ],
+          "icon": "book",
+          "levelCount": 3,
+          "hasChapterTest": true,
+          "levels": [
+            {
+              "id": "ada_ch18_l1",
+              "index": 1,
+              "type": "lesson",
+              "title": "Learn",
+              "subtitle": "Weak spots",
+              "mode": "lesson",
+              "lessonId": "ada_final",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 0,
+              "readPct": 60,
+              "practicePct": 30,
+              "mockPct": 10,
+              "xp": 25,
+              "unitId": "ada_u8",
+              "chapterId": "ada_ch18",
+              "chapterTitle": "Weakness clinic",
+              "chapterNumber": 18,
+              "cluster": "wrap",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch18_l2",
+              "index": 2,
+              "type": "practice",
+              "title": "Targeted drill",
+              "subtitle": "15 questions",
+              "mode": "practice",
+              "lessonId": "ada_final",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 15,
+              "readPct": 10,
+              "practicePct": 70,
+              "mockPct": 20,
+              "xp": 40,
+              "unitId": "ada_u8",
+              "chapterId": "ada_ch18",
+              "chapterTitle": "Weakness clinic",
+              "chapterNumber": 18,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            },
+            {
+              "id": "ada_ch18_test",
+              "index": 3,
+              "type": "chapter_test",
+              "title": "Clinic test",
+              "subtitle": "≥70%",
+              "mode": "chapter_test",
+              "lessonId": "ada_final",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 12,
+              "readPct": 5,
+              "practicePct": 65,
+              "mockPct": 30,
+              "xp": 60,
+              "unitId": "ada_u8",
+              "chapterId": "ada_ch18",
+              "chapterTitle": "Weakness clinic",
+              "chapterNumber": 18,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 70
+            }
+          ]
+        },
+        {
+          "id": "ada_ch19",
+          "number": 19,
+          "order": 20,
+          "title": "Full mock 2 + final",
+          "lessonId": "ada_final",
+          "topics": [
+            "paradigms"
+          ],
+          "lo": [
+            "design",
+            "analysis",
+            "graphs",
+            "complexity",
+            "games"
+          ],
+          "icon": "exam",
+          "levelCount": 2,
+          "hasChapterTest": false,
+          "levels": [
+            {
+              "id": "ada_ch19_mock",
+              "index": 1,
+              "type": "full_mock",
+              "title": "Full mock 2",
+              "subtitle": "30 questions",
+              "mode": "full_mock",
+              "lessonId": "ada_final",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 30,
+              "readPct": 0,
+              "practicePct": 20,
+              "mockPct": 80,
+              "xp": 100,
+              "unitId": "ada_u8",
+              "chapterId": "ada_ch19",
+              "chapterTitle": "Full mock 2 + final",
+              "chapterNumber": 19,
+              "cluster": "wrap",
+              "assignedQuestionIds": []
+            },
+            {
+              "id": "ada_ch19_review",
+              "index": 2,
+              "type": "practice",
+              "title": "Final review",
+              "subtitle": "12 questions",
+              "mode": "practice",
+              "lessonId": "ada_final",
+              "topics": [
+                "paradigms"
+              ],
+              "questionTarget": 12,
+              "readPct": 25,
+              "practicePct": 55,
+              "mockPct": 20,
+              "xp": 35,
+              "unitId": "ada_u8",
+              "chapterId": "ada_ch19",
+              "chapterTitle": "Full mock 2 + final",
+              "chapterNumber": 19,
+              "cluster": "wrap",
+              "assignedQuestionIds": [],
+              "passPct": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
