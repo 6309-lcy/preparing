@@ -3500,5 +3500,722 @@
         "explain": "Simple text baselines calibrate how much deep models must beat."
       }
     ]
+  },
+  "ada_setup": {
+    "id": "ada_setup",
+    "title": "ADA track orientation (CS4335)",
+    "minutes": 25,
+    "lo": [
+      "design",
+      "analysis",
+      "graphs",
+      "complexity",
+      "games"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "What this track is",
+        "body": "This Algorithm Design & Analysis track follows CityU-style **CS4335** themes: design paradigms, analysis toolkits, graphs & strings, NP-completeness, and algorithmic game theory / mechanism design.\n\nPrimary readings:\n• **CLRS** — Cormen, Leiserson, Rivest, Stein (2009), *Introduction to Algorithms*\n• **Kleinberg & Tardos** (2005), *Algorithm Design*\n• **Nisan, Roughgarden, Tardos, Vazirani** (2007), *Algorithmic Game Theory* (AGT)"
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Syllabus map",
+        "body": "Nine units:\n1. Overview — greedy, divide-and-conquer, dynamic programming\n2. Analysis toolkit — approximation, online, randomized, streaming, amortized, smoothed; correctness & complexity tools\n3. Graph algorithms — representation, search, topo, MST, shortest paths, transitive closure ↔ matrix mult, backtracking\n4. String algorithms — matching, LCS, DP\n5. NP-completeness — reductions, P vs NP, classics, approximation\n6. Game theory overview — Nash, PoA & PoS, Prisoner’s Dilemma\n7. Games catalog — zero-sum, extensive, repeated, stochastic, coalitional, Bayesian, hedonic\n8. Mechanism design — auctions, matching, facility location, scheduling\n9. Wrap-up / mixed mocks"
+      },
+      {
+        "id": "s3",
+        "type": "concept",
+        "title": "Study rhythm",
+        "body": "Path: Learn → Practice → Drill → Chapter test (≥70%).\nRead CLRS / KT for algorithms; AGT for game-theory units.\nLast two weeks: mixed review and mocks (path still drives progression)."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Course focus",
+        "prompt": "CS4335 in this track emphasizes:",
+        "choices": {
+          "A": "Only SQL query tuning",
+          "B": "Algorithm design paradigms, analysis, graphs/strings, NP, and algorithmic game theory",
+          "C": "Only SOA Exam P probability",
+          "D": "Only UI wireframing"
+        },
+        "answer": "B",
+        "explain": "The syllabus spans classical algorithms plus AGT / mechanism design."
+      }
+    ]
+  },
+  "ada_paradigms": {
+    "id": "ada_paradigms",
+    "title": "Overview: greedy, divide-and-conquer, and DP",
+    "minutes": 45,
+    "lo": [
+      "design"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Three workhorse paradigms",
+        "body": "**Greedy:** build a solution by irrevocable locally optimal choices; prove with exchange / matroid / stay-ahead arguments (KT Ch.4; CLRS Ch.16).\n\n**Divide-and-conquer:** split → recurse → combine (mergesort, closest pair, Strassen). Recurrences via Master Theorem / recursion trees (CLRS Ch.4).\n\n**Dynamic programming:** overlapping subproblems + optimal substructure; tabulate bottom-up or memoize (CLRS Ch.15; KT Ch.6)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "When to reach for which",
+        "body": "Greedy when a proof of optimality exists and local choice never needs undo.\nD&C when subproblems are independent and combine is cheap relative to size.\nDP when subproblems overlap — naive recursion would recompute exponentially."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Activity selection vs knapsack",
+        "setup": "Schedule non-overlapping talks for max count; vs fill a knapsack for max value.",
+        "solution": "Interval scheduling by earliest finish is greedy-optimal. 0/1 knapsack needs DP (or approx) — greedy by density can fail.",
+        "why": "Same “resource packing” vibe; different paradigm."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Overlapping subproblems",
+        "prompt": "Dynamic programming is most appropriate when:",
+        "choices": {
+          "A": "Subproblems are independent and never reuse results",
+          "B": "Optimal substructure holds and subproblems overlap heavily",
+          "C": "You refuse to write recurrences",
+          "D": "Only constant-time greedy proofs exist"
+        },
+        "answer": "B",
+        "explain": "DP exploits overlapping subproblems + optimal substructure."
+      }
+    ]
+  },
+  "ada_greedy_dc": {
+    "id": "ada_greedy_dc",
+    "title": "Greedy algorithms and divide-and-conquer",
+    "minutes": 50,
+    "lo": [
+      "design",
+      "analysis"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Greedy correctness patterns",
+        "body": "**Stay-ahead:** show your partial solution is always at least as good as any other.\n**Exchange:** transform any optimal solution into yours without loss.\nClassic: Huffman coding, Dijkstra’s (with nonneg. weights), Kruskal/Prim MST, interval scheduling / partitioning."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Divide-and-conquer toolkit",
+        "body": "Write $T(n)=aT(n/b)+f(n)$; apply Master Theorem cases.\nExamples: mergesort $T(n)=2T(n/2)+\\Theta(n)$; binary search $T(n)=T(n/2)+\\Theta(1)$.\nCareful with uneven splits and work outside the recurrence."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Closest pair of points",
+        "setup": "Find closest pair among $n$ points in the plane.",
+        "solution": "D&C: sort by $x$, recurse on halves, then check a strip of width $\\delta$ — $O(n\\log n)$ with careful strip scan (KT).",
+        "why": "Combine step is the algorithmic heart, not the split."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Exchange argument",
+        "prompt": "An exchange argument typically shows:",
+        "choices": {
+          "A": "That any optimal solution can be transformed into the greedy one without worsening cost",
+          "B": "That NP = P",
+          "C": "That Master Theorem always applies",
+          "D": "That hashing never collides"
+        },
+        "answer": "A",
+        "explain": "Exchange is a standard greedy-optimality proof pattern."
+      }
+    ]
+  },
+  "ada_dp": {
+    "id": "ada_dp",
+    "title": "Dynamic programming patterns",
+    "minutes": 55,
+    "lo": [
+      "design"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "DP recipe",
+        "body": "1. Define subproblems (indices / state).\n2. Write recurrence relating optimal values.\n3. Identify base cases.\n4. Compute in an order that respects dependencies (DAG of subproblems).\n5. Reconstruct solution via argmax/pointers if needed."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Canonical examples",
+        "body": "Weighted interval scheduling, knapsack, LCS / edit distance, matrix-chain ordering, shortest paths in DAGs, Floyd–Warshall as DP on $k$-restricted paths.\nState space size × transition cost ≈ runtime."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Rod cutting",
+        "setup": "Rod of length $n$; price $p_i$ for length $i$. Max revenue.",
+        "solution": "$r_n=\\max_{1\\le i\\le n}(p_i+r_{n-i})$ with $r_0=0$. Bottom-up $O(n^2)$ (CLRS).",
+        "why": "Textbook DP: clear state, simple transitions."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "DP vs recursion",
+        "prompt": "Memoized recursion and bottom-up DP both:",
+        "choices": {
+          "A": "Ignore overlapping subproblems",
+          "B": "Store answers to subproblems to avoid exponential recomputation",
+          "C": "Require greedy exchange proofs",
+          "D": "Only work on unsorted arrays"
+        },
+        "answer": "B",
+        "explain": "Both fill the same DP table; order differs."
+      }
+    ]
+  },
+  "ada_analysis": {
+    "id": "ada_analysis",
+    "title": "Analysis toolkit: approx, online, randomized, streaming, amortized, smoothed",
+    "minutes": 55,
+    "lo": [
+      "analysis"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Beyond worst-case exact algorithms",
+        "body": "**Approximation:** $\\alpha$-approx guarantees cost within $\\alpha$ of OPT (for NP-hard problems).\n**Online:** decisions irrevocable as input arrives; competitive ratio vs offline OPT.\n**Randomized:** expected time/quality; Las Vegas (always correct) vs Monte Carlo (error probability).\n**Streaming:** one or few passes, sublinear memory; sketching / sampling.\n**Amortized:** average cost over a sequence (aggregate, accounting, potential).\n**Smoothed analysis:** interpolate worst-case and average-case under noise (e.g. Spielman–Teng on simplex)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "How to read a guarantee",
+        "body": "State the model: adversarial input? random bits? arrival order?\nState the metric: ratio, regret, space, update time.\nLower bounds (adversary / information / communication) often match algorithms."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Paging competitive analysis",
+        "setup": "Cache of size $k$; sequence of page requests.",
+        "solution": "Any deterministic online algorithm is at best $k$-competitive; randomized marking algorithms improve to $O(\\log k)$ competitive (classic online result).",
+        "why": "Online ≠ offline; ratios quantify the gap."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Amortized cost",
+        "prompt": "Amortized analysis bounds:",
+        "choices": {
+          "A": "Only a single operation in isolation always",
+          "B": "Average cost per operation over a worst-case sequence",
+          "C": "Only NP-completeness reductions",
+          "D": "Only GPU FLOPs"
+        },
+        "answer": "B",
+        "explain": "Aggregate / accounting / potential methods bound sequence cost."
+      }
+    ]
+  },
+  "ada_correctness": {
+    "id": "ada_correctness",
+    "title": "Correctness, complexity, and math tools",
+    "minutes": 45,
+    "lo": [
+      "analysis",
+      "complexity"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Proving algorithms",
+        "body": "Invariants for loops; induction on input size for recursion; exchange/stay-ahead for greedy; optimal-substructure arguments for DP.\nPartial correctness + termination ⇒ total correctness."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Complexity vocabulary",
+        "body": "Big-O / Θ / Ω; polynomial vs exponential; reductions as “at least as hard.”\nUseful tools: sums & integrals, probability (linearity of expectation, Chernoff), graph theory basics, linear algebra for spectral / matrix algorithms."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Loop invariant sketch",
+        "setup": "Insertion sort: after $i$ iterations, $A[1..i]$ is sorted.",
+        "solution": "Initialization, maintenance, termination → $A[1..n]$ sorted. Runtime $\\Theta(n^2)$ worst case.",
+        "why": "Invariant discipline scales to harder algorithms."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Reduction direction",
+        "prompt": "To show problem $B$ is NP-hard given NP-hard $A$, you typically:",
+        "choices": {
+          "A": "Reduce $B$ to $A$ in poly time",
+          "B": "Reduce $A$ to $B$ in poly time",
+          "C": "Ignore poly-time reductions",
+          "D": "Only sort arrays"
+        },
+        "answer": "B",
+        "explain": "Hard $A \\le_p B$ means $B$ is at least as hard as $A$."
+      }
+    ]
+  },
+  "ada_graphs_basics": {
+    "id": "ada_graphs_basics",
+    "title": "Graphs: representation, search, topological sort",
+    "minutes": 50,
+    "lo": [
+      "graphs"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Representation",
+        "body": "Adjacency lists: $O(n+m)$ space, good for sparse graphs.\nAdjacency matrix: $O(n^2)$ space / edge queries $O(1)$; natural for dense graphs and algebraic methods."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "BFS, DFS, topo",
+        "body": "BFS: layers / shortest paths in unweighted graphs; queue.\nDFS: discovery/finish times; cycle detection; SCC (Kosaraju/Tarjan).\nTopological sort on DAGs via DFS finish order or Kahn’s algorithm (indegrees)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Course prerequisites",
+        "setup": "Courses with prerequisite edges $u\\to v$ ($u$ before $v$).",
+        "solution": "Build DAG; topological order gives a valid schedule; cycle ⇒ impossible.",
+        "why": "Topo sort is the scheduling primitive."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Unweighted shortest paths",
+        "prompt": "In an unweighted graph, BFS from $s$ yields:",
+        "choices": {
+          "A": "Arbitrary long paths only",
+          "B": "Shortest paths by number of edges",
+          "C": "Minimum spanning trees always",
+          "D": "Max-flow only"
+        },
+        "answer": "B",
+        "explain": "BFS layers correspond to hop distance."
+      }
+    ]
+  },
+  "ada_mst_sp": {
+    "id": "ada_mst_sp",
+    "title": "MSTs and shortest paths",
+    "minutes": 55,
+    "lo": [
+      "graphs",
+      "design"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Minimum spanning trees",
+        "body": "Kruskal: sort edges, union-find; Prim: grow tree via cut property.\nCut property / cycle property justify greedy MST (CLRS Ch.23; KT Ch.4)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Shortest paths",
+        "body": "Dijkstra: nonnegative weights, priority queue.\nBellman–Ford: handles negatives; detects negative cycles.\nDAG shortest paths: topo + one pass DP.\nAll-pairs: Floyd–Warshall $O(n^3)$; Johnson for sparse."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Why Dijkstra needs nonnegative weights",
+        "setup": "A negative edge after settling a node can invalidate distances.",
+        "solution": "Dijkstra’s invariant relies on nonnegative edges so settled distances never decrease. Use Bellman–Ford if negatives exist.",
+        "why": "Model assumptions matter as much as code."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "MST cut property",
+        "prompt": "The cut property says that for any cut, a lightest edge crossing the cut:",
+        "choices": {
+          "A": "Is never in any MST",
+          "B": "Is safe to include in some MST",
+          "C": "Creates a negative cycle",
+          "D": "Implies P=NP"
+        },
+        "answer": "B",
+        "explain": "Safe-edge / cut property underpins Kruskal and Prim."
+      }
+    ]
+  },
+  "ada_closure_bt": {
+    "id": "ada_closure_bt",
+    "title": "Transitive closure, matrix multiplication, backtracking & games",
+    "minutes": 50,
+    "lo": [
+      "graphs",
+      "design"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Transitive closure ↔ matrix products",
+        "body": "Reachability matrix is Boolean matrix “multiplication” (OR-AND) iterated / via $(\\!I\\lor A\\!)^{n}$.\nAlgebraic path problems relate to semiring matrix products; fast matrix multiplication ideas transfer (CLRS)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Backtracking and game trees",
+        "body": "Backtracking explores a state space with pruning (e.g. N-queens).\nAdversarial games: minimax / alpha–beta on game trees; connect to later extensive-form games in AGT."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Warshall vs recursive MM",
+        "setup": "Compute reachability for $n$ nodes.",
+        "solution": "Floyd–Warshall-style Boolean updates $O(n^3)$; repeatedly squaring the Boolean adjacency matrix also works — same asymptotic family as MM.",
+        "why": "Graph reachability is an algebraic computation."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Minimax",
+        "prompt": "Minimax on a zero-sum game tree computes:",
+        "choices": {
+          "A": "A random legal move only",
+          "B": "Optimal value assuming adversarial optimal play",
+          "C": "MST weight",
+          "D": "Only BFS layers"
+        },
+        "answer": "B",
+        "explain": "Minimax is the foundational perfect-information zero-sum solver."
+      }
+    ]
+  },
+  "ada_strings": {
+    "id": "ada_strings",
+    "title": "String algorithms: matching, LCS, DP",
+    "minutes": 50,
+    "lo": [
+      "strings",
+      "design"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "String matching",
+        "body": "Naive $O(nm)$; Knuth–Morris–Pratt automaton / failure function $O(n+m)$;\nRabin–Karp rolling hash (Monte Carlo / Las Vegas variants); Boyer–Moore heuristics.\nCLRS string-matching chapter."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "LCS and edit distance",
+        "body": "LCS: DP $L[i,j]$ from prefixes; $O(nm)$ time/space (space-optimizable).\nEdit distance (Levenshtein): similar DP with insert/delete/substitute costs.\nApplications: diff, bioinformatics, spellcheck."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "KMP intuition",
+        "setup": "Pattern $P$ mismatches at text position after partial match.",
+        "solution": "Failure function shifts $P$ using longest proper prefix that is also suffix — never re-examine discarded text characters.",
+        "why": "Automaton view unifies matching algorithms."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "LCS recurrence",
+        "prompt": "If $X_i=Y_j$, an LCS of prefixes typically:",
+        "choices": {
+          "A": "Ignores both characters always",
+          "B": "Extends an LCS of $X_{1..i-1},Y_{1..j-1}$ by that character",
+          "C": "Requires matrix inversion",
+          "D": "Is solved only by greedy left-to-right without DP"
+        },
+        "answer": "B",
+        "explain": "Matching characters extend the previous LCS subproblem."
+      }
+    ]
+  },
+  "ada_np": {
+    "id": "ada_np",
+    "title": "NP-completeness: P vs NP, reductions, classic problems",
+    "minutes": 55,
+    "lo": [
+      "complexity"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "P, NP, and NP-complete",
+        "body": "**P:** decidable in deterministic poly time.\n**NP:** yes-instances have poly-size certificates verifiable in poly time.\n**NP-complete:** in NP and NP-hard (every NP problem reduces to it).\nCook–Levin: SAT is NP-complete; then reduce SAT → others (CLRS Ch.34; KT Ch.8)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Reduction craft",
+        "body": "Poly-time (Karp) reduction $A\\le_p B$: transform instances of $A$ to $B$ so yes↔yes.\nDesign gadgets that encode constraints of $A$ inside $B$.\nClassic chain: SAT → 3-SAT → Vertex Cover / Clique / Independent Set / Hamiltonian Cycle / TSP decision / Subset Sum…"
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Independent set ↔ vertex cover",
+        "setup": "Graph $G=(V,E)$; integer $k$.",
+        "solution": "$S$ independent set iff $V\\setminus S$ is a vertex cover. So IS and VC are poly-time equivalent.",
+        "why": "Sibling problems via simple complement reductions."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Certificate",
+        "prompt": "Membership in NP requires that yes-instances have:",
+        "choices": {
+          "A": "Infinite oracles only",
+          "B": "Poly-size certificates checkable in poly time",
+          "C": "Only randomized streaming sketches",
+          "D": "Proven P=NP"
+        },
+        "answer": "B",
+        "explain": "NP = poly-time verifiable certificates."
+      }
+    ]
+  },
+  "ada_approx": {
+    "id": "ada_approx",
+    "title": "Approximation algorithms for hard problems",
+    "minutes": 50,
+    "lo": [
+      "complexity",
+      "analysis"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Approximation ratios",
+        "body": "For minimization, algo cost $\\le \\alpha\\cdot\\mathrm{OPT}$; for maximization, $\\ge \\mathrm{OPT}/\\alpha$ (conventions vary — state clearly).\nPTAS / FPTAS: $(1+\\varepsilon)$ approx with time poly in input (and $1/\\varepsilon$ for FPTAS)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Classic approximations",
+        "body": "Vertex cover: 2-approx via maximal matching.\nSet cover: $H_n$-approx greedy.\nTSP metric: 2-approx MST tour; Christofides $1.5$.\nKnapsack: FPTAS via scaled DP.\nInapprox results (e.g. general TSP) need gap-producing reductions."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Vertex cover 2-approx",
+        "setup": "Find a maximal matching $M$; take both endpoints of each edge in $M$.",
+        "solution": "Cover size $2|M|$; OPT $\\ge |M|$ because edges in $M$ are disjoint — ratio 2.",
+        "why": "Matching lower bound meets constructive cover."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "FPTAS",
+        "prompt": "An FPTAS typically provides:",
+        "choices": {
+          "A": "Exact NP-oracle in linear time always",
+          "B": "$(1+\\varepsilon)$-approximation with time polynomial in input size and $1/\\varepsilon$",
+          "C": "Only online competitive ratios",
+          "D": "No guarantees"
+        },
+        "answer": "B",
+        "explain": "FPTAS = fully polynomial-time approximation scheme."
+      }
+    ]
+  },
+  "ada_gt_overview": {
+    "id": "ada_gt_overview",
+    "title": "Game theory overview: Nash, PoA, PoS, Prisoner’s Dilemma",
+    "minutes": 50,
+    "lo": [
+      "games"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Games and Nash equilibrium",
+        "body": "Players, strategies, payoffs. Pure vs mixed strategies.\n**Nash equilibrium:** no player gains by unilateral deviation.\nNash (1950): finite games have mixed NE. Computation can be hard (PPAD)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "PoA and PoS",
+        "body": "**Price of Anarchy (PoA):** worst NE cost / OPT (centralized) — inefficiency of selfishness.\n**Price of Stability (PoS):** best NE cost / OPT — best self-enforcing outcome.\nPrisoner’s Dilemma: dominant-strategy equilibrium is Pareto-dominated by cooperation (AGT Ch.1 themes)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Routing PoA sketch",
+        "setup": "Pigou’s example: two routes, latency functions; selfish flow vs optimal flow.",
+        "solution": "Equilibrium congestion can be strictly worse than OPT — PoA $>1$ even in simple networks (Roughgarden).",
+        "why": "Algorithms meet incentives."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "PoA meaning",
+        "prompt": "Price of Anarchy compares:",
+        "choices": {
+          "A": "Only sorting lower bounds",
+          "B": "Worst equilibrium welfare (or cost) to the optimal centralized outcome",
+          "C": "Only MST weight to BFS layers",
+          "D": "GPU vs CPU clocks"
+        },
+        "answer": "B",
+        "explain": "PoA quantifies selfish inefficiency at the worst NE."
+      }
+    ]
+  },
+  "ada_games": {
+    "id": "ada_games",
+    "title": "Games catalog: zero-sum through hedonic",
+    "minutes": 55,
+    "lo": [
+      "games"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Strategic forms",
+        "body": "**Zero-sum:** payoffs sum to zero; von Neumann minimax; LP connection.\n**Extensive form:** game trees, information sets; subgame-perfect equilibrium.\n**Repeated games:** folk theorems — cooperation via future punishment.\n**Stochastic games:** state evolves with actions (Shapley)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Coalitional, Bayesian, hedonic",
+        "body": "**Coalitional / cooperative:** characteristic function $v(S)$; core, Shapley value.\n**Bayesian games:** types with beliefs; Bayes–Nash equilibrium (Harsanyi).\n**Hedonic games:** coalition formation based on membership preferences (no transferable utility focus)."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Matching pennies",
+        "setup": "Zero-sum: row wants match, column wants mismatch.",
+        "solution": "No pure NE; unique mixed NE is 50–50. Value = 0.",
+        "why": "Mixed strategies are essential, not exotic."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Bayes–Nash",
+        "prompt": "In a Bayesian game, players optimize given:",
+        "choices": {
+          "A": "Only open cards with no beliefs",
+          "B": "Beliefs over others’ types (and strategies)",
+          "C": "Only DFS finish times",
+          "D": "Only Kruskal’s algorithm"
+        },
+        "answer": "B",
+        "explain": "Bayes–Nash = NE in the expanded type-contingent strategy space."
+      }
+    ]
+  },
+  "ada_mech": {
+    "id": "ada_mech",
+    "title": "Mechanism design: auctions, matching, facility location, scheduling",
+    "minutes": 55,
+    "lo": [
+      "games",
+      "design"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Mechanism design lens",
+        "body": "Choose rules/games so that strategic agents yield desirable outcomes.\nRevelation principle; incentive compatibility (IC); individual rationality (IR).\nVickrey / VCG: truthful under quasi-linear utilities (with caveats)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Case studies",
+        "body": "**Auctions:** 1st price vs 2nd price (Vickrey); revenue equivalence sketches; sponsored search.\n**Matching:** Gale–Shapley stable matching; strategy issues on one side.\n**Facility location:** locate facilities on a network/metric with agent preferences; strategyproof mechanisms.\n**Scheduling:** machine scheduling with selfish jobs; coordination mechanisms / PoA bounds."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Vickrey auction",
+        "setup": "Single item; sealed bids; charge second-highest bid.",
+        "solution": "Dominant strategy: bid true value. Winner pays opportunity cost of displacing the next bidder.",
+        "why": "Truthfulness via critical-payment characterization."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "Stable matching",
+        "prompt": "Gale–Shapley deferred acceptance produces a matching that is:",
+        "choices": {
+          "A": "Always maximum-weight regardless of prefs",
+          "B": "Stable (no blocking pair) under reported preferences",
+          "C": "Only a DFS forest",
+          "D": "NP-complete to verify always"
+        },
+        "answer": "B",
+        "explain": "Stability is the classic matching design goal."
+      }
+    ]
+  },
+  "ada_final": {
+    "id": "ada_final",
+    "title": "ADA wrap-up: integrate algorithms and AGT",
+    "minutes": 40,
+    "lo": [
+      "design",
+      "analysis",
+      "graphs",
+      "complexity",
+      "games"
+    ],
+    "sections": [
+      {
+        "id": "s1",
+        "type": "concept",
+        "title": "Integration map",
+        "body": "Design: greedy / D&C / DP / backtracking.\nAnalyze: exact complexity, amortized, randomized, approx, online, streaming, smoothed.\nGraphs & strings: search, MST, SP, closure/MM, matching/LCS.\nHardness: NP-completeness + approximation.\nAGT: Nash/PoA/PoS → game families → mechanisms (auctions, matching, facilities, scheduling)."
+      },
+      {
+        "id": "s2",
+        "type": "concept",
+        "title": "Exam / project judgment",
+        "body": "Name the paradigm and proof pattern.\nState model assumptions (weights, online arrival, strategic agents).\nIf NP-hard: exact exponential, approx, FPT, or heuristic — pick consciously.\nIf agents are strategic: equilibrium concept + incentive story."
+      },
+      {
+        "id": "s3",
+        "type": "example",
+        "title": "Pick a toolkit",
+        "setup": "Selfish users route on a network; designer can set tolls.",
+        "solution": "Model as nonatomic routing game; analyze PoA; consider marginal-cost tolls to induce OPT — mechanism + algorithms.",
+        "why": "CS4335 joins classical algorithms with incentives."
+      },
+      {
+        "id": "s4",
+        "type": "check",
+        "title": "First question on a new problem",
+        "prompt": "A strong first question is:",
+        "choices": {
+          "A": "Skip modeling and only tune constants forever",
+          "B": "What is the computational model, objective, and (if any) strategic setting?",
+          "C": "Assume P=NP without proof",
+          "D": "Only memorize code trivia"
+        },
+        "answer": "B",
+        "explain": "Model and objective drive paradigm choice."
+      }
+    ]
   }
 }
